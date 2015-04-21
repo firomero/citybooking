@@ -1,0 +1,3 @@
+nomenclador_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: NomencladorBundle:Default:index }

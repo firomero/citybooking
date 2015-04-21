@@ -1,0 +1,12 @@
+nomenclador:
+    resource: "@NomencladorBundle/Resources/config/routing.yml"
+    prefix:   /
+
+report:
+    resource: "@ReportBundle/Resources/config/routing.yml"
+    prefix:   /
+
+booking:
+    resource: "@BookingBundle/Resources/config/routing.yml"
+    prefix:   /
+
