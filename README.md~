@@ -1,4 +1,4 @@
-
+<<<<<<< HEAD
 Symfony Standard Edition
 ========================
 
@@ -173,3 +173,4 @@ Enjoy!
 =======
 # citybooking
 Avoids Manual Overbooking
+>>>>>>> 17732b5dd625e68bf95d3e0ee15f359060982b9a
