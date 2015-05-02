@@ -1,0 +1,7 @@
+# the yml style configuration data
+nomenclador:
+    headers:
+    actions:
+    messages:
+        success:
+        failed:
