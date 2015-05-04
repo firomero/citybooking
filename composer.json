@@ -1,5 +1,5 @@
 {
-    "name": "bydev/city-booking",
+    "name": "codefacturer/city-booking",
     "license": "MIT",
     "type": "project",
     "description": "The \"City Booking House Project\" distribution",
@@ -18,7 +18,10 @@
         "sensio/distribution-bundle": "2.3.*",
         "sensio/framework-extra-bundle": "2.3.*",
         "sensio/generator-bundle": "2.3.*",
-        "incenteev/composer-parameter-handler": "~2.0"
+        "incenteev/composer-parameter-handler": "~2.0",
+        "knplabs/knp-menu-bundle": "1.1.2",
+        "friendsofsymfony/user-bundle":"1.3.5",
+        "friendsofsymfony/jsrouting-bundle":"1.5.4"
     },
     "scripts": {
         "post-install-cmd": [
@@ -48,7 +51,6 @@
     "config": {
         "bin-dir": "bin"
     },
-    "minimum-stability": "stable",
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
