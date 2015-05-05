@@ -1,9 +1,9 @@
+# the yml style configuration data
 nomenclador:
     agencia:
         header:
             list: Listado de Agencias
         actions:
-            add: Adicionar Agencia
         messages:
             success:
             failed:

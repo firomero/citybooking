@@ -3,7 +3,6 @@ nomenclador:
         header:
             list: Listado de Agencias
         actions:
-            add: Adicionar Agencia
         messages:
             success:
             failed:
