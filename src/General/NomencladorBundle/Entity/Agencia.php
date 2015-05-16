@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Agencia
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="General\NomencladorBundle\Entity\AgenciaRepository")
  */
 class Agencia
 {
@@ -60,5 +60,13 @@ class Agencia
     public function getNombre()
     {
         return $this->nombre;
+    }
+
+    public function toArray()
+    {
+        return array(
+            $this->id,
+            $this->nombre
+        );
     }
 }

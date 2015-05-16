@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use General\NomencladorBundle\Entity\Agencia;
 use General\NomencladorBundle\Form\AgenciaType;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Agencia controller.
@@ -219,5 +220,37 @@ class AgenciaController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+
+    /*AJAX SOURCE*/
+    public function listarAction(Request $request)
+    {
+        $options = $request->query->all();
+        try{
+
+            $agencias = $this->getDoctrine()->getRepository('NomencladorBundle:Agencia')->queryEntity($options);
+
+            $iLimit = 10;
+
+            if ( isset( $options['$iDisplayStart']) && $options['iDisplayLength'] != '-1' )
+            {
+                $iLimit = abs($options['iDisplayLength']-$options['$iDisplayStart']);
+            }
+
+
+            return new Response(json_encode(array(
+                "sEcho" => intval($options['sEcho']),
+                'iTotalRecords'=>$iLimit,
+                'iTotalDisplayRecords'=>sizeof($agencias),
+                'aaData'=>$agencias
+
+            )),200);
+        }
+        catch(\Exception $e)
+        {
+            return new Response(json_encode(array('message'=> $e->getMessage())),500);
+        }
+
+
     }
 }

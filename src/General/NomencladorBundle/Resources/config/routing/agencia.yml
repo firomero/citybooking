@@ -28,3 +28,10 @@ agencia_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "NomencladorBundle:Agencia:delete" }
     requirements: { _method: post|delete }
+
+ #AJAX CALL
+ajax_agencia_listar:
+    pattern: ajax/agencia/listar
+    defaults: { _controller: "NomencladorBundle:Agencia:listar" }
+    options:
+        expose: true
