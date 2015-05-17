@@ -10,9 +10,10 @@ $agenciaTable.postDraw = function (){
 $(function(){
     $(document).ready(function() {
 
-        $('#tabla').DataTable(
+        var oTable;
+        oTable = $('#tabla').dataTable(
             {
-                "oLanguage":$language,
+                "oLanguage": $language,
                 "aLengthMenu": [5, 10, 15],
                 "sPaginationType": "full_numbers",
                 "pageLength": 10,
@@ -22,7 +23,7 @@ $(function(){
                 "bServerSide": true,
                 "sAjaxSource": Routing.generate('ajax_agencia_listar'),
                 "aoColumns": [
-                    { "bSortable":false },null
+                    {"bSortable": false}, null
                 ]
             }
         );
