@@ -7,3 +7,4 @@ app/cache/
 app/logs
 web/bundles/
 web/bundles
+/web/bundles/acmedemo/

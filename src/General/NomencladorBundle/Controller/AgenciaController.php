@@ -253,4 +253,97 @@ class AgenciaController extends Controller
 
 
     }
+
+    /**
+     * Adiciona una nueva agencia
+     * @param Request $request
+     * @return Response
+     */
+    public function adicionarAction(Request $request)
+    {
+        $name = $request->get('name');
+        $validator = $this->get('validator');
+        $agencia = new Agencia();
+        $agencia->setNombre($name);
+
+        $errors = $validator->validate($agencia);
+        if (count($errors)>0) {
+           return new Response(json_encode(array('message'=>$errors->__toString())),400);
+        }
+        try{
+
+            $em = $this->get('doctrine')->getManager();
+            $em->persist($agencia);
+            $em->flush();
+            return new Response(json_encode(array()),200);
+        }
+        catch(\Exception $e)
+        {
+            return new Response(json_encode(array('message'=>$e->getMessage())),500);
+        }
+    }
+
+    /**
+     * Edita una agencia
+     * @param Request $request
+     * @return Response
+     */
+    public function editarAction(Request $request)
+    {
+        $name = $request->get('name');
+        $id = $request->get('id');
+        $em = $this->get('doctrine')->getManager();
+        $agencia = $em->getRepository('NomencladorBundle:Agencia')->find($id);
+
+        if ($agencia==null) {
+            return new Response(json_encode(array()),404);
+        }
+        $agencia->setNombre($name);
+        $validator = $this->get('validator');
+
+
+        $errors = $validator->validate($agencia);
+        if (count($errors)>0) {
+            return new Response(json_encode(array('message'=>$errors->__toString())),400);
+        }
+        try{
+
+
+            $em->persist($agencia);
+            $em->flush();
+            return new Response(json_encode(array()),200);
+        }
+        catch(\Exception $e)
+        {
+            return new Response(json_encode(array('message'=>$e->getMessage())),500);
+        }
+    }
+
+    /**
+     * Elimina una agencia
+     * @param Request $request
+     * @return Response
+     */
+    public function eliminarAction(Request $request)
+    {
+
+        $id = $request->get('id');
+        $em = $this->get('doctrine')->getManager();
+        $agencia = $em->getRepository('NomencladorBundle:Agencia')->find($id);
+
+        if ($agencia==null) {
+            return new Response(json_encode(array()),404);
+        }
+        try{
+
+
+            $em->remove($agencia);
+            $em->flush();
+            return new Response(json_encode(array()),200);
+        }
+        catch(\Exception $e)
+        {
+            return new Response(json_encode(array('message'=>$e->getMessage())),500);
+        }
+    }
 }
