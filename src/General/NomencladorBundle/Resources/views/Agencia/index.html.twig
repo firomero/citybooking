@@ -44,6 +44,7 @@
                      <h5 id="myModalLabelConfirmar" class="modal-title">Adicionar Agencia</h5>
                  </div>
                  <div class="modal-body">
+                 <div class="se-pre-con hide"></div>
                      <div class="control-group mensajes">
                              <label for="agenciaText">Nombre: </label>
                              <input type="text" name="_agencia" id="agenciaText"/>
@@ -62,19 +63,25 @@
     {# Confirm#}
       <!--Dialogs-->
     <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade confirm" id="confirm">
-        <div class="modal-header">
+      <div class="modal-dialog">
+        <div class="modal-content">
+              <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
             <h3 id="myModalLabelConfirmar">Información</h3>
         </div>
         <div class="modal-body">
+            <div class="se-pre-con hide"></div>
             <div class="control-group mensajes">
             ¿Seguro que desea eliminar el elemento seleccionado.?
             </div>
             <div class="control-group">
-                <button type="button"  class="btn btn-default action">Aceptar</button>
+                <button type="button"  class="btn btn-default delete">Aceptar</button>
                 <button type="button"  class="btn btn-default" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
+        </div>
+          
+      </div>
     </div>
 
 
@@ -99,7 +106,7 @@
                 "bServerSide": true,
                 "sAjaxSource": Routing.generate('ajax_agencia_listar'),
                 "aoColumns": [
-                    {"bSortable": false}, null
+                    {"bSortable": false}, {'sClass':'agencia-text'}
                 ],
                 "drawCallback":$agenciaTable.postDraw
             }
@@ -116,4 +123,5 @@
  {% block  stylesheet %}
      {{ parent() }}
      <link href="{{asset('bundles/nomenclador/css/agencia.css')}}" rel="stylesheet" />
+     <link href="{{asset('public/css/loader.css')}}" rel="stylesheet" />
  {% endblock stylesheet %}

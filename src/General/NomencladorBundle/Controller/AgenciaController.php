@@ -298,6 +298,7 @@ class AgenciaController extends Controller
         if ($agencia==null) {
             return new Response(json_encode(array()),404);
         }
+
         $agencia->setNombre($name);
         $validator = $this->get('validator');
 
@@ -339,7 +340,7 @@ class AgenciaController extends Controller
 
             $em->remove($agencia);
             $em->flush();
-            return new Response(json_encode(array()),200);
+            return new Response(json_encode(array()),204);
         }
         catch(\Exception $e)
         {
