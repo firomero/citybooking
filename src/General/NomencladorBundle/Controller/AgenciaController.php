@@ -229,19 +229,21 @@ class AgenciaController extends Controller
         try{
 
             $agencias = $this->getDoctrine()->getRepository('NomencladorBundle:Agencia')->queryEntity($options);
+            $total = count($this->getDoctrine()->getRepository('NomencladorBundle:Agencia')->findAll());
 
-            $iLimit = 10;
 
-            if ( isset( $options['$iDisplayStart']) && $options['iDisplayLength'] != '-1' )
-            {
-                $iLimit = abs($options['iDisplayLength']-$options['$iDisplayStart']);
+
+            $sEcho = 1;
+
+            if (array_key_exists('sEcho',$options)) {
+                $sEcho = intval($options['sEcho']);
             }
 
 
             return new Response(json_encode(array(
-                "sEcho" => intval($options['sEcho']),
-                'iTotalRecords'=>$iLimit,
-                'iTotalDisplayRecords'=>sizeof($agencias),
+                'sEcho' => $sEcho,
+                'iTotalRecords'=>$total,
+                'iTotalDisplayRecords'=> $this->getDoctrine()->getRepository('NomencladorBundle:Agencia')->getFilteredCount($options),
                 'aaData'=>$agencias
 
             )),200);
