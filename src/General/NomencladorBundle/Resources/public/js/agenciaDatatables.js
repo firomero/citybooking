@@ -46,11 +46,6 @@ var $td = $('#tabla').find('tbody tr td:first-child');
 	        $(this).closest('tr').append($column);
 	        //Events
 
-            //Adicionar Agencia
-            var $btnAction = $('.btn.btn-default.action');
-            $btnAction.click(function(){
-                $agenciaTable.addAgencia();
-            });
              //Editar  Agencia
             $('.btn.btn-mini.edit').click(function () {
 
@@ -67,7 +62,8 @@ var $td = $('#tabla').find('tbody tr td:first-child');
                 $modalView.find('#agenciaText').val($btnEdit.data('name'));
                 $modalView.on('hide.bs.modal', function () {
                     $saveBtn.off('click');
-                    $saveBtn.click(function () {
+                    $saveBtn.click(function (event) {
+
                         $agenciaTable.addAgencia();
                     });
                     $modalView.find('#myModalLabelConfirmar').text('Adicionar Agencia');
@@ -92,6 +88,13 @@ var $td = $('#tabla').find('tbody tr td:first-child');
 
 
 
+    });
+
+    //Adicionar Agencia
+    var $btnAction = $('.btn.btn-default.action');
+    $btnAction.click(function(event){
+
+        $agenciaTable.addAgencia();
     });
 
 };

@@ -232,9 +232,9 @@ class AgenciaController extends Controller
 
             $iLimit = 10;
 
-            if ( isset( $options['$iDisplayStart']) && $options['iDisplayLength'] != '-1' )
+            if ( isset( $options['iDisplayStart']) && $options['iDisplayLength'] != '-1' )
             {
-                $iLimit = abs($options['iDisplayLength']-$options['$iDisplayStart']);
+                $iLimit = abs($options['iDisplayLength']-$options['iDisplayStart']);
             }
 
 
