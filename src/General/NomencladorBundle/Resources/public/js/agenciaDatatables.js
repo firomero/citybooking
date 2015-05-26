@@ -90,14 +90,6 @@ var $td = $('#tabla').find('tbody tr td:first-child');
 
     });
 
-    //Adicionar Agencia
-    var $btnAction = $('.btn.btn-default.action');
-    $btnAction.click(function(event){
-
-        $agenciaTable.addAgencia();
-    });
-
-
 };
 
 $agenciaTable.addAgencia= function(){
