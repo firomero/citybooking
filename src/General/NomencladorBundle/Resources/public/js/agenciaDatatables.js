@@ -90,13 +90,6 @@ var $td = $('#tabla').find('tbody tr td:first-child');
 
     });
 
-    //Adicionar Agencia
-    var $btnAction = $('.btn.btn-default.action');
-    $btnAction.click(function(event){
-
-        $agenciaTable.addAgencia();
-    });
-
 };
 
 $agenciaTable.addAgencia= function(){
@@ -194,3 +187,12 @@ $agenciaTable.insertError=function()
         $(this).closest('.alert.alert-danger').remove();
     });
 }
+
+$(function(){
+    //Adicionar Agencia
+    var $btnAction = $('.btn.btn-default.action');
+    $btnAction.click(function(event){
+
+        $agenciaTable.addAgencia();
+    });
+});
