@@ -1,0 +1,6 @@
+booking:
+     casa:
+        headers:
+            list: Listado de Casa
+        actions:
+             add: Adicionar casa
