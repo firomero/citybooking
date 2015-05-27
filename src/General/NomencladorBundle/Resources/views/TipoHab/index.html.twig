@@ -7,9 +7,12 @@
                 <div class="panel panel-default">
 
                     <div class="panel-heading">
-                        {{ 'nomenclador.agencia.header.list'|trans({},'NomencladorBundle')}}
-                        <button class="btn btn-mini pull-right add" title="{{ 'nomenclador.agencia.actions.add'|trans({},'NomencladorBundle') }}" data-toggle="modal" data-target="#myModalDialog">                                    <i class="icon-plus"></i>
-                                </button>
+                        {{ 'nomenclador.tipohab.header.list'|trans({},'NomencladorBundle') }}
+                        <button class="btn btn-mini pull-right add"
+                                title="{{ 'nomenclador.tipohab.actions.add'|trans({},'NomencladorBundle') }}"
+                                data-toggle="modal" data-target="#myModalDialog">
+                            <i class="icon-plus"></i>
+                        </button>
 
                     </div>
 
@@ -24,7 +27,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                               
+
                                 </tbody>
                             </table>
 
@@ -36,92 +39,95 @@
 
     </div>
     <!--Modals-->
-     <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade" id="myModalDialog">
-         <div class="modal-dialog">
-             <div class="modal-content">
-                 <div class="modal-header">
-                     <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                     <h5 id="myModalLabelConfirmar" class="modal-title">Adicionar Agencia</h5>
-                 </div>
-                 <div class="modal-body">
-                 <div class="se-pre-con hide"></div>
-                     <div class="control-group mensajes">
-                             <label for="agenciaText">Nombre: </label>
-                             <input type="text" name="_agencia" id="agenciaText"/>
-                     </div>
-                     <br/>
-                     <div class="control-group">
-                         <button type="button"  class="btn btn-default action">Aceptar</button>
-                         <button type="button"  class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                     </div>
-                 </div>
-             </div>
-         </div>
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade"
+         id="myModalDialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h5 id="myModalLabelConfirmar" class="modal-title">Adicionar Tipo de Habitaci&oacute;n</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="se-pre-con hide"></div>
+                    <div class="control-group mensajes">
+                        <label for="tipohabText">Nombre: </label>
+                        <input type="text" name="_tipohab" id="tipohabText"/>
+                    </div>
+                    <br/>
+
+                    <div class="control-group">
+                        <button type="button" class="btn btn-default action">Aceptar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
     {# Confirm#}
-      <!--Dialogs-->
-    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade confirm" id="confirm">
-      <div class="modal-dialog">
-        <div class="modal-content">
-              <div class="modal-header">
-            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h3 id="myModalLabelConfirmar">Información</h3>
-        </div>
-        <div class="modal-body">
-            <div class="se-pre-con hide"></div>
-            <div class="control-group mensajes">
-            ¿Seguro que desea eliminar el elemento seleccionado.?
+    <!--Dialogs-->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade confirm"
+         id="confirm">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h3 id="myModalLabelConfirmar">Información</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="se-pre-con hide"></div>
+                    <div class="control-group mensajes">
+                        ¿Seguro que desea eliminar el elemento seleccionado.?
+                    </div>
+                    <div class="control-group">
+                        <button type="button" class="btn btn-default delete">Aceptar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
             </div>
-            <div class="control-group">
-                <button type="button"  class="btn btn-default delete">Aceptar</button>
-                <button type="button"  class="btn btn-default" data-dismiss="modal">Cancelar</button>
-            </div>
+
         </div>
-        </div>
-          
-      </div>
     </div>
 
 
 
-    {% endblock content %}
+{% endblock content %}
 
 {% block JavaScriptInline %}
-<script type="text/javascript">
-    $(function(){
-    $(document).ready(function() {
+    <script type="text/javascript">
+        $(function () {
+            $(document).ready(function () {
 
-        var oTable;
-        oTable = $('#tabla').dataTable(
-            {
-                "oLanguage": $language,
-                "aLengthMenu": [5, 10, 15],
-                "sPaginationType": "full_numbers",
-                "pageLength": 10,
-                "bLengthChange": true,
-                "processing": true,
-                "bJQueryUI": true,               
-                "bServerSide": true,
-                "sAjaxSource": Routing.generate('ajax_agencia_listar'),
-                "aoColumns": [
-                    {"bSortable": false}, {'sClass':'agencia-text'}
-                ],
-                "drawCallback":$agenciaTable.postDraw
-            }
-        );
-     
-    } );
+                var oTable;
+                oTable = $('#tabla').dataTable(
+                        {
+                            "oLanguage": $language,
+                            "aLengthMenu": [5, 10, 15],
+                            "sPaginationType": "full_numbers",
+                            "pageLength": 10,
+                            "bLengthChange": true,
+                            "processing": true,
+                            "bJQueryUI": true,
+                            "bServerSide": true,
+                            "sAjaxSource": Routing.generate('ajax_tipohab_listar'),
+                            "aoColumns": [
+                                {"bSortable": false}, {'sClass': 'tipohab-text'}
+                            ],
+                            "drawCallback": $tipohabTable.postDraw
+                        }
+                );
 
-});
+            });
 
-</script>
-<script src="{{ asset('bundles/nomenclador/js/agenciaDatatables.js') }}">   </script>
- {% endblock JavaScriptInline%}
+        });
+
+    </script>
+    <script src="{{ asset('bundles/nomenclador/js/tipohabDatatables.js') }}"></script>
+{% endblock JavaScriptInline %}
 
  {% block  stylesheet %}
      {{ parent() }}
-     <link href="{{asset('bundles/nomenclador/css/agencia.css')}}" rel="stylesheet" />
-     <link href="{{asset('public/css/loader.css')}}" rel="stylesheet" />
+     <link href="{{ asset('anjabundles/nomenclador/css/tipohab.css') }}" rel="stylesheet"/>
+     <link href="{{ asset('public/css/loader.css') }}" rel="stylesheet"/>
  {% endblock stylesheet %}

@@ -26,10 +26,14 @@ class TipoHabController extends Controller
 
         $entities = $em->getRepository('NomencladorBundle:TipoHab')->findAll();
 
-        return $this->render('NomencladorBundle:TipoHab:index.html.twig', array(
-            'entities' => $entities,
-        ));
+        return $this->render(
+            'NomencladorBundle:TipoHab:index.html.twig',
+            array(
+                'entities' => $entities,
+            )
+        );
     }
+
     /**
      * Creates a new TipoHab entity.
      *
@@ -48,25 +52,32 @@ class TipoHabController extends Controller
             return $this->redirect($this->generateUrl('tipohab_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('NomencladorBundle:TipoHab:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        return $this->render(
+            'NomencladorBundle:TipoHab:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
-    * Creates a form to create a TipoHab entity.
-    *
-    * @param TipoHab $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to create a TipoHab entity.
+     *
+     * @param TipoHab $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(TipoHab $entity)
     {
-        $form = $this->createForm(new TipoHabType(), $entity, array(
-            'action' => $this->generateUrl('tipohab_create'),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new TipoHabType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('tipohab_create'),
+                'method' => 'POST',
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
@@ -80,12 +91,15 @@ class TipoHabController extends Controller
     public function newAction()
     {
         $entity = new TipoHab();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
-        return $this->render('NomencladorBundle:TipoHab:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        return $this->render(
+            'NomencladorBundle:TipoHab:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -104,9 +118,13 @@ class TipoHabController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('NomencladorBundle:TipoHab:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+        return $this->render(
+            'NomencladorBundle:TipoHab:show.html.twig',
+            array(
+                'entity' => $entity,
+                'delete_form' => $deleteForm->createView(),
+            )
+        );
     }
 
     /**
@@ -126,31 +144,39 @@ class TipoHabController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('NomencladorBundle:TipoHab:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        return $this->render(
+            'NomencladorBundle:TipoHab:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            )
+        );
     }
 
     /**
-    * Creates a form to edit a TipoHab entity.
-    *
-    * @param TipoHab $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a TipoHab entity.
+     *
+     * @param TipoHab $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(TipoHab $entity)
     {
-        $form = $this->createForm(new TipoHabType(), $entity, array(
-            'action' => $this->generateUrl('tipohab_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
+        $form = $this->createForm(
+            new TipoHabType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('tipohab_update', array('id' => $entity->getId())),
+                'method' => 'PUT',
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
+
     /**
      * Edits an existing TipoHab entity.
      *
@@ -175,12 +201,16 @@ class TipoHabController extends Controller
             return $this->redirect($this->generateUrl('tipohab_edit', array('id' => $id)));
         }
 
-        return $this->render('NomencladorBundle:TipoHab:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        return $this->render(
+            'NomencladorBundle:TipoHab:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            )
+        );
     }
+
     /**
      * Deletes a TipoHab entity.
      *
@@ -218,8 +248,7 @@ class TipoHabController extends Controller
             ->setAction($this->generateUrl('tipohab_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 
     /*AJAX SOURCE*/
@@ -244,18 +273,21 @@ class TipoHabController extends Controller
             }
 
 
-            return new Response(json_encode(array(
-                'sEcho' => $sEcho,
-                'iTotalRecords' => $total,
-                'iTotalDisplayRecords' => $this->getDoctrine()->getRepository('NomencladorBundle:TipoHab')->getFilteredCount($options),
-                'aaData' => $tipohabs
+            return new Response(
+                json_encode(
+                    array(
+                        'sEcho' => $sEcho,
+                        'iTotalRecords' => $total,
+                        'iTotalDisplayRecords' => $this->getDoctrine()->getRepository(
+                            'NomencladorBundle:TipoHab'
+                        )->getFilteredCount($options),
+                        'aaData' => $tipohabs
 
-            )), 200);
-        }
-
-        catch(\Exception $e)
-        {
-            return new Response(json_encode(array('message'=> $e->getMessage())),500);
+                    )
+                ), 200
+            );
+        } catch (\Exception $e) {
+            return new Response(json_encode(array('message' => $e->getMessage())), 500);
         }
 
 
@@ -274,19 +306,18 @@ class TipoHabController extends Controller
         $tipohab->setNombre($name);
 
         $errors = $validator->validate($tipohab);
-        if (count($errors)>0) {
-            return new Response(json_encode(array('message'=>$errors->__toString())),400);
+        if (count($errors) > 0) {
+            return new Response(json_encode(array('message' => $errors->__toString())), 400);
         }
-        try{
+        try {
 
             $em = $this->get('doctrine')->getManager();
             $em->persist($tipohab);
             $em->flush();
-            return new Response(json_encode(array()),200);
-        }
-        catch(\Exception $e)
-        {
-            return new Response(json_encode(array('message'=>$e->getMessage())),500);
+
+            return new Response(json_encode(array()), 200);
+        } catch (\Exception $e) {
+            return new Response(json_encode(array('message' => $e->getMessage())), 500);
         }
     }
 
@@ -302,8 +333,8 @@ class TipoHabController extends Controller
         $em = $this->get('doctrine')->getManager();
         $tipohab = $em->getRepository('NomencladorBundle:TipoHab')->find($id);
 
-        if ($tipohab==null) {
-            return new Response(json_encode(array()),404);
+        if ($tipohab == null) {
+            return new Response(json_encode(array()), 404);
         }
 
         $tipohab->setNombre($name);
@@ -311,19 +342,18 @@ class TipoHabController extends Controller
 
 
         $errors = $validator->validate($tipohab);
-        if (count($errors)>0) {
-            return new Response(json_encode(array('message'=>$errors->__toString())),400);
+        if (count($errors) > 0) {
+            return new Response(json_encode(array('message' => $errors->__toString())), 400);
         }
-        try{
+        try {
 
 
             $em->persist($tipohab);
             $em->flush();
-            return new Response(json_encode(array()),200);
-        }
-        catch(\Exception $e)
-        {
-            return new Response(json_encode(array('message'=>$e->getMessage())),500);
+
+            return new Response(json_encode(array()), 200);
+        } catch (\Exception $e) {
+            return new Response(json_encode(array('message' => $e->getMessage())), 500);
         }
     }
 
@@ -339,19 +369,18 @@ class TipoHabController extends Controller
         $em = $this->get('doctrine')->getManager();
         $tipohab = $em->getRepository('NomencladorBundle:TipoHab')->find($id);
 
-        if ($tipohab==null) {
-            return new Response(json_encode(array()),404);
+        if ($tipohab == null) {
+            return new Response(json_encode(array()), 404);
         }
-        try{
+        try {
 
 
             $em->remove($tipohab);
             $em->flush();
-            return new Response(json_encode(array()),204);
-        }
-        catch(\Exception $e)
-        {
-            return new Response(json_encode(array('message'=>$e->getMessage())),500);
+
+            return new Response(json_encode(array()), 204);
+        } catch (\Exception $e) {
+            return new Response(json_encode(array('message' => $e->getMessage())), 500);
         }
     }
 }
