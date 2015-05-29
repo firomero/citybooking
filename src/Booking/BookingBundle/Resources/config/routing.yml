@@ -1,3 +1,7 @@
 booking_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: BookingBundle:Default:index }
+
+BookingBundle_cliente:
+        resource: "@BookingBundle/Resources/config/routing/cliente.yml"
+        prefix:   /cliente

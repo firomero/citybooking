@@ -1,53 +1,53 @@
 <?php
 
-namespace General\NomencladorBundle\Controller;
+namespace Booking\BookingBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use General\NomencladorBundle\Entity\TipoHab;
-use General\NomencladorBundle\Form\TipoHabType;
+use Booking\BookingBundle\Entity\Cliente;
+use Booking\BookingBundle\Form\ClienteType;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * TipoHab controller.
+ * Cliente controller.
  *
  */
-class TipoHabController extends Controller
+class ClienteController extends Controller
 {
 
     /**
-     * Lists all TipoHab entities.
+     * Lists all Cliente entities.
      *
      */
     public function indexAction()
     {
-        $tipoHab = new TipoHab();
+        $cliente = new Cliente();
 
-        $formTipoHab = $this->createCreateForm($tipoHab);
+        $formCliente = $this->createCreateForm($cliente);
 
         return $this->render(
-            'NomencladorBundle:TipoHab:index.html.twig',
+            'BookingBundle:Cliente:index.html.twig',
             array(
-                'formTipoHab' => $formTipoHab->createView()
+                'formCliente' => $formCliente->createView(),
             )
         );
     }
 
     /**
-     * Creates a form to create a TipoHab entity.
+     * Creates a form to create a Cliente entity.
      *
-     * @param TipoHab $entity The entity
+     * @param Cliente $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(TipoHab $entity)
+    private function createCreateForm(Cliente $entity)
     {
         $form = $this->createForm(
-            new TipoHabType(),
+            new ClienteType(),
             $entity,
             array(
-                'action' => $this->generateUrl('tipohab_create'),
+                'action' => $this->generateUrl('cliente_create'),
                 'method' => 'POST',
             )
         );
@@ -58,12 +58,13 @@ class TipoHabController extends Controller
     }
 
     /**
-     * Creates a new TipoHab entity.
-     *
+     * Creates a new Cliente entity.
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
-        $entity = new TipoHab();
+        $entity = new Cliente();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -72,11 +73,11 @@ class TipoHabController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('tipohab_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('cliente_show', array('id' => $entity->getId())));
         }
 
         return $this->render(
-            'NomencladorBundle:TipoHab:new.html.twig',
+            'BookingBundle:Cliente:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -85,16 +86,16 @@ class TipoHabController extends Controller
     }
 
     /**
-     * Displays a form to create a new TipoHab entity.
+     * Displays a form to create a new Cliente entity.
      *
      */
     public function newAction()
     {
-        $entity = new TipoHab();
+        $entity = new Cliente();
         $form = $this->createCreateForm($entity);
 
         return $this->render(
-            'NomencladorBundle:TipoHab:new.html.twig',
+            'BookingBundle:Cliente:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -103,23 +104,24 @@ class TipoHabController extends Controller
     }
 
     /**
-     * Finds and displays a TipoHab entity.
-     *
+     * Finds and displays a Cliente entity.
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NomencladorBundle:TipoHab')->find($id);
+        $entity = $em->getRepository('BookingBundle:Cliente')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find TipoHab entity.');
+            throw $this->createNotFoundException('Unable to find Cliente entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render(
-            'NomencladorBundle:TipoHab:show.html.twig',
+            'BookingBundle:Cliente:show.html.twig',
             array(
                 'entity' => $entity,
                 'delete_form' => $deleteForm->createView(),
@@ -128,7 +130,7 @@ class TipoHabController extends Controller
     }
 
     /**
-     * Creates a form to delete a TipoHab entity by id.
+     * Creates a form to delete a Cliente entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -137,31 +139,32 @@ class TipoHabController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('tipohab_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('cliente_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm();
     }
 
     /**
-     * Displays a form to edit an existing TipoHab entity.
-     *
+     * Displays a form to edit an existing Cliente entity.
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NomencladorBundle:TipoHab')->find($id);
+        $entity = $em->getRepository('BookingBundle:Cliente')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find TipoHab entity.');
+            throw $this->createNotFoundException('Unable to find Cliente entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render(
-            'NomencladorBundle:TipoHab:edit.html.twig',
+            'BookingBundle:Cliente:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -171,19 +174,19 @@ class TipoHabController extends Controller
     }
 
     /**
-     * Creates a form to edit a TipoHab entity.
+     * Creates a form to edit a Cliente entity.
      *
-     * @param TipoHab $entity The entity
+     * @param Cliente $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(TipoHab $entity)
+    private function createEditForm(Cliente $entity)
     {
         $form = $this->createForm(
-            new TipoHabType(),
+            new ClienteType(),
             $entity,
             array(
-                'action' => $this->generateUrl('tipohab_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('cliente_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
@@ -194,17 +197,19 @@ class TipoHabController extends Controller
     }
 
     /**
-     * Edits an existing TipoHab entity.
-     *
+     * Edits an existing Cliente entity.
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NomencladorBundle:TipoHab')->find($id);
+        $entity = $em->getRepository('BookingBundle:Cliente')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find TipoHab entity.');
+            throw $this->createNotFoundException('Unable to find Cliente entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -214,11 +219,11 @@ class TipoHabController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('tipohab_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('cliente_edit', array('id' => $id)));
         }
 
         return $this->render(
-            'NomencladorBundle:TipoHab:edit.html.twig',
+            'BookingBundle:Cliente:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -228,8 +233,10 @@ class TipoHabController extends Controller
     }
 
     /**
-     * Deletes a TipoHab entity.
-     *
+     * Deletes a Cliente entity.
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, $id)
     {
@@ -238,17 +245,17 @@ class TipoHabController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('NomencladorBundle:TipoHab')->find($id);
+            $entity = $em->getRepository('BookingBundle:Cliente')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find TipoHab entity.');
+                throw $this->createNotFoundException('Unable to find Cliente entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('tipohab'));
+        return $this->redirect($this->generateUrl('cliente'));
     }
 
     /*AJAX SOURCE*/
@@ -258,8 +265,8 @@ class TipoHabController extends Controller
         $options = $request->query->all();
         try {
 
-            $tipohabs = $this->getDoctrine()->getRepository('NomencladorBundle:TipoHab')->queryEntity($options);
-            $total = count($this->getDoctrine()->getRepository('NomencladorBundle:TipoHab')->findAll());
+            $clientes = $this->getDoctrine()->getRepository('BookingBundle:Cliente')->queryEntity($options);
+            $total = count($this->getDoctrine()->getRepository('BookingBundle:Cliente')->findAll());
 
 
             $sEcho = 1;
@@ -280,9 +287,9 @@ class TipoHabController extends Controller
                         'sEcho' => $sEcho,
                         'iTotalRecords' => $total,
                         'iTotalDisplayRecords' => $this->getDoctrine()->getRepository(
-                            'NomencladorBundle:TipoHab'
+                            'BookingBundle:Cliente'
                         )->getFilteredCount($options),
-                        'aaData' => $tipohabs
+                        'aaData' => $clientes
 
                     )
                 ), 200
@@ -295,25 +302,27 @@ class TipoHabController extends Controller
     }
 
     /**
-     * Adiciona un nuevo tipo de habitacion
+     * Adiciona un nuevo cliente
      * @param Request $request
      * @return Response
      */
     public function adicionarAction(Request $request)
     {
-        $name = $request->get('name');
+        $name = $request->get('nombre');
+        $reference = $request->get('referencia');
         $validator = $this->get('validator');
-        $tipohab = new TipoHab();
-        $tipohab->setNombre($name);
+        $cliente = new Cliente();
+        $cliente->setNombre($name);
+        $cliente->setReferencia($reference);
 
-        $errors = $validator->validate($tipohab);
+        $errors = $validator->validate($cliente);
         if (count($errors) > 0) {
             return new Response(json_encode(array('message' => $errors->__toString())), 400);
         }
         try {
 
             $em = $this->get('doctrine')->getManager();
-            $em->persist($tipohab);
+            $em->persist($cliente);
             $em->flush();
 
             return new Response(json_encode(array()), 200);
@@ -323,33 +332,35 @@ class TipoHabController extends Controller
     }
 
     /**
-     * Edita un nuevo tipo de habitacion
+     * Edita un cliente
      * @param Request $request
      * @return Response
      */
     public function editarAction(Request $request)
     {
-        $name = $request->get('name');
+        $name = $request->get('nombre');
+        $reference = $request->get('referencia');
         $id = $request->get('id');
         $em = $this->get('doctrine')->getManager();
-        $tipohab = $em->getRepository('NomencladorBundle:TipoHab')->find($id);
+        $cliente = $em->getRepository('BookingBundle:Cliente')->find($id);
 
-        if ($tipohab == null) {
+        if ($cliente == null) {
             return new Response(json_encode(array()), 404);
         }
 
-        $tipohab->setNombre($name);
+        $cliente->setNombre($name);
+        $cliente->setReferencia($reference);
         $validator = $this->get('validator');
 
 
-        $errors = $validator->validate($tipohab);
+        $errors = $validator->validate($cliente);
         if (count($errors) > 0) {
             return new Response(json_encode(array('message' => $errors->__toString())), 400);
         }
         try {
 
 
-            $em->persist($tipohab);
+            $em->persist($cliente);
             $em->flush();
 
             return new Response(json_encode(array()), 200);
@@ -368,15 +379,15 @@ class TipoHabController extends Controller
 
         $id = $request->get('id');
         $em = $this->get('doctrine')->getManager();
-        $tipohab = $em->getRepository('NomencladorBundle:TipoHab')->find($id);
+        $cliente = $em->getRepository('BookingBundle:Cliente')->find($id);
 
-        if ($tipohab == null) {
+        if ($cliente == null) {
             return new Response(json_encode(array()), 404);
         }
         try {
 
 
-            $em->remove($tipohab);
+            $em->remove($cliente);
             $em->flush();
 
             return new Response(json_encode(array()), 204);

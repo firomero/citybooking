@@ -1,4 +1,4 @@
-{% extends 'NomencladorBundle::layout.html.twig' %}
+{% extends 'BookingBundle::layout.html.twig' %}
 
 {% block content %}
     <div class="inner">
@@ -7,9 +7,9 @@
                 <div class="panel panel-default">
 
                     <div class="panel-heading">
-                        {{ 'nomenclador.tipohab.header.list'|trans({},'NomencladorBundle') }}
+                        {{ 'booking.cliente.header.list'|trans({},'BookingBundle') }}
                         <button class="btn btn-mini pull-right add"
-                                title="{{ 'nomenclador.tipohab.actions.add'|trans({},'NomencladorBundle') }}"
+                                title="{{ 'booking.cliente.actions.add'|trans({},'BookingBundle') }}"
                                 data-toggle="modal" data-target="#myModalDialog">
                             <i class="icon-plus"></i>
                         </button>
@@ -23,6 +23,7 @@
                                 <tr>
                                     <th></th>
                                     <th>Nombre</th>
+                                    <th>Referencia</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
@@ -43,16 +44,23 @@
          id="myModalDialog">
         <div class="modal-dialog">
             <div class="modal-content">
-                {{ form_start(formTipoHab) }}
+                {{ form_start(formCliente) }}
                 <div class="modal-header">
                     <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                    <h5 id="myModalLabelConfirmar" class="modal-title">Adicionar Tipo de Habitaci&oacute;n</h5>
+                    <h5 id="myModalLabelConfirmar" class="modal-title">Adicionar Cliente</h5>
                 </div>
                 <div class="modal-body">
                     <div class="se-pre-con hide"></div>
                     <div class="control-group mensajes">
-                        <label for="general_nomencladorbundle_tipohab_nombre">Nombre: </label>
-                        {{ form_widget(formTipoHab.nombre) }}
+                        <label for="booking_bookingbundle_cliente_nombre">Nombre: </label>
+                        {{ form_widget(formCliente.nombre) }}
+                    </div>
+                    <br/>
+
+                    <div class="se-pre-con hide"></div>
+                    <div class="control-group mensajes">
+                        <label for="booking_bookingbundle_cliente_referencia">Referencia: </label>
+                        {{ form_widget(formCliente.referencia) }}
                     </div>
                     <br/>
 
@@ -61,8 +69,9 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     </div>
                 </div>
-                {% do formTipoHab.submit.setRendered %}
-                {{ form_end(formTipoHab) }}
+                {% do formCliente.actividades.setRendered %}
+                {% do formCliente.submit.setRendered %}
+                {{ form_end(formCliente) }}
             </div>
         </div>
     </div>
@@ -113,11 +122,13 @@
                             "processing": true,
                             "bJQueryUI": true,
                             "bServerSide": true,
-                            "sAjaxSource": Routing.generate('ajax_tipohab_listar'),
+                            "sAjaxSource": Routing.generate('ajax_cliente_listar'),
                             "aoColumns": [
-                                {"bSortable": false}, {'sClass': 'tipohab-text'}
+                                {"bSortable": false},
+                                {'sClass': 'cliente-name'},
+                                {'sClass': 'cliente-reference'}
                             ],
-                            "drawCallback": $tipohabTable.postDraw
+                            "drawCallback": $clienteTable.postDraw
                         }
                 );
 
@@ -126,11 +137,11 @@
         });
 
     </script>
-    <script src="{{ asset('bundles/nomenclador/js/tipohabDatatables.js') }}"></script>
+    <script src="{{ asset('bundles/booking/js/clienteDatatables.js') }}"></script>
 {% endblock JavaScriptInline %}
 
  {% block  stylesheet %}
      {{ parent() }}
-     <link href="{{ asset('bundles/nomenclador/css/tipohab.css') }}" rel="stylesheet"/>
+     <link href="{{ asset('bundles/booking/css/cliente.css') }}" rel="stylesheet"/>
      <link href="{{ asset('public/css/loader.css') }}" rel="stylesheet"/>
  {% endblock stylesheet %}

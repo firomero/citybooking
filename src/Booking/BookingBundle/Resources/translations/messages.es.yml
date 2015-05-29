@@ -1,0 +1,9 @@
+booking:
+    cliente:
+        header:
+            list: Listado de Clientes
+        actions:
+            add: Adicionar Cliente
+        messages:
+            success:
+            failed:

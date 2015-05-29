@@ -1,5 +1,5 @@
 /**
- * Created by manytostao on 26/05/15.
+ * Created by manytostao on 28/05/15.
  */
 'use strict';
 
@@ -10,10 +10,10 @@
  * hidden.bs.modal
  *
  * */
-var $tipohabTable = {};
+var $clienteTable = {};
 
 
-$tipohabTable.postDraw = function () {
+$clienteTable.postDraw = function () {
 
     var $td = $('#tabla').find('tbody tr td:first-child');
     $td.each(function () {
@@ -32,8 +32,10 @@ $tipohabTable.postDraw = function () {
             $btnEditar.append($('<i class="icon-edit bigger-125"></i>'));
             $btnEditar.attr('data-id', html);
             var $parent = $(this).closest('tr');
-            var $text = $parent.find('.tipohab-text');
-            $btnEditar.attr('data-name', $text.html());
+            var $name = $parent.find('.cliente-name');
+            var $reference = $parent.find('.cliente-reference');
+            $btnEditar.attr('data-name', $name.html());
+            $btnEditar.attr('data-reference', $reference.html());
 
             var $btnEliminar = $('<a class="btn btn-mini danger"></a>');
             $btnEliminar.attr('data-toggle', 'modal');
@@ -46,7 +48,7 @@ $tipohabTable.postDraw = function () {
             $(this).closest('tr').append($column);
             //Events
 
-            //Editar Tipo de Habitacion
+            //Editar  cliente
             $('.btn.btn-mini.edit').click(function () {
 
                 var $btnEdit = $(this);
@@ -54,29 +56,30 @@ $tipohabTable.postDraw = function () {
 
                 $saveBtn.off('click');
                 $saveBtn.click(function () {
-                    $tipohabTable.editTipoHab($btnEdit);
+                    $clienteTable.editCliente($btnEdit);
                 });
                 var $modalView = $('#myModalDialog');
                 $modalView.modal();
-                $modalView.find('#myModalLabelConfirmar').text('Editar Tipo de Habitación');
-                $modalView.find('#general_nomencladorbundle_tipohab_nombre').val($btnEdit.data('name'));
+                $modalView.find('#myModalLabelConfirmar').text('Editar Cliente');
+                $modalView.find('#booking_bookingbundle_cliente_nombre').val($btnEdit.data('name'));
+                $modalView.find('#booking_bookingbundle_cliente_referencia').val($btnEdit.data('reference'));
                 $modalView.on('hide.bs.modal', function () {
                     $saveBtn.off('click');
                     $saveBtn.click(function (event) {
 
-                        $tipohabTable.addTipoHab();
+                        $clienteTable.addCliente();
                     });
-                    $modalView.find('#myModalLabelConfirmar').text('Adicionar Tipo de Habitación');
+                    $modalView.find('#myModalLabelConfirmar').text('Adicionar Cliente');
                 });
                 $modalView.modal('show');
             });
 
-            //Eliminar Tipo de Habitacion
+            //Eliminar Cliente
             $btnEliminar.click(function () {
                 var $acept = $('.btn.btn-default.delete');
                 var id = $(this).attr('data-id');
                 $acept.click(function () {
-                    $tipohabTable.deleteTipoHab(id);
+                    $clienteTable.deleteCliente(id);
                 });
 
             });
@@ -89,15 +92,17 @@ $tipohabTable.postDraw = function () {
 
 };
 
-$tipohabTable.addTipoHab = function () {
-    var name = $('#general_nomencladorbundle_tipohab_nombre').val();
+$clienteTable.addCliente = function () {
+    var nombre = $('#booking_bookingbundle_cliente_nombre').val();
+    var referencia = $('#booking_bookingbundle_cliente_referencia').val();
     var $modalView = $('#myModalDialog');
-    if (name != '') {
+    if (nombre != '' || referencia != '') {
         $('.se-pre-con').removeClass('hidden');
         $.post(
-            Routing.generate('tipohab_ajax_add'),
+            Routing.generate('cliente_ajax_add'),
             {
-                name: name
+                nombre: nombre,
+                referencia: referencia
             },
             function (data, text, response) {
                 if (response.status == 200) {
@@ -111,25 +116,27 @@ $tipohabTable.addTipoHab = function () {
             },
             "json"
         ).fail(function () {
-                $tipohabTable.insertError();
+                $clienteTable.insertError();
             });
     }
     else {
 
-        $tipohabTable.insertError();
+        $clienteTable.insertError();
     }
 };
 
-$tipohabTable.editTipoHab = function (object) {
-    var name = $('#general_nomencladorbundle_tipohab_nombre').val();
+$clienteTable.editCliente = function (object) {
+    var nombre = $('#booking_bookingbundle_cliente_nombre').val();
+    var referencia = $('#booking_bookingbundle_cliente_referencia').val();
     var id = $(object).data('id');
     var $modalView = $('#myModalDialog');
-    if (name != '') {
+    if (nombre != '' || referencia != '') {
         $('.se-pre-con').removeClass('hidden');
         $.post(
-            Routing.generate('tipohab_ajax_edit'),
+            Routing.generate('cliente_ajax_edit'),
             {
-                name: name,
+                nombre: nombre,
+                referencia: referencia,
                 id: id
             },
             function (data, text, response) {
@@ -144,19 +151,19 @@ $tipohabTable.editTipoHab = function (object) {
             },
             "json"
         ).fail(function () {
-                $tipohabTable.insertError();
+                $clienteTable.insertError();
             });
     }
     else {
 
-        $tipohabTable.insertError();
+        $clienteTable.insertError();
     }
 };
 
-$tipohabTable.deleteTipoHab = function (id) {
+$clienteTable.deleteCliente = function (id) {
     $('.se-pre-con').removeClass('hidden');
     $.post(
-        Routing.generate('tipohab_ajax_delete'),
+        Routing.generate('cliente_ajax_delete'),
         {
             id: id
         },
@@ -170,11 +177,11 @@ $tipohabTable.deleteTipoHab = function (id) {
         },
         "json"
     ).fail(function () {
-            $tipohabTable.insertError();
+            $clienteTable.insertError();
         });
 };
 
-$tipohabTable.insertError = function () {
+$clienteTable.insertError = function () {
     var $modalView = $('#myModalDialog');
     $modalView.find('.alert.alert-danger').remove();
     var $error = $('<div class="alert alert-danger"><button class="close" data-dismiss="alert" type="button"></button>Por favor, verifique sus datos.<strong class="icon-remove close"></strong> </div>');
@@ -185,10 +192,10 @@ $tipohabTable.insertError = function () {
 };
 
 $(function () {
-    //Adicionar Tipo de Habitacion
+    //Adicionar Cliente
     var $btnAction = $('.btn.btn-default.action');
     $btnAction.click(function (event) {
 
-        $tipohabTable.addTipoHab();
+        $clienteTable.addCliente();
     });
 });
