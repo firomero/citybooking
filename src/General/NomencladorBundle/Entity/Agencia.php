@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="General\NomencladorBundle\Entity\AgenciaRepository")
+ * @DoctrineAssert\UniqueEntity("nombre")
  */
 class Agencia
 {

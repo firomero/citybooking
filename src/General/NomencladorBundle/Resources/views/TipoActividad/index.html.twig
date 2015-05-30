@@ -15,7 +15,7 @@
 
                     <div class="panel-body">
                         <div class="table-responsive">
-                            <table id="tabla" class="table table-striped table-bordered table-hover">
+                            <table id="act_tabla" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th></th>
@@ -46,8 +46,8 @@
                 <div class="modal-body">
                     <div class="se-pre-con hide"></div>
                     <div class="control-group mensajes">
-                        <label for="agenciaText">{{ 'nomenclador.tipoActividad.labels.name'|trans({},'NomencladorBundle') }}: </label>
-                        <input type="text" name="_tipoActividad" id="agenciaText"/>
+                        <label for="actividadText">{{ 'nomenclador.tipoActividad.labels.name'|trans({},'NomencladorBundle') }}: </label>
+                        <input type="text" name="_tipoActividad" id="actividadText"/>
                     </div>
                     <br/>
                     <div class="control-group">
@@ -92,7 +92,7 @@
             $(document).ready(function() {
 
                 var oTable;
-                oTable = $('#tabla').dataTable(
+                oTable = $('#act_tabla').dataTable(
                         {
                             "oLanguage": $language,
                             "aLengthMenu": [5, 10, 15],
@@ -104,9 +104,9 @@
                             "bServerSide": true,
                             "sAjaxSource": Routing.generate('tipoactividad_ajax_listar'),
                             "aoColumns": [
-                                {"bSortable": false}, {'sClass':'tipoActividad-text'}
+                                {"bSortable": false}, {'sClass':'tipoactividad-text'}
                             ],
-                            "drawCallback":$agenciaTable.postDraw
+                            "drawCallback":$tipoActividadTable.postDraw
                         }
                 );
 
@@ -115,7 +115,7 @@
         });
 
     </script>
-    <script src="{{ asset('bundles/nomenclador/js/agenciaDatatables.js') }}">   </script>
+    <script src="{{ asset('bundles/nomenclador/js/tipoActividadDatatables.js') }}">   </script>
 {% endblock JavaScriptInline%}
 
  {% block  stylesheet %}
