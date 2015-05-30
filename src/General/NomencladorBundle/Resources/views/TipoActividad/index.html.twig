@@ -47,12 +47,12 @@
                     <div class="se-pre-con hide"></div>
                     <div class="control-group mensajes">
                         <label for="actividadText">{{ 'nomenclador.tipoActividad.labels.name'|trans({},'NomencladorBundle') }}: </label>
-                        <input type="text" name="_tipoActividad" id="actividadText"/>
+                        <input type="text" name="_tipoActividad" id="actividadText" class="form-control" placeholder="{{ 'nomenclador.tipoActividad.messages.placeholderAdd'|trans({},'NomencladorBundle') }}"/>
                     </div>
                     <br/>
                     <div class="control-group">
-                        <button type="button"  class="btn btn-default action">{{ 'nomenclador.tipoActividad.buttons.accept'|trans({},'NomencladorBundle') }}</button>
-                        <button type="button"  class="btn btn-default" data-dismiss="modal">{{ 'nomenclador.tipoActividad.buttons.cancel'|trans({},'NomencladorBundle') }}</button>
+                        <button type="button"  class="btn btn-primary action">{{ 'nomenclador.tipoActividad.buttons.accept'|trans({},'NomencladorBundle') }}</button>
+                        <button type="button"  class="btn btn-success" data-dismiss="modal">{{ 'nomenclador.tipoActividad.buttons.cancel'|trans({},'NomencladorBundle') }}</button>
                     </div>
                 </div>
             </div>
