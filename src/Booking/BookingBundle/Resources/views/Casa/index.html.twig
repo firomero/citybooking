@@ -8,8 +8,10 @@
                 <div class="panel panel-default">
 
                     <div class="panel-heading">
-                        {{ 'booking.casa.headers.list'|trans({},'BookingBundle')}}
-                        <button class="btn btn-mini pull-right add" title="{{ 'booking.casa.actions.add'|trans({},'BookingBundle') }}" data-toggle="modal" data-target="#myModalDialog">                                    <i class="icon-plus"></i>
+                        {{ 'booking.casa.headers.list'|trans({},'BookingBundle') }}
+                        <button class="btn btn-mini pull-right add"
+                                title="{{ 'booking.casa.actions.add'|trans({},'BookingBundle') }}" data-toggle="modal"
+                                data-target="#myModalDialog"><i class="icon-plus"></i>
                         </button>
 
                     </div>
@@ -20,16 +22,11 @@
                                 <thead>
                                 <tr>
                                     <th></th>
-                                    <th>Nombre</th>
-                                    <th>Direccion</th>
-                                    <th>Telefono</th>
-                                    <th>Categoria</th>
-                                    <th>Cantidadhab</th>
-                                    <th>Clima</th>
-                                    <th>Banno</th>
-                                    <th>Disponible</th>
-                                    <th>Observacion</th>
-                                    <th>Actions</th>
+                                    <th>{{ 'booking.casa.table.name'| trans({}, 'BookingBundle') }}</th>
+                                    <th>{{ 'booking.casa.table.address'| trans({}, 'BookingBundle') }}</th>
+                                    <th>{{ 'booking.casa.table.phone'| trans({}, 'BookingBundle') }}</th>
+                                    <th>{{ 'booking.casa.table.available'| trans({}, 'BookingBundle') }}</th>
+                                    <th>{{ 'booking.casa.table.actions'| trans({}, 'BookingBundle') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -44,13 +41,32 @@
         </div>
 
     </div>
+    <!--Modals-->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade"
+         id="myModalDialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h5 id="myModalLabelConfirmar" class="modal-title">{{ 'booking.casa.headers.list' | trans({}, 'BookingBundle')  }}</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="se-pre-con hide"></div>
+                        {% include 'BookingBundle:Casa:casaform.html.twig' with {'form': form} %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    {% endblock %}
+
+{% endblock %}
 
 {% block JavaScriptInline %}
     <script type="text/javascript">
-        $(function(){
-            $(document).ready(function() {
+        $(function () {
+            $(document).ready(function () {
 
                 var oTable;
                 oTable = $('#tabla').dataTable(
@@ -66,30 +82,25 @@
                             "sAjaxSource": Routing.generate('ajax_casa_listar'),
                             "aoColumns": [
                                 {"bSortable": false},
-                                {'sClass':'agencia-text'},
-                                {'sClass':'agencia-text'},
-                                {'sClass':'agencia-text'},
-                                {'sClass':'agencia-text'},
-                                {'sClass':'agencia-text'},
-                                {'sClass':'agencia-text'},
-                                {'sClass':'agencia-text'},
-                                {'sClass':'agencia-text'}
+                                {'sClass': 'agencia-text'},
+                                {'sClass': 'agencia-text'},
+                                {'sClass': 'agencia-text'}
                             ]
 //                            "drawCallback":$agenciaTable.postDraw
                         }
                 );
 
-            } );
+            });
 
         });
 
     </script>
-    <script src="{{ asset('bundles/booking/js/casaDatatables.js') }}">   </script>
-{% endblock JavaScriptInline%}
+    <script src="{{ asset('bundles/booking/js/casaDatatables.js') }}"></script>
+{% endblock JavaScriptInline %}
 
  {% block  stylesheet %}
      {{ parent() }}
-     <link href="{{asset('bundles/nomenclador/css/agencia.css')}}" rel="stylesheet" />
-     <link href="{{asset('public/css/loader.css')}}" rel="stylesheet" />
+     <link href="{{ asset('bundles/nomenclador/css/agencia.css') }}" rel="stylesheet"/>
+     <link href="{{ asset('public/css/loader.css') }}" rel="stylesheet"/>
  {% endblock stylesheet %}
 

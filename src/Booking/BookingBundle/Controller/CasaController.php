@@ -2,6 +2,7 @@
 
 namespace Booking\BookingBundle\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -26,8 +27,11 @@ class CasaController extends Controller
 
         $entities = $em->getRepository('BookingBundle:Casa')->findAll();
 
+        $form = $this->createForm(new CasaType());
+
         return $this->render('BookingBundle:Casa:index.html.twig', array(
             'entities' => $entities,
+            'form'=>$form->createView()
         ));
     }
     /**
@@ -45,13 +49,21 @@ class CasaController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('casa_show', array('id' => $entity->getId())));
+            return new JsonResponse(array('message' => 'Exitoso'), 200);
         }
 
-        return $this->render('BookingBundle:Casa:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        $this->get('logger')->addCritical('no valido'.$form->getErrorsAsString());
+
+        $response = new JsonResponse(
+            array(
+                'message' => 'Error',
+                'form' => $this->renderView('BookingBundle:Casa:casaform.html.twig',
+                    array(
+                        'entity' => $entity,
+                        'form' => $form->createView(),
+                    ))), 400);
+
+        return $response;
     }
 
     /**

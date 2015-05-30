@@ -14,6 +14,8 @@ casa_create:
     path:     /create
     defaults: { _controller: "BookingBundle:Casa:create" }
     requirements: { _method: post }
+    options:
+        expose: true
 
 casa_edit:
     path:     /{id}/edit
@@ -36,3 +38,4 @@ ajax_casa_listar:
     defaults: { _controller: "BookingBundle:Casa:listar" }
     options:
         expose: true
+

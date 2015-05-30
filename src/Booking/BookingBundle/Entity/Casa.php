@@ -347,12 +347,8 @@ class Casa
             $this->nombre,
             $this->direccion,
             $this->telefono,
-            $this->categoria,
-            $this->cantidadHab,
-            $this->clima,
-            $this->banno,
             $this->disponible,
-            $this->observacion
+
         );
     }
 }
