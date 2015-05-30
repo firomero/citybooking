@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TipoHab
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="General\NomencladorBundle\Entity\TipoHabRepository")
  */
 class TipoHab
 {
@@ -60,5 +60,13 @@ class TipoHab
     public function getNombre()
     {
         return $this->nombre;
+    }
+
+    public function toArray()
+    {
+        return array(
+            $this->id,
+            $this->nombre
+        );
     }
 }
