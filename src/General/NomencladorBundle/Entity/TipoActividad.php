@@ -3,12 +3,15 @@
 namespace General\NomencladorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 
 /**
  * TipoActividad
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="General\NomencladorBundle\Entity\TipoActividadRepository")
+ * @DoctrineAssert\UniqueEntity("nombre")
  */
 class TipoActividad
 {
@@ -23,7 +26,9 @@ class TipoActividad
 
     /**
      * @var string
-     *
+     * @Assert\Regex(pattern="/[A-Za-z0-9]/")
+     * @Assert\Length( min =3 )
+     * @Assert\NotBlank(message = "Por favor, escriba el nombre" )
      * @ORM\Column(name="nombre", type="string", length=255)
      */
     private $nombre;
@@ -60,5 +65,14 @@ class TipoActividad
     public function getNombre()
     {
         return $this->nombre;
+    }
+
+
+    public function toArray()
+    {
+        return array(
+            $this->id,
+            $this->nombre
+        );
     }
 }

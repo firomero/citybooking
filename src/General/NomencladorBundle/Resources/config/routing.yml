@@ -5,3 +5,7 @@ nomenclador_homepage:
 nomenclador_crudagencia:
     resource: "@NomencladorBundle/Resources/config/routing/agencia.yml"
     prefix:   /agencia
+
+nomenclador_crudatipoHab:
+    resource: "@NomencladorBundle/Resources/config/routing/tipoactividad.yml"
+    prefix: /tipoactividad
