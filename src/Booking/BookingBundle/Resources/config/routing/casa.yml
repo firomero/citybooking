@@ -25,6 +25,8 @@ casa_update:
     path:     /{id}/update
     defaults: { _controller: "BookingBundle:Casa:update" }
     requirements: { _method: post|put }
+    options:
+        expose: true
 
 casa_delete:
     path:     /{id}/delete
@@ -38,4 +40,8 @@ ajax_casa_listar:
     defaults: { _controller: "BookingBundle:Casa:listar" }
     options:
         expose: true
-
+ajax_form:
+    path: /form/fetch
+    defaults: { _controller: "BookingBundle:Casa:editform" }
+    options:
+        expose: true

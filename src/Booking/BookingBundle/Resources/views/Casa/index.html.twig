@@ -21,7 +21,6 @@
                             <table id="tabla" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th></th>
                                     <th>{{ 'booking.casa.table.name'| trans({}, 'BookingBundle') }}</th>
                                     <th>{{ 'booking.casa.table.address'| trans({}, 'BookingBundle') }}</th>
                                     <th>{{ 'booking.casa.table.phone'| trans({}, 'BookingBundle') }}</th>
@@ -43,7 +42,7 @@
     </div>
     <!--Modals-->
     <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade"
-         id="myModalDialog">
+         id="myEditDialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -52,9 +51,55 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="se-pre-con hide"></div>
+                        <div class="se-pre-con hidden"></div>
                         {% include 'BookingBundle:Casa:casaform.html.twig' with {'form': form} %}
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Edit-->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade"
+         id="myModalDialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h5 id="myModalLabelConfirmar" class="modal-title">{{ 'booking.casa.headers.list' | trans({}, 'BookingBundle')  }}</h5>
+                </div>
+                <div class="modal-body">
+                        {% if edit_form is defined %}
+                                 {% include 'BookingBundle:Casa:edit.html.twig' with {'edit_form': edit_form} %}
+                        {% endif %}
+                  </div>
+                <div class="modal-footer">
+                    <button type="button"
+                            class="btn btn-default action edit">{{ 'booking.casa.actions.acept' | trans({}, 'BookingBundle') }}</button>
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">{{ 'booking.casa.actions.cancel' | trans({}, 'BookingBundle') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--Confirm-->
+    <!--Edit-->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade"
+         id="doDelete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h5 id="myModalLabelConfirmar" class="modal-title">{{ 'booking.casa.headers.delete' | trans({}, 'BookingBundle')  }}</h5>
+                </div>
+                <div class="modal-body">
+                    {{ 'booking.casa.message.delete'|trans({}, 'BookingBundle') }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button"
+                            class="btn btn-default action edit">{{ 'booking.casa.actions.acept' | trans({}, 'BookingBundle') }}</button>
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">{{ 'booking.casa.actions.cancel' | trans({}, 'BookingBundle') }}</button>
                 </div>
             </div>
         </div>
@@ -85,8 +130,8 @@
                                 {'sClass': 'agencia-text'},
                                 {'sClass': 'agencia-text'},
                                 {'sClass': 'agencia-text'}
-                            ]
-//                            "drawCallback":$agenciaTable.postDraw
+                            ],
+                            "drawCallback":$casaTable.postDraw
                         }
                 );
 

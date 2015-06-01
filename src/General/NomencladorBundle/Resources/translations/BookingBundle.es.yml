@@ -2,6 +2,7 @@ booking:
      casa:
         headers:
             list: Listado de Casa
+            delete: Eliminar casa
         actions:
              add: Adicionar casa
              acept: Aceptar
@@ -18,4 +19,6 @@ booking:
              description: Observación
              owner: Propietario
              actions: Acciones
+        message:
+            delete: Desea eliminar la casa
 

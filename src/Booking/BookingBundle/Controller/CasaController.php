@@ -34,6 +34,23 @@ class CasaController extends Controller
             'form'=>$form->createView()
         ));
     }
+
+    public function editformAction(Request $request)
+    {
+
+        $id = $request->get('id');
+        $entity = $this->get('doctrine')->getManager()->getRepository('BookingBundle:Casa')->findOneBy(array('nombre'=>$id));
+        $form = $this->createEditForm($entity);
+        $response = new JsonResponse(
+            array(
+                'form' => $this->renderView('BookingBundle:Casa:edit.html.twig',
+                    array(
+                        'entity' => $entity,
+                        'edit_form' => $form->createView(),
+                    ))), 200);
+
+        return $response;
+    }
     /**
      * Creates a new Casa entity.
      *
@@ -43,6 +60,7 @@ class CasaController extends Controller
         $entity = new Casa();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+//        $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -157,10 +175,10 @@ class CasaController extends Controller
     {
         $form = $this->createForm(new CasaType(), $entity, array(
             'action' => $this->generateUrl('casa_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+       // $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
@@ -185,8 +203,9 @@ class CasaController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('casa_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('casa'));
         }
+
 
         return $this->render('BookingBundle:Casa:edit.html.twig', array(
             'entity'      => $entity,
@@ -200,12 +219,11 @@ class CasaController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
 
-        if ($form->isValid()) {
+
+
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('BookingBundle:Casa')->find($id);
+            $entity = $em->getRepository('BookingBundle:Casa')->findOneBy(array('nombre'=>$id));
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Casa entity.');
@@ -213,7 +231,6 @@ class CasaController extends Controller
 
             $em->remove($entity);
             $em->flush();
-        }
 
         return $this->redirect($this->generateUrl('casa'));
     }

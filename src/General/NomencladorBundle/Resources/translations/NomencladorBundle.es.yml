@@ -2,8 +2,12 @@ nomenclador:
     agencia:
         header:
             list: Listado de Agencias
+            name: Nombre
+            actions: Acciones
         actions:
             add: Adicionar Agencia
+            acept: Aceptar
+            cancel: Cancelar
         messages:
             success:
             failed:

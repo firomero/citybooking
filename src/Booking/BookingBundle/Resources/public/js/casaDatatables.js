@@ -24,7 +24,7 @@ $casaTable.postDraw = function (){
             var html =  $(this).html();
             $(this).empty();
             var $input = $('<input type="checkbox" name="delete_all['+html+']" value="'+html+'" class="msf" id="'+html+'"> <label for="'+html+'"><span class="lbl"> </span></label>');
-            $(this).append($input);
+            $(this).append($input).append(html);
             var $column = $('<td></td>');
             //Botones
             var $btnGroup = $('<div class="btn-group"></div>');
@@ -37,7 +37,7 @@ $casaTable.postDraw = function (){
 
             var $btnEliminar = $('<a class="btn btn-mini danger"></a>');
             $btnEliminar.attr('data-toggle','modal');
-            $btnEliminar.attr('data-target','#confirm');
+            $btnEliminar.attr('data-target','#doDelete');
             $btnEliminar.attr('data-id',html);
             $btnEliminar.append($('<i class="icon-trash bigger-125"></i>'));
 
@@ -47,32 +47,6 @@ $casaTable.postDraw = function (){
             //Events
 
             //Adicionar Casa
-
-
-            //Editar  Casa
-            $('.btn.btn-mini.edit').click(function () {
-
-                var $btnEdit = $(this);
-                var $saveBtn = $('.btn.btn-default.action');
-
-                $saveBtn.off('click');
-                $saveBtn.click(function () {
-                    $casaTable.editCasa($btnEdit);
-                });
-                var $modalView = $('#myModalDialog');
-                $modalView.modal();
-                $modalView.find('#myModalLabelConfirmar').text('Editar Casa');
-                $modalView.find('#casaText').val($btnEdit.data('name'));
-                $modalView.on('hide.bs.modal', function () {
-                    $saveBtn.off('click');
-                    $saveBtn.click(function (event) {
-
-                        $casaTable.addCasa();
-                    });
-                    $modalView.find('#myModalLabelConfirmar').text('Adicionar Casa');
-                });
-                $modalView.modal('show');
-            });
 
             //Eliminar Casa
             $btnEliminar.click(function(){
@@ -85,10 +59,46 @@ $casaTable.postDraw = function (){
             });
 
 
-
-
         }
 
+
+
+
+
+    });
+
+    //Editar  Casa
+    $('.btn.btn-mini.edit').click(function () {
+
+        var $btnEdit = $(this);
+        var $modalView = $('#myModalDialog');
+        $modalView.modal();
+        $modalView.find('#myModalLabelConfirmar').text('Editar Casa');
+
+
+
+        $modalView.on('shown.bs.modal',function(){
+
+            $.post(Routing.generate('ajax_form'),{
+                    id:$btnEdit.data('id')
+                },
+                function(data, statusText, ajax){
+                    if (ajax.status==200) {
+                        $modalView.find('.modal-body').empty();
+                        $modalView.find('.modal-body').append('<div class="se-pre-con hidden"></div>').append(data.form);
+                        $modalView.find('.btn.btn-default.action.edit').click(function(){
+                            $('.se-pre-con').removeClass('hidden');
+                            $modalView.find('form').submit();
+
+                        });
+
+                    }
+                },
+                "json"
+            );
+        });
+
+        $modalView.modal('show');
 
 
     });
@@ -168,26 +178,27 @@ $(function(){
     //Adicionar Casa
     var $btnAction = $('.btn.btn-default.action');
     $btnAction.click(function(event){
-
-$('#myModalDialog').submit();
-
-
-
-    });
-
-    $('body').on('submit', '#myModalDialog',function(event){
-        event.preventDefault();
         $('.se-pre-con').removeClass('hidden');
-        $.ajax({
-            type: $(this).attr('method'),
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            dataType: "json"
-        }).done(function(data){
-            console.log(data)
-        }).fail(function(data){
-            $casaTable.insertError();
-        })
+            $('.ajaxForm').submit();
     });
+
+    //$('body').on('submit', '#myModalDialog form',function(event){
+    //    event.preventDefault();
+    //
+    //    $.ajax({
+    //        type: $(this).attr('method'),
+    //        url: $(this).attr('action'),
+    //        method: "post",
+    //        data: $(this).serialize(),
+    //        dataType: "json"
+    //    }).done(function(data){
+    //        console.log(data)
+    //        $('.se-pre-con').addClass('hidden');
+    //        $('#myModalDialog').modal('hide');
+    //        window.location.reload();
+    //    }).fail(function(data){
+    //        $casaTable.insertError();
+    //    })
+    //});
 });
 
