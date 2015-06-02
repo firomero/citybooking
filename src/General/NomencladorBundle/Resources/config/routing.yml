@@ -6,6 +6,6 @@ nomenclador_crudagencia:
     resource: "@NomencladorBundle/Resources/config/routing/agencia.yml"
     prefix:   /agencia
 
-nomenclador_crudatipoHab:
+nomenclador_crudtipoAct:
     resource: "@NomencladorBundle/Resources/config/routing/tipoactividad.yml"
     prefix: /tipoactividad
