@@ -1,0 +1,55 @@
+tipoactividad:
+    path:     /
+    defaults: { _controller: "NomencladorBundle:TipoActividad:index" }
+
+tipoactividad_show:
+    path:     /{id}/show
+    defaults: { _controller: "NomencladorBundle:TipoActividad:show" }
+
+tipoactividad_new:
+    path:     /new
+    defaults: { _controller: "NomencladorBundle:TipoActividad:new" }
+
+tipoactividad_create:
+    path:     /create
+    defaults: { _controller: "NomencladorBundle:TipoActividad:create" }
+    requirements: { _method: post }
+
+tipoactividad_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NomencladorBundle:TipoActividad:edit" }
+
+tipoactividad_update:
+    path:     /{id}/update
+    defaults: { _controller: "NomencladorBundle:TipoActividad:update" }
+    requirements: { _method: post|put }
+
+tipoactividad_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NomencladorBundle:TipoActividad:delete" }
+    requirements: { _method: post|delete }
+
+ #AJAX CALL
+tipoactividad_ajax_listar:
+    pattern: ajax/agencia/listar
+    defaults: { _controller: "NomencladorBundle:TipoActividad:listar" }
+    options:
+        expose: true
+
+tipoactividad_ajax_add:
+    pattern: /ajax/agencia/add
+    defaults: {  _controller: "NomencladorBundle:TipoActividad:adicionar" }
+    options:
+        expose: true
+
+tipoactividad_ajax_edit:
+    pattern: /ajax/agencia/edit
+    defaults: {  _controller: "NomencladorBundle:TipoActividad:editar" }
+    options:
+        expose: true
+
+tipoactividad_ajax_delete:
+    pattern: /ajax/agencia/delete
+    defaults: {  _controller: "NomencladorBundle:TipoActividad:eliminar" }
+    options:
+        expose: true

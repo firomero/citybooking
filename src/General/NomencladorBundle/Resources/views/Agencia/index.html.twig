@@ -19,8 +19,8 @@
                                 <thead>
                                 <tr>
                                     <th></th>
-                                    <th>{{ 'nomenclador.agencia.header.name' |trans({},'NomencladorBundle') }}</th>
-                                    <th>{{ 'nomenclador.agencia.header.actions' |trans({},'NomencladorBundle') }}</th>
+                                    <th>{{ 'nomenclador.agencia.labels.name'|trans({},'NomencladorBundle') }}</th>
+                                    <th>{{ 'nomenclador.agencia.labels.actions'|trans({},'NomencladorBundle') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -41,18 +41,18 @@
              <div class="modal-content">
                  <div class="modal-header">
                      <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                     <h5 id="myModalLabelConfirmar" class="modal-title">{{ 'nomenclador.agencia.actions.add' |trans({},'NomencladorBundle') }}</h5>
+                     <h5 id="myModalLabelConfirmar" class="modal-title">{{ 'nomenclador.agencia.actions.add'|trans({},'NomencladorBundle') }}</h5>
                  </div>
                  <div class="modal-body">
                  <div class="se-pre-con hide"></div>
                      <div class="control-group mensajes">
-                             <label for="agenciaText">{{ 'nomenclador.agencia.header.name' |trans({},'NomencladorBundle') }}: </label>
-                             <input type="text" name="_agencia" id="agenciaText"/>
+                             <label for="agenciaText">{{ 'nomenclador.agencia.labels.name'|trans({},'NomencladorBundle') }}: </label>
+                             <input type="text" name="_agencia" id="agenciaText" class="form-control" placeholder="{{ 'nomenclador.agencia.messages.placeholderAdd'|trans({},'NomencladorBundle') }}"/>
                      </div>
                      <br/>
                      <div class="control-group">
-                         <button type="button"  class="btn btn-default action">{{ 'nomenclador.agencia.actions.add' |trans({},'NomencladorBundle') }}</button>
-                         <button type="button"  class="btn btn-default" data-dismiss="modal">{{ 'nomenclador.agencia.actions.cancel' |trans({},'NomencladorBundle') }}</button>
+                         <button type="button"  class="btn btn-primary action">{{ 'nomenclador.agencia.buttons.accept'|trans({},'NomencladorBundle') }}</button>
+                         <button type="button"  class="btn btn-success" data-dismiss="modal">{{ 'nomenclador.agencia.buttons.cancel'|trans({},'NomencladorBundle') }}</button>
                      </div>
                  </div>
              </div>
@@ -67,16 +67,14 @@
         <div class="modal-content">
               <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h3 id="myModalLabelConfirmar">Información</h3>
+            <h3 id="myModalLabelConfirmar">{{ 'nomenclador.agencia.header.confirm'|trans({},'NomencladorBundle') }}</h3>
         </div>
         <div class="modal-body">
             <div class="se-pre-con hide"></div>
-            <div class="control-group mensajes">
-            ¿Seguro que desea eliminar el elemento seleccionado.?
-            </div>
+            <div class="control-group mensajes">{{ 'nomenclador.agencia.messages.confirm'|trans({},'NomencladorBundle') }}</div>
             <div class="control-group">
-                <button type="button"  class="btn btn-default delete">Aceptar</button>
-                <button type="button"  class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button"  class="btn btn-default delete">{{ 'nomenclador.agencia.buttons.accept'|trans({},'NomencladorBundle') }}</button>
+                <button type="button"  class="btn btn-default" data-dismiss="modal">{{ 'nomenclador.agencia.buttons.cancel'|trans({},'NomencladorBundle') }}</button>
             </div>
         </div>
         </div>
