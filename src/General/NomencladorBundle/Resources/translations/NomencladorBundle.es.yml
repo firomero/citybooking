@@ -3,8 +3,20 @@ nomenclador:
         header:
             list: Listado de Agencias
             confirm: Información
+            name: Nombre
+            actions: Acciones
         actions:
             add: Adicionar Agencia
+            acept: Aceptar
+            cancel: Cancelar
+        messages:
+            success:
+            failed:
+    tipohab:
+        header:
+            list: Listado de Tipos de Habitaciones
+        actions:
+            add: Adicionar Tipo de Habitación
         messages:
             success:
             failed:

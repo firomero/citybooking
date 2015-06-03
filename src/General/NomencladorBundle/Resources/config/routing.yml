@@ -8,4 +8,8 @@ nomenclador_crudagencia:
 
 nomenclador_crudtipoAct:
     resource: "@NomencladorBundle/Resources/config/routing/tipoactividad.yml"
-    prefix: /tipoactividad
+    prefix: /tipoactividad    prefix:   /agencia
+
+nomenclador_crudtipohab:
+    resource: "@NomencladorBundle/Resources/config/routing/tipohab.yml"
+    prefix:   /tipohab

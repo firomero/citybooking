@@ -1,0 +1,24 @@
+booking:
+     casa:
+        headers:
+            list: Listado de Casa
+            delete: Eliminar casa
+        actions:
+             add: Adicionar casa
+             acept: Aceptar
+             cancel: Cancelar
+        table:
+             name: Nombre
+             address: Dirección
+             phone: Teléfono
+             category: Categoría
+             room: Cantidad de Habitaciones
+             air: Clima
+             bath: Baño
+             available: Disponible
+             description: Observación
+             owner: Propietario
+             actions: Acciones
+        message:
+            delete: Desea eliminar la casa
+

@@ -6,3 +6,10 @@ nomenclador:
         messages:
             success:
             failed:
+    tipohab:
+        header:
+            list: Listado de Tipos de Habitaciones
+        actions:
+        messages:
+            success:
+            failed:

@@ -1,0 +1,55 @@
+tipohab:
+    pattern:  /
+    defaults: { _controller: "NomencladorBundle:TipoHab:index" }
+
+tipohab_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "NomencladorBundle:TipoHab:show" }
+
+tipohab_new:
+    pattern:  /new
+    defaults: { _controller: "NomencladorBundle:TipoHab:new" }
+
+tipohab_create:
+    pattern:  /create
+    defaults: { _controller: "NomencladorBundle:TipoHab:create" }
+    requirements: { _method: post }
+
+tipohab_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "NomencladorBundle:TipoHab:edit" }
+
+tipohab_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "NomencladorBundle:TipoHab:update" }
+    requirements: { _method: post|put }
+
+tipohab_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "NomencladorBundle:TipoHab:delete" }
+    requirements: { _method: post|delete }
+
+ #AJAX CALL
+ajax_tipohab_listar:
+    pattern: ajax/agencia/listar
+    defaults: { _controller: "NomencladorBundle:TipoHab:listar" }
+    options:
+        expose: true
+
+tipohab_ajax_add:
+    pattern: /ajax/tipohab/add
+    defaults: {  _controller: "NomencladorBundle:TipoHab:adicionar" }
+    options:
+        expose: true
+
+tipohab_ajax_edit:
+    pattern: /ajax/tipohab/edit
+    defaults: {  _controller: "NomencladorBundle:TipoHab:editar" }
+    options:
+        expose: true
+
+tipohab_ajax_delete:
+    pattern: /ajax/tipohab/delete
+    defaults: {  _controller: "NomencladorBundle:TipoHab:eliminar" }
+    options:
+        expose: true

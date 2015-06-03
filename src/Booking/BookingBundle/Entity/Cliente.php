@@ -9,33 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
  * Cliente
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Booking\BookingBundle\Entity\ClienteRepository")
  */
 class Cliente
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre", type="string", length=255)
-     */
-    private $nombre;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="referencia", type="string", length=255)
-     */
-    private $referencia;
-
     /**
      * @ORM\ManyToMany(targetEntity="Actividad")
      * @ORM\JoinTable(name="cliente_actividad",
@@ -45,6 +22,26 @@ class Cliente
      */
 
     protected $actividades;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="string", length=255)
+     */
+    private $nombre;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="referencia", type="string", length=255)
+     */
+    private $referencia;
 
     public function __construct()
     {
@@ -65,6 +62,16 @@ class Cliente
     }
 
     /**
+     * Get nombre
+     *
+     * @return string
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
      * Set nombre
      *
      * @param string $nombre
@@ -73,18 +80,18 @@ class Cliente
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
-     * Get nombre
+     * Get referencia
      *
-     * @return string 
+     * @return string
      */
-    public function getNombre()
+    public function getReferencia()
     {
-        return $this->nombre;
+        return $this->referencia;
     }
 
     /**
@@ -96,27 +103,17 @@ class Cliente
     public function setReferencia($referencia)
     {
         $this->referencia = $referencia;
-    
-        return $this;
-    }
 
-    /**
-     * Get referencia
-     *
-     * @return string 
-     */
-    public function getReferencia()
-    {
-        return $this->referencia;
+        return $this;
     }
 
     /**
      * Add actividades
      *
-     * @param \Booking\BookingBundle\Entity\Actividad $actividades
+     * @param Actividad $actividades
      * @return Cliente
      */
-    public function addActividade(\Booking\BookingBundle\Entity\Actividad $actividades)
+    public function addActividad(Actividad $actividades)
     {
         $this->actividades[] = $actividades;
     
@@ -126,17 +123,27 @@ class Cliente
     /**
      * Remove actividades
      *
-     * @param \Booking\BookingBundle\Entity\Actividad $actividades
+     * @param Actividad $actividades
      */
-    public function removeActividade(\Booking\BookingBundle\Entity\Actividad $actividades)
+    public function removeActividad(Actividad $actividades)
     {
         $this->actividades->removeElement($actividades);
+    }
+
+    public function toArray()
+    {
+        return array(
+            $this->id,
+            $this->nombre,
+            $this->referencia,
+            $this->getActividades()->toArray()
+        );
     }
 
     /**
      * Get actividades
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getActividades()
     {

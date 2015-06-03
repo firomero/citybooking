@@ -1,0 +1,47 @@
+casa:
+    path:     /
+    defaults: { _controller: "BookingBundle:Casa:index" }
+
+casa_show:
+    path:     /{id}/show
+    defaults: { _controller: "BookingBundle:Casa:show" }
+
+casa_new:
+    path:     /new
+    defaults: { _controller: "BookingBundle:Casa:new" }
+
+casa_create:
+    path:     /create
+    defaults: { _controller: "BookingBundle:Casa:create" }
+    requirements: { _method: post }
+    options:
+        expose: true
+
+casa_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BookingBundle:Casa:edit" }
+
+casa_update:
+    path:     /{id}/update
+    defaults: { _controller: "BookingBundle:Casa:update" }
+    requirements: { _method: post|put }
+    options:
+        expose: true
+
+casa_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BookingBundle:Casa:delete" }
+    requirements: { _method: post|delete }
+
+
+#AJAX
+ajax_casa_listar:
+    path: /listar
+    defaults: { _controller: "BookingBundle:Casa:listar" }
+    options:
+        expose: true
+ajax_form:
+    path: /form/fetch
+    defaults: { _controller: "BookingBundle:Casa:editform" }
+    options:
+        expose: true

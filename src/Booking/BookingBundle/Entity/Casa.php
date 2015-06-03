@@ -5,6 +5,8 @@ namespace Booking\BookingBundle\Entity;
 use Booking\BookingBundle\BookingBundle;
 use Doctrine\ORM\Mapping as ORM;
 use Booking\BookingBundle\Entity\Propietario;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 
 /**
  * Casa
@@ -336,5 +338,17 @@ class Casa
     public function getPropietario()
     {
         return $this->propietario;
+    }
+
+    public function toArray()
+    {
+//        $columns = array('nombre','direccion','telefono','categoria','cantidadHab','clima','banno','disponible','observacion');
+        return array(
+            $this->nombre,
+            $this->direccion,
+            $this->telefono,
+            $this->disponible,
+
+        );
     }
 }
