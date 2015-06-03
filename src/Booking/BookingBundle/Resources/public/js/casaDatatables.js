@@ -50,7 +50,7 @@ $casaTable.postDraw = function (){
 
             //Eliminar Casa
             $btnEliminar.click(function(){
-                var $acept = $('.btn.btn-default.delete');
+                var $acept = $('#doDelete .delete');
                 var id = $(this).attr('data-id');
                 $acept.click(function(){
                     $casaTable.deleteCasa(id);
@@ -145,7 +145,7 @@ $casaTable.editCasa= function(object){
 $casaTable.deleteCasa = function (id) {
     $('.se-pre-con').removeClass('hidden');
     $.post(
-        Routing.generate('casa_ajax_delete'),
+        Routing.generate('casa_delete'),
         {
             id: id
         },
@@ -153,13 +153,19 @@ $casaTable.deleteCasa = function (id) {
             if (response.status == 204 || response.status == 200) {
 
                 $('.se-pre-con').addClass('hidden');
-                $('#myModalDialog').modal('hide');
+                $('#doDelete').modal('hide');
                 location.reload();
             }
         },
         "json"
     ).fail(function () {
-            $casaTable.insertError();
+            var $modalView = $('#doDelete');
+            $modalView.find('.alert.alert-danger').remove();
+            var $error = $('<div class="alert alert-danger"><button class="close" data-dismiss="alert" type="button"></button>Por favor, verifique sus datos.<strong class="icon-remove close"></strong> </div>');
+            $modalView.find('.modal-body').append($error);
+            $modalView.find('.close').click(function () {
+                $(this).closest('.alert.alert-danger').remove();
+            });
         });
 }
 

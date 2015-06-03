@@ -11,7 +11,7 @@
                         {{ 'booking.casa.headers.list'|trans({},'BookingBundle') }}
                         <button class="btn btn-mini pull-right add"
                                 title="{{ 'booking.casa.actions.add'|trans({},'BookingBundle') }}" data-toggle="modal"
-                                data-target="#myModalDialog"><i class="icon-plus"></i>
+                                data-target="#myEditDialog"><i class="icon-plus"></i>
                         </button>
 
                     </div>
@@ -83,7 +83,7 @@
         </div>
     </div>
 <!--Confirm-->
-    <!--Edit-->
+    <!--Eliminar-->
     <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade"
          id="doDelete">
         <div class="modal-dialog">
@@ -97,7 +97,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button"
-                            class="btn btn-default action edit">{{ 'booking.casa.actions.acept' | trans({}, 'BookingBundle') }}</button>
+                            class="btn btn-default delete">{{ 'booking.casa.actions.acept' | trans({}, 'BookingBundle') }}</button>
                     <button type="button" class="btn btn-default"
                             data-dismiss="modal">{{ 'booking.casa.actions.cancel' | trans({}, 'BookingBundle') }}</button>
                 </div>

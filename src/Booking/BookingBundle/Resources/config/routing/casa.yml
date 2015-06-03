@@ -29,9 +29,11 @@ casa_update:
         expose: true
 
 casa_delete:
-    path:     /{id}/delete
+    path:     /delete/issue
     defaults: { _controller: "BookingBundle:Casa:delete" }
     requirements: { _method: post|delete }
+    options:
+        expose: true
 
 
 #AJAX

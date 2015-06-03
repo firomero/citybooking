@@ -27,21 +27,21 @@ class Casa
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank(message = "Por favor, escriba la direccion" )
      * @ORM\Column(name="direccion", type="string", length=255)
      */
     private $direccion;
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank(message = "Por favor, escriba el nombre" )
      * @ORM\Column(name="nombre", type="string", length=255)
      */
     private $nombre;
 
     /**
      * @var integer
-     *
+     *@Assert\NotBlank(message = "Por favor, escriba el teléfono" )
      * @ORM\Column(name="telefono", type="integer")
      */
     private $telefono;

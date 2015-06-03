@@ -67,21 +67,18 @@ class CasaController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return new JsonResponse(array('message' => 'Exitoso'), 200);
+
+            return $this->redirect($this->generateUrl('casa'));
         }
 
         $this->get('logger')->addCritical('no valido'.$form->getErrorsAsString());
 
-        $response = new JsonResponse(
-            array(
-                'message' => 'Error',
-                'form' => $this->renderView('BookingBundle:Casa:casaform.html.twig',
-                    array(
-                        'entity' => $entity,
-                        'form' => $form->createView(),
-                    ))), 400);
+        return $this->render('BookingBundle:Default:index.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
 
-        return $response;
+
     }
 
     /**
@@ -217,10 +214,11 @@ class CasaController extends Controller
      * Deletes a Casa entity.
      *
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request)
     {
+        $id = $request->get('id');
 
-
+        try{
 
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('BookingBundle:Casa')->findOneBy(array('nombre'=>$id));
@@ -232,7 +230,10 @@ class CasaController extends Controller
             $em->remove($entity);
             $em->flush();
 
-        return $this->redirect($this->generateUrl('casa'));
+            return new Response(json_encode(array()), 200);
+        }catch (\Exception $e){
+            return new Response($e->getMessage(),500);
+        }
     }
 
     /**
