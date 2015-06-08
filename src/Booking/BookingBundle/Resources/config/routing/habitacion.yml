@@ -1,0 +1,35 @@
+ajax_habitacion_listar:
+    pattern: /ajax/habitacion
+    defaults: { _controller: "BookingBundle:Habitacion:listar" }
+    options:
+        expose: true
+
+habitacion:
+    pattern:     /
+    defaults: { _controller: "BookingBundle:Habitacion:index" }
+
+
+habitacion_crear:
+    pattern: /adicionar/habitacion
+    defaults: {  _controller: "BookingBundle:Habitacion:create"  }
+    requirements: { _method: post }
+
+
+habitacion_edit:
+    pattern: /editar/habitacion
+    defaults: { _controller: "BookingBundle:Habitacion:editar" }
+    options:
+        expose: true
+
+habitacion_actualizar:
+    pattern: /actualizar/{id}/habitacion
+    defaults: { _controller: "BookingBundle:Habitacion:update" }
+    options:
+        expose: true
+
+habitacion_delete:
+    path:     /eliminar/habitacion
+    defaults: { _controller: "BookingBundle:Habitacion:delete" }
+    requirements: { _method: post|delete }
+    options:
+        expose: true

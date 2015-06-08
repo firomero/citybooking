@@ -351,4 +351,9 @@ class Casa
 
         );
     }
+
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
 }

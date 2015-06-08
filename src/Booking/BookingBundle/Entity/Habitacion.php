@@ -11,7 +11,7 @@ use General\NomencladorBundle\Entity\TipoHab;
  * Habitacion
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Booking\BookingBundle\Entity\HabitacionRepository")
  */
 class Habitacion
 {
@@ -150,5 +150,17 @@ class Habitacion
     public function getReservaciones()
     {
         return $this->reservaciones;
+    }
+
+    public function toArray(){
+        return array(
+            $this->id,
+            $this->casa->getNombre(),
+            $this->tipo->getNombre()
+        );
+    }
+    public function __toString()
+    {
+        return $this->casa->getNombre().':'.$this->tipo->getNombre();
     }
 }
