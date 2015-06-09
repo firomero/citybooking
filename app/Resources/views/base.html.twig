@@ -79,12 +79,7 @@
                         </a>
 
                         <ul class="dropdown-menu dropdown-user">
-                            {#<li><a href="#"><i class="icon-user"></i> User Profile </a>#}
-                            {#</li>#}
-                            <li><a href="#"><i class="icon-gear"></i> Settings </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="login.html"><i class="icon-signout"></i> Logout </a>
+                            <li><a href="{{ path('fos_user_security_logout') }}"><i class="icon-signout"></i> Salir </a>
                             </li>
                         </ul>
 
