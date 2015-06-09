@@ -4,6 +4,8 @@ namespace Booking\BookingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use General\NomencladorBundle\Entity\TipoActividad;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 
 /**
  * Actividad
@@ -24,14 +26,17 @@ class Actividad
 
     /**
      * @var \DateTime
-     *
+     * @Assert\DateTime()
+     * @Assert\NotBlank(message = "Por favor, inserte la fecha")
      * @ORM\Column(name="fecha", type="datetime")
      */
     private $fecha;
 
     /**
      * @var string
-     *
+     * @Assert\Regex(pattern="/[A-Za-z0-9]/")
+     * @Assert\Length( min =3 )
+     * @Assert\NotBlank(message = "Por favor, inserte el nombre del guia.")
      * @ORM\Column(name="guia", type="string", length=255)
      */
     private $guia;
@@ -45,14 +50,15 @@ class Actividad
 
     /**
      * @var integer
-     *
+     * @Assert\GreaterThanOrEqual(value = 0)
+     * @Assert\NotBlank()
      * @ORM\Column(name="pax", type="integer")
      */
     private $pax;
 
     /**
      * @var float
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="precioguia", type="float")
      */
     private $precioguia;

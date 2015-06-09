@@ -5,6 +5,8 @@ namespace Booking\BookingBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use General\NomencladorBundle\Entity\TipoHab;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 
 
 /**
@@ -32,9 +34,7 @@ class Habitacion
      *   @ORM\JoinColumn(name="casaid", referencedColumnName="id")
      * })
      */
-    private $casa
-
-    ;
+    private $casa;
 
     /**
      * @var TipoHab
