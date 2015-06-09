@@ -26,7 +26,7 @@ class TipoActividadRepository extends EntityRepository{
         if (array_key_exists('sSearch',$options)) {
             if ($options['sSearch'] != '') {
                 $qb->andWhere(new Orx(array(
-                    $qb->expr()->like('a.nombre', '\'%' . $options['sSearch'] . '%\'')
+                    $qb->expr()->like('ta.nombre', '\'%' . $options['sSearch'] . '%\'')
                 )));
             }
         }

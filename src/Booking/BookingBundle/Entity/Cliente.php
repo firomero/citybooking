@@ -4,6 +4,8 @@ namespace Booking\BookingBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 
 /**
  * Cliente
@@ -32,13 +34,17 @@ class Cliente
     private $id;
     /**
      * @var string
-     *
+     * @Assert\Regex(pattern="/[A-Za-z0-9]/")
+     * @Assert\Length( min =3 )
+     * @Assert\NotBlank(message = "Por favor, escriba el nombre" )
      * @ORM\Column(name="nombre", type="string", length=255)
      */
     private $nombre;
     /**
      * @var string
-     *
+     * @Assert\Regex(pattern="/[A-Za-z0-9]/")
+     * @Assert\Length( min =3 )
+     * @Assert\NotBlank(message = "Por favor, escriba la referencia" )
      * @ORM\Column(name="referencia", type="string", length=255)
      */
     private $referencia;
