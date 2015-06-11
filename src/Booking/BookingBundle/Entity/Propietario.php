@@ -3,12 +3,16 @@
 namespace Booking\BookingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 
 /**
  * Propietario
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Booking\BookingBundle\Entity\PropietarioRepository")
+ * @DoctrineAssert\UniqueEntity("nombre")
+ * @DoctrineAssert\UniqueEntity("ci")
  */
 class Propietario
 {
@@ -24,6 +28,9 @@ class Propietario
     /**
      * @var string
      *
+     * @Assert\Regex(pattern="/[A-Za-z0-9]/")
+     * @Assert\Length( min =3 )
+     * @Assert\NotBlank(message = "Por favor, escriba el nombre." )
      * @ORM\Column(name="nombre", type="string", length=255)
      */
     private $nombre;
@@ -31,6 +38,8 @@ class Propietario
     /**
      * @var string
      *
+     * @Assert\Regex(pattern="/[0-9]/")
+     * @Assert\NotBlank(message = "Por favor, escriba el carnet de identidad." )
      * @ORM\Column(name="ci", type="string", length=255)
      */
     private $ci;
@@ -80,6 +89,18 @@ class Propietario
         $this->ci = $ci;
     
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return array(
+            $this->id,
+            $this->nombre,
+            $this->ci
+        );
     }
 
     /**

@@ -4,12 +4,15 @@ namespace Booking\BookingBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 
 /**
  * Cliente
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Booking\BookingBundle\Entity\ClienteRepository")
+ * @DoctrineAssert\UniqueEntity("nombre")
  */
 class Cliente
 {
@@ -43,6 +46,9 @@ class Cliente
      */
     private $referencia;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->actividades = new ArrayCollection();
@@ -130,6 +136,9 @@ class Cliente
         $this->actividades->removeElement($actividades);
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         return array(

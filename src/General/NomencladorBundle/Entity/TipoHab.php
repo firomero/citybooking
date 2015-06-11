@@ -3,12 +3,15 @@
 namespace General\NomencladorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 
 /**
  * TipoHab
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="General\NomencladorBundle\Entity\TipoHabRepository")
+ * @DoctrineAssert\UniqueEntity("nombre")
  */
 class TipoHab
 {

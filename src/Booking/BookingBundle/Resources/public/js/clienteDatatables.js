@@ -115,8 +115,9 @@ $clienteTable.addCliente = function () {
                 }
             },
             "json"
-        ).fail(function () {
-                $clienteTable.insertError();
+        ).fail(function (response) {
+                var error = $.parseJSON(response.responseText);
+                $clienteTable.insertError(error.message);
             });
     }
     else {
@@ -150,8 +151,9 @@ $clienteTable.editCliente = function (object) {
                 }
             },
             "json"
-        ).fail(function () {
-                $clienteTable.insertError();
+        ).fail(function (response) {
+                var error = $.parseJSON(response.responseText);
+                $clienteTable.insertError(error.message);
             });
     }
     else {
@@ -176,16 +178,24 @@ $clienteTable.deleteCliente = function (id) {
             }
         },
         "json"
-    ).fail(function () {
-            $clienteTable.insertError();
+    ).fail(function (response) {
+            var error = $.parseJSON(response.responseText);
+            $clienteTable.insertError(error.message);
         });
 };
 
-$clienteTable.insertError = function () {
+$clienteTable.insertError = function (errorText) {
     var $modalView = $('#myModalDialog');
     $modalView.find('.alert.alert-danger').remove();
-    var $error = $('<div class="alert alert-danger"><button class="close" data-dismiss="alert" type="button"></button>Por favor, verifique sus datos.<strong class="icon-remove close"></strong> </div>');
-    $modalView.find('.modal-body').append($error);
+    var $cleanedText = errorText.replace('Object(Booking\\BookingBundle\\Entity\\Cliente).', '');
+    var $nombreErrorText;
+    if ($cleanedText.indexOf('nombre:') != -1)
+        $nombreErrorText = $cleanedText.substring($cleanedText.indexOf('nombre:') + 7, $cleanedText.indexOf('.') + 1);
+    var $nombreError;
+    if ($nombreErrorText != null) {
+        $nombreError = $('<div class="alert alert-danger"><button class="close" data-dismiss="alert" type="button"></button>' + $nombreErrorText + '<strong class="icon-remove close"></strong> </div>');
+    }
+    $modalView.find('#booking_bookingbundle_cliente_nombre').parent().append($nombreError);
     $modalView.find('.close').click(function () {
         $(this).closest('.alert.alert-danger').remove();
     });
