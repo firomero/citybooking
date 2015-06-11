@@ -12,6 +12,11 @@ BookingBundle_cliente:
         resource: "@BookingBundle/Resources/config/routing/cliente.yml"
         prefix:   /cliente
 
+
+BookingBundle_habitacion:
+        resource: "@BookingBundle/Resources/config/routing/habitacion.yml"
+        prefix:   /habitacion
+
 BookingBundle_propietario:
         resource: "@BookingBundle/Resources/config/routing/propietario.yml"
         prefix:   /propietario

@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Booking\ReportBundle\ReportBundle(),
             new General\NomencladorBundle\NomencladorBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

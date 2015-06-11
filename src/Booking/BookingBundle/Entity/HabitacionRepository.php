@@ -1,33 +1,49 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Ruben
- * Date: 29/05/2015
- * Time: 22:55
+ * User: firomero
+ * Date: 5/06/15
+ * Time: 23:33
  */
 
-namespace General\NomencladorBundle\Entity;
+namespace Booking\BookingBundle\Entity;
 
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Orx;
 
-class TipoActividadRepository extends EntityRepository{
-    protected $columns = array('id', 'nombre');
-
+class HabitacionRepository extends EntityRepository{
+    protected $columns = array('id','casa','tipo');
     public function queryEntity($options = array())
     {
+        $columns = &$this->columns;
+
         $em = $this->_em;
-        $qb = $em->getRepository('NomencladorBundle:TipoActividad')
-            ->createQueryBuilder('ta')
+        $qb = $em->getRepository('BookingBundle:Habitacion')
+            ->createQueryBuilder('h')
             ->distinct(true)
-            ->select('ta');
+            ->select('h');
 
         if (array_key_exists('sSearch',$options)) {
             if ($options['sSearch'] != '') {
-                $qb->andWhere(new Orx(array(
-                    $qb->expr()->like('ta.nombre', '\'%' . $options['sSearch'] . '%\'')
-                )));
+                $qb->andWhere(new Orx(
+
+                /**
+                 * @return array
+                 */
+                    call_user_func( function() use ($columns,$qb,$options){
+
+                        $aLike = array();
+
+                        foreach ($columns as $col) {
+
+                            $aLike[] = $qb->expr()->like($col, '\'%' . $options['sSearch']['value'] . '%\'');
+                        }
+
+                        return $aLike;
+                    })
+
+                ));
             }
         }
 
@@ -46,11 +62,11 @@ class TipoActividadRepository extends EntityRepository{
         $result = $qb->getQuery()->getResult();
         $dataExport = array();
 
-        foreach ($result as $ta) {
+        foreach ($result as $r) {
             /**
-             * @var TipoActividad $ta
+             * @var Casa $r
              * */
-            array_push($dataExport, $ta->toArray());
+            array_push($dataExport, $r->toArray());
         }
 
         return $dataExport;
@@ -60,12 +76,12 @@ class TipoActividadRepository extends EntityRepository{
     public function getFilteredCount(array $get)
     {
         /* DB table to use */
-        $tableObjectName = 'NomencladorBundle:TipoActividad';
+        $tableObjectName = 'BookingBundle:Habitacion';
 
         $cb = $this->getEntityManager()
             ->getRepository($tableObjectName)
-            ->createQueryBuilder('ta')
-            ->select("count(ta.id)");
+            ->createQueryBuilder('h')
+            ->select("count(h.id)");
 
         /*
         * Filtering

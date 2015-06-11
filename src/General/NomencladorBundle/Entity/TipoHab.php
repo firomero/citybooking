@@ -26,7 +26,9 @@ class TipoHab
 
     /**
      * @var string
-     *
+     * @Assert\Regex(pattern="/[A-Za-z0-9]/")
+     * @Assert\Length( min =3 )
+     * @Assert\NotBlank(message = "Por favor, escriba el nombre." )
      * @ORM\Column(name="nombre", type="string", length=255)
      */
     private $nombre;
@@ -71,5 +73,10 @@ class TipoHab
             $this->id,
             $this->nombre
         );
+    }
+
+    public function __toString()
+    {
+        return $this->getNombre();
     }
 }

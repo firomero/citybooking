@@ -28,7 +28,7 @@ $casaTable.postDraw = function (){
             var $column = $('<td></td>');
             //Botones
             var $btnGroup = $('<div class="btn-group"></div>');
-            var $btnEditar = $('<button class="btn btn-mini info edit" ></button>')
+            var $btnEditar = $('<button class="btn btn-mini info edit" ></button>');
             $btnEditar.append($('<i class="icon-edit bigger-125"></i>'));
             $btnEditar.attr('data-id',html);
             var $parent = $(this).closest('tr');
@@ -50,7 +50,7 @@ $casaTable.postDraw = function (){
 
             //Eliminar Casa
             $btnEliminar.click(function(){
-                var $acept = $('#doDelete .delete');
+                var $acept = $('#doDelete').find('.delete');
                 var id = $(this).attr('data-id');
                 $acept.click(function(){
                     $casaTable.deleteCasa(id);
@@ -104,10 +104,6 @@ $casaTable.postDraw = function (){
     });
 
 };
-
-$casaTable.addCasa= function(){
-
-}
 
 $casaTable.editCasa= function(object){
     var name = $('#casaText').val();
@@ -167,7 +163,7 @@ $casaTable.deleteCasa = function (id) {
                 $(this).closest('.alert.alert-danger').remove();
             });
         });
-}
+};
 
 $casaTable.insertError=function()
 {
@@ -178,7 +174,7 @@ $casaTable.insertError=function()
     $modalView.find('.close').click(function () {
         $(this).closest('.alert.alert-danger').remove();
     });
-}
+};
 
 $(function(){
     //Adicionar Casa

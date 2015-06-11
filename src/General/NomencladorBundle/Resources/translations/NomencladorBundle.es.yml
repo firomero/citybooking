@@ -12,6 +12,9 @@ nomenclador:
         messages:
             success:
             failed:
+        labels:
+            name: Nombre
+            actions: Acciones
     tipohab:
         header:
             list: Listado de Tipos de Habitaciones
@@ -35,6 +38,25 @@ nomenclador:
             confirm: Información
         actions:
             add: Adicionar Actividad
+        messages:
+            success:
+            failed:
+            confirm: ¿Seguro que desea eliminar el elemento seleccionado.?
+            placeholderAdd: Escriba nombre...
+        labels:
+            name: Nombre
+            actions: Acciones
+        buttons:
+            accept: Aceptar
+            cancel: Cancelar
+
+booking:
+    habitacion:
+        header:
+            list: Listado de habitaciones
+            confirm: Información
+        actions:
+            add: Adicionar habitación
         messages:
             success:
             failed:

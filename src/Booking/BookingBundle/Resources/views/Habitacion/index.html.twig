@@ -1,0 +1,143 @@
+{% extends 'BookingBundle::layout.html.twig' %}
+
+{% block content -%}
+
+    <div class="inner">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        {{ 'booking.habitacion.header.list'|trans({},'BookingBundle') }}
+                        <button class="btn btn-mini pull-right add"
+                                title="{{ 'booking.casa.actions.add'|trans({},'BookingBundle') }}" data-toggle="modal"
+                                data-target="#myEditDialog"><i class="icon-plus"></i>
+                        </button>
+
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table id="tabla" class="table table-striped table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>{{ 'booking.habitacion.labels.house'| trans({}, 'BookingBundle') }}</th>
+                                    <th>{{ 'booking.habitacion.labels.type'| trans({}, 'BookingBundle') }}</th>
+                                    <th>{{ 'booking.habitacion.labels.actions'| trans({}, 'BookingBundle') }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--Modals-->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade"
+         id="myEditDialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h5 id="myModalLabelConfirmar" class="modal-title">{{ 'booking.habitacion.actions.add' | trans({}, 'BookingBundle')  }}</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="se-pre-con hidden"></div>
+                        {% include 'BookingBundle:Habitacion:form.html.twig' with {'form': form} %}
+                    </div>
+                </div>
+
+        </div>
+    </div>
+   </div>
+
+    <!--Edit-->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade"
+         id="myModalDialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h5 id="myModalLabelConfirmar" class="modal-title">{{ 'booking.habitacion.actions.edit' | trans({}, 'BookingBundle')  }}</h5>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Confirm-->
+    <!--Eliminar-->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade"
+         id="doDelete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h5 id="myModalLabelConfirmar" class="modal-title">{{ 'booking.casa.headers.delete' | trans({}, 'BookingBundle')  }}</h5>
+                </div>
+                <div class="modal-body">
+                    {{ 'booking.habitacion.messages.confirm'|trans({}, 'BookingBundle') }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button"
+                            class="btn btn-default delete">{{ 'booking.casa.actions.acept' | trans({}, 'BookingBundle') }}</button>
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">{{ 'booking.casa.actions.cancel' | trans({}, 'BookingBundle') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block JavaScriptInline %}
+    <script type="text/javascript">
+        $(function () {
+            $(document).ready(function () {
+
+                var oTable;
+                oTable = $('#tabla').dataTable(
+                        {
+                            "oLanguage": $language,
+                            "aLengthMenu": [5, 10, 15],
+                            "sPaginationType": "full_numbers",
+                            "pageLength": 10,
+                            "bLengthChange": true,
+                            "processing": true,
+                            "bJQueryUI": true,
+                            "bServerSide": true,
+                            "sAjaxSource": Routing.generate('ajax_habitacion_listar'),
+                            "aoColumns": [
+                                {"bSortable": false},
+                                {'sClass': 'habitacion-text'},
+                                {'sClass': 'habitacion-text'}
+                            ]
+                            ,
+
+                            "drawCallback":$habitacionTable.postDraw
+                        }
+                );
+
+            });
+
+        });
+
+    </script>
+    <script src="{{ asset('bundles/booking/js/habitacionDatatables.js') }}"></script>
+{% endblock JavaScriptInline %}
+
+ {% block  stylesheet %}
+     {{ parent() }}
+     <link href="{{ asset('public/css/loader.css') }}" rel="stylesheet"/>
+ {% endblock stylesheet %}
+

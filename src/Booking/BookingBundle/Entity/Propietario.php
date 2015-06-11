@@ -37,9 +37,9 @@ class Propietario
 
     /**
      * @var string
-     *
+     * @Assert\Length( min =3 )
+     * @Assert\NotBlank(message = "Por favor, escriba el número de identificación." )
      * @Assert\Regex(pattern="/[0-9]/")
-     * @Assert\NotBlank(message = "Por favor, escriba el carnet de identidad." )
      * @ORM\Column(name="ci", type="string", length=255)
      */
     private $ci;

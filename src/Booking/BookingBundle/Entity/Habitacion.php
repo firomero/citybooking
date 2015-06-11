@@ -5,13 +5,15 @@ namespace Booking\BookingBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use General\NomencladorBundle\Entity\TipoHab;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 
 
 /**
  * Habitacion
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Booking\BookingBundle\Entity\HabitacionRepository")
  */
 class Habitacion
 {
@@ -32,9 +34,7 @@ class Habitacion
      *   @ORM\JoinColumn(name="casaid", referencedColumnName="id")
      * })
      */
-    private $casa
-
-    ;
+    private $casa;
 
     /**
      * @var TipoHab
@@ -150,5 +150,17 @@ class Habitacion
     public function getReservaciones()
     {
         return $this->reservaciones;
+    }
+
+    public function toArray(){
+        return array(
+            $this->id,
+            $this->casa->getNombre(),
+            $this->tipo->getNombre()
+        );
+    }
+    public function __toString()
+    {
+        return $this->casa->getNombre().':'.$this->tipo->getNombre();
     }
 }

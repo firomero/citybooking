@@ -27,35 +27,40 @@ class Casa
 
     /**
      * @var string
-     *@Assert\NotBlank(message = "Por favor, escriba la direccion" )
+     * @Assert\Length( min =5 )
+     * @Assert\NotBlank(message = "Por favor, escriba la direccion" )
      * @ORM\Column(name="direccion", type="string", length=255)
      */
     private $direccion;
 
     /**
      * @var string
-     *@Assert\NotBlank(message = "Por favor, escriba el nombre" )
+     * @Assert\Regex(pattern="/[A-Za-z0-9]/")
+     * @Assert\NotBlank(message = "Por favor, escriba el nombre" )
      * @ORM\Column(name="nombre", type="string", length=255)
      */
     private $nombre;
 
     /**
      * @var integer
-     *@Assert\NotBlank(message = "Por favor, escriba el teléfono" )
+     * @Assert\Length(min = 3, max = 15)
+     * @Assert\NotBlank(message = "Por favor, escriba el teléfono" )
      * @ORM\Column(name="telefono", type="integer")
      */
     private $telefono;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message = "Por favor, escriba la categoría")
+     * @Assert\Length(min = 1, max = 2)
      * @ORM\Column(name="categoria", type="string", length=5)
      */
     private $categoria;
 
     /**
      * @var integer
-     *
+     * @Assert\NotBlank(message = "Por favor, escriba la cantidad de habitaciones")
+     * @Assert\GreaterThanOrEqual(value = 1)
      * @ORM\Column(name="cantidadHab", type="integer")
      */
     private $cantidadHab;
@@ -76,7 +81,7 @@ class Casa
 
     /**
      * @var boolean
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="disponible", type="boolean")
      */
     private $disponible;
@@ -350,5 +355,10 @@ class Casa
             $this->disponible,
 
         );
+    }
+
+    public function __toString()
+    {
+        return $this->getNombre();
     }
 }

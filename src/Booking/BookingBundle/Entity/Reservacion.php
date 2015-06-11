@@ -4,6 +4,8 @@ namespace Booking\BookingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use General\NomencladorBundle\Entity\Agencia;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineConstraint;
 
 /**
  * Reservacion
@@ -24,21 +26,22 @@ class Reservacion
 
     /**
      * @var \DateTime
-     *
+     * @Assert\NotBlank(message = "Por favor, escriba la fecha")
+     * @Assert\DateTime()
      * @ORM\Column(name="checkin", type="datetime")
      */
     private $checkin;
 
     /**
      * @var \DateTime
-     *
+     * @Assert\DateTime()
      * @ORM\Column(name="checkout", type="datetime")
      */
     private $checkout;
 
     /**
      * @var integer
-     *
+     * @Assert\GreaterThanOrEqual(value = 0)
      * @ORM\Column(name="noches", type="integer")
      */
     private $noches;
@@ -52,7 +55,7 @@ class Reservacion
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank( message = "Por favor, inserte una habitación")
      * @ORM\Column(name="habitacion", type="string", length=255)
      */
     private $habitacion;
@@ -66,7 +69,7 @@ class Reservacion
 
     /**
      * @var \DateTime
-     *
+     * @Assert\DateTime()
      * @ORM\Column(name="confirmado", type="datetime")
      */
     private $confirmado;

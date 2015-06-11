@@ -7,6 +7,27 @@ booking:
         messages:
             success:
             failed:
+    habitacion:
+        header:
+            list: Listado de habitaciones
+            confirm: Información
+
+        actions:
+            add: Adicionar habitación
+            edit: Editar habitación
+        messages:
+            success:
+            failed:
+            confirm: ¿Seguro que desea eliminar el elemento seleccionado.?
+            placeholderAdd: Escriba nombre...
+        labels:
+            name: Nombre
+            actions: Acciones
+            house: Casa
+            type: Tipo
+        buttons:
+            accept: Aceptar
+            cancel: Cancelar            failed:
     propietario:
         header:
             list: Listado de Propietarios

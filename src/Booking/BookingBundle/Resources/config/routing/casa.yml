@@ -42,6 +42,7 @@ ajax_casa_listar:
     defaults: { _controller: "BookingBundle:Casa:listar" }
     options:
         expose: true
+
 ajax_form:
     path: /form/fetch
     defaults: { _controller: "BookingBundle:Casa:editform" }
