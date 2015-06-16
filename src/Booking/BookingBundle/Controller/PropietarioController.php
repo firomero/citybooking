@@ -6,48 +6,75 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-use Booking\BookingBundle\Entity\Cliente;
-use Booking\BookingBundle\Form\ClienteType;
+use Booking\BookingBundle\Entity\Propietario;
+use Booking\BookingBundle\Form\PropietarioType;
 
 /**
- * Cliente controller.
+ * Propietario controller.
  *
  */
-class ClienteController extends Controller
+class PropietarioController extends Controller
 {
 
     /**
-     * Lists all Cliente entities.
+     * Lists all Propietario entities.
      *
      */
     public function indexAction()
     {
-        $cliente = new Cliente();
+        $propietario = new Propietario();
 
-        $formCliente = $this->createCreateForm($cliente);
+        $formPropietario = $this->createCreateForm($propietario);
 
         return $this->render(
-            'BookingBundle:Cliente:index.html.twig',
+            'BookingBundle:Propietario:index.html.twig',
             array(
-                'formCliente' => $formCliente->createView(),
+                'formPropietario' => $formPropietario->createView(),
             )
         );
     }
 
     /**
-     * Creates a form to create a Cliente entity.
+     * Creates a new Propietario entity.
      *
-     * @param Cliente $entity The entity
+     */
+    public function createAction(Request $request)
+    {
+        $entity = new Propietario();
+        $form = $this->createCreateForm($entity);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('oferta_show', array('id' => $entity->getId())));
+        }
+
+        return $this->render(
+            'BookingBundle:Propietario:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
+    }
+
+    /**
+     * Creates a form to create a Propietario entity.
+     *
+     * @param Propietario $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Cliente $entity)
+    private function createCreateForm(Propietario $entity)
     {
         $form = $this->createForm(
-            new ClienteType(),
+            new PropietarioType(),
             $entity,
             array(
-                'action' => $this->generateUrl('cliente_create'),
+                'action' => $this->generateUrl('oferta_create'),
                 'method' => 'POST',
             )
         );
@@ -58,44 +85,16 @@ class ClienteController extends Controller
     }
 
     /**
-     * Creates a new Cliente entity.
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
-     */
-    public function createAction(Request $request)
-    {
-        $entity = new Cliente();
-        $form = $this->createCreateForm($entity);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('cliente_show', array('id' => $entity->getId())));
-        }
-
-        return $this->render(
-            'BookingBundle:Cliente:new.html.twig',
-            array(
-                'entity' => $entity,
-                'form' => $form->createView(),
-            )
-        );
-    }
-
-    /**
-     * Displays a form to create a new Cliente entity.
+     * Displays a form to create a new Propietario entity.
      *
      */
     public function newAction()
     {
-        $entity = new Cliente();
+        $entity = new Propietario();
         $form = $this->createCreateForm($entity);
 
         return $this->render(
-            'BookingBundle:Cliente:new.html.twig',
+            'BookingBundle:Propietario:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -104,24 +103,23 @@ class ClienteController extends Controller
     }
 
     /**
-     * Finds and displays a Cliente entity.
-     * @param $id
-     * @return Response
+     * Finds and displays a Propietario entity.
+     *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('BookingBundle:Cliente')->find($id);
+        $entity = $em->getRepository('BookingBundle:Propietario')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Cliente entity.');
+            throw $this->createNotFoundException('Unable to find Propietario entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render(
-            'BookingBundle:Cliente:show.html.twig',
+            'BookingBundle:Propietario:show.html.twig',
             array(
                 'entity' => $entity,
                 'delete_form' => $deleteForm->createView(),
@@ -130,41 +128,24 @@ class ClienteController extends Controller
     }
 
     /**
-     * Creates a form to delete a Cliente entity by id.
+     * Displays a form to edit an existing Propietario entity.
      *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('cliente_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm();
-    }
-
-    /**
-     * Displays a form to edit an existing Cliente entity.
-     * @param $id
-     * @return Response
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('BookingBundle:Cliente')->find($id);
+        $entity = $em->getRepository('BookingBundle:Propietario')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Cliente entity.');
+            throw $this->createNotFoundException('Unable to find Propietario entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render(
-            'BookingBundle:Cliente:edit.html.twig',
+            'BookingBundle:Propietario:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -174,19 +155,19 @@ class ClienteController extends Controller
     }
 
     /**
-     * Creates a form to edit a Cliente entity.
+     * Creates a form to edit a Propietario entity.
      *
-     * @param Cliente $entity The entity
+     * @param Propietario $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Cliente $entity)
+    private function createEditForm(Propietario $entity)
     {
         $form = $this->createForm(
-            new ClienteType(),
+            new PropietarioType(),
             $entity,
             array(
-                'action' => $this->generateUrl('cliente_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('oferta_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
@@ -197,19 +178,17 @@ class ClienteController extends Controller
     }
 
     /**
-     * Edits an existing Cliente entity.
-     * @param Request $request
-     * @param $id
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * Edits an existing Propietario entity.
+     *
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('BookingBundle:Cliente')->find($id);
+        $entity = $em->getRepository('BookingBundle:Propietario')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Cliente entity.');
+            throw $this->createNotFoundException('Unable to find Propietario entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -219,11 +198,11 @@ class ClienteController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('cliente_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('oferta_edit', array('id' => $id)));
         }
 
         return $this->render(
-            'BookingBundle:Cliente:edit.html.twig',
+            'BookingBundle:Propietario:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -233,10 +212,8 @@ class ClienteController extends Controller
     }
 
     /**
-     * Deletes a Cliente entity.
-     * @param Request $request
-     * @param $id
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * Deletes a Propietario entity.
+     *
      */
     public function deleteAction(Request $request, $id)
     {
@@ -245,17 +222,33 @@ class ClienteController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('BookingBundle:Cliente')->find($id);
+            $entity = $em->getRepository('BookingBundle:Propietario')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Cliente entity.');
+                throw $this->createNotFoundException('Unable to find Propietario entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('cliente'));
+        return $this->redirect($this->generateUrl('oferta'));
+    }
+
+    /**
+     * Creates a form to delete a Propietario entity by id.
+     *
+     * @param mixed $id The entity id
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm($id)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('oferta_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->getForm();
     }
 
     /*AJAX SOURCE*/
@@ -265,8 +258,8 @@ class ClienteController extends Controller
         $options = $request->query->all();
         try {
 
-            $clientes = $this->getDoctrine()->getRepository('BookingBundle:Cliente')->queryEntity($options);
-            $total = count($this->getDoctrine()->getRepository('BookingBundle:Cliente')->findAll());
+            $propietarios = $this->getDoctrine()->getRepository('BookingBundle:Propietario')->queryEntity($options);
+            $total = count($this->getDoctrine()->getRepository('BookingBundle:Propietario')->findAll());
 
 
             $sEcho = 1;
@@ -287,9 +280,9 @@ class ClienteController extends Controller
                         'sEcho' => $sEcho,
                         'iTotalRecords' => $total,
                         'iTotalDisplayRecords' => $this->getDoctrine()->getRepository(
-                            'BookingBundle:Cliente'
+                            'BookingBundle:Propietario'
                         )->getFilteredCount($options),
-                        'aaData' => $clientes
+                        'aaData' => $propietarios
 
                     )
                 ), 200
@@ -302,27 +295,27 @@ class ClienteController extends Controller
     }
 
     /**
-     * Adiciona un nuevo cliente
+     * Adiciona un nuevo propietario
      * @param Request $request
      * @return Response
      */
     public function adicionarAction(Request $request)
     {
         $name = $request->get('nombre');
-        $reference = $request->get('referencia');
+        $ci = $request->get('ci');
         $validator = $this->get('validator');
-        $cliente = new Cliente();
-        $cliente->setNombre($name);
-        $cliente->setReferencia($reference);
+        $propietario = new Propietario();
+        $propietario->setNombre($name);
+        $propietario->setCi($ci);
 
-        $errors = $validator->validate($cliente);
+        $errors = $validator->validate($propietario);
         if (count($errors) > 0) {
             return new Response(json_encode(array('message' => $errors->__toString())), 400);
         }
         try {
 
             $em = $this->get('doctrine')->getManager();
-            $em->persist($cliente);
+            $em->persist($propietario);
             $em->flush();
 
             return new Response(json_encode(array()), 200);
@@ -332,35 +325,35 @@ class ClienteController extends Controller
     }
 
     /**
-     * Edita un cliente
+     * Edita un propietario
      * @param Request $request
      * @return Response
      */
     public function editarAction(Request $request)
     {
         $name = $request->get('nombre');
-        $reference = $request->get('referencia');
+        $ci = $request->get('ci');
         $id = $request->get('id');
         $em = $this->get('doctrine')->getManager();
-        $cliente = $em->getRepository('BookingBundle:Cliente')->find($id);
+        $propietario = $em->getRepository('BookingBundle:Propietario')->find($id);
 
-        if ($cliente == null) {
+        if ($propietario == null) {
             return new Response(json_encode(array()), 404);
         }
 
-        $cliente->setNombre($name);
-        $cliente->setReferencia($reference);
+        $propietario->setNombre($name);
+        $propietario->setCi($ci);
         $validator = $this->get('validator');
 
 
-        $errors = $validator->validate($cliente);
+        $errors = $validator->validate($propietario);
         if (count($errors) > 0) {
             return new Response(json_encode(array('message' => $errors->__toString())), 400);
         }
         try {
 
 
-            $em->persist($cliente);
+            $em->persist($propietario);
             $em->flush();
 
             return new Response(json_encode(array()), 200);
@@ -379,15 +372,15 @@ class ClienteController extends Controller
 
         $id = $request->get('id');
         $em = $this->get('doctrine')->getManager();
-        $cliente = $em->getRepository('BookingBundle:Cliente')->find($id);
+        $propietario = $em->getRepository('BookingBundle:Propietario')->find($id);
 
-        if ($cliente == null) {
+        if ($propietario == null) {
             return new Response(json_encode(array()), 404);
         }
         try {
 
 
-            $em->remove($cliente);
+            $em->remove($propietario);
             $em->flush();
 
             return new Response(json_encode(array()), 204);

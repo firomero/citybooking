@@ -1,6 +1,5 @@
 $language =
 {
-
 "sProcessing": "Procesando...",
 "sLengthMenu": "Mostrar _MENU_ registros",
 "sZeroRecords": "No se encontraron resultados",
@@ -18,7 +17,12 @@ $language =
 "sFirst": '<span><i class="icon-double-angle-left"></i></span>',
 "sLast": '<span><i class="icon-double-angle-right"></i></span>',
 "sNext": '<span><i class="icon-angle-right"></i></span>',
-"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+"sPrevious": '<span><i class="icon-angle-left"></i></span>',
+},
+"oAria":
+{
+"sSortAscending": ": Activar para ordenar la columna de manera ascendente",
 "sSortDescending": ": Activar para ordenar la columna de manera descendente"
 }
-};
+}
+;

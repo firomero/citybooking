@@ -27,4 +27,12 @@ booking:
             type: Tipo
         buttons:
             accept: Aceptar
-            cancel: Cancelar
+            cancel: Cancelar            failed:
+    propietario:
+        header:
+            list: Listado de Propietarios
+        actions:
+            add: Adicionar Propietario
+        messages:
+            success:
+            failed:

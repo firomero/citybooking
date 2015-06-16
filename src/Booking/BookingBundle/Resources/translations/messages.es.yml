@@ -7,3 +7,11 @@ booking:
         messages:
             success:
             failed:
+    propietario:
+        header:
+            list: Listado de Propietarios
+        actions:
+            add: Adicionar Propietario
+        messages:
+            success:
+            failed:

@@ -361,4 +361,12 @@ class Casa
     {
         return $this->getNombre();
     }
+
+    public function Increment(){
+        $this->cantidadHab++;
+    }
+
+    public function Decrement(){
+        $this->cantidadHab--;
+    }
 }

@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Booking\BookingBundle\Entity\ClienteRepository")
+ * @DoctrineAssert\UniqueEntity("nombre")
  */
 class Cliente
 {
@@ -42,12 +43,14 @@ class Cliente
     private $nombre;
     /**
      * @var string
-     * @Assert\Regex(pattern="/[A-Za-z0-9]/")
-     * @Assert\Length( min =3 )
+     * @Assert\Regex(pattern="/[A-Za-z0-9]/")     *
      * @ORM\Column(name="referencia", type="string", length=255)
      */
     private $referencia;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->actividades = new ArrayCollection();
@@ -135,6 +138,9 @@ class Cliente
         $this->actividades->removeElement($actividades);
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         return array(

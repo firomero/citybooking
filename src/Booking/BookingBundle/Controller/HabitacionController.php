@@ -81,8 +81,7 @@ class HabitacionController extends Controller{
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
-
+            $entity->getCasa()->Increment();
             return $this->redirect($this->generateUrl('habitacion'));
         }
 
@@ -203,6 +202,7 @@ class HabitacionController extends Controller{
                 return new Response('La Habitación no existe',HttpCode::HTTP_RESOURCE_NOTFOUND);
             }
 
+            $entity->getCasa()->Decrement();
             $em->remove($entity);
             $em->flush();
 

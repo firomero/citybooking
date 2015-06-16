@@ -86,7 +86,7 @@ class ReservacionManager {
             ->getResult();
     }
 
-    protected function filterDate($casas, $habitaciones){
+    protected function filtrarCasa($casas, $habitaciones){
         //TODO aqui es comprobar que la casa cumpla los requrimientos de las habitaciones
 
 
