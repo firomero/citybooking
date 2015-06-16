@@ -44,7 +44,6 @@ class Cliente
      * @var string
      * @Assert\Regex(pattern="/[A-Za-z0-9]/")
      * @Assert\Length( min =3 )
-     * @Assert\NotBlank(message = "Por favor, escriba la referencia" )
      * @ORM\Column(name="referencia", type="string", length=255)
      */
     private $referencia;

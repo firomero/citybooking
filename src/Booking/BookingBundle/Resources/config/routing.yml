@@ -17,3 +17,7 @@ BookingBundle_habitacion:
         resource: "@BookingBundle/Resources/config/routing/habitacion.yml"
         prefix:   /habitacion
 
+BookingBundle_reservacion:
+        resource: "@BookingBundle/Resources/config/routing/reservacion.yml"
+        prefix: /reservacion
+

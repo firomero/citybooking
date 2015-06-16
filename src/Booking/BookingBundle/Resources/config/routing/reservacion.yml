@@ -1,0 +1,27 @@
+reservacion_index:
+     pattern: /index
+     defaults: { _controller: "BookingBundle:Reservacion:index" }
+
+reservacion_crear:
+    pattern: /crear
+    defaults: { _controller: "BookingBundle:Reservacion:create"  }
+
+reservacion_actualizar:
+    pattern: /{id}/actuaizar
+    defaults: { _controller: "BookingBundle:Reservacion:update" }
+
+reservacion_cancelar:
+    pattern: /cancelar
+    defaults: { _controller: "BookingBundle:Reservacion:delete" }
+
+reservacion_listar:
+    pattern: /listar
+    defaults: { _controller: "BookingBundle:Reservacion:listar" }
+    options:
+        expose: true
+
+reservacion_mostrar:
+    pattern: /mostrar
+    defaults: { _controller: "BookingBundle:Reservacion:mostrar" }
+    options:
+        expose: true

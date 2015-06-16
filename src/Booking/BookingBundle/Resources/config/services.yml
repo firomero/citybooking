@@ -5,3 +5,19 @@ services:
 #    booking.example:
 #        class: %booking.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+     booking.reservacionmanager:
+	     class: Booking\BookingBundle\Manager\ReservacionManager
+	     arguments: [ "@doctrine.orm.entity_manager" ]
+
+	 booking_bookingbundle.form.agenciaselectortype:
+     	class: Booking\BookingBundle\Form\AgenciaSelectorType
+     	arguments: [ @doctrine.orm.entity_manager ]
+     	tags:
+     		- { name: form.type, alias: agenciaselector_type }
+
+
+     booking_bookingbundle.form.clienteselectortype:
+     	class: Booking\BookingBundle\Form\ClienteSelectorType
+     	arguments: [ @doctrine.orm.entity_manager ]
+     	tags:
+     		- { name: form.type, alias: clienteselector_type }

@@ -2,8 +2,10 @@
 
 namespace Booking\BookingBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use General\NomencladorBundle\Entity\Agencia;
+use General\NomencladorBundle\Entity\TipoHab;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineConstraint;
 
@@ -118,6 +120,16 @@ class Reservacion
      * })
      */
     private $cliente;
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity="\General\NomencladorBundle\Entity\TipoHab)
+     * @ORM\JoinTable(name="tipo_reservacion",
+     *      joinColumns={@ORM\JoinColumn(name="reservacionid", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tipoid", referencedColumnName="id")}
+     * )
+     */
+     protected $tipoHab;
 
 
 
@@ -405,5 +417,39 @@ class Reservacion
     public function getCliente()
     {
         return $this->cliente;
+    }
+
+    public function __construct(){
+        $this->tipoHab = new ArrayCollection();
+    }
+
+    public function addTipoHab(TipoHab $tipoHab){
+
+        $this->tipoHab->add($tipoHab);
+    }
+
+
+    /**
+     * @param TipoHab $tipoHab
+     */
+    public function removeTipoHab(TipoHab $tipoHab){
+
+        $this->tipoHab->remove($tipoHab->getId());
+    }
+
+    public function getTipoHab(){
+        return $this->tipoHab;
+    }
+
+    public function toArray(){
+        return array(
+            $this->id,
+            $this->agencia->getNombre(),
+            $this->cliente->getNombre(),
+            $this->checkin,
+            $this->checkout,
+            $this->precio,
+            $this->casa->getNombre()
+        );
     }
 }
