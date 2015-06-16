@@ -27,8 +27,8 @@ var $td = $('#tabla').find('tbody tr td:first-child');
             $(this).append($input);
             var $column = $('<td></td>');
 	        //Botones
-	        var $btnGroup = $('<div class="btn-group"></div>');	        
-	        var $btnEditar = $('<button class="btn btn-mini info edit" ></button>')
+	        var $btnGroup = $('<div class="btn-group"></div>');
+            var $btnEditar = $('<button class="btn btn-mini info edit" ></button>');
 	        $btnEditar.append($('<i class="icon-edit bigger-125"></i>'));
             $btnEditar.attr('data-id',html);
             var $parent = $(this).closest('tr');
@@ -121,7 +121,7 @@ $agenciaTable.addAgencia= function(){
 
         $agenciaTable.insertError();
     }
-}
+};
 
 $agenciaTable.editAgencia= function(object){
     var name = $('#agenciaText').val();
@@ -154,7 +154,7 @@ $agenciaTable.editAgencia= function(object){
 
         $agenciaTable.insertError();
     }
-}
+};
 
 $agenciaTable.deleteAgencia = function (id) {
      $('.se-pre-con').removeClass('hidden');
@@ -175,7 +175,7 @@ $agenciaTable.deleteAgencia = function (id) {
     ).fail(function () {
             $agenciaTable.insertError();
         });
-}
+};
 
 $agenciaTable.insertError=function()
 {
@@ -186,7 +186,7 @@ $agenciaTable.insertError=function()
     $modalView.find('.close').click(function () {
         $(this).closest('.alert.alert-danger').remove();
     });
-}
+};
 
 $(function(){
     //Adicionar Agencia

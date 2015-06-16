@@ -12,15 +12,15 @@ namespace Booking\BookingBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Orx;
 
-class ClienteRepository extends EntityRepository
+class PropietarioRepository extends EntityRepository
 {
 
-    protected $columns = array('id', 'nombre');
+    protected $columns = array('id', 'nombre', 'ci');
 
     public function queryEntity($options = array())
     {
         $em = $this->_em;
-        $qb = $em->getRepository('BookingBundle:Cliente')
+        $qb = $em->getRepository('BookingBundle:Propietario')
             ->createQueryBuilder('a')
             ->distinct(true)
             ->select('a');
@@ -66,7 +66,7 @@ class ClienteRepository extends EntityRepository
     public function getFilteredCount(array $get)
     {
         /* DB table to use */
-        $tableObjectName = 'BookingBundle:Cliente';
+        $tableObjectName = 'BookingBundle:Propietario';
 
         $cb = $this->getEntityManager()
             ->getRepository($tableObjectName)

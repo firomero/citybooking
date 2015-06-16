@@ -5,11 +5,13 @@ namespace General\NomencladorBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
+
 /**
  * TipoHab
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="General\NomencladorBundle\Entity\TipoHabRepository")
+ * @DoctrineAssert\UniqueEntity("nombre")
  */
 class TipoHab
 {
@@ -26,7 +28,7 @@ class TipoHab
      * @var string
      * @Assert\Regex(pattern="/[A-Za-z0-9]/")
      * @Assert\Length( min =3 )
-     * @Assert\NotBlank(message = "Por favor, escriba el nombre" )
+     * @Assert\NotBlank(message = "Por favor, escriba el nombre." )
      * @ORM\Column(name="nombre", type="string", length=255)
      */
     private $nombre;
