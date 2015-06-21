@@ -256,4 +256,15 @@ class Actividad
     {
         return $this->reservacion;
     }
+
+    public function toArray(){
+        return array(
+            $this->id,
+            $this->tipoActividad->getNombre(),
+            $this->fecha,
+            $this->guia,
+            $this->precioguia,
+            $this->total
+        );
+    }
 }

@@ -1,3 +1,20 @@
 report_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: ReportBundle:Default:index }
+
+reporte_casa:
+    pattern: /casa/reporte
+    defaults: { _controller: ReportBundle:Reporte:reporteCasa }
+    options:
+        expose: true
+reporte_agencia:
+    pattern: /agencia/reporte
+    defaults: { _controller: ReportBundle:Reporte:reporteAgencia }
+    options:
+        expose: true
+
+reporte_actividad:
+    pattern: /actividad/reporte
+    defaults: { _controller: ReportBundle:Reporte:invoiceActivity }
+    options:
+        expose: true
