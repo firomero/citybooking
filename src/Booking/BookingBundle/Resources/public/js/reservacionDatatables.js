@@ -10,12 +10,12 @@
  * hidden.bs.modal
  *
  * */
-var $tipoActividadTable = { };
+var $reservacionTable = { };
 
 
-$tipoActividadTable.postDraw = function (){
+$reservacionTable.postDraw = function (){
 
-    var $td = $('#act_tabla').find('tbody tr td:first-child');
+    var $td = $('#tabla').find('tbody tr td:first-child');
     $td.each(function(){
         if (!$(this).hasClass('dataTables_empty')) {
 
@@ -32,12 +32,12 @@ $tipoActividadTable.postDraw = function (){
             $btnEditar.append($('<i class="icon-edit bigger-125"></i>'));
             $btnEditar.attr('data-id',html);
             var $parent = $(this).closest('tr');
-            var $text = $parent.find('.tipoactividad-text');
+            var $text = $parent.find('.reservacion-text');
             $btnEditar.attr('data-name',$text.html());
 
-            var $btnEliminar = $('<a class="btn btn-mini danger"></a>');
+            var $btnEliminar = $('<button class="btn btn-mini danger"></button>');
             $btnEliminar.attr('data-toggle','modal');
-            $btnEliminar.attr('data-target','#confirm');
+            $btnEliminar.attr('data-target','#doDelete');
             $btnEliminar.attr('data-id',html);
             $btnEliminar.append($('<i class="icon-trash bigger-125"></i>'));
 
@@ -46,36 +46,50 @@ $tipoActividadTable.postDraw = function (){
             $(this).closest('tr').append($column);
             //Events
 
-            //Editar  Actividad
+            //Editar Reservacion
             $('.btn.btn-mini.edit').click(function () {
 
                 var $btnEdit = $(this);
-                var $saveBtn = $('.btn.btn-primary.action');
 
-                $saveBtn.off('click');
-                $saveBtn.click(function () {
-                    $tipoActividadTable.editActividad($btnEdit);
-                });
+
                 var $modalView = $('#myModalDialog');
                 $modalView.modal();
-                $modalView.find('#myModalLabelConfirmar').text('Editar Tipo de Actividad');
-                $modalView.find('#actividadText').val($btnEdit.data('name'));
-                $modalView.on('hide.bs.modal', function () {
-                    $saveBtn.off('click');
-                    $saveBtn.click(function (event) {
-                        $tipoActividadTable.addActividad();
-                    });
-                    $modalView.find('#myModalLabelConfirmar').text('Adicionar Tipo de Actividad');
+                $modalView.find('#myModalLabelConfirmar').text('Editar Reservación');
+                $modalView.on('shown.bs.modal',function(){
+                    $.post(
+                        Routing.generate('reservacion_editar'),
+                        {
+
+                            id:$btnEdit.data('id')
+                        },
+                        function (data, text, response) {
+                            if (response.status == 200) {
+
+                                $('.se-pre-con').addClass('hidden');
+                                $modalView.find('.modal-body').empty();
+                                $modalView.find('.modal-body').append('<div class="se-pre-con hidden"></div>').append(data.form);
+                                $modalView.find('.btn.btn-default.action.edit').click(function(){
+                                    $('.se-pre-con').removeClass('hidden');
+                                    $modalView.find('form').submit();
+
+                                });
+
+                            }
+                        },
+                        "json"
+                    ).fail(function () {
+                            $reservacionTable.insertError();
+                        });
                 });
                 $modalView.modal('show');
             });
 
-            //Eliminar Actividad
+            //Eliminar Reservacion
             $btnEliminar.click(function(){
-                var $acept = $('.btn.btn-primary.delete');
+                var $acept = $('#doDelete').find('.delete');
                 var id = $(this).attr('data-id');
                 $acept.click(function(){
-                    $tipoActividadTable.deleteActividad(id);
+                    $reservacionTable.deleteReservacion(id);
                 });
 
             });
@@ -83,13 +97,13 @@ $tipoActividadTable.postDraw = function (){
     });
 };
 
-$tipoActividadTable.addActividad = function(){
+$reservacionTable.addReservacion = function(){
     var name = $('#actividadText').val();
     var $modalView = $('#myModalDialog');
     if (name != '') {
         $('.se-pre-con').removeClass('hidden');
         $.post(
-            Routing.generate('tipoactividad_ajax_add'),
+            Routing.generate('reservacion_crear'),
             {
                 name: name
             },
@@ -103,48 +117,53 @@ $tipoActividadTable.addActividad = function(){
             },
             "json"
         ).fail(function () {
-                $tipoActividadTable.insertError();
+                $reservacionTable.insertError();
             });
     }
     else {
-        $tipoActividadTable.insertError();
+        $reservacionTable.insertError();
     }
 };
 
-$tipoActividadTable.editActividad = function(object){
-    var name = $('#actividadText').val();
+$reservacionTable.editReservacion = function(object){
+
     var id = $(object).data('id');
     var $modalView = $('#myModalDialog');
-    if (name != '') {
+    if (id != '') {
         $('.se-pre-con').removeClass('hidden');
         $.post(
-            Routing.generate('tipoactividad_ajax_edit'),
+            Routing.generate('reservacion_editar'),
             {
-                name: name,
                 id:id
             },
             function (data, text, response) {
                 if (response.status == 200) {
 
                     $('.se-pre-con').addClass('hidden');
-                    $modalView.modal('hide');
-                    location.reload();
+                    $modalView.find('.modal-body').empty();
+                    $modalView.find('.modal-body').append('<div class="se-pre-con hidden"></div>').append(data.form);
+                    $modalView.find('.btn.btn-default.action.edit').click(function(){
+                        $('.se-pre-con').removeClass('hidden');
+                        $modalView.find('form').submit();
+
+                    });
+
                 }
             },
             "json"
         ).fail(function () {
-                $tipoActividadTable.insertError();
+                $reservacionTable.insertError();
             });
     }
     else {
-        $tipoActividadTable.insertError();
+        $reservacionTable.insertError();
     }
 };
 
-$tipoActividadTable.deleteActividad = function (id) {
+$reservacionTable.deleteReservacion = function (id) {
     $('.se-pre-con').removeClass('hidden');
     $.post(
-        Routing.generate('tipoactividad_ajax_delete'),
+        Routing.generate('reservacion_cancelar'),
         {
             id: id
         },
@@ -152,17 +171,17 @@ $tipoActividadTable.deleteActividad = function (id) {
             if (response.status == 204 || response.status == 200) {
 
                 $('.se-pre-con').addClass('hidden');
-                $('#myModalDialog').modal('hide');
+                $('#doDelete').modal('hide');
                 location.reload();
             }
         },
         "json"
-    ).fail(function () {
-            $tipoActividadTable.insertError();
+    ).fail(function (data, text, response) {
+            $reservacionTable.insertErrorConfirm(data);
         });
 };
 
-$tipoActividadTable.insertError=function()
+$reservacionTable.insertError=function()
 {
     var $modalView = $('#myModalDialog');
     $modalView.find('.alert.alert-danger').remove();
@@ -173,10 +192,21 @@ $tipoActividadTable.insertError=function()
     });
 };
 
+$reservacionTable.insertErrorConfirm=function(data)
+{
+    var $modalView = $('#doDelete');
+    $modalView.find('.alert.alert-danger').remove();
+    var $error = $('<div class="alert alert-danger"><button class="close" data-dismiss="alert" type="button"></button>Ha ocurrido un error.<strong class="icon-remove close"></strong> </div>');
+    $modalView.find('.modal-body').append($error);
+    $modalView.find('.close').click(function () {
+        $(this).closest('.alert.alert-danger').remove();
+    });
+};
+
 $(function(){
-    //Adicionar Actividad
-    var $btnAction = $('.btn.btn-primary.action');
+    //Adicionar Reservacion
+    var $btnAction = $('.btn.btn-default.action');
     $btnAction.click(function(event){
-        $tipoActividadTable.addActividad();
+        $reservacionTable.addReservacion();
     });
 });

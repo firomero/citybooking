@@ -50,7 +50,7 @@ $tipohabTable.postDraw = function () {
             $('.btn.btn-mini.edit').click(function () {
 
                 var $btnEdit = $(this);
-                var $saveBtn = $('.btn.btn-default.action');
+                var $saveBtn = $('.btn.btn-primary.action');
 
                 $saveBtn.off('click');
                 $saveBtn.click(function () {
@@ -63,7 +63,6 @@ $tipohabTable.postDraw = function () {
                 $modalView.on('hide.bs.modal', function () {
                     $saveBtn.off('click');
                     $saveBtn.click(function (event) {
-
                         $tipohabTable.addTipoHab();
                     });
                     $modalView.find('#myModalLabelConfirmar').text('Adicionar Tipo de Habitación');
@@ -73,20 +72,14 @@ $tipohabTable.postDraw = function () {
 
             //Eliminar Tipo de Habitacion
             $btnEliminar.click(function () {
-                var $acept = $('.btn.btn-default.delete');
+                var $acept = $('.btn.btn-primary.delete');
                 var id = $(this).attr('data-id');
                 $acept.click(function () {
                     $tipohabTable.deleteTipoHab(id);
                 });
-
             });
-
-
         }
-
-
     });
-
 };
 
 $tipohabTable.addTipoHab = function () {
@@ -186,7 +179,7 @@ $tipohabTable.insertError = function () {
 
 $(function () {
     //Adicionar Tipo de Habitacion
-    var $btnAction = $('.btn.btn-default.action');
+    var $btnAction = $('.btn.btn-primary.action');
     $btnAction.click(function (event) {
 
         $tipohabTable.addTipoHab();

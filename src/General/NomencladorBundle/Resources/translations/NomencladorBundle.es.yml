@@ -7,11 +7,13 @@ nomenclador:
             actions: Acciones
         actions:
             add: Adicionar Agencia
-            acept: Aceptar
+            accept: Aceptar
             cancel: Cancelar
         messages:
             success:
             failed:
+            confirm: ¿Seguro que desea eliminar el elemento seleccionado.?
+            placeholderAdd: Escriba nombre...
         labels:
             name: Nombre
             actions: Acciones

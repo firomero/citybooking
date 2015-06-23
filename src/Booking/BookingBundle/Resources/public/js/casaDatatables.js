@@ -10,10 +10,10 @@
  * hidden.bs.modal
  *
  * */
-var $casaTable = { };
+var $casaDataTable = { };
 
 
-$casaTable.postDraw = function (){
+$casaDataTable.postDraw = function (){
 
     var $td = $('#tabla').find('tbody tr td:first-child');
     $td.each(function(){
@@ -53,7 +53,7 @@ $casaTable.postDraw = function (){
                 var $acept = $('#doDelete').find('.delete');
                 var id = $(this).attr('data-id');
                 $acept.click(function(){
-                    $casaTable.deleteCasa(id);
+                    $casaDataTable.deleteCasa(id);
                 });
 
             });
@@ -105,7 +105,7 @@ $casaTable.postDraw = function (){
 
 };
 
-$casaTable.editCasa= function(object){
+$casaDataTable.editCasa= function(object){
     var name = $('#casaText').val();
     var id = $(object).data('id');
     var $modalView = $('#myModalDialog');
@@ -129,16 +129,16 @@ $casaTable.editCasa= function(object){
             },
             "json"
         ).fail(function () {
-                $casaTable.insertError();
+                $casaDataTable.insertError();
             });
     }
     else {
 
-        $casaTable.insertError();
+        $casaDataTable.insertError();
     }
 }
 
-$casaTable.deleteCasa = function (id) {
+$casaDataTable.deleteCasa = function (id) {
     $('.se-pre-con').removeClass('hidden');
     $.post(
         Routing.generate('casa_delete'),
@@ -165,7 +165,7 @@ $casaTable.deleteCasa = function (id) {
         });
 };
 
-$casaTable.insertError=function()
+$casaDataTable.insertError=function()
 {
     var $modalView = $('#myModalDialog');
     $modalView.find('.alert.alert-danger').remove();
@@ -199,7 +199,7 @@ $(function(){
     //        $('#myModalDialog').modal('hide');
     //        window.location.reload();
     //    }).fail(function(data){
-    //        $casaTable.insertError();
+    //        $casaDataTable.insertError();
     //    })
     //});
 });
