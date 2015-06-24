@@ -123,7 +123,7 @@ class Reservacion
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="\General\NomencladorBundle\Entity\TipoHab)
+     * @ORM\ManyToMany(targetEntity="\General\NomencladorBundle\Entity\TipoHab")
      * @ORM\JoinTable(name="tipo_reservacion",
      *      joinColumns={@ORM\JoinColumn(name="reservacionid", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tipoid", referencedColumnName="id")}

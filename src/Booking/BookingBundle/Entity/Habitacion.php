@@ -49,7 +49,7 @@ class Habitacion
 
     /**
      * @ORM\ManyToMany(targetEntity="Reservacion")
-     * @ORM\JoinTable(name="tipo_reservacion",
+     * @ORM\JoinTable(name="ntipo_habitacion",
      *      joinColumns={@ORM\JoinColumn(name="tipoid", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="reservacionid", referencedColumnName="id")}
      * )
