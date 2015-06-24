@@ -98,7 +98,7 @@ $reservacionTable.postDraw = function (){
 };
 
 $reservacionTable.addReservacion = function(){
-    var name = $('#actividadText').val();
+    var name = $('#reservacionText').val();
     var $modalView = $('#myModalDialog');
     if (name != '') {
         $('.se-pre-con').removeClass('hidden');

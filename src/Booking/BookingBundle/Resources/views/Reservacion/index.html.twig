@@ -72,7 +72,15 @@
                     <h5 id="myModalLabelConfirmar" class="modal-title">{{ 'booking.reservacion.actions.edit' | trans({}, 'BookingBundle')  }}</h5>
                 </div>
                 <div class="modal-body">
-
+                    {% if edit_form is defined %}
+                        {% include 'BookingBundle:Casa:edit.html.twig' with {'edit_form': edit_form} %}
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button"
+                            class="btn btn-default action edit">{{ 'booking.reservacion.buttons.accept' | trans({}, 'BookingBundle') }}</button>
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">{{ 'booking.reservacion.buttons.cancel' | trans({}, 'BookingBundle') }}</button>
                 </div>
             </div>
         </div>
@@ -143,6 +151,7 @@
 
  {% block  stylesheet %}
      {{ parent() }}
+     <link href="{{ asset('bundles/nomenclador/css/agencia.css') }}" rel="stylesheet"/>
      <link href="{{ asset('public/css/loader.css') }}" rel="stylesheet"/>
  {% endblock stylesheet %}
 
