@@ -35,6 +35,13 @@ class TipoHab
 
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="peso", type="integer")
+     */
+    private $peso;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -65,6 +72,25 @@ class TipoHab
     public function getNombre()
     {
         return $this->nombre;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPeso()
+    {
+        return $this->peso;
+    }
+
+    /**
+     * @param int $peso
+     * @return TipoHab
+     */
+    public function setPeso($peso)
+    {
+        $this->peso = $peso;
+
+        return $this;
     }
 
     public function toArray()
