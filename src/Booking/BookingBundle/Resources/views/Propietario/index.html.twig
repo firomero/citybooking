@@ -47,26 +47,26 @@
                 {{ form_start(formPropietario) }}
                 <div class="modal-header">
                     <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                    <h5 id="myModalLabelConfirmar" class="modal-title">Adicionar Propietario</h5>
+                    <h5 id="myModalLabelConfirmar" class="modal-title">{{ 'booking.propietario.actions.add'|trans({},'BookingBundle') }}</h5>
                 </div>
                 <div class="modal-body">
                     <div class="se-pre-con hide"></div>
                     <div class="control-group mensajes">
-                        <label for="booking_bookingbundle_propietario_nombre">Nombre: </label>
-                        {{ form_widget(formPropietario.nombre) }}
+                        <label for="booking_bookingbundle_propietario_nombre">{{ 'booking.propietario.labels.name'|trans({},'BookingBundle') }} </label>
+                        {{ form_widget(formPropietario.nombre,{'attr':{'class':'form-control'}}) }}
                     </div>
                     <br/>
 
                     <div class="se-pre-con hide"></div>
                     <div class="control-group mensajes">
-                        <label for="booking_bookingbundle_propietario_ci">C. I.: </label>
-                        {{ form_widget(formPropietario.ci) }}
+                        <label for="booking_bookingbundle_propietario_ci">{{ 'booking.propietario.labels.ci'|trans({},'BookingBundle') }} </label>
+                        {{ form_widget(formPropietario.ci,{'attr':{'class':'form-control'}}) }}
                     </div>
                     <br/>
 
                     <div class="control-group">
-                        <button type="button" class="btn btn-default action">Aceptar</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary action">{{ 'booking.propietario.buttons.accept'|trans({},'BookingBundle') }}</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">{{ 'booking.propietario.buttons.cancel'|trans({},'BookingBundle') }}</button>
                     </div>
                 </div>
                 {% do formPropietario.submit.setRendered %}
@@ -84,7 +84,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                    <h3 id="myModalLabelConfirmar">Información</h3>
+                    <h3 id="myModalLabelConfirmar">{{ 'booking.propietario.header.info'|trans({},'BookingBundle') }}</h3>
                 </div>
                 <div class="modal-body">
                     <div class="se-pre-con hide"></div>

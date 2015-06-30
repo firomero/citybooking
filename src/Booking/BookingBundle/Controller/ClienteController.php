@@ -73,16 +73,10 @@ class ClienteController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('cliente_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('cliente'));
         }
 
-        return $this->render(
-            'BookingBundle:Cliente:new.html.twig',
-            array(
-                'entity' => $entity,
-                'form' => $form->createView(),
-            )
-        );
+        return $this->redirect($this->generateUrl('cliente'));
     }
 
     /**
@@ -94,13 +88,7 @@ class ClienteController extends Controller
         $entity = new Cliente();
         $form = $this->createCreateForm($entity);
 
-        return $this->render(
-            'BookingBundle:Cliente:new.html.twig',
-            array(
-                'entity' => $entity,
-                'form' => $form->createView(),
-            )
-        );
+        return $this->redirect($this->generateUrl('cliente'));
     }
 
     /**
@@ -120,13 +108,7 @@ class ClienteController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render(
-            'BookingBundle:Cliente:show.html.twig',
-            array(
-                'entity' => $entity,
-                'delete_form' => $deleteForm->createView(),
-            )
-        );
+        return $this->redirect($this->generateUrl('cliente'));
     }
 
     /**
@@ -163,14 +145,7 @@ class ClienteController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render(
-            'BookingBundle:Cliente:edit.html.twig',
-            array(
-                'entity' => $entity,
-                'edit_form' => $editForm->createView(),
-                'delete_form' => $deleteForm->createView(),
-            )
-        );
+        return $this->redirect($this->generateUrl('cliente'));
     }
 
     /**
@@ -222,14 +197,7 @@ class ClienteController extends Controller
             return $this->redirect($this->generateUrl('cliente_edit', array('id' => $id)));
         }
 
-        return $this->render(
-            'BookingBundle:Cliente:edit.html.twig',
-            array(
-                'entity' => $entity,
-                'edit_form' => $editForm->createView(),
-                'delete_form' => $deleteForm->createView(),
-            )
-        );
+        return $this->redirect($this->generateUrl('cliente'));
     }
 
     /**

@@ -49,7 +49,7 @@ class PropietarioController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('oferta_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('propietario_show', array('id' => $entity->getId())));
         }
 
         return $this->render(
@@ -74,7 +74,7 @@ class PropietarioController extends Controller
             new PropietarioType(),
             $entity,
             array(
-                'action' => $this->generateUrl('oferta_create'),
+                'action' => $this->generateUrl('propietario_create'),
                 'method' => 'POST',
             )
         );
@@ -118,13 +118,7 @@ class PropietarioController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render(
-            'BookingBundle:Propietario:show.html.twig',
-            array(
-                'entity' => $entity,
-                'delete_form' => $deleteForm->createView(),
-            )
-        );
+        return $this->redirect($this->generateUrl('propietario'));
     }
 
     /**
@@ -144,14 +138,7 @@ class PropietarioController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render(
-            'BookingBundle:Propietario:edit.html.twig',
-            array(
-                'entity' => $entity,
-                'edit_form' => $editForm->createView(),
-                'delete_form' => $deleteForm->createView(),
-            )
-        );
+        return $this->redirect($this->generateUrl('propietario'));
     }
 
     /**
@@ -167,7 +154,7 @@ class PropietarioController extends Controller
             new PropietarioType(),
             $entity,
             array(
-                'action' => $this->generateUrl('oferta_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('propietario_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
@@ -198,17 +185,10 @@ class PropietarioController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('oferta_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('propietario_edit', array('id' => $id)));
         }
 
-        return $this->render(
-            'BookingBundle:Propietario:edit.html.twig',
-            array(
-                'entity' => $entity,
-                'edit_form' => $editForm->createView(),
-                'delete_form' => $deleteForm->createView(),
-            )
-        );
+        return $this->redirect($this->generateUrl('propietario'));
     }
 
     /**
@@ -232,7 +212,7 @@ class PropietarioController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('oferta'));
+        return $this->redirect($this->generateUrl('propietario'));
     }
 
     /**
@@ -245,7 +225,7 @@ class PropietarioController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('oferta_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('propietario_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm();

@@ -2,11 +2,18 @@ booking:
     cliente:
         header:
             list: Listado de Clientes
+            info: Información
         actions:
             add: Adicionar Cliente
         messages:
-            success:
-            failed:
+            success: exito
+            failed: failed
+        labels:
+            name: Nombre
+            reference: Referencia
+        buttons:
+            acept: Aceptar
+            cancel: Cancelar
     habitacion:
         header:
             list: Listado de habitaciones
@@ -15,6 +22,7 @@ booking:
         actions:
             add: Adicionar habitación
             edit: Editar habitación
+            delete: Eliminar
         messages:
             success:
             failed:
@@ -49,12 +57,42 @@ booking:
             house: Casa
         buttons:
             accept: Aceptar
-            cancel: Cancelar            failed:
+            cancel: Cancelar
     propietario:
         header:
             list: Listado de Propietarios
+            info: Información
         actions:
             add: Adicionar Propietario
+        labels:
+            name: Nombre
+            ci: CI
+            actions: Acciones
+        messages:
+            success: éxitoi
+            failed:  fallido
+        buttons:
+            accept: Aceptar
+            cancel: Cancelar
+
+    casa:
+        header:
+            list: Listado de casas
+            confirm: Información
+        actions:
+            add: Adicionar reservación
+            edit: Editar reservación
         messages:
             success:
             failed:
+            confirm: ¿Seguro que desea eliminar el elemento seleccionado.?
+            placeholderAdd: Escriba nombre...
+        table:
+            name: Nombre
+            address: Dirección
+            phone: Teléfono
+            available: Disponible
+            actions: Acciones
+        buttons:
+            accept: Aceptar
+            cancel: Cancelar

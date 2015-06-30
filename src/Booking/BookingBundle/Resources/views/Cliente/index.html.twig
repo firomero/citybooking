@@ -47,26 +47,26 @@
                 {{ form_start(formCliente) }}
                 <div class="modal-header">
                     <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                    <h5 id="myModalLabelConfirmar" class="modal-title">Adicionar Cliente</h5>
+                    <h5 id="myModalLabelConfirmar" class="modal-title">{{ 'booking.cliente.actions.add' |trans({},'BookingBundle') }}</h5>
                 </div>
                 <div class="modal-body">
                     <div class="se-pre-con hide"></div>
                     <div class="control-group mensajes">
-                        <label for="booking_bookingbundle_cliente_nombre">Nombre: </label>
-                        {{ form_widget(formCliente.nombre) }}
+                        <label for="booking_bookingbundle_cliente_nombre">{{ 'booking.cliente.labels.name' |trans({},'BookingBundle') }} </label>
+                        {{ form_widget(formCliente.nombre,{'attr': {'class':'form-control' }}) }}
                     </div>
                     <br/>
 
                     <div class="se-pre-con hide"></div>
                     <div class="control-group mensajes">
-                        <label for="booking_bookingbundle_cliente_referencia">Referencia: </label>
-                        {{ form_widget(formCliente.referencia) }}
+                        <label for="booking_bookingbundle_cliente_referencia">{{ 'booking.cliente.labels.reference' |trans({},'BookingBundle') }} </label>
+                        {{ form_widget(formCliente.referencia,{'attr': {'class':'form-control' }}) }}
                     </div>
                     <br/>
 
                     <div class="control-group">
-                        <button type="button" class="btn btn-default action">Aceptar</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary action">{{ 'booking.cliente.buttons.acept' |trans({},'BookingBundle') }}</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">{{ 'booking.cliente.buttons.cancel' |trans({},'BookingBundle') }}</button>
                     </div>
                 </div>
                 {% do formCliente.actividades.setRendered %}

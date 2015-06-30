@@ -9,3 +9,8 @@
  {% block  stylesheet %}
      <link href="{{asset('public/plugins/dataTables/dataTables.bootstrap.css')}}" rel="stylesheet" />
  {% endblock stylesheet %}
+
+{% block menu %}
+    {{ knp_menu_render('BookingBundle:BookingBuilder:mainMenu') }}
+    </div>
+{% endblock %}

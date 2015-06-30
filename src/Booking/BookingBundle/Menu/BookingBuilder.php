@@ -45,9 +45,31 @@ class BookingBuilder extends ContainerAware{
         ))->setAttribute('icon', 'icon-book');
 
         $menu->addChild('Gestión de Propietario', array(
-            'route' => 'oferta',
+            'route' => 'propietario',
 
         ))->setAttribute('icon', 'icon-lock');
+
+        $menu->addChild('', array(
+
+
+        ))->setAttribute('class', 'divider');
+
+        $menu->addChild('Gestión de Agencia', array(
+            'route' => 'agencia',
+
+        ))->setAttribute('icon', 'icon-globe');
+
+        $menu->addChild('Gestión de Tipo de Actividad', array(
+            'route' => 'tipoactividad',
+
+        ))->setAttribute('icon', 'icon-gamepad');
+
+        $menu->addChild('Gestión de Tipo de Habitación', array(
+            'route' => 'tipohab',
+
+        ))->setAttribute('icon', 'icon-star');
+
+
 
 
         return $menu;

@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 reservacion_index:
      pattern: /index
      defaults: { _controller: "BookingBundle:Reservacion:index" }
@@ -26,13 +26,13 @@ reservacion_mostrar:
     defaults: { _controller: "BookingBundle:Reservacion:mostrar" }
     options:
         expose: true
-=======
-# the yml style configuration data
- reservacion_index: página principal, te da el formulario de nuevo (form)
- reservacion_listar: el listado de reservaciones[agencia, cliente, check in, check out, precio, casa]
- reservacion_mostrar: todos los datos de una reservacion(me envias un id, y te devuelvo el objeto completo)
- reservacion_crear: hacia donde apunta el formulario de crear nueva reservacion
- reservacion_editar: aqui te envio el formulario editar, me tienes que enviar el id de la reservacion
- reservacion_actualizar: hacia donde apunta el submit de los datos del formulario editar
- reservacion_cancelar: se cancela una reservacion, me envias el id
->>>>>>> odin/odin
+#=======
+## the yml style configuration data
+# reservacion_index: página principal, te da el formulario de nuevo (form)
+# reservacion_listar: el listado de reservaciones[agencia, cliente, check in, check out, precio, casa]
+# reservacion_mostrar: todos los datos de una reservacion(me envias un id, y te devuelvo el objeto completo)
+# reservacion_crear: hacia donde apunta el formulario de crear nueva reservacion
+# reservacion_editar: aqui te envio el formulario editar, me tienes que enviar el id de la reservacion
+# reservacion_actualizar: hacia donde apunta el submit de los datos del formulario editar
+# reservacion_cancelar: se cancela una reservacion, me envias el id
+#>>>>>>> odin/odin

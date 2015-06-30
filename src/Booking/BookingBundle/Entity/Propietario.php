@@ -112,4 +112,8 @@ class Propietario
     {
         return $this->ci;
     }
+
+    public function __toString(){
+        return $this->nombre;
+    }
 }

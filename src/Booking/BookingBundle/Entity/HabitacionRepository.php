@@ -64,7 +64,7 @@ class HabitacionRepository extends EntityRepository{
 
         foreach ($result as $r) {
             /**
-             * @var Casa $r
+             * @var Habitacion $r
              * */
             array_push($dataExport, $r->toArray());
         }
