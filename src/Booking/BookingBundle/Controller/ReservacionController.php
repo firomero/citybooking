@@ -9,6 +9,7 @@
 namespace Booking\BookingBundle\Controller;
 
 
+<<<<<<< HEAD
 use Booking\BookingBundle\Entity\Reservacion;
 use Booking\BookingBundle\Form\ReservacionType;
 use Booking\BookingBundle\Manager\ReservacionManager;
@@ -255,5 +256,11 @@ class ReservacionController extends Controller{
             return new Response($e->getMessage(),HttpCode::HTTP_SERVER_ERROR);
         }
     }
+=======
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+class ReservacionController extends Controller{
+
+>>>>>>> odin/odin
 
 } 

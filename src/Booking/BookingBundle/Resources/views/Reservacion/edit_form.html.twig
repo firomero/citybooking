@@ -1,0 +1,56 @@
+<form class="ajaxForm" method="post"
+      action="{{ path('habitacion_actualizar',{ id: entity.id }) }}"  {{ form_enctype(edit_form) }}>
+
+    <div class="form-group">
+        {{ form_label(edit_form.casa, 'booking.habitacion.labels.house'| trans({}, 'BookingBundle') ) }}
+
+        {{ form_widget(edit_form.casa,{'attr':{ 'class': 'form-control' }}) }}
+
+    </div>
+    <div class="form-group">
+        {{ form_label(edit_form.tipo, 'booking.habitacion.labels.type' | trans({}, 'BookingBundle') ) }}
+
+        {{ form_widget(edit_form.tipo,{'attr':{ 'class': 'form-control' }}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.client, 'booking.reservacion.table.client' | trans({}, 'BookingBundle') ) }}
+
+        {{ form_widget(form.client,{'attr':{ 'class': 'form-control' }}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.checkin, 'booking.reservacion.table.checkin' | trans({}, 'BookingBundle') ) }}
+
+        {{ form_widget(form.checkin,{'attr':{ 'class': 'form-control' }}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.checkout, 'booking.reservacion.table.checkout' | trans({}, 'BookingBundle') ) }}
+
+        {{ form_widget(form.checkout,{'attr':{ 'class': 'form-control' }}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.price, 'booking.reservacion.table.price' | trans({}, 'BookingBundle') ) }}
+
+        {{ form_widget(form.price,{'attr':{ 'class': 'form-control' }}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.house, 'booking.reservacion.table.house' | trans({}, 'BookingBundle') ) }}
+
+        {{ form_widget(form.house,{'attr':{ 'class': 'form-control' }}) }}
+    </div>
+
+    <div class="form-group">
+        <button type="submit"
+                class="btn btn-default action edit">{{ 'booking.casa.actions.acept' | trans({}, 'BookingBundle') }}</button>
+        <button type="button" class="btn btn-default"
+                data-dismiss="modal">{{ 'booking.casa.actions.cancel' | trans({}, 'BookingBundle') }}</button>
+    </div>
+
+
+    {{ form_rest(edit_form) }}
+
+</form>

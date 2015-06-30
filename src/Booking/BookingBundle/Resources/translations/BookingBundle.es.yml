@@ -27,6 +27,28 @@ booking:
             type: Tipo
         buttons:
             accept: Aceptar
+            cancel: Cancelar
+    reservacion:
+        header:
+            list: Listado de reservaciones
+            confirm: Información
+        actions:
+            add: Adicionar reservación
+            edit: Editar reservación
+        messages:
+            success:
+            failed:
+            confirm: ¿Seguro que desea eliminar el elemento seleccionado.?
+            placeholderAdd: Escriba nombre...
+        table:
+            agency: Agencia
+            client: Cliente
+            checkin: Check in
+            checkout: Check out
+            price: Precio
+            house: Casa
+        buttons:
+            accept: Aceptar
             cancel: Cancelar            failed:
     propietario:
         header:

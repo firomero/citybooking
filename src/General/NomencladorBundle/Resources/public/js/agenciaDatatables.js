@@ -48,9 +48,8 @@ var $td = $('#tabla').find('tbody tr td:first-child');
 
              //Editar  Agencia
             $('.btn.btn-mini.edit').click(function () {
-
                 var $btnEdit = $(this);
-                var $saveBtn = $('.btn.btn-default.action');
+                var $saveBtn = $('.btn.btn-primary.action');
 
                 $saveBtn.off('click');
                 $saveBtn.click(function () {
@@ -63,7 +62,7 @@ var $td = $('#tabla').find('tbody tr td:first-child');
                 $modalView.on('hide.bs.modal', function () {
                     $saveBtn.off('click');
                     $saveBtn.click(function (event) {
-
+                        //console.log("Le diste clic");
                         $agenciaTable.addAgencia();
                     });
                     $modalView.find('#myModalLabelConfirmar').text('Adicionar Agencia');
@@ -73,23 +72,14 @@ var $td = $('#tabla').find('tbody tr td:first-child');
 
             //Eliminar Agencia
             $btnEliminar.click(function(){
-                var $acept = $('.btn.btn-default.delete');
+                var $acept = $('.btn.btn-primary.delete');
                 var id = $(this).attr('data-id');
                 $acept.click(function(){
                     $agenciaTable.deleteAgencia(id);
                 });
-
             });
-
-
-
-	        
         }
-
-
-
     });
-
 };
 
 $agenciaTable.addAgencia= function(){
@@ -104,12 +94,9 @@ $agenciaTable.addAgencia= function(){
             },
             function (data, text, response) {
                 if (response.status == 200) {
-
                     $('.se-pre-con').addClass('hidden');
                     $modalView.modal('hide');
                     location.reload();
-
-
                 }
             },
             "json"
@@ -118,7 +105,6 @@ $agenciaTable.addAgencia= function(){
             });
     }
     else {
-
         $agenciaTable.insertError();
     }
 };
@@ -137,12 +123,9 @@ $agenciaTable.editAgencia= function(object){
             },
             function (data, text, response) {
                 if (response.status == 200) {
-
                     $('.se-pre-con').addClass('hidden');
                     $modalView.modal('hide');
                     location.reload();
-
-
                 }
             },
             "json"
@@ -151,7 +134,6 @@ $agenciaTable.editAgencia= function(object){
             });
     }
     else {
-
         $agenciaTable.insertError();
     }
 };
@@ -165,7 +147,6 @@ $agenciaTable.deleteAgencia = function (id) {
         },
         function (data, text, response) {
             if (response.status == 204 || response.status == 200) {
-
                 $('.se-pre-con').addClass('hidden');
                 $('#myModalDialog').modal('hide');
                 location.reload();
@@ -190,9 +171,8 @@ $agenciaTable.insertError=function()
 
 $(function(){
     //Adicionar Agencia
-    var $btnAction = $('.btn.btn-default.action');
+    var $btnAction = $('.btn.btn-primary.action');
     $btnAction.click(function(event){
-
         $agenciaTable.addAgencia();
     });
 });

@@ -1,0 +1,50 @@
+<div class="col-lg-4 col-md-4">
+    <div class="col-md-12">{{ form_errors(form) }}</div>
+    <form class="ajaxForm" method="post" action="{{ path('reservacion_crear') }}"  {{ form_enctype(form) }}>
+
+        <div class="form-group">
+            {{ form_label(form.agency, 'booking.reservacion.table.agency'| trans({}, 'BookingBundle') ) }}
+
+                {{ form_widget(form.agency,{'attr':{ 'class': 'form-control' }}) }}
+
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.client, 'booking.reservacion.table.client' | trans({}, 'BookingBundle') ) }}
+
+                {{ form_widget(form.client,{'attr':{ 'class': 'form-control' }}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.checkin, 'booking.reservacion.table.checkin' | trans({}, 'BookingBundle') ) }}
+
+            {{ form_widget(form.checkin,{'attr':{ 'class': 'form-control' }}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.checkout, 'booking.reservacion.table.checkout' | trans({}, 'BookingBundle') ) }}
+
+            {{ form_widget(form.checkout,{'attr':{ 'class': 'form-control' }}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.price, 'booking.reservacion.table.price' | trans({}, 'BookingBundle') ) }}
+
+            {{ form_widget(form.price,{'attr':{ 'class': 'form-control' }}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.house, 'booking.reservacion.table.house' | trans({}, 'BookingBundle') ) }}
+
+            {{ form_widget(form.house,{'attr':{ 'class': 'form-control' }}) }}
+        </div>
+
+        <div  class="form-group">
+            <button type="submit"
+                    class="btn btn-primary action edit">{{ 'booking.reservacion.buttons.accept' | trans({}, 'BookingBundle') }}</button>
+            <button type="button" class="btn btn-default"
+                    data-dismiss="modal">{{ 'booking.reservacion.buttons.cancel' | trans({}, 'BookingBundle') }}</button>
+        </div>
+        {{ form_rest(form) }}
+    </form>
+</div>

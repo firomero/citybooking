@@ -46,7 +46,7 @@
                 {{ form_start(formTipoHab) }}
                 <div class="modal-header">
                     <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                    <h5 id="myModalLabelConfirmar" class="modal-title">Adicionar Tipo de Habitaci&oacute;n</h5>
+                    <h5 id="myModalLabelConfirmar" class="modal-title">{{ 'nomenclador.tipohab.actions.add'|trans({},'NomencladorBundle') }}</h5>
                 </div>
                 <div class="modal-body">
                     <div class="se-pre-con hide"></div>
@@ -57,8 +57,8 @@
                     <br/>
 
                     <div class="control-group">
-                        <button type="button" class="btn btn-default action">Aceptar</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary action">Aceptar</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
                     </div>
                 </div>
                 {% do formTipoHab.submit.setRendered %}
@@ -84,8 +84,8 @@
                         ¿Seguro que desea eliminar el elemento seleccionado.?
                     </div>
                     <div class="control-group">
-                        <button type="button" class="btn btn-default delete">Aceptar</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary delete">Aceptar</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
                     </div>
                 </div>
             </div>
@@ -101,7 +101,6 @@
     <script type="text/javascript">
         $(function () {
             $(document).ready(function () {
-
                 var oTable;
                 oTable = $('#tabla').dataTable(
                         {
@@ -120,9 +119,7 @@
                             "drawCallback": $tipohabTable.postDraw
                         }
                 );
-
             });
-
         });
 
     </script>
