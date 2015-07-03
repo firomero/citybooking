@@ -58,9 +58,7 @@ class Casa
     private $categoria;
 
     /**
-     * @var integer
-     * @Assert\NotBlank(message = "Por favor, escriba la cantidad de habitaciones")
-     * @Assert\GreaterThanOrEqual(value = 1)
+     * @var integer     *
      * @ORM\Column(name="cantidadHab", type="integer")
      */
     private $cantidadHab;
@@ -349,6 +347,8 @@ class Casa
     {
 //        $columns = array('nombre','direccion','telefono','categoria','cantidadHab','clima','banno','disponible','observacion');
         return array(
+
+            $this->id,
             $this->nombre,
             $this->direccion,
             $this->telefono,

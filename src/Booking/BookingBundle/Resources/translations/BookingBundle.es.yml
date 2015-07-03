@@ -18,7 +18,6 @@ booking:
         header:
             list: Listado de habitaciones
             confirm: Información
-
         actions:
             add: Adicionar habitación
             edit: Editar habitación
@@ -79,6 +78,7 @@ booking:
         header:
             list: Listado de casas
             confirm: Información
+            roomlist: Gestión de Habitaciones
         actions:
             add: Adicionar reservación
             edit: Editar reservación
@@ -93,6 +93,16 @@ booking:
             phone: Teléfono
             available: Disponible
             actions: Acciones
+        labels:
+            name: Nombre
+            category: Categoría
+            address: Dirección
+            phone: Teléfono
+            air:  Clima
+            bath: Baño
+            available: Disponible
+            description: Descripción
+            owner: Propietario
         buttons:
             accept: Aceptar
             cancel: Cancelar

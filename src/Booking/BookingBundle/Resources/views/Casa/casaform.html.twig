@@ -1,77 +1,71 @@
-<div class="col-lg-4 col-md-4">
+
     <div class="col-md-12">{{ form_errors(form) }}</div>
     <form class="ajaxForm" method="post" action="{{ path('casa_create') }}"  {{ form_enctype(form) }}>
         <div class="control-group">
-            {{ form_label(form.nombre, 'booking.casa.table.name'| trans({}, 'BookingBundle')  ,{'label_attr':{ 'class': 'control-label' }}) }}
-            <div class="controls">
-                {{ form_widget(form.nombre) }}
-            </div>
+            {{ form_label(form.nombre, 'booking.casa.labels.name'| trans({}, 'BookingBundle') ) }}
+
+                {{ form_widget(form.nombre,{'attr':{'class':'form-control'}}) }}
+
         </div>
         <div class="control-group">
-            {{ form_label(form.direccion, 'booking.casa.table.address' | trans({}, 'BookingBundle')  ,{'label_attr':{ 'class': 'control-label' }}) }}
-            <div class="controls">
-                {{ form_widget(form.direccion) }}
-            </div>
+            {{ form_label(form.direccion, 'booking.casa.labels.address' | trans({}, 'BookingBundle')  ) }}
+
+                {{ form_widget(form.direccion,{'attr':{'class':'form-control'}}) }}
+
         </div>
 
         <div class="control-group">
-            {{ form_label(form.telefono, 'booking.casa.table.phone' | trans({}, 'BookingBundle')  ,{'label_attr':{ 'class': 'control-label' }}) }}
-            <div class="controls">
-                {{ form_widget(form.telefono) }}
-            </div>
+            {{ form_label(form.telefono, 'booking.casa.labels.phone' | trans({}, 'BookingBundle')  ) }}
+
+                {{ form_widget(form.telefono,{'attr':{'class':'form-control'}}) }}
+
         </div>
 
         <div class="control-group">
-            {{ form_label(form.categoria,  'booking.casa.table.category'| trans({}, 'BookingBundle')  ,{'label_attr':{ 'class': 'control-label' }}) }}
+            {{ form_label(form.categoria,  'booking.casa.labels.category'| trans({}, 'BookingBundle')) }}
+
+                {{ form_widget(form.categoria,{'attr':{'class':'form-control'}}) }}
+
+        </div>
+
+                <div class="control-group">
+            {{ form_label(form.clima, 'booking.casa.labels.air' | trans({}, 'BookingBundle')) }}
             <div class="controls">
-                {{ form_widget(form.categoria) }}
+                {{ form_widget(form.clima,{'attr':{'class':'form-control'}}) }}
             </div>
+        </div>
+        <div class="control-group">
+            {{ form_label(form.banno,  'booking.casa.labels.bath'| trans({}, 'BookingBundle')  ) }}
+
+                {{ form_widget(form.banno,{'attr':{'class':'form-control'}}) }}
+
         </div>
 
         <div class="control-group">
-            {{ form_label(form.cantidadHab,  'booking.casa.table.room'| trans({}, 'BookingBundle')  ,{'label_attr':{ 'class': 'control-label' }}) }}
-            <div class="controls">
-                {{ form_widget(form.cantidadHab) }}
-            </div>
-        </div>
-        <div class="control-group">
-            {{ form_label(form.clima, 'booking.casa.table.air' | trans({}, 'BookingBundle') ,{'label_attr':{ 'class': 'control-label' }}) }}
-            <div class="controls">
-                {{ form_widget(form.clima) }}
-            </div>
-        </div>
-        <div class="control-group">
-            {{ form_label(form.banno,  'booking.casa.table.bath'| trans({}, 'BookingBundle')  ,{'label_attr':{ 'class': 'control-label' }}) }}
-            <div class="controls">
-                {{ form_widget(form.banno) }}
-            </div>
-        </div>
-        <div class="control-group">
-            {{ form_label(form.disponible,  'booking.casa.table.available'| trans({}, 'BookingBundle')  ,{'label_attr':{ 'class': 'control-label' }}) }}
-            <div class="controls">
-                {{ form_widget(form.disponible) }}
-            </div>
-        </div>
-        <div class="control-group">
-            {{ form_label(form.observacion,  'booking.casa.table.description'| trans({}, 'BookingBundle')  ,{'label_attr':{ 'class': 'control-label' }}) }}
-            <div class="controls">
-                {{ form_widget(form.observacion) }}
-            </div>
+            {{ form_label(form.observacion,  'booking.casa.labels.description'| trans({}, 'BookingBundle')  ) }}
+
+                {{ form_widget(form.observacion,{'attr':{'class':'form-control'}}) }}
+
         </div>
 
         <div class="control-group">
-            {{ form_label(form.propietario,  'booking.casa.table.owner'| trans({}, 'BookingBundle')  ,{'label_attr':{ 'class': 'control-label' }}) }}
-            <div class="controls">
-                {{ form_widget(form.propietario) }}
-            </div>
+            {{ form_label(form.propietario,  'booking.casa.labels.owner'| trans({}, 'BookingBundle') ) }}
+
+                {{ form_widget(form.propietario,{'attr':{'class':'form-control'}}) }}
+
+        </div>
+        <div class="control-group">
+            {{ form_label(form.disponible,  'booking.casa.labels.available'| trans({}, 'BookingBundle')  ) }}
+
+            {{ form_widget(form.disponible) }}
+
         </div>
         <div class="control-group">
             <button type="button"
-                    class="btn btn-default action">{{ 'booking.casa.actions.acept' | trans({}, 'BookingBundle') }}</button>
-            <button type="button" class="btn btn-default"
-                    data-dismiss="modal">{{ 'booking.casa.actions.cancel' | trans({}, 'BookingBundle') }}</button>
+                    class="btn btn-primary action">{{ 'booking.casa.buttons.accept' | trans({}, 'BookingBundle') }}</button>
+            <button type="button" class="btn btn-success"
+                    data-dismiss="modal">{{ 'booking.casa.buttons.cancel' | trans({}, 'BookingBundle') }}</button>
         </div>
         {{ form_rest(form) }}
 
     </form>
-</div>

@@ -15,11 +15,11 @@ class CasaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('direccion')
+            ->add('direccion','textarea')
             ->add('nombre')
             ->add('telefono')
             ->add('categoria')
-            ->add('cantidadHab')
+//            ->add('cantidadHab')
             ->add('clima')
             ->add('banno')
             ->add('disponible')

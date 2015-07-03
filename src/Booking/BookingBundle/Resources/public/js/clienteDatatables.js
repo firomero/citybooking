@@ -203,7 +203,7 @@ $clienteTable.insertError = function (errorText) {
 
 $(function () {
     //Adicionar Cliente
-    var $btnAction = $('.btn.btn-default.action');
+    var $btnAction = $('.btn.btn-primary.action');
     $btnAction.click(function (event) {
 
         $clienteTable.addCliente();

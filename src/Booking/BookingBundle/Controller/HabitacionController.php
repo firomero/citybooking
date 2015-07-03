@@ -80,8 +80,8 @@ class HabitacionController extends Controller{
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
-            $em->flush();
             $entity->getCasa()->Increment();
+            $em->flush();
             return $this->redirect($this->generateUrl('habitacion'));
         }
 

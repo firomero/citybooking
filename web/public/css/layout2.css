@@ -16,7 +16,7 @@
     width: 20%;
   }
   #content {
-    width: 60%;
+    width: 80%;
     margin: 0 !important;
   }
 }
@@ -44,9 +44,9 @@
   .mini-sidebar #right {
     display: none;
   }
-  #content {
-    width: calc(100% - 440px);
-  }
+  /*#content {*/
+    /*width: calc(100% - 440px);*/
+  /*}*/
   .side-right #content {
     width: calc(100% - 220px);
   }

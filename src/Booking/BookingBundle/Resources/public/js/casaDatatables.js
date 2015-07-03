@@ -24,7 +24,7 @@ $casaDataTable.postDraw = function (){
             var html =  $(this).html();
             $(this).empty();
             var $input = $('<input type="checkbox" name="delete_all['+html+']" value="'+html+'" class="msf" id="'+html+'"> <label for="'+html+'"><span class="lbl"> </span></label>');
-            $(this).append($input).append(html);
+            $(this).append($input);
             var $column = $('<td></td>');
             //Botones
             var $btnGroup = $('<div class="btn-group"></div>');
@@ -35,13 +35,17 @@ $casaDataTable.postDraw = function (){
             var $text = $parent.find('.casa-text');
             $btnEditar.attr('data-name',$text.html());
 
+            var $btnRoom = $('<button class="btn btn-mini info room" ></button>');
+            $btnRoom.append($('<i class="icon-list bigger-125"></i>'));
+            $btnRoom.attr('data-id',html);
+
             var $btnEliminar = $('<a class="btn btn-mini danger"></a>');
             $btnEliminar.attr('data-toggle','modal');
             $btnEliminar.attr('data-target','#doDelete');
             $btnEliminar.attr('data-id',html);
             $btnEliminar.append($('<i class="icon-trash bigger-125"></i>'));
 
-            $btnGroup.append($btnEditar).append($btnEliminar);
+            $btnGroup.append($btnEditar).append($btnEliminar).append($btnRoom);
             $column.append($btnGroup);
             $(this).closest('tr').append($column);
             //Events
@@ -102,6 +106,72 @@ $casaDataTable.postDraw = function (){
 
 
     });
+
+    $('.btn.btn-mini.info.room').click(function(){
+        var id = $(this).data('id');
+        var $tabsModal = $('#tabsModal');
+        $tabsModal.modal('show');
+        var url = Routing.generate('ajax_tabs');
+        $.get(url,{},function(data,response,status){
+            $tabsModal.find('.modal-body').append(data.tabs);
+            $tabsModal.attr('data-id',id);
+
+            var $fnLoadTipo = function(item){
+                var $option = $('<option></option>');
+                $option.val(item.id);
+                $option.html(item.tipo);
+                $tabsModal.find('.tipoHab').append($option);
+            }
+            var urlTipo = Routing.generate('ajax_type');
+            $.get(urlTipo,{},function(data,response,status){
+
+                var list = data.tipo;
+                list.forEach($fnLoadTipo);
+                $tabsModal.find('.btn.btn-mini.pull-right').click(function(){
+                    var $select = $('.tipoHab');
+                    var value = $select.val();
+                    var casaid = $tabsModal.data('id');
+                    var adroom = Routing.generate('ajax_room_add');
+                    $.get(adroom,{
+                        'id':casaid,
+                        'type':value
+                    },function(status, data,response){
+                        if (response.status==200) {
+
+                            var $list = $('.habList');
+                            var $listElement =$('<li><span></span><i class="doDelete icon-minus"></i></li>') ;
+                            console.log(status);
+                            $listElement.find('span').append(status.habs.tipo);
+                            $listElement.attr('data-id',status.habs.id);
+                            $list.append($listElement);
+                            $listElement.find('i').click(function(){
+
+                                var $li = $(this).parent();
+                                var deleteroom = Routing.generate('ajax_room_delete');
+                                $.get(deleteroom,{
+                                    'hab':$listElement.data('id'),
+                                    'id':casaid
+                                },function(status, data, response){
+                                    $li.remove();
+                                })
+
+                            });
+                            $('.typesHabs').show();
+
+                        }
+                        else{
+                            $casaDataTable.insertError($tabsModal);
+                        }
+
+                    });
+
+                })
+            });
+
+        });
+
+    });
+
 
 };
 
@@ -165,9 +235,15 @@ $casaDataTable.deleteCasa = function (id) {
         });
 };
 
-$casaDataTable.insertError=function()
+$casaDataTable.insertError=function(parent)
 {
-    var $modalView = $('#myModalDialog');
+    var $modalView = undefined;
+    if (parent==undefined) {
+         $modalView = $('#myModalDialog');
+    }
+    else{
+         $modalView = $(parent);
+    }
     $modalView.find('.alert.alert-danger').remove();
     var $error = $('<div class="alert alert-danger"><button class="close" data-dismiss="alert" type="button"></button>Por favor, verifique sus datos.<strong class="icon-remove close"></strong> </div>');
     $modalView.find('.modal-body').append($error);
@@ -178,29 +254,14 @@ $casaDataTable.insertError=function()
 
 $(function(){
     //Adicionar Casa
-    var $btnAction = $('.btn.btn-default.action');
+    var $btnAction = $('.btn.btn-primary.action');
     $btnAction.click(function(event){
         $('.se-pre-con').removeClass('hidden');
             $('.ajaxForm').submit();
     });
 
-    //$('body').on('submit', '#myModalDialog form',function(event){
-    //    event.preventDefault();
-    //
-    //    $.ajax({
-    //        type: $(this).attr('method'),
-    //        url: $(this).attr('action'),
-    //        method: "post",
-    //        data: $(this).serialize(),
-    //        dataType: "json"
-    //    }).done(function(data){
-    //        console.log(data)
-    //        $('.se-pre-con').addClass('hidden');
-    //        $('#myModalDialog').modal('hide');
-    //        window.location.reload();
-    //    }).fail(function(data){
-    //        $casaDataTable.insertError();
-    //    })
-    //});
+
 });
+
+/*ROOM MANAGER HANDLERS*/
 

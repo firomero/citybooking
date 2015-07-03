@@ -2,6 +2,7 @@
 
 namespace Booking\BookingBundle\Controller;
 
+use Booking\BookingBundle\Entity\Habitacion;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,11 +36,15 @@ class CasaController extends Controller
         ));
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function editformAction(Request $request)
     {
 
         $id = $request->get('id');
-        $entity = $this->get('doctrine')->getManager()->getRepository('BookingBundle:Casa')->findOneBy(array('nombre'=>$id));
+        $entity = $this->get('doctrine')->getManager()->getRepository('BookingBundle:Casa')->find($id);
         $form = $this->createEditForm($entity);
         $response = new JsonResponse(
             array(
@@ -64,6 +69,7 @@ class CasaController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->setCantidadHab(0);
             $em->persist($entity);
             $em->flush();
 
@@ -289,4 +295,136 @@ class CasaController extends Controller
 
 
     }
+
+    /**
+     * @return JsonResponse
+     */
+    public function tabServeAction(){
+
+        $response = new JsonResponse(
+            array(
+                'tabs' => $this->renderView('BookingBundle:Casa:tabstpl.html.twig'
+                ), 200
+            ));
+
+        return $response;
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function habsTipoAction(){
+        $em = $this->getDoctrine()->getManager();
+        try
+        {
+            $th = $em->getRepository('NomencladorBundle:TipoHab')->findAll();
+            $dataResult =  array_map(function($object){ return array('id'=>$object->getId(),'tipo'=>$object->getNombre());},$th);
+            $response = new JsonResponse(
+                array(
+                    'tipo' => $dataResult, 200
+                ));
+
+            return $response;
+        }
+        catch(\Exception $e){
+            return new JsonResponse(array($e->getMessage()),500);
+        }
+
+
+
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function habsByCasaAction(Request $request){
+        $id = $request->query->get('id');
+        $em = $this->getDoctrine()->getManager();
+       try{
+           $casa = $em->getRepository('BookingBundle:Casa')->find($id);
+           $habsCasa = $em->getRepository('BookingBundle:Habitacion')->findBy(array('casa'=>$casa));
+           $dataResult =  array_map(function($object){ return array('id'=>$object->getId(),'tipo'=>$object->getTipo()->getNombre());},$habsCasa);
+           $response = new JsonResponse(
+               array(
+                   'habs' => $dataResult, 200
+               ));
+
+           return $response;
+       }
+       catch(\Exception $e){
+           return new JsonResponse(array($e->getMessage()),500);
+       }
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function addRoomAction(Request $request){
+        $tipo = $request->query->get('type');
+        $id = $request->query->get('id');
+        $em = $this->getDoctrine()->getManager();
+        try{
+            $casa = $em->getRepository('BookingBundle:Casa')->find($id);
+            $type = $em->getRepository('NomencladorBundle:TipoHab')->find($tipo);
+            $hab = new Habitacion();
+            $hab->setCasa($casa);
+            $hab->setTipo($type);
+            $casa->Increment();
+            $em->persist($hab);
+            $em->persist($casa);
+            $em->flush();
+            $response = new JsonResponse(
+                array(
+                    'habs' => array(
+                        'tipo'=> $type->getNombre(),
+                        'id'=>$hab->getId()
+                    ), 200
+                ));
+
+            return $response;
+
+        }
+        catch(\Exception $e)
+        {
+            return new JsonResponse(array($e->getMessage()),500);
+        }
+
+    }
+
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function deleteRoomAction(Request $request){
+        $hb = $request->query->get('hab');
+        $id = $request->query->get('id');
+        $em = $this->getDoctrine()->getManager();
+        try{
+            $casa = $em->getRepository('BookingBundle:Casa')->find($id);
+            $hab = $em->getRepository('BookingBundle:Habitacion')->find($hb);
+            $casa->Decrement();
+            $em->remove($hab);
+            $em->persist($casa);
+            $em->flush();
+            $response = new JsonResponse(
+                array(
+                    'habs' => $casa->getNombre(), 204
+                ));
+
+            return $response;
+
+        }
+        catch(\Exception $e)
+        {
+            return new JsonResponse(array($e->getMessage()),500);
+        }
+
+    }
+
+
+
+
 }

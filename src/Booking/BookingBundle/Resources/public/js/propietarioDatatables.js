@@ -52,7 +52,7 @@ $propietarioTable.postDraw = function () {
             $('.btn.btn-mini.edit').click(function () {
 
                 var $btnEdit = $(this);
-                var $saveBtn = $('.btn.btn-default.action');
+                var $saveBtn = $('.btn.btn-primary.action');
 
                 $saveBtn.off('click');
                 $saveBtn.click(function () {
@@ -211,7 +211,7 @@ $propietarioTable.insertError = function (errorText) {
 
 $(function () {
     //Adicionar Propietario
-    var $btnAction = $('.btn.btn-default.action');
+    var $btnAction = $('.btn.btn-primary.action');
     $btnAction.click(function (event) {
 
         $propietarioTable.addPropietario();

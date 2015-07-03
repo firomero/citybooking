@@ -206,7 +206,7 @@ $habitacionTable.insertErrorConfirm=function(data)
 
 $(function(){
     //Adicionar Habitacion
-    var $btnAction = $('.btn.btn-default.action');
+    var $btnAction = $('.btn.btn-primary.action');
     $btnAction.click(function(event){
         $habitacionTable.addHabitacion();
     });
