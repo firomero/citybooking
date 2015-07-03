@@ -52,9 +52,8 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button"
-                                    class="btn btn-primary action edit">{{ 'booking.casa.buttons.accept' | trans({}, 'BookingBundle') }}</button>
-                            <button type="button" class="btn btn-success"
-                                    data-dismiss="modal">{{ 'booking.casa.buttons.cancel' | trans({}, 'BookingBundle') }}</button>
+                                    data-dismiss="modal" class="btn btn-primary">{{ 'booking.casa.buttons.accept' | trans({}, 'BookingBundle') }}</button>
+
                         </div>
                     </div>
                 </div>
@@ -152,9 +151,9 @@
                             "aoColumns": [
                                 {"bSortable": false},
                                 {"bSortable": false},
-                                {'sClass': 'agencia-text'},
-                                {'sClass': 'agencia-text'},
-                                {'sClass': 'agencia-text'}
+                                {'sClass': 'agencia-text', "bSortable": false},
+                                {'sClass': 'agencia-text', "bSortable": false},
+                                {'sClass': 'agencia-text', "bSortable": false}
                             ],
                             "drawCallback":$casaDataTable.postDraw
                         }
@@ -165,6 +164,7 @@
         });
 
     </script>
+    <script src="{{ asset('public/js/booking.js') }}"></script>
     <script src="{{ asset('public/js/xuiModal.js') }}"></script>
     <script src="{{ asset('bundles/booking/js/casaDatatables.js') }}"></script>
     <script src="{{ asset('bundles/booking/js/casaManager.js') }}"></script>

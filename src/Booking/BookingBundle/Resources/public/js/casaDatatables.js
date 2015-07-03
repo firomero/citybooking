@@ -25,9 +25,9 @@ $casaDataTable.postDraw = function (){
             $(this).empty();
             var $input = $('<input type="checkbox" name="delete_all['+html+']" value="'+html+'" class="msf" id="'+html+'"> <label for="'+html+'"><span class="lbl"> </span></label>');
             $(this).append($input);
-            var $column = $('<td></td>');
+            var $column = $('<td class="td-actions"></td>');
             //Botones
-            var $btnGroup = $('<div class="btn-group"></div>');
+            var $btnGroup = $('<div class="btn-group hidden-phone visible-desktop"></div>');
             var $btnEditar = $('<button class="btn btn-mini info edit" ></button>');
             $btnEditar.append($('<i class="icon-edit bigger-125"></i>'));
             $btnEditar.attr('data-id',html);
@@ -39,7 +39,7 @@ $casaDataTable.postDraw = function (){
             $btnRoom.append($('<i class="icon-list bigger-125"></i>'));
             $btnRoom.attr('data-id',html);
 
-            var $btnEliminar = $('<a class="btn btn-mini danger"></a>');
+            var $btnEliminar = $('<button type="button" class="btn btn-mini danger"></button>');
             $btnEliminar.attr('data-toggle','modal');
             $btnEliminar.attr('data-target','#doDelete');
             $btnEliminar.attr('data-id',html);
@@ -107,10 +107,16 @@ $casaDataTable.postDraw = function (){
 
     });
 
+    /**
+     * Aqui se construye la lógica de adicionarles habitaciones a la casa.
+     * */
+
     $('.btn.btn-mini.info.room').click(function(){
         var id = $(this).data('id');
         var $tabsModal = $('#tabsModal');
+
         $tabsModal.modal('show');
+        $tabsModal.find('.modal-body').empty();
         var url = Routing.generate('ajax_tabs');
         $.get(url,{},function(data,response,status){
             $tabsModal.find('.modal-body').append(data.tabs);
@@ -140,7 +146,6 @@ $casaDataTable.postDraw = function (){
 
                             var $list = $('.habList');
                             var $listElement =$('<li><span></span><i class="doDelete icon-minus"></i></li>') ;
-                            console.log(status);
                             $listElement.find('span').append(status.habs.tipo);
                             $listElement.attr('data-id',status.habs.id);
                             $list.append($listElement);
@@ -156,6 +161,7 @@ $casaDataTable.postDraw = function (){
                                 })
 
                             });
+
                             $('.typesHabs').show();
 
                         }
@@ -168,6 +174,37 @@ $casaDataTable.postDraw = function (){
                 })
             });
 
+        }).success(function(){
+            var roomByHouse = Routing.generate('ajax_habsByhouse');
+            $.get(roomByHouse,{id:$tabsModal.data('id')},function(status, response, data){
+
+                var habitaciones = status.habs;
+
+                var fnFetch = function(item){
+                    var $list = $('.habList');
+                    var $listElement =$('<li><span></span><i class="doDelete icon-minus"></i></li>') ;
+                    $listElement.find('span').append(item.tipo);
+                    $listElement.attr('data-id',item.id);
+                    $list.append($listElement);
+                    $listElement.find('i').click(function(){
+
+                        var $li = $(this).parent();
+                        var deleteroom = Routing.generate('ajax_room_delete');
+                        $.get(deleteroom,{
+                            'hab':$listElement.data('id'),
+                            'id':id
+                        },function(status, data, response){
+                            $li.remove();
+                        })
+
+                    });
+
+                }
+
+                habitaciones.forEach(fnFetch);
+                $('.typesHabs').show();
+
+            });
         });
 
     });
