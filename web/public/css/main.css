@@ -657,16 +657,14 @@ font-weight: bolder;
   padding-left: 10px;
   background: #fff;
   border: 0px solid #e4e4e4;
-  min-height:1200px;
+  min-height:450px;
 }
 
 @media (min-width: 768px) {
   .inner {
     float: left;
     width: 100%;
-
   }
- 
 }
 
 .inner .row {
