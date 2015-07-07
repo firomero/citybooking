@@ -26,6 +26,12 @@ reservacion_mostrar:
     defaults: { _controller: "BookingBundle:Reservacion:mostrar" }
     options:
         expose: true
+
+reservacion_casas_disponibles:
+    pattern: /casas_disponibles
+    defaults: { _controller: "BookingBundle:Reservacion:casasDisponibles" }
+    options:
+        expose: true
 #=======
 ## the yml style configuration data
 # reservacion_index: página principal, te da el formulario de nuevo (form)

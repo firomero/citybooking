@@ -34,6 +34,8 @@ $tipohabTable.postDraw = function () {
             var $parent = $(this).closest('tr');
             var $text = $parent.find('.tipohab-text');
             $btnEditar.attr('data-name', $text.html());
+            $text = $parent.find('.tipohab-weight');
+            $btnEditar.attr('data-weight', $text.html());
 
             var $btnEliminar = $('<a class="btn btn-mini danger"></a>');
             $btnEliminar.attr('data-toggle', 'modal');
@@ -58,14 +60,15 @@ $tipohabTable.postDraw = function () {
                 });
                 var $modalView = $('#myModalDialog');
                 $modalView.modal();
-                $modalView.find('#myModalLabelConfirmar').text('Editar Tipo de Habitaci�n');
+                $modalView.find('#myModalLabelConfirmar').text('Editar Tipo de Habitación');
                 $modalView.find('#general_nomencladorbundle_tipohab_nombre').val($btnEdit.data('name'));
+                $modalView.find('#general_nomencladorbundle_tipohab_peso').val($btnEdit.data('weight'));
                 $modalView.on('hide.bs.modal', function () {
                     $saveBtn.off('click');
                     $saveBtn.click(function (event) {
                         $tipohabTable.addTipoHab();
                     });
-                    $modalView.find('#myModalLabelConfirmar').text('Adicionar Tipo de Habitaci�n');
+                    $modalView.find('#myModalLabelConfirmar').text('Adicionar Tipo de Habitación');
                 });
                 $modalView.modal('show');
             });
@@ -84,13 +87,15 @@ $tipohabTable.postDraw = function () {
 
 $tipohabTable.addTipoHab = function () {
     var name = $('#general_nomencladorbundle_tipohab_nombre').val();
+    var weight = $('#general_nomencladorbundle_tipohab_peso').val();
     var $modalView = $('#myModalDialog');
     if (name != '') {
         $('.se-pre-con').removeClass('hidden');
         $.post(
             Routing.generate('tipohab_ajax_add'),
             {
-                name: name
+                name: name,
+                weight: weight
             },
             function (data, text, response) {
                 if (response.status == 200) {
@@ -116,6 +121,7 @@ $tipohabTable.addTipoHab = function () {
 
 $tipohabTable.editTipoHab = function (object) {
     var name = $('#general_nomencladorbundle_tipohab_nombre').val();
+    var weight = $('#general_nomencladorbundle_tipohab_peso').val();
     var id = $(object).data('id');
     var $modalView = $('#myModalDialog');
     if (name != '') {
@@ -124,6 +130,7 @@ $tipohabTable.editTipoHab = function (object) {
             Routing.generate('tipohab_ajax_edit'),
             {
                 name: name,
+                weight: weight,
                 id: id
             },
             function (data, text, response) {

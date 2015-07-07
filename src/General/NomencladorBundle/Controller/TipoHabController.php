@@ -229,7 +229,9 @@ class TipoHabController extends Controller
 
     /**
      * Deletes a TipoHab entity.
-     *
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, $id)
     {
@@ -330,6 +332,7 @@ class TipoHabController extends Controller
     public function editarAction(Request $request)
     {
         $name = $request->get('name');
+        $weight = $request->get('weight');
         $id = $request->get('id');
         $em = $this->get('doctrine')->getManager();
         $tipohab = $em->getRepository('NomencladorBundle:TipoHab')->find($id);
@@ -339,6 +342,7 @@ class TipoHabController extends Controller
         }
 
         $tipohab->setNombre($name);
+        $tipohab->setPeso($weight);
         $validator = $this->get('validator');
 
 

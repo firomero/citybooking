@@ -23,6 +23,7 @@
                                 <tr>
                                     <th></th>
                                     <th>Nombre</th>
+                                    <th>Peso</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
@@ -53,6 +54,12 @@
                     <div class="control-group mensajes">
                         <label for="general_nomencladorbundle_tipohab_nombre">Nombre: </label>
                         {{ form_widget(formTipoHab.nombre) }}
+                    </div>
+                    <br/>
+
+                    <div class="control-group mensajes">
+                        <label for="general_nomencladorbundle_tipohab_nombre">Peso: </label>
+                        {{ form_widget(formTipoHab.peso) }}
                     </div>
                     <br/>
 
@@ -114,7 +121,7 @@
                             "bServerSide": true,
                             "sAjaxSource": Routing.generate('ajax_tipohab_listar'),
                             "aoColumns": [
-                                {"bSortable": false}, {'sClass': 'tipohab-text'}
+                                {"bSortable": false}, {'sClass': 'tipohab-text'}, {'sClass': 'tipohab-weight'}
                             ],
                             "drawCallback": $tipohabTable.postDraw
                         }

@@ -97,7 +97,8 @@ class TipoHab
     {
         return array(
             $this->id,
-            $this->nombre
+            $this->nombre,
+            $this->peso
         );
     }
 

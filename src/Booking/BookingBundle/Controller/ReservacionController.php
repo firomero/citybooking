@@ -9,31 +9,38 @@
 namespace Booking\BookingBundle\Controller;
 
 
-
+use Booking\BookingBundle\Entity\Habitacion;
 use Booking\BookingBundle\Entity\Reservacion;
 use Booking\BookingBundle\Form\ReservacionType;
 use Booking\BookingBundle\Manager\ReservacionManager;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\NoResultException;
 use General\NomencladorBundle\HttpCode;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\DateTime;
 
-class ReservacionController extends Controller{
+class ReservacionController extends Controller
+{
 
     /**
      * Devuelve la página principal con el formulario de nuevo
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(){
+    public function indexAction()
+    {
 
         $form = $this->createForm(new ReservacionType());
 
-        return $this->render('BookingBundle:Reservacion:index.html.twig', array(
+        return $this->render(
+            'BookingBundle:Reservacion:index.html.twig',
+            array(
 
-            'form'=>$form->createView()
-        ));
+                'form' => $form->createView()
+            )
+        );
 
     }
 
@@ -52,7 +59,7 @@ class ReservacionController extends Controller{
             $em = $this->getDoctrine()->getManager();
 
             /** @var Reservacion $entity
-             *@var ReservacionManager $model
+             * @var ReservacionManager $model
              */
             $model = $this->get('booking.reservacionmanager');
             $model->setPrecio($entity);
@@ -65,10 +72,13 @@ class ReservacionController extends Controller{
 
         $this->get('logger')->addCritical('no valido'.$form->getErrorsAsString());
 
-        return $this->render('BookingBundle:Reservacion:index.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        return $this->render(
+            'BookingBundle:Reservacion:index.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
 
 
     }
@@ -83,10 +93,15 @@ class ReservacionController extends Controller{
      */
     private function createCreateForm(Reservacion $entity)
     {
-        $form = $this->createForm(new ReservacionType(), $entity, array(
-            'action' => $this->generateUrl('reservacion_crear'),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new ReservacionType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('reservacion_crear'),
+                'method' => 'POST',
+            )
+        );
+
         return $form;
     }
 
@@ -95,15 +110,21 @@ class ReservacionController extends Controller{
     {
 
         $id = $request->get('id');
-        $entity = $this->get('doctrine')->getManager()->getRepository('BookingBundle:Casa')->findOneBy(array('nombre'=>$id));
+        $entity = $this->get('doctrine')->getManager()->getRepository('BookingBundle:Casa')->findOneBy(
+            array('nombre' => $id)
+        );
         $form = $this->createEditForm($entity);
         $response = new JsonResponse(
             array(
-                'form' => $this->renderView('BookingBundle:Casa:edit.html.twig',
+                'form' => $this->renderView(
+                    'BookingBundle:Casa:edit.html.twig',
                     array(
                         'entity' => $entity,
                         'edit_form' => $form->createView(),
-                    ))), 200);
+                    )
+                )
+            ), 200
+        );
 
         return $response;
     }
@@ -117,10 +138,14 @@ class ReservacionController extends Controller{
      */
     private function createEditForm(Reservacion $entity)
     {
-        $form = $this->createForm(new ReservacionType(), $entity, array(
-            'action' => $this->generateUrl('reservacion_actualizar', array('id' => $entity->getId())),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new ReservacionType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('reservacion_actualizar', array('id' => $entity->getId())),
+                'method' => 'POST',
+            )
+        );
 
         return $form;
     }
@@ -150,11 +175,14 @@ class ReservacionController extends Controller{
         }
 
 
-        return $this->render('BookingBundle:Casa:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        return $this->render(
+            'BookingBundle:Casa:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            )
+        );
     }
 
 
@@ -171,8 +199,7 @@ class ReservacionController extends Controller{
             ->setAction($this->generateUrl('reservacion_cancelar', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-            ;
+            ->getForm();
     }
 
 
@@ -184,7 +211,7 @@ class ReservacionController extends Controller{
     {
         $id = $request->get('id');
 
-        try{
+        try {
 
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('BookingBundle:Reservacion')->find($id);
@@ -197,8 +224,8 @@ class ReservacionController extends Controller{
             $em->flush();
 
             return new Response(json_encode(array()), 200);
-        }catch (\Exception $e){
-            return new Response($e->getMessage(),500);
+        } catch (\Exception $e) {
+            return new Response($e->getMessage(), 500);
         }
     }
 
@@ -209,9 +236,9 @@ class ReservacionController extends Controller{
      */
     public function listarAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $options = $request->query->all();
         try {
-
             $casa = $this->getDoctrine()->getRepository('BookingBundle:Reservacion')->queryEntity($options);
             $total = count($this->getDoctrine()->getRepository('BookingBundle:Reservacion')->findAll());
 
@@ -222,18 +249,21 @@ class ReservacionController extends Controller{
                 $sEcho = intval($options['sEcho']);
             }
 
-            return new Response(json_encode(array(
-                'sEcho' => $sEcho,
-                'iTotalRecords' => $total,
-                'iTotalDisplayRecords' => $this->getDoctrine()->getRepository('BookingBundle:Reservacion')->getFilteredCount($options),
-                'aaData' => $casa
+            return new Response(
+                json_encode(
+                    array(
+                        'sEcho' => $sEcho,
+                        'iTotalRecords' => $total,
+                        'iTotalDisplayRecords' => $this->getDoctrine()->getRepository(
+                            'BookingBundle:Reservacion'
+                        )->getFilteredCount($options),
+                        'aaData' => $casa
 
-            )), 200);
-        }
-
-        catch(\Exception $e)
-        {
-            return new Response(json_encode(array('message'=> $e->getMessage())),500);
+                    )
+                ), 200
+            );
+        } catch (\Exception $e) {
+            return new Response(json_encode(array('message' => $e->getMessage())), 500);
         }
 
 
@@ -242,19 +272,42 @@ class ReservacionController extends Controller{
     public function mostrarAction(Request $request)
     {
         $id = $request->query->get('id');
-        $em= $this->getDoctrine()->getManager();
-        try{
+        $em = $this->getDoctrine()->getManager();
+        try {
             $entity = $em->getRepository('BookingBundle:Reservacion')->find($id);
-            return new JsonResponse($entity->toArray(),HttpCode::HTTP_OK);
 
-        }catch (NoResultException $not)
-        {
+            return new JsonResponse($entity->toArray(), HttpCode::HTTP_OK);
+
+        } catch (NoResultException $not) {
             return new Response('No se encontró la reservación solicitada', HttpCode::HTTP_RESOURCE_NOTFOUND);
+        } catch (\Exception $e) {
+            return new Response($e->getMessage(), HttpCode::HTTP_SERVER_ERROR);
         }
-        catch(\Exception $e)
-        {
-            return new Response($e->getMessage(),HttpCode::HTTP_SERVER_ERROR);
+    }
+
+    public function casasDisponiblesAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $rm = new ReservacionManager();
+
+        /** @var EntityManager $em */
+        $rm->__constructor($em);
+
+        //TODO: Probablemente haya que trabajar aquí con la fecha porque el getCasasDisponibles recibe DateTime
+        $checkin = $request->get('checkin');
+        $checkout = $request->get('checkout');
+        /*
+         * Asumo que lo que viene en el campo habitaciones son los nombres de los habitaciones y no los objetos
+         * de TipoHab que realmente se requieren; así que lleno mi arreglo con los objetos cuyos nombres coinciden
+         * con lo recibido por el request.*/
+        $habitaciones = array();
+        foreach ($request->get('habitaciones') as $habName) {
+            $habitacion = $em->getRepository('NomencladorBundle:TipoHab')->findBy(array('nombre' => $habName));
+            $habitaciones[] = $habitacion[0];
         }
+        $casasDisponibles = $rm->getCasasDisponibles($checkin, $checkout, $habitaciones);
+
+        return new Response(json_encode(array('casasDisponibles' => $casasDisponibles)), 200);
     }
 
 

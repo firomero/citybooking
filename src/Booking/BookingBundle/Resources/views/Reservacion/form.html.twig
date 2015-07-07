@@ -3,16 +3,16 @@
     <form class="ajaxForm" method="post" action="{{ path('reservacion_crear') }}"  {{ form_enctype(form) }}>
 
         <div class="form-group">
-            {{ form_label(form.agency, 'booking.reservacion.table.agency'| trans({}, 'BookingBundle') ) }}
+            {{ form_label(form.agencia, 'booking.reservacion.table.agency'| trans({}, 'BookingBundle') ) }}
 
-                {{ form_widget(form.agency,{'attr':{ 'class': 'form-control' }}) }}
+            {{ form_widget(form.agencia,{'attr':{ 'class': 'form-control' }}) }}
 
         </div>
 
         <div class="form-group">
-            {{ form_label(form.client, 'booking.reservacion.table.client' | trans({}, 'BookingBundle') ) }}
+            {{ form_label(form.cliente, 'booking.reservacion.table.client' | trans({}, 'BookingBundle') ) }}
 
-                {{ form_widget(form.client,{'attr':{ 'class': 'form-control' }}) }}
+            {{ form_widget(form.cliente,{'attr':{ 'class': 'form-control' }}) }}
         </div>
 
         <div class="form-group">
@@ -28,15 +28,15 @@
         </div>
 
         <div class="form-group">
-            {{ form_label(form.price, 'booking.reservacion.table.price' | trans({}, 'BookingBundle') ) }}
+            {{ form_label(form.precio, 'booking.reservacion.table.price' | trans({}, 'BookingBundle') ) }}
 
-            {{ form_widget(form.price,{'attr':{ 'class': 'form-control' }}) }}
+            {{ form_widget(form.precio,{'attr':{ 'class': 'form-control' }}) }}
         </div>
 
         <div class="form-group">
-            {{ form_label(form.house, 'booking.reservacion.table.house' | trans({}, 'BookingBundle') ) }}
+            {{ form_label(form.casa, 'booking.reservacion.table.house' | trans({}, 'BookingBundle') ) }}
 
-            {{ form_widget(form.house,{'attr':{ 'class': 'form-control' }}) }}
+            {{ form_widget(form.casa,{'attr':{ 'class': 'form-control' }}) }}
         </div>
 
         <div  class="form-group">

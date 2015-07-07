@@ -15,7 +15,7 @@ use Doctrine\ORM\Query\Expr\Orx;
 class TipoHabRepository extends EntityRepository
 {
 
-    protected $columns = array('id', 'nombre');
+    protected $columns = array('id', 'nombre', 'peso');
 
     public function queryEntity($options = array())
     {
@@ -30,7 +30,8 @@ class TipoHabRepository extends EntityRepository
                 $qb->andWhere(
                     new Orx(
                         array(
-                            $qb->expr()->like('a.nombre', '\'%'.$options['sSearch'].'%\'')
+                            $qb->expr()->like('a.nombre', '\'%'.$options['sSearch'].'%\''),
+                            $qb->expr()->like('a.peso', '\'%'.$options['sSearch'].'%\'')
                         )
                     )
                 );
