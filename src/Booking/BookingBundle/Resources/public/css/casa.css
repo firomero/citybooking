@@ -4,6 +4,7 @@ select.form-control{
 
 .btn.btn-mini.pull-right
 {
+    margin-top: -0.4em;
     margin-top: -2.4em;
 }
 
