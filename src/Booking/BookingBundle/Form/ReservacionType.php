@@ -15,13 +15,13 @@ class ReservacionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('checkin')
-            ->add('checkout')
+            ->add('checkin','text')
+            ->add('checkout','text')
             ->add('noches')
             ->add('pax')
             ->add('tipoHab')
             ->add('precio')
-            ->add('confirmado')
+            ->add('confirmado','text',array('attr'=>array('class'=>'form-control dating')))
             ->add('observacion')
             ->add('casa')
             ->add('agencia','agenciaselector_type')

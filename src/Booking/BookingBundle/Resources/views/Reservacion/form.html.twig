@@ -1,11 +1,11 @@
-<div class="col-lg-4 col-md-4">
+
     <div class="col-md-12">{{ form_errors(form) }}</div>
     <form class="ajaxForm" method="post" action="{{ path('reservacion_crear') }}"  {{ form_enctype(form) }}>
 
         <div class="form-group">
             {{ form_label(form.agencia, 'booking.reservacion.table.agency'| trans({}, 'BookingBundle') ) }}
 
-            {{ form_widget(form.agencia,{'attr':{ 'class': 'form-control' }}) }}
+            {{ form_widget(form.agencia,{'attr':{ 'class': 'form-control ' }}) }}
 
         </div>
 
@@ -18,13 +18,13 @@
         <div class="form-group">
             {{ form_label(form.checkin, 'booking.reservacion.table.checkin' | trans({}, 'BookingBundle') ) }}
 
-            {{ form_widget(form.checkin,{'attr':{ 'class': 'form-control' }}) }}
+            {{ form_widget(form.checkin,{'attr':{ 'class': 'form-control dating' }}) }}
         </div>
 
         <div class="form-group">
             {{ form_label(form.checkout, 'booking.reservacion.table.checkout' | trans({}, 'BookingBundle') ) }}
 
-            {{ form_widget(form.checkout,{'attr':{ 'class': 'form-control' }}) }}
+            {{ form_widget(form.checkout,{'attr':{ 'class': 'form-control dating' }}) }}
         </div>
 
         <div class="form-group">
@@ -47,4 +47,3 @@
         </div>
         {{ form_rest(form) }}
     </form>
-</div>

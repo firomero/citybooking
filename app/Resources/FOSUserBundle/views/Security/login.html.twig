@@ -54,13 +54,16 @@
         <form class="form-login" action="{{ path('fos_user_security_check') }}" method="post">
             <h2 class="form-login-heading">autenticarse</h2>
             <div class="login-wrap">
+                {% if error %}
+                <div class="alert alert-danger">{{ error|trans({}, 'FOSUserBundle') }}</div>
+                {% endif %}
                 <input type="text" placeholder="Usuario" class="form-control" name="_username" autofocus/>
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
                 <br>
                 <input type="password" placeholder="Contraseña" class="form-control" name="_password"/>
                 <label class="checkbox">
 		                <span class="pull-right">
-		                    <a data-toggle="modal" href="login.html#myModal"> Contraseña olvidada?</a>
+		                    <a data-toggle="modal" href="login.html#myModal">¿Contraseña olvidada?</a>
 		                </span>
                 </label>
                 <button class="btn btn-theme btn-block" type="submit"><i class="fa fa-lock"></i> Aceptar</button>

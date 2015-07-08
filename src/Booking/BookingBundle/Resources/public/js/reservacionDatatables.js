@@ -95,6 +95,9 @@ $reservacionTable.postDraw = function (){
             });
         }
     });
+
+    $('.dating').datepicker();
+
 };
 
 $reservacionTable.addReservacion = function(){

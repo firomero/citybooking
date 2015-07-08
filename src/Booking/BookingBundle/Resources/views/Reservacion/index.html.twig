@@ -147,11 +147,12 @@
 
     </script>
     <script src="{{ asset('bundles/booking/js/reservacionDatatables.js') }}"></script>
+    <script src="{{ asset('public/js/bootstrap-datepicker.js') }}"></script>
 {% endblock JavaScriptInline %}
 
  {% block  stylesheet %}
      {{ parent() }}
-     <link href="{{ asset('bundles/nomenclador/css/agencia.css') }}" rel="stylesheet"/>
+     {#<link href="{{ asset('bundles/nomenclador/css/agencia.css') }}" rel="stylesheet"/>#}
      <link href="{{ asset('public/css/loader.css') }}" rel="stylesheet"/>
  {% endblock stylesheet %}
 

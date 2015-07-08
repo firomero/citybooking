@@ -30,10 +30,10 @@ class ReservacionRepository extends EntityRepository
 
         $em = $this->_em;
         $qb = $em->getRepository('BookingBundle:Reservacion')
-            ->createQueryBuilder('a')
-            ->distinct(true)
+            ->createQueryBuilder('a');
+            $qb->distinct(true)
             ->select('a')
-            ->where('a.estado=?',true);
+            ->where($qb->expr()->eq('a.estado',true));
 
         if (array_key_exists('sSearch',$options)) {
             if ($options['sSearch'] != '') {
