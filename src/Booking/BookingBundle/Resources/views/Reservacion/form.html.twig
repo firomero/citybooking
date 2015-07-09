@@ -12,7 +12,7 @@
         <div class="form-group">
             {{ form_label(form.cliente, 'booking.reservacion.table.client' | trans({}, 'BookingBundle') ) }}
 
-            {{ form_widget(form.cliente,{'attr':{ 'class': 'form-control' }}) }}
+            {{ form_widget(form.cliente,{'attr':{ 'class': 'form-control cliente-name' }}) }}
         </div>
 
         <div class="form-group">
@@ -27,6 +27,26 @@
             {{ form_widget(form.checkout,{'attr':{ 'class': 'form-control dating' }}) }}
         </div>
 
+
+
+        <div class="form-group">
+            {{ form_label(form.noches, 'booking.reservacion.table.night' | trans({}, 'BookingBundle') ) }}
+
+            {{ form_widget(form.noches,{'attr':{ 'class': 'form-control' }}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.pax, 'booking.reservacion.table.pax' | trans({}, 'BookingBundle') ) }}
+
+            {{ form_widget(form.pax,{'attr':{ 'class': 'form-control' }}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.tipoHab, 'booking.reservacion.table.tipoHab' | trans({}, 'BookingBundle') ) }}
+
+            {{ form_widget(form.tipoHab,{'attr':{ 'class': 'form-control' }}) }}
+        </div>
+
         <div class="form-group">
             {{ form_label(form.precio, 'booking.reservacion.table.price' | trans({}, 'BookingBundle') ) }}
 
@@ -39,6 +59,17 @@
             {{ form_widget(form.casa,{'attr':{ 'class': 'form-control' }}) }}
         </div>
 
+        <div class="form-group">
+            {{ form_label(form.confirmado, 'booking.reservacion.table.confirmed' | trans({}, 'BookingBundle') ) }}
+
+            {{ form_widget(form.confirmado,{'attr':{ 'class': 'form-control dating' }}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.observacion, 'booking.reservacion.table.description' | trans({}, 'BookingBundle') ) }}
+
+            {{ form_widget(form.observacion,{'attr':{ 'class': 'form-control' }}) }}
+        </div>
         <div  class="form-group">
             <button type="submit"
                     class="btn btn-primary action edit">{{ 'booking.reservacion.buttons.accept' | trans({}, 'BookingBundle') }}</button>

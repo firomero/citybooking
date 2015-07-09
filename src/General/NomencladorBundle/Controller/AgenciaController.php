@@ -223,6 +223,11 @@ class AgenciaController extends Controller
     }
 
     /*AJAX SOURCE*/
+    /**
+     * Devuelve un listado de agencias
+     * @param Request $request
+     * @return Response
+     */
     public function listarAction(Request $request)
     {
         $options = $request->query->all();

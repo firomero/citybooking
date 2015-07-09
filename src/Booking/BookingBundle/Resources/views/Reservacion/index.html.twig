@@ -10,8 +10,7 @@
                     <div class="panel-heading">
                         {{ 'booking.reservacion.header.list'|trans({},'BookingBundle') }}
                         <button class="btn btn-mini pull-right add"
-                                title="{{ 'booking.reservacion.actions.add'|trans({},'BookingBundle') }}" data-toggle="modal"
-                                data-target="#myEditDialog"><i class="icon-plus"></i>
+                                title="{{ 'booking.reservacion.actions.add'|trans({},'BookingBundle') }}" ><i class="icon-plus"></i>
                         </button>
 
                     </div>
@@ -152,7 +151,7 @@
 
  {% block  stylesheet %}
      {{ parent() }}
-     {#<link href="{{ asset('bundles/nomenclador/css/agencia.css') }}" rel="stylesheet"/>#}
+     <link href="{{ asset('bundles/booking/css/reservacion.css') }}" rel="stylesheet"/>
      <link href="{{ asset('public/css/loader.css') }}" rel="stylesheet"/>
  {% endblock stylesheet %}
 

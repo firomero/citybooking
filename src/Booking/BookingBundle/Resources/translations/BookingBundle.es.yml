@@ -54,6 +54,11 @@ booking:
             checkout: Check out
             price: Precio
             house: Casa
+            night: Noches
+            pax: Pax
+            tipoHab: Tipo de Habitación
+            confirmed: Confirmado
+            description: Observación
         buttons:
             accept: Aceptar
             cancel: Cancelar

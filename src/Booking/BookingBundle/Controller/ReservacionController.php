@@ -106,6 +106,10 @@ class ReservacionController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function editFormAction(Request $request)
     {
 
@@ -269,6 +273,11 @@ class ReservacionController extends Controller
 
     }
 
+    /**
+     * Devuelve la información asociada a una reservación
+     * @param Request $request
+     * @return JsonResponse|Response
+     */
     public function mostrarAction(Request $request)
     {
         $id = $request->query->get('id');
@@ -285,6 +294,11 @@ class ReservacionController extends Controller
         }
     }
 
+    /**
+     * Devuelve una colección de casas que cumple con determinados prerequisitos
+     * @param Request $request
+     * @return Response
+     */
     public function casasDisponiblesAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();

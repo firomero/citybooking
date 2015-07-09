@@ -207,11 +207,113 @@ $reservacionTable.insertErrorConfirm=function(data)
 };
 
 $(function(){
+    $.widget( "ui.autocomplete", $.ui.autocomplete, {
+        options: {
+            messages: {
+                noResults: "Sin resultados.",
+                results: function( amount ) {
+                    return "";
+                }
+            }
+        },
+
+        __response: function( content ) {
+            var message;
+            this._superApply( arguments );
+            if ( this.options.disabled || this.cancelSearch ) {
+                return;
+            }
+            if ( content && content.length ) {
+                message = this.options.messages.results( content.length );
+            } else {
+                message = this.options.messages.noResults;
+            }
+            this.liveRegion.text( message );
+        }
+    });
+
+
+    //Modal de Reservación
+    $('.btn.btn-mini.pull-right.add').click(function(){
+        var $editModal = $('#myEditDialog');
+        $editModal.modal();
+
+        /*Aqui se cargan los autocomplete necesarios, agencia, cliente*/
+        $editModal.on('shown.bs.modal',function(){
+
+            /*Agencia*/
+            var agenciaUrl = Routing.generate('ajax_agencia_listar');
+            $.get(
+                agenciaUrl,
+                {
+
+                },
+                function(status, data,response)
+                {
+                   console.log(status.aaData);
+                    var serverData = status.aaData;
+                    var mapped = serverData.map(function(array){
+
+                        return array[1];
+                    });
+                    console.log(mapped);
+                    if (response.status==200) {
+
+
+                        var $agenciaComplete = $('.agencia-name').autocomplete({
+                            source:mapped
+
+                        });
+
+                        $agenciaComplete.autocomplete( "option", "appendTo", "#myEditDialog" );
+
+                    }
+                },
+                "json"
+            )
+
+            /*Cliente*/
+            var clienteUrl = Routing.generate('ajax_cliente_listar');
+            $.get(
+                clienteUrl,
+                {
+
+                },
+                function(status, data,response)
+                {
+                    console.log(status.aaData);
+                    var serverData = status.aaData;
+                    var mapped = serverData.map(function(array){
+
+                        return array[1];
+                    });
+                    console.log(mapped);
+                    if (response.status==200) {
+
+
+                        var $clienteComplete = $('.cliente-name').autocomplete({
+                            source:mapped
+
+                        });
+
+                        $clienteComplete.autocomplete( "option", "appendTo", "#myEditDialog" );
+
+                    }
+                },
+                "json"
+            )
+
+        });
+
+        $editModal.modal('show');
+
+    });
     //Adicionar Reservacion
     var $btnAction = $('.btn.btn-default.action');
     $btnAction.click(function(event){
+
         $reservacionTable.addReservacion();
     });
 
-    var agencia = [];
+
 });
