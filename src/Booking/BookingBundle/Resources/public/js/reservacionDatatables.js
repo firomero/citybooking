@@ -212,4 +212,6 @@ $(function(){
     $btnAction.click(function(event){
         $reservacionTable.addReservacion();
     });
+
+    var agencia = [];
 });
