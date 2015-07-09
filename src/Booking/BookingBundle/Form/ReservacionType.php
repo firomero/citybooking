@@ -22,10 +22,10 @@ class ReservacionType extends AbstractType
             ->add('tipoHab')
             ->add('precio')
             ->add('confirmado','text',array('attr'=>array('class'=>'form-control dating')))
-            ->add('observacion')
+            ->add('observacion','textarea',array('attr'=>array('class'=>'form-control dating')))
             ->add('casa')
-            ->add('agencia','agenciaselector_type')
-            ->add('cliente','clienteselector_type')
+            ->add('agencia','agenciaselector_type', array('attr'=>array('class'=>'form-control dating')))
+            ->add('cliente','clienteselector_type',array('attr'=>array('class'=>'form-control dating')))
         ;
     }
     
