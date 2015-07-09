@@ -2,6 +2,7 @@
 
 namespace Booking\BookingBundle\Form;
 
+use Booking\BookingBundle\DataTransformers\DateTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -15,8 +16,8 @@ class ReservacionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('checkin','text')
-            ->add('checkout','text')
+            ->add($builder->create('checkin','text')->addViewTransformer(new DateTransformer()))
+            ->add($builder->create('checkout','text')->addViewTransformer(new DateTransformer()))
             ->add('noches')
             ->add('pax')
             ->add('tipoHab')
