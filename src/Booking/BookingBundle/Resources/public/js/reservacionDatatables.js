@@ -1,6 +1,3 @@
-/**
- * Created by Ruben on 30/05/2015.
- */
 'use strict';
 
 /*
@@ -27,7 +24,7 @@ $reservacionTable.postDraw = function (){
             $(this).append($input);
             var $column = $('<td></td>');
             //Botones
-            var $btnGroup = $('<div class="btn-group"></div>');
+            var $btnGroup = $('<div class="btn-group hidden-phone visible-desktop"></div>');
             var $btnEditar = $('<button class="btn btn-mini info edit" ></button>');
             $btnEditar.append($('<i class="icon-edit bigger-125"></i>'));
             $btnEditar.attr('data-id',html);
@@ -274,6 +271,7 @@ $(function(){
 
             /*Cliente*/
             var clienteUrl = Routing.generate('ajax_cliente_listar');
+
             $.get(
                 clienteUrl,
                 {
@@ -302,6 +300,42 @@ $(function(){
                 },
                 "json"
             )
+
+
+            /*Casas Disponibles*/
+            var urlCasa = Routing.generate('reservacion_casas_disponibles');
+
+
+            var $casaComplete = $('.casa-name').autocomplete({
+                source:function(request, response){
+
+                    var checkin = $('.checkin').val();
+                    var checkout = $('.checkout').val();
+                    var pax = $('.pax').val();
+                    var tipoHab = $('.tipoHab').val();
+                    $.ajax({
+                        url: urlCasa,
+                        dataType: "json",
+                        data: {
+                            checkin: checkin,
+                            checkout: checkout,
+                            pax: pax,
+                            habitaciones: tipoHab
+                        },
+                        success: function( data ) {
+                            response( $.map( data.casasDisponibles, function( item ) {
+                                return {
+                                    label: item[1],
+                                    value: item[1]
+                                }
+                            }));
+                        }
+                    });
+                },
+                minLength: 2
+            });
+
+            $casaComplete.autocomplete( "option", "appendTo", "#myEditDialog" );
 
         });
 

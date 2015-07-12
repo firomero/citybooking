@@ -63,6 +63,7 @@ class ReservacionController extends Controller
              */
             $model = $this->get('booking.reservacionmanager');
             $model->setPrecio($entity);
+
             $em->persist($entity);
             $em->flush();
 
@@ -70,7 +71,7 @@ class ReservacionController extends Controller
             return $this->redirect($this->generateUrl('reservacion_index'));
         }
 
-        $this->get('logger')->addCritical('no valido'.$form->getErrorsAsString());
+        $this->get('logger')->addCritical('No válido' . $form->getErrorsAsString());
 
         return $this->render(
             'BookingBundle:Reservacion:index.html.twig',
@@ -107,6 +108,7 @@ class ReservacionController extends Controller
 
 
     /**
+     * Devuelve el Formulario por Ajax
      * @param Request $request
      * @return JsonResponse
      */
@@ -114,14 +116,14 @@ class ReservacionController extends Controller
     {
 
         $id = $request->get('id');
-        $entity = $this->get('doctrine')->getManager()->getRepository('BookingBundle:Casa')->findOneBy(
-            array('nombre' => $id)
+        $entity = $this->get('doctrine')->getManager()->getRepository('BookingBundle:Reservacion')->find(
+            $id
         );
         $form = $this->createEditForm($entity);
         $response = new JsonResponse(
             array(
                 'form' => $this->renderView(
-                    'BookingBundle:Casa:edit.html.twig',
+                    'BookingBundle:Reservacion:edit_form.html.twig',
                     array(
                         'entity' => $entity,
                         'edit_form' => $form->createView(),
@@ -235,6 +237,7 @@ class ReservacionController extends Controller
 
 
     /**
+     * Lista las reservaciones existentes
      * @param Request $request
      * @return Response
      */
@@ -245,14 +248,10 @@ class ReservacionController extends Controller
         try {
             $casa = $this->getDoctrine()->getRepository('BookingBundle:Reservacion')->queryEntity($options);
             $total = count($this->getDoctrine()->getRepository('BookingBundle:Reservacion')->findAll());
-
-
             $sEcho = 1;
-
             if (array_key_exists('sEcho', $options)) {
                 $sEcho = intval($options['sEcho']);
             }
-
             return new Response(
                 json_encode(
                     array(
@@ -302,26 +301,23 @@ class ReservacionController extends Controller
     public function casasDisponiblesAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $rm = new ReservacionManager();
-
-        /** @var EntityManager $em */
-        $rm->__constructor($em);
-
+        $rm = $this->get('booking.reservacionmanager');
         //TODO: Probablemente haya que trabajar aquí con la fecha porque el getCasasDisponibles recibe DateTime
-        $checkin = $request->get('checkin');
-        $checkout = $request->get('checkout');
-        /*
-         * Asumo que lo que viene en el campo habitaciones son los nombres de los habitaciones y no los objetos
-         * de TipoHab que realmente se requieren; así que lleno mi arreglo con los objetos cuyos nombres coinciden
-         * con lo recibido por el request.*/
+        $checkin = new \DateTime($request->get('checkin'));
+        $checkout = new \DateTime($request->get('checkout'));
         $habitaciones = array();
-        foreach ($request->get('habitaciones') as $habName) {
-            $habitacion = $em->getRepository('NomencladorBundle:TipoHab')->findBy(array('nombre' => $habName));
-            $habitaciones[] = $habitacion[0];
-        }
-        $casasDisponibles = $rm->getCasasDisponibles($checkin, $checkout, $habitaciones);
 
-        return new Response(json_encode(array('casasDisponibles' => $casasDisponibles)), 200);
+        try {
+            foreach ($request->get('habitaciones') as $habName) {
+                $habitacion = $em->getRepository('NomencladorBundle:TipoHab')->find($habName);
+                $habitaciones[] = $habitacion;
+            }
+            $casasDisponibles = $rm->getCasasDisponibles($checkin, $checkout, $habitaciones);
+
+            return new Response(json_encode(array('casasDisponibles' => $casasDisponibles)), 200);
+        } catch (\Exception $e) {
+            return new Response($e->getMessage(), HttpCode::HTTP_SERVER_ERROR);
+        }
     }
 
 

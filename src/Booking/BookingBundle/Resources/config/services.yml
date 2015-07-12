@@ -17,3 +17,9 @@ services:
         arguments: [ "@doctrine.orm.entity_manager" ]
         tags:
             - { name: form.type, alias: clienteselector_type }
+
+    booking_bookingbundle.form.casaselectortype:
+        class: Booking\BookingBundle\Form\CasaSelectorType
+        arguments: [ "@doctrine.orm.entity_manager" ]
+        tags:
+            - { name: form.type, alias: casaselector_type }

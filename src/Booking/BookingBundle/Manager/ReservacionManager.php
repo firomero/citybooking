@@ -1,15 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: firomero
- * Date: 15/06/15
- * Time: 23:26
- */
+
 
 namespace Booking\BookingBundle\Manager;
 
 
 use Booking\BookingBundle\Entity\Casa;
+use Booking\BookingBundle\Entity\Habitacion;
 use Booking\BookingBundle\Entity\Reservacion;
 use Doctrine\ORM\EntityManager;
 use General\NomencladorBundle\Entity\TipoHab;
@@ -22,16 +18,16 @@ class ReservacionManager
     /**
      * @param EntityManager $entityManager
      */
-    public function __constructor(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager)
     {
         $this->_em = $entityManager;
     }
 
     protected $map = array(
-        'single-room' => array('unit' => 25, 'breakfast' => 4),
-        'double-room' => array('unit' => 25, 'breakfast' => 8),
-        'twin-room' => array('unit' => 25, 'breakfast' => 8),
-        'triple-room' => array('unit' => 30, 'breakfast' => 12),
+        array('unit' => 25, 'breakfast' => 4),
+        array('unit' => 25, 'breakfast' => 8),
+         array('unit' => 25, 'breakfast' => 8),
+         array('unit' => 30, 'breakfast' => 12),
     );
 
     /**
@@ -39,16 +35,24 @@ class ReservacionManager
      */
     public function setPrecio(Reservacion $entity)
     {
-        $total = 0;
-        $habitaciones = $entity->getTipoHab();
+        $habitaciones = $entity->getTipoHab()->toArray();
+        $map = $this->map;
+        $total = array_reduce($habitaciones,
+            function($u,$d)use($map, $entity){
 
-        foreach ($habitaciones as $habitacion) {
-            /**
-             * @var TipoHab $habitacion
-             * */
-            $total += $this->map[$habitacion->getNombre()]['unit'] * $entity->getNoches(
-                ) + $this->map[$habitacion->getNombre()]['breakfast'];
-        }
+
+                /**
+                 * @var TipoHab $d
+                 *
+                 * */
+               $a =  $map[$d->getPeso()-1]['unit']*$entity->getNoches()+$map[$d->getPeso()-1]['breakfast'];
+                $u+=$a;
+                return $u;
+
+
+
+        });
+
 
         $entity->setPrecio($total);
 
@@ -124,22 +128,31 @@ class ReservacionManager
              * */
             foreach ($casas as $casa) {
                 $casaHabs = $em->getRepository('BookingBundle:Habitacion')->findByCasa($casa);
-                $checkArray = array();
-                foreach ($casaHabs as $casaHab) {
-                    $checkArray[] = $casaHab->getTipo();
-                }
-//                $this->bubbleSortByTipoHab($checkArray);
-                $this->quicksort($checkArray);
-                if ($casa->getCantidadHab() >= count($habitaciones)) {
-                    foreach ($habitaciones as $habitacion) {
-                        foreach ($checkArray as $index => $value) {
-                            if ($value->getPeso() >= $habitacion->getPeso()) {
-                                unset($checkArray[$index]);
-                            }
-                        }
+
+                //Los tipos de habitaciones de una casa
+                $checkArray = array_map(
+                    function ($value) {
+
+                        /** @var Habitacion $value*/
+                        return $value->getTipo();
                     }
-                    if (count($checkArray) == $casa->getCantidadHab() - count($habitaciones)) {
-                        $casasOutput[] = $casa;
+                    , $casaHabs);
+                  $this->quicksort($checkArray);
+
+                /** @var Casa $casa*/
+                if ($casa->getCantidadHab() >= count($habitaciones)) {
+
+                    $result = array_filter($habitaciones,function($value)use($checkArray){
+                        return current(array_filter($checkArray,function($valor)use($value){
+                            if ($value->getPeso() <= $valor->getPeso()  ) {
+                                return $valor;
+                            }
+                        }));
+
+                    });
+
+                    if (count($result)>=count($habitaciones)) {
+                        $casasOutput[] = $casa->toArray();
                     }
                 }
             }

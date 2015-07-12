@@ -33,7 +33,8 @@ class ReservacionRepository extends EntityRepository
             ->createQueryBuilder('a');
             $qb->distinct(true)
             ->select('a')
-            ->where($qb->expr()->eq('a.estado',true));
+            ->where($qb->expr()->eq('a.estado',':estado'))
+            ->setParameter('estado',Reservacion::RESERVADA);
 
         if (array_key_exists('sSearch',$options)) {
             if ($options['sSearch'] != '') {
@@ -70,12 +71,13 @@ class ReservacionRepository extends EntityRepository
             }
         }
 
+
         $result = $qb->getQuery()->getResult();
         $dataExport = array();
 
         foreach ($result as $r) {
             /**
-             * @var Casa $r
+             * @var Reservacion $r
              * */
             array_push($dataExport, $r->toArray());
         }
@@ -129,7 +131,7 @@ class ReservacionRepository extends EntityRepository
      * @param Reservacion $entity
      */
     public function delete(Reservacion $entity){
-        $entity->setEstado(false);
+        $entity->setEstado(Reservacion::CANCELADA);
         $entity->setPrecio(0);
 
     }

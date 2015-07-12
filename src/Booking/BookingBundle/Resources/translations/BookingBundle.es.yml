@@ -59,6 +59,8 @@ booking:
             tipoHab: Tipo de Habitación
             confirmed: Confirmado
             description: Observación
+            status: Estado
+            actions: Acciones
         buttons:
             accept: Aceptar
             cancel: Cancelar

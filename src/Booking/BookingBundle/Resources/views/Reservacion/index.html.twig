@@ -27,6 +27,8 @@
                                     <th>{{ 'booking.reservacion.table.checkout'| trans({}, 'BookingBundle') }}</th>
                                     <th>{{ 'booking.reservacion.table.price'| trans({}, 'BookingBundle') }}</th>
                                     <th>{{ 'booking.reservacion.table.house'| trans({}, 'BookingBundle') }}</th>
+                                    <th>{{ 'booking.reservacion.table.status'| trans({}, 'BookingBundle') }}</th>
+                                    <th>{{ 'booking.reservacion.table.actions'| trans({}, 'BookingBundle') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -129,12 +131,13 @@
                             "sAjaxSource": Routing.generate('reservacion_listar'),
                             "aoColumns": [
                                 {"bSortable": false},
-                                {'sClass': 'reservacion-text'},
-                                {'sClass': 'reservacion-text'},
-                                {'sClass': 'reservacion-text'},
-                                {'sClass': 'reservacion-text'},
-                                {'sClass': 'reservacion-text'},
-                                {'sClass': 'reservacion-text'}
+                                {'sClass': 'reservacion-text',"bSortable": false},
+                                {'sClass': 'reservacion-text',"bSortable": false},
+                                {'sClass': 'reservacion-text',"bSortable": false},
+                                {'sClass': 'reservacion-text',"bSortable": false},
+                                {'sClass': 'reservacion-text',"bSortable": false},
+                                {'sClass': 'reservacion-text',"bSortable": false},
+                                {'sClass': 'reservacion-text',"bSortable": false}
                             ],
                             "drawCallback":$reservacionTable.postDraw
                         }

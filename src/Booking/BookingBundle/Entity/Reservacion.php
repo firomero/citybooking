@@ -17,6 +17,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineConstraint;
  */
 class Reservacion
 {
+    const RESERVADA = 'reservada';
+    const CANCELADA = 'cancelada';
+    const PENDIENTE = 'pendiente';
     /**
      * @var integer
      *
@@ -57,7 +60,6 @@ class Reservacion
 
     /**
      * @var string
-     * @Assert\NotBlank( message = "Por favor, inserte una habitación")
      * @ORM\Column(name="habitacion", type="string", length=255)
      */
     private $habitacion;
@@ -81,7 +83,7 @@ class Reservacion
      *
      * @ORM\Column(name="estado", type="string", length=255)
      */
-    private $estado;
+    private $estado = "reservado";
 
     /**
      * @var string
@@ -446,10 +448,11 @@ class Reservacion
             $this->id,
             $this->agencia->getNombre(),
             $this->cliente->getNombre(),
-            $this->checkin,
-            $this->checkout,
+            $this->checkin->format('d-m-Y'),
+            $this->checkout->format('d-m-Y'),
             $this->precio,
-            $this->casa->getNombre()
+            $this->casa->getNombre(),
+            $this->estado
         );
     }
 }

@@ -24,7 +24,7 @@ class ReservacionType extends AbstractType
             ->add('precio')
             ->add($builder->create('confirmado','text')->addViewTransformer(new DateTransformer()))
             ->add('observacion','textarea',array('attr'=>array('class'=>'form-control dating')))
-            ->add('casa')
+            ->add('casa','casaselector_type')
             ->add('agencia','agenciaselector_type', array('attr'=>array('class'=>'form-control dating')))
             ->add('cliente','clienteselector_type',array('attr'=>array('class'=>'form-control dating')))
         ;

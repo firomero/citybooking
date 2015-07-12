@@ -23,10 +23,10 @@ class ClienteTransformer implements DataTransformerInterface{
     /**
      * @param EntityManager $entityManager
      */
-    public function __constructor(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager)
     {
 
-        $this->_em = $entityManager;
+        $this->em = $entityManager;
     }
 
     /**

@@ -7,6 +7,12 @@ reservacion_crear:
     pattern: /crear
     defaults: { _controller: "BookingBundle:Reservacion:create"  }
 
+reservacion_editar:
+    pattern: /editar
+    defaults: { _controller: "BookingBundle:Casa:editform" }
+    options:
+        expose: true
+
 reservacion_actualizar:
     pattern: /{id}/actuaizar
     defaults: { _controller: "BookingBundle:Reservacion:update" }
@@ -32,7 +38,7 @@ reservacion_casas_disponibles:
     defaults: { _controller: "BookingBundle:Reservacion:casasDisponibles" }
     options:
         expose: true
-#=======
+
 ## the yml style configuration data
 # reservacion_index: página principal, te da el formulario de nuevo (form)
 # reservacion_listar: el listado de reservaciones[agencia, cliente, check in, check out, precio, casa]
@@ -41,4 +47,4 @@ reservacion_casas_disponibles:
 # reservacion_editar: aqui te envio el formulario editar, me tienes que enviar el id de la reservacion
 # reservacion_actualizar: hacia donde apunta el submit de los datos del formulario editar
 # reservacion_cancelar: se cancela una reservacion, me envias el id
-#>>>>>>> odin/odin
+

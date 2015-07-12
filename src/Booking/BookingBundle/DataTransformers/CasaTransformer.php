@@ -2,21 +2,21 @@
 /**
  * Created by PhpStorm.
  * User: firomero
- * Date: 16/06/15
- * Time: 0:45
+ * Date: 10/07/15
+ * Time: 22:52
  */
 
 namespace Booking\BookingBundle\DataTransformers;
 
 
-use General\NomencladorBundle\Entity\Agencia;
+use Booking\BookingBundle\Entity\Casa;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
-use Doctrine\ORM\EntityManager;
 
-class AgenciaTransformer implements DataTransformerInterface{
+class CasaTransformer implements DataTransformerInterface {
 
-   protected $em;
+    protected $em;
 
     /**
      * @param EntityManager $entityManager
@@ -26,8 +26,6 @@ class AgenciaTransformer implements DataTransformerInterface{
 
         $this->em = $entityManager;
     }
-
-
     /**
      * Transforms a value from the original representation to a transformed representation.
      *
@@ -96,19 +94,16 @@ class AgenciaTransformer implements DataTransformerInterface{
 
         /**
          * @var EntityManager $em
-        */
+         */
         $em = $this->em;
         $issue = $em
-            ->getRepository('NomencladorBundle:Agencia')
+            ->getRepository('BookingBundle:Casa')
             ->findOneBy(array('nombre' => $value))
         ;
-        if (null === $issue) {
-            $issue = new Agencia();
-            $issue->setNombre($value);
-            $em->persist($issue);
-            $em->flush();
+        if ($issue===null) {
+
+            return new Casa();
         }
         return $issue;
-
     }
 }
