@@ -363,4 +363,6 @@ class ClienteController extends Controller
             return new Response(json_encode(array('message' => $e->getMessage())), 500);
         }
     }
+
+
 }
