@@ -118,15 +118,31 @@ $casaDataTable.postDraw = function (){
         $tabsModal.modal();
 
         $tabsModal.on(' hidden.bs.modal',function(){
+            $(this).find('tbody').empty();
+            $(this).removeAttr('data-id');
+
+        });
+
+        $tabsModal.on(' shown.bs.modal',function(){
+            $tabsModal.attr('data-id',id);
+
+
 
         });
 
         $tabsModal.modal('show');
         $tabsModal.find('.modal-body').empty();
         var url = Routing.generate('ajax_tabs');
-        $.get(url,{},function(data,response,status){
+        $.get(url,
+            {}
+            ,
+            function(data,response,status){
             $tabsModal.find('.modal-body').append(data.tabs);
             $tabsModal.attr('data-id',id);
+
+                console.log('baba');
+                console.log($tabsModal.attr('data-id'));
+                $casaDataTable.makeList(id)   ;
 
             var $fnLoadTipo = function(item){
                 var $option = $('<option></option>');
@@ -182,46 +198,61 @@ $casaDataTable.postDraw = function (){
                     });
 
                 })
+
+
             });
 
-        }).success(function(){
-            var roomByHouse = Routing.generate('ajax_habsByhouse');
-            $.get(roomByHouse,{id:$tabsModal.data('id')},function(status, response, data){
-
-                var habitaciones = status.habs;
-
-
-
-                var fnTable = function(item)
-                {
-                    var $table = $('.typesHabs .table.table-hover');
-                    var $tableElement =$('<tr><td><span></span><i class="doDelete icon-minus"></i></td></tr>') ;
-                    $tableElement.find('span').append(item.tipo);
-                    $tableElement.attr('data-id',item.id);
-                    $table.append($tableElement);
-                    $tableElement.find('i').click(function(){
-
-                        var $li = $(this).parent();
-                        var deleteroom = Routing.generate('ajax_room_delete');
-                        $.get(deleteroom,{
-                            'hab':$tableElement.data('id'),
-                            'id':id
-                        },function(status, data, response){
-                            $li.remove();
-                        })
-
-                    });
-                }
-                habitaciones.forEach(fnTable);
-                $('.typesHabs').show();
-
-            });
         });
+
+
 
     });
 
 
 };
+
+
+$casaDataTable.makeList=function(id){
+    var roomByHouse = Routing.generate('ajax_habsByhouse');
+    console.log('popo');
+    console.log(id);
+
+    $.get(roomByHouse,
+        {
+            id:id
+        },
+        function(status, response, data){
+
+            var habitaciones = status.habs;
+
+
+
+            var fnTable = function(item)
+            {
+                var $table = $('.typesHabs .table.table-hover');
+                var $tableElement =$('<tr><td><span></span><i class="doDelete icon-minus"></i></td></tr>') ;
+                $tableElement.find('span').append(item.tipo);
+                $tableElement.attr('data-id',item.id);
+                $table.append($tableElement);
+                $tableElement.find('i').click(function(){
+
+                    var $li = $(this).parent();
+                    var deleteroom = Routing.generate('ajax_room_delete');
+                    $.get(deleteroom,{
+                        'hab':$tableElement.data('id'),
+                        'id':id
+                    },function(status, data, response){
+                        $li.remove();
+                    })
+
+                });
+            }
+            habitaciones.forEach(fnTable);
+            $('.typesHabs').show();
+
+        });
+
+}
 
 $casaDataTable.editCasa= function(object){
     var name = $('#casaText').val();

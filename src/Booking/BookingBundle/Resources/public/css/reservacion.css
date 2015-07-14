@@ -66,6 +66,10 @@ table{
 table td{
     white-space: nowrap;  /** added **/
 }
+
+.btn.btn-mini.pull-right.add {
+    margin-top: -1%;
+}
 /*table td:last-child{*/
     /*width:100%;*/
 /*}*/

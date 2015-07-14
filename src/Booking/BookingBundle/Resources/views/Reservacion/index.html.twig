@@ -145,11 +145,22 @@
 
             });
 
+            var $options =$('#{{ form.tipoHab.vars.id }}').find('option');
+            var data = [];
+            $options.each(function(){
+                data.push({id:$(this).val(),value:$(this).html()});
+            });
+
+            var oSelectable = $('#{{ form.tipoHab.vars.id }}').editablelist({
+                data:data
+            });
+
         });
 
     </script>
     <script src="{{ asset('bundles/booking/js/reservacionDatatables.js') }}"></script>
     <script src="{{ asset('public/js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('public/js/booking.js') }}"></script>
 {% endblock JavaScriptInline %}
 
  {% block  stylesheet %}
