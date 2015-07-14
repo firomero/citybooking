@@ -5,7 +5,7 @@
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="UTF-8" />
-    <title>{% block title %} DashBoard{% endblock title%}| CityBooking</title>
+    <title>{% block title %} Administración{% endblock title%}| CityBooking</title>
 
     {% block metas %}
      <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -32,8 +32,6 @@
     <!-- END PAGE LEVEL  STYLES -->
      <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
    <![endif]-->
     <link rel="icon" type="image/x-icon" href="{{ asset('public/img/bookingIco.jpg') }}" />
 
@@ -106,11 +104,11 @@
                 </a>
                 <br />
                 <div class="media-body">
-                    <h5 class="media-heading"> Joe Romlin</h5>
+                    <h5 class="media-heading"> {{ app.user.username }}</h5>
                     <ul class="list-unstyled user-info">
 
                         <li>
-                             <a class="btn btn-success btn-xs btn-circle" style="width: 10px;height: 12px;"></a> Online
+                             <a class="btn btn-success btn-xs btn-circle" style="width: 10px;height: 12px;"></a> Conectado
 
                         </li>
 
@@ -126,7 +124,7 @@
 
                 <li class="panel active">
                     <a href="index.html" >
-                        <i class="icon-table"></i> Dashboard
+                        <i class="icon-table"></i> Administración
 
 
                     </a>

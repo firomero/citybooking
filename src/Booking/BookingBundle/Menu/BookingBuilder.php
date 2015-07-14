@@ -22,7 +22,7 @@ class BookingBuilder extends ContainerAware{
 
         $menu->setCurrentUri($this->container->get('request')->getRequestUri());
 
-        $menu->addChild('Inicio', array('route' => 'homepage'));
+        $menu->addChild('Administración', array('route' => 'homepage'))->setAttribute('icon','icon-table');
 
         $menu->addChild('Gestión de Casas', array(
             'route' => 'casa',

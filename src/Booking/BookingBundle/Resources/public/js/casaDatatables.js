@@ -115,6 +115,12 @@ $casaDataTable.postDraw = function (){
         var id = $(this).data('id');
         var $tabsModal = $('#tabsModal');
 
+        $tabsModal.modal();
+
+        $tabsModal.on(' hidden.bs.modal',function(){
+
+        });
+
         $tabsModal.modal('show');
         $tabsModal.find('.modal-body').empty();
         var url = Routing.generate('ajax_tabs');
@@ -144,23 +150,27 @@ $casaDataTable.postDraw = function (){
                     },function(status, data,response){
                         if (response.status==200) {
 
-                            var $list = $('.habList');
-                            var $listElement =$('<li><span></span><i class="doDelete icon-minus"></i></li>') ;
-                            $listElement.find('span').append(status.habs.tipo);
-                            $listElement.attr('data-id',status.habs.id);
-                            $list.append($listElement);
-                            $listElement.find('i').click(function(){
+
+                            var $table = $('.typesHabs .table.table-hover');
+                            var $tableElement =$('<tr><td><span></span><i class="doDelete icon-minus"></i></td></tr>') ;
+                            $tableElement.find('span').append(status.habs.tipo);
+                            $tableElement.attr('data-id',status.habs.id);
+                            $table.append($tableElement);
+                            $tableElement.find('i').click(function(){
 
                                 var $li = $(this).parent();
                                 var deleteroom = Routing.generate('ajax_room_delete');
                                 $.get(deleteroom,{
-                                    'hab':$listElement.data('id'),
-                                    'id':casaid
+                                    'hab':$tableElement.data('id'),
+                                    'id':id
                                 },function(status, data, response){
                                     $li.remove();
                                 })
 
                             });
+
+
+
 
                             $('.typesHabs').show();
 
@@ -180,28 +190,29 @@ $casaDataTable.postDraw = function (){
 
                 var habitaciones = status.habs;
 
-                var fnFetch = function(item){
-                    var $list = $('.habList');
-                    var $listElement =$('<li><span></span><i class="doDelete icon-minus"></i></li>') ;
-                    $listElement.find('span').append(item.tipo);
-                    $listElement.attr('data-id',item.id);
-                    $list.append($listElement);
-                    $listElement.find('i').click(function(){
+
+
+                var fnTable = function(item)
+                {
+                    var $table = $('.typesHabs .table.table-hover');
+                    var $tableElement =$('<tr><td><span></span><i class="doDelete icon-minus"></i></td></tr>') ;
+                    $tableElement.find('span').append(item.tipo);
+                    $tableElement.attr('data-id',item.id);
+                    $table.append($tableElement);
+                    $tableElement.find('i').click(function(){
 
                         var $li = $(this).parent();
                         var deleteroom = Routing.generate('ajax_room_delete');
                         $.get(deleteroom,{
-                            'hab':$listElement.data('id'),
+                            'hab':$tableElement.data('id'),
                             'id':id
                         },function(status, data, response){
                             $li.remove();
                         })
 
                     });
-
                 }
-
-                habitaciones.forEach(fnFetch);
+                habitaciones.forEach(fnTable);
                 $('.typesHabs').show();
 
             });

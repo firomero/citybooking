@@ -17,3 +17,25 @@ table td{
 table td:last-child{
     width:100%;
 }
+
+.inner {
+    background: none repeat scroll 0 0 #fff;
+    border: 0 solid #e4e4e4;
+    min-height: 800px;
+    padding-left: 10px;
+    padding-right: 15px;
+    position: relative;
+}
+
+.btn.btn-mini.pull-right.add {
+    margin-top: -1%;
+}
+
+
+i.doDelete{
+   margin-left: 1.2em;
+   margin-top: -1.2em;
+    cursor: pointer;
+    float: right;
+}
+
