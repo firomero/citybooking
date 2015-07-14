@@ -1,0 +1,132 @@
+<table width="100%" border="0" cellspacing="7">
+  <tr>
+    <td width="46%" rowspan="4"><div align="center"><img src="{{asset('bundles/report/images/image004.png')}}" width="191" height="181" /></div></td>
+    <td width="54%" height="50" colspan="2" align="center" bgcolor="#FF9999" bordercolor="#000000" > <strong>INVOICE</strong> </td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="36" colspan="2"><table width="100%" height="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+      <tr>
+        <td width="30%" height="20" colspan="2" align="center" bgcolor="#FF9999"> <strong>Issue Date:</strong> </td>
+        <td width="70%" align="center">{{ item.date }}</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td><table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+      <col width="80" span="2" />
+      <col width="177" />
+      <tr height="21">
+        <td height="21" colspan="3" bgcolor="#FF9999"><div align="center"><strong>SUPPLIER</strong></div></td>
+      </tr>
+      <tr height="20">
+        <td width="30%" height="20"><strong>&nbsp; Agency</strong></td>
+        <td width="70%" colspan="2">&nbsp; {{ item.supplier_agency }}</td>
+      </tr>
+      <tr height="20">
+        <td height="20"><strong>&nbsp; Name</strong></td>
+        <td colspan="2">&nbsp; {{ item.supplier_name }}</td>
+      </tr>
+      <tr height="20">
+        <td height="20"><strong>&nbsp; Mobile</strong></td>
+        <td colspan="2">&nbsp; {{ item.supplier_mobile }}</td>
+      </tr>
+      <tr height="20">
+        <td height="20"><strong>&nbsp; Phone</strong></td>
+        <td colspan="2">&nbsp; {{ item.supplier_phone }}</td>
+      </tr>
+      <tr height="20">
+        <td height="20"><strong>&nbsp; E-mail</strong></td>
+        <td colspan="2">&nbsp; {{ item.supplier_email }} </td>
+      </tr>
+    </table></td>
+    <td colspan="2"><table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+      <col width="80" span="3" />
+      <col width="161" />
+      <tr height="21">
+        <td width="100%" height="21" colspan="4" bgcolor="#FF9999"><div align="center"><strong>CLIENT</strong></div></td>
+      </tr>
+      <tr height="20">
+        <td width="30%" height="20"><strong>&nbsp; Agency</strong></td>
+        <td width="70%" colspan="3">&nbsp; {{ item.client_agency }}</td>
+      </tr>
+      <tr height="20">
+        <td height="20"><strong>&nbsp; Address </strong></td>
+        <td colspan="3">&nbsp; {{ item.client_address }}</td>
+      </tr>
+      <tr height="20">
+        <td height="20"><strong>&nbsp; Mobile</strong></td>
+        <td colspan="3">&nbsp;{{ item.client_mobile }}</td>
+      </tr>
+      <tr height="20">
+        <td height="20"><strong>&nbsp; E-mail</strong></td>
+        <td colspan="3">&nbsp; {{ item.client_email }}</td>
+      </tr>
+      <tr height="20">
+        <td height="20"><strong>&nbsp; Web</strong></td>
+        <td colspan="3">&nbsp; {{ item.client_web }}</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="3"><table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+      <tr height="21">
+        <td width="100%" height="21" colspan="8" align="center" bgcolor="#FF9999"><strong>BOOKING DETAILS</strong></td>
+      </tr>
+      <tr height="20">
+        <td height="20" width="10%"><strong>&nbsp; Name</strong></td>
+        <td colspan="2" width="20%">&nbsp; {{ item.booking_name }}</td>
+        <td colspan="2" width="30%" rowspan="2" align="center"><strong>B. Number</strong></td>
+        <td colspan="3" width="40%" rowspan="2">&nbsp; {{ item.booking_number }}</td>
+      </tr>
+      <tr height="20">
+        <td height="20"><strong>&nbsp; Pax</strong></td>
+        <td colspan="2">&nbsp; {{ item.booking_pax }}</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="3"><table width="100%" height="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+      <col width="80" span="2" />
+      <col width="177" />
+      <col width="17" />
+      <col width="80" span="3" />
+      <col width="161" />
+      <tr height="21">
+        <td height="21" colspan="8" align="center" bgcolor="#FF9999"><strong>SERVICES DETAILS</strong></td>
+      </tr>
+      <tr height="20">
+        <td height="20"><div align="center"><strong>Check In</strong></div></td>
+        <td><div align="center"><strong>Check Out</strong></div></td>
+        <td colspan="4"><div align="center"><strong>Services Description</strong></div></td>
+        <td><div align="center"><strong>Price</strong></div></td>
+        <td><div align="center"><strong>Total&nbsp;</strong></div></td>
+      </tr>
+
+      {% for i in item.services %}
+              <tr height="20">
+                <td height="20">&nbsp; {{ i.services_checkIn }}</td>
+                <td>&nbsp; {{ i.services_checkOut }}</td>
+                <td colspan="4">&nbsp; {{ i.services_description }}</td>
+                <td>&nbsp; {{ i.services_price }}</td>
+                <td>&nbsp; {{ i.services_total }}</td>
+              </tr>
+      {% endfor %}
+    </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+      <tr>
+        <td width="30%" height="20" bgcolor="#FF9999" align="center">Total</td>
+        <td width="70%">&nbsp; {{ item.total }}</td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
