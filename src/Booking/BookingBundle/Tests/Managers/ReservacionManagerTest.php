@@ -12,9 +12,16 @@ namespace Booking\BookingBundle\Tests\Managers;
 class ReservacionManagerTest extends \PHPUnit_Framework_TestCase {
 
     public function testCasa(){
-        $entrada = array(
+        $casa = [
+            4,3,2,1,
 
-        );
+        ];
+
+        $quest = [
+            2,2
+        ];
+
+
     }
 
 }

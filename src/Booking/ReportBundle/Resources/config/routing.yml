@@ -2,19 +2,34 @@ report_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: ReportBundle:Default:index }
 
-reporte_casa:
-    pattern: /casa/reporte
-    defaults: { _controller: ReportBundle:Reporte:reporteCasa }
-    options:
-        expose: true
-reporte_agencia:
-    pattern: /agencia/reporte
-    defaults: { _controller: ReportBundle:Reporte:reporteAgencia }
-    options:
-        expose: true
+report_facturastour:
+    pattern:  /facturasTour
+    defaults: { _controller: ReportBundle:Default:facturasTour  }
 
-reporte_actividad:
-    pattern: /actividad/reporte
-    defaults: { _controller: ReportBundle:Reporte:invoiceActivity }
-    options:
-        expose: true
+report_facturasHouse:
+    pattern:  /facturasHouse
+    defaults: { _controller: ReportBundle:Default:facturasHouse  }
+
+report_listReserv:
+    pattern:  /listReserv
+    defaults: { _controller: ReportBundle:Default:listReserv  }
+
+report_listSummer:
+    pattern:  /listSummer
+    defaults: { _controller: ReportBundle:Default:listSummer  }
+
+report_facturastour_pdf:
+    pattern:  /facturasTour/pdf
+    defaults: { _controller: ReportBundle:Default:pdfFacturasTour  }
+
+report_facturasHouse_pdf:
+    pattern:  /facturasHouse/pdf
+    defaults: { _controller: ReportBundle:Default:pdfFacturasHouse  }
+
+report_listReserv_pdf:
+    pattern:  /listReserv/pdf
+    defaults: { _controller: ReportBundle:Default:pdfListReserv  }
+
+report_listSummer_pdf:
+    pattern:  /listSummer/pdf
+    defaults: { _controller: ReportBundle:Default:pdfListSummer  }

@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Documento sin t&iacute;tulo</title>
+</head>
+
+<body>
+<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+  <col width="115" />
+  <col width="192" />
+  <col width="275" />
+  <col width="288" />
+  <col width="107" />
+  <col width="108" />
+  <col width="221" />
+  <col width="184" />
+  <tr height="54">
+    <td width="12%" height="54" bgcolor="#FF9999"><div align="center"><strong>Snummer</strong></div></td>
+    <td width="12%" bgcolor="#FF9999"><div align="center"><strong>Contact</strong></div></td>
+    <td width="14%" bgcolor="#FF9999"><div align="center"><strong>Omschrijving</strong></div></td>
+    <td width="14%" bgcolor="#FF9999"><div align="center"><strong>Omschrijving</strong></div></td>
+    <td width="12%" bgcolor="#FF9999"><div align="center"><strong>Startdate</strong></div></td>
+    <td width="8%" bgcolor="#FF9999"><div align="center"><strong>Aantal</strong></div></td>
+    <td width="12%" bgcolor="#FF9999"><div align="center"><strong>Conf.Kostprijs    CUC</strong></div></td>
+    <td width="12%" bgcolor="#FF9999"><div align="center"><strong>Leveranciers ID</strong></div></td>
+  </tr>
+
+    {% for item in list %}
+      <tr height="27">
+        <td height="27">{{ item.snummer }}</td>
+        <td>{{ item.contact }}</td>
+        <td>{{ item.omschrijving }}</td>
+        <td>{{ item.omschrijving }}</td>
+        <td>{{ item.startdate }}</td>
+        <td>{{ item.aantal }}</td>
+        <td>{{ item.kostprijs }}</td>
+        <td>{{ item.leveranciers }}</td>
+      </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

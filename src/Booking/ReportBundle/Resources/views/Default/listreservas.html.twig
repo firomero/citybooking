@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Documento sin t&iacute;tulo</title>
+</head>
+
+<body>
+<table width="100%" border="1" cellspacing="0">
+  <tr>
+    <td colspan="12" align="center" bgcolor="#6666FF"> <strong>{{ date }}</strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FF9999" width="10%" height="27" ><div align="center"><strong>REFERENCIA</strong></div></td>
+    <td bgcolor="#FF9999" width="9%"><div align="center"><strong>CLIENTE</strong></div></td>
+    <td bgcolor="#FF9999" width="11%"><div align="center"><strong>ENTRADA</strong></div></td>
+    <td bgcolor="#FF9999" width="8%"><div align="center"><strong>SALIDA</strong></div></td>
+    <td bgcolor="#FF9999" width="2%"><div align="center"><strong>N</strong></div></td>
+    <td bgcolor="#FF9999" width="12%"><div align="center"><strong>SERVICIO</strong></div></td>
+    <td bgcolor="#FF9999" width="2%"><div align="center"><strong>P</strong></div></td>
+    <td bgcolor="#FF9999" width="10%"><div align="center"><strong>HAB</strong></div></td>
+    <td bgcolor="#FF9999" width="8%"><div align="center"><strong>&nbsp;   </strong>  <strong>FACT&nbsp;</strong></div></td>
+    <td bgcolor="#FF9999" width="8%"><div align="center"><strong>&nbsp;  </strong>  <strong>PAGAR&nbsp;</strong></div></td>
+    <td bgcolor="#FF9999" width="7%"><div align="center"><strong>&nbsp; </strong>  <strong>COM&nbsp;</strong></div></td>
+    <td bgcolor="#FF9999" width="13%"><div align="center"><strong>OBSERVACIONES</strong></div></td>
+  </tr>
+    {% for item in list %}
+          <tr>
+            <td height="25" >{{ item.referencia }}</td>
+            <td >{{ item.cliente }}</td>
+            <td >{{ item.entrada }}</td>
+            <td >{{ item.salida }}</td>
+            <td >{{ item.n }}</td>
+            <td> {{ item.servicio }}</td>
+            <td >{{ item.p }}</td>
+            <td >{{ item.hab }}</td>
+            <td >{{ item.fact }}</td>
+            <td >{{ item.pagar }}</td>
+            <td >{{ item.com }}</td>
+            <td >{{ item.observaciones }}</td>
+          </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
