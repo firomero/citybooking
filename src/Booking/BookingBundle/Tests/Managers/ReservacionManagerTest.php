@@ -11,5 +11,11 @@ namespace Booking\BookingBundle\Tests\Managers;
 
 class ReservacionManagerTest extends \PHPUnit_Framework_TestCase {
 
+    public function testCasa(){
+        $entrada = array(
+
+        );
+    }
+
 }
  
