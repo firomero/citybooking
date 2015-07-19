@@ -58,6 +58,13 @@ class ReservacionManager
 
     }
 
+    /**
+     * Gets available houses
+     * @param \DateTime $checkin
+     * @param \DateTime $checkout
+     * @param array $habitaciones
+     * @return array
+     */
     public function getCasasDisponibles(\DateTime $checkin, \DateTime $checkout, array $habitaciones)
     {
         /**
@@ -142,14 +149,25 @@ class ReservacionManager
                 /** @var Casa $casa*/
                 if ($casa->getCantidadHab() >= count($habitaciones)) {
 
-                    $result = array_filter($habitaciones,function($value)use($checkArray){
-                        return current(array_filter($checkArray,function($valor)use($value){
-                            if ($value->getPeso() <= $valor->getPeso()  ) {
-                                return $valor;
+                    foreach ($habitaciones as $habitacion) {
+                        $result = current(array_filter($checkArray, function($value)use($habitacion){
+                            if ($value->getPeso()>=$habitacion->getPeso()) {
+                                return $value;
                             }
                         }));
 
-                    });
+                        $index = $this->bySearch($result,$checkArray);
+                        unset($checkArray[$index]);
+                    }
+
+//                    $result = array_filter($habitaciones,function($value)use($checkArray){
+//                        return current(array_filter($checkArray,function($valor)use($value){
+//                            if ($value->getPeso() <= $valor->getPeso()  ) {
+//                                return $valor;
+//                            }
+//                        }));
+//
+//                    });
 
                     if (count($result)>=count($habitaciones)) {
                         $casasOutput[] = $casa->toArray();
@@ -163,6 +181,11 @@ class ReservacionManager
 
     }
 
+    /**
+     * QuickSort
+     * @param $array
+     * @return array
+     */
     private function quicksort($array)
     {
         if (count($array) < 2) {
@@ -183,6 +206,10 @@ class ReservacionManager
         return array_merge($this->quicksort($left), array($pivot_key => $pivot), $this->quicksort($right));
     }
 
+    /**
+     * Bubblesort method
+     * @param $array
+     */
     private function bubbleSortByTipoHab($array)
     {
         if (!$length = count($array)) {
@@ -199,4 +226,23 @@ class ReservacionManager
             }
         }
     }
+
+    /**
+     * Finds an element index
+     * @param $el TipoHab to find
+     * @param $collection array
+     * @return int|string the key
+     */
+    protected  function bySearch($el,$collection){
+       foreach ($collection as $index => $current) {
+           if ($el->getId()==$current->getId()) {
+               return $index;
+           }
+       }
+       return -1;
+   }
+
+
+
+
 }
