@@ -1,9 +1,9 @@
 <div class="col-md-12">{{ form_errors(form) }}</div>
-<form class="ajaxForm" method="post" action="{{ path('actividad_update',{ id:entity.id }) }}"  {{ form_enctype(form) }}>
+<form class="ajaxForm" method="POST" action="{{ path('actividad_update',{ id:entity.id }) }}"  {{ form_enctype(form) }}>
     <div class="control-group">
         {{ form_label(form.fecha, 'booking.actividad.labels.date'| trans({}, 'BookingBundle') ) }}
 
-        {{ form_widget(form.fecha,{'attr':{'class':'form-control'}}) }}
+        {{ form_widget(form.fecha,{'attr':{'class':'form-control dating'}}) }}
 
     </div>
     <div class="control-group">
@@ -33,6 +33,14 @@
             {{ form_widget(form.tipoActividad,{'attr':{'class':'form-control'}}) }}
         </div>
     </div>
+
+    <div class="control-group">
+        {{ form_label(form.pax, 'booking.actividad.labels.pax' | trans({}, 'BookingBundle')) }}
+        <div class="controls">
+            {{ form_widget(form.pax,{'attr':{'class':'form-control'}}) }}
+        </div>
+    </div>
+
     <div class="control-group">
         {{ form_label(form.reservacion,  'booking.actividad.labels.booking'| trans({}, 'BookingBundle')  ) }}
 

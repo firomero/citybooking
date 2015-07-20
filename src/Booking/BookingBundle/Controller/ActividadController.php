@@ -143,10 +143,10 @@ class ActividadController extends Controller
     {
         $form = $this->createForm(new ActividadType(), $entity, array(
             'action' => $this->generateUrl('actividad_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'post',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+       // $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
@@ -171,14 +171,14 @@ class ActividadController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('actividad_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('actividad'));
         }
 
-        return $this->render('BookingBundle:Actividad:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+
+
+        return $this->redirect($this->generateUrl('actividad'));
+
+
     }
     /**
      * Deletes a Actividad entity.
@@ -191,7 +191,7 @@ class ActividadController extends Controller
         try{
 
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('BookingBundle:Casa')->find($id);
+            $entity = $em->getRepository('BookingBundle:Actividad')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Casa entity.');
@@ -202,7 +202,9 @@ class ActividadController extends Controller
 
             return new Response(json_encode(array()), 200);
         }catch (\Exception $e){
-            return new Response($e->getMessage(),500);
+
+            $this->get('logger')->addCritical($e->getMessage(),array($e->getFile(),$e->getLine()));
+            return new Response('Ha ocurrido un error en la operación',500);
         }
     }
 
@@ -256,7 +258,8 @@ class ActividadController extends Controller
 
         catch(\Exception $e)
         {
-            return new Response($e->getMessage(),500);
+            $this->get('logger')->addCritical($e->getMessage(),array($e->getFile(),$e->getLine()));
+            return new Response('Ha ocurrido un error en la operación',500);
         }
 
 

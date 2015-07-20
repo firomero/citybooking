@@ -2601,4 +2601,9 @@ fieldset[disabled] .btn-grad.btn-metis-6.active {
 }
 
 /* END Pricing Table */
-
+/*
+Datepicker
+*/
+.datepicker{
+    cursor: pointer;
+}

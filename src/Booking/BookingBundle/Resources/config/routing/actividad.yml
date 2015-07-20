@@ -22,7 +22,7 @@ actividad_edit:
 actividad_update:
     path:     /{id}/update
     defaults: { _controller: "BookingBundle:Actividad:update" }
-    requirements: { _method: post|put }
+    requirements: { _method: post }
 
 actividad_delete:
     path:     /delete
