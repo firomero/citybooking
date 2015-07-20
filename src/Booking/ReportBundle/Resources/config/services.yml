@@ -5,3 +5,6 @@ services:
     reportbundle.manager.reportmanager:
         class: Booking\ReportBundle\Manager\ReportManager
         arguments: [ @doctrine.orm.entity_manager ]
+
+    booking_reportbundle.exporter.pdfexporter:
+        class: Booking\ReportBundle\Exporter\PdfExporter

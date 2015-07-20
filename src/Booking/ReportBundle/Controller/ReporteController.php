@@ -86,4 +86,60 @@ class ReporteController extends  Controller{
 
     }
 
+
+    //html exporter
+    public function facturasTourAction(Request $request){
+        $manager = $this->get('reportbundle.manager.reportmanager');
+        $filter = array();
+        $casa = $request->query->get('casa');
+
+        if (isset($casa)) {
+            $filter ['casa']= $casa;
+        }
+
+        $data = $manager->invoiceTour($filter);
+        return $this->render('ReportBundle:Default:facturastour.html.twig', array('list'=>$data));
+    }
+
+    public function listReservAction(Request $request){
+
+        $manager = $this->get('reportbundle.manager.reportmanager');
+        $filter = array();
+        $casa = $request->query->get('casa');
+        $agencia = $request->query->get('agencia');
+        if (isset($casa)) {
+            $filter ['casa']= $casa;
+        }
+
+        if (isset($casa)) {
+            $filter ['agencia']= $agencia;
+        }
+
+
+
+        //... IN ... simulacion de datos ........................
+        $data = $manager->invoiceBooking($filter);
+        //... OUT ... simulacion de datos ........................
+        return $this->render('ReportBundle:Default:listreservas.html.twig', array('list'=>$data));
+    }
+
+
+    //pdf
+    //... exportar a pdf ...
+    public function pdfFacturasTourAction(Request $request){
+        $view = $this->facturasTourAction($request);
+
+        $exporter = $this->get('booking_reportbundle.exporter.pdfexporter');
+
+        return $exporter->export($view, 'Boooking Tour Facture');
+    }
+
+    public function pdfListReservAction(Request $request){
+        $view = $this->listReservAction($request);
+        $exporter = $this->get('booking_reportbundle.exporter.pdfexporter');
+        return $exporter->export($view, 'Boooking List Reserv');
+    }
+
+
+
 } 

@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
  * Actividad
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Booking\BookingBundle\Entity\ActividadRepository")
  */
 class Actividad
 {
@@ -261,10 +261,14 @@ class Actividad
         return array(
             $this->id,
             $this->tipoActividad->getNombre(),
-            $this->fecha,
+            $this->fecha->format('d/m/Y'),
             $this->guia,
             $this->precioguia,
             $this->total
         );
+    }
+
+    public function __toString(){
+        return $this->getTipoActividad()->getNombre();
     }
 }

@@ -19,6 +19,19 @@ $casaDataTable.postDraw = function (){
     $td.each(function(){
         if (!$(this).hasClass('dataTables_empty')) {
 
+            var $available = $('tbody .available');
+
+            $available.each(function(){
+                var html = $(this).html();
+                $(this).empty();
+                var $icon = $('<i class="icon-ok"></i>');
+                if (html=='false') {
+                    $icon.removeAttr('class');
+                    $icon.addClass('icon-lock');
+                }
+                $(this).append($icon);
+            });
+
             $(this).removeAttr('class');
             $(this).addClass('td-table');
             var html =  $(this).html();

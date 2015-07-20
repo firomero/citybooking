@@ -77,7 +77,7 @@ class TipoActividadRepository extends EntityRepository{
             $aLike = array();
             for ( $i=0 ; $i<count($this->columns) ; $i++ ){
                 if ( isset($get['bSearchable_'.$i]) && $get['bSearchable_'.$i] == "true" ){
-                    $aLike[] = $cb->expr()->like($this->columns[$i], '\'%'. $get['sSearch'] .'%\'');
+                    $aLike[] = $cb->expr()->like('ta.nombre', '\'%'. $get['sSearch'] .'%\'');
                 }
             }
             if(count($aLike) > 0) $cb->andWhere(new Orx($aLike));

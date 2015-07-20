@@ -21,6 +21,8 @@ class HabitacionRepository extends EntityRepository{
         $em = $this->_em;
         $qb = $em->getRepository('BookingBundle:Habitacion')
             ->createQueryBuilder('h')
+            ->innerJoin('h.casa','c')
+            ->innerJoin('h.tipo','t')
             ->distinct(true)
             ->select('h');
 
@@ -33,12 +35,11 @@ class HabitacionRepository extends EntityRepository{
                  */
                     call_user_func( function() use ($columns,$qb,$options){
 
-                        $aLike = array();
+                        $aLike = array(
+                            $qb->expr()->like('c.nombre' , '\'%' . $options['sSearch'] . '%\''),
+                            $qb->expr()->like('t.nombre' , '\'%' . $options['sSearch'] . '%\''),
 
-                        foreach ($columns as $col) {
-
-                            $aLike[] = $qb->expr()->like($col, '\'%' . $options['sSearch']['value'] . '%\'');
-                        }
+                        );
 
                         return $aLike;
                     })
@@ -81,6 +82,8 @@ class HabitacionRepository extends EntityRepository{
         $cb = $this->getEntityManager()
             ->getRepository($tableObjectName)
             ->createQueryBuilder('h')
+            ->innerJoin('h.casa','c')
+            ->innerJoin('h.tipo','t')
             ->select("count(h.id)");
 
         /*
@@ -93,7 +96,11 @@ class HabitacionRepository extends EntityRepository{
             $aLike = array();
             for ( $i=0 ; $i<count($this->columns) ; $i++ ){
                 if ( isset($get['bSearchable_'.$i]) && $get['bSearchable_'.$i] == "true" ){
-                    $aLike[] = $cb->expr()->like($this->columns[$i], '\'%'. $get['sSearch'] .'%\'');
+                    $aLike = array(
+                        $cb->expr()->like('c.nombre' , '\'%' . $get['sSearch'] . '%\''),
+                        $cb->expr()->like('t.nombre' , '\'%' . $get['sSearch'] . '%\''),
+
+                    );
                 }
             }
             if(count($aLike) > 0) $cb->andWhere(new Orx($aLike));

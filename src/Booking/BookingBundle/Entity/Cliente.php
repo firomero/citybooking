@@ -44,7 +44,7 @@ class Cliente
     /**
      * @var string
      * @Assert\Regex(pattern="/[A-Za-z0-9]/")     *
-     * @ORM\Column(name="referencia", type="string", length=255)
+     * @ORM\Column(name="referencia", type="string", length=255, nullable=true)
      */
     private $referencia;
 

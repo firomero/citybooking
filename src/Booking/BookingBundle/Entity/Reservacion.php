@@ -60,7 +60,7 @@ class Reservacion
 
     /**
      * @var string
-     * @ORM\Column(name="habitacion", type="string", length=255)
+     * @ORM\Column(name="habitacion", type="string", length=255, nullable=true)
      */
     private $habitacion;
 
@@ -83,7 +83,7 @@ class Reservacion
      *
      * @ORM\Column(name="estado", type="string", length=255)
      */
-    private $estado = "reservado";
+    private $estado = self::RESERVADA;
 
     /**
      * @var string
@@ -132,6 +132,13 @@ class Reservacion
      * )
      */
      protected $tipoHab;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Actividad", mappedBy="reservacion")
+     **/
+    private $actividades;
+
+
 
 
 
@@ -423,8 +430,12 @@ class Reservacion
 
     public function __construct(){
         $this->tipoHab = new ArrayCollection();
+        $this->actividades = new ArrayCollection();
     }
 
+    /**
+     * @param TipoHab $tipoHab
+     */
     public function addTipoHab(TipoHab $tipoHab){
 
         $this->tipoHab->add($tipoHab);
@@ -439,10 +450,64 @@ class Reservacion
         $this->tipoHab->remove($tipoHab->getId());
     }
 
+
+    /**
+     * @param Actividad $actividad
+     */
+    public function addActividad(Actividad $actividad){
+        $this->actividades->add($actividad);
+    }
+
+    /**
+     * @param Actividad $actividad
+     */
+    public function removeActividad(Actividad $actividad){
+        $this->actividades->remove($actividad->getId());
+    }
+
+    /**
+     *
+     * @return ArrayCollection
+     */
     public function getTipoHab(){
         return $this->tipoHab;
     }
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getActividades(){
+        return $this->actividades;
+    }
+
+    /**
+     * Normalize type object
+     * @return array
+     */
+    public function roomList(){
+        return array_map(function($value){
+            /**
+             * @var TipoHab $value
+             */
+            return $value->getNombre();
+        },
+            $this->tipoHab->getValues());
+    }
+
+    public function activityList(){
+        return array_map(function($value){
+                /**
+                 * @var Actividad $value
+                 */
+                return $value->getTipoActividad()->getNombre().'DÍA: '.$value->getFecha()->format('d/m/Y H:i').' '.$this->getCasa()->getNombre().' '.$value->getTotal();
+            },
+            $this->tipoHab->getValues());
+    }
+
+    /**
+     * Normalize bppking object
+     * @return array
+     */
     public function toArray(){
         return array(
             $this->id,
@@ -454,5 +519,9 @@ class Reservacion
             $this->casa->getNombre(),
             $this->estado
         );
+    }
+
+    public function __toString(){
+        return 'Agencia: '.$this->getAgencia()->getNombre().' Casa:'.$this->casa->getNombre().' Booking:'.$this->getCliente()->getReferencia();
     }
 }

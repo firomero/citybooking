@@ -67,6 +67,11 @@ class TipoActividad
         return $this->nombre;
     }
 
+    public function __toString(){
+
+        return $this->getNombre();
+    }
+
 
     public function toArray()
     {

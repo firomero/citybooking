@@ -39,9 +39,12 @@ booking:
         header:
             list: Listado de reservaciones
             confirm: Información
+            delete: Eliminar
         actions:
             add: Adicionar reservación
             edit: Editar reservación
+            acept: Aceptar
+            cancel: Cancelar
         messages:
             success:
             failed:
@@ -113,3 +116,37 @@ booking:
         buttons:
             accept: Aceptar
             cancel: Cancelar
+    actividad:
+        header:
+            list: Listado de Actividades
+            confirm: Información
+        actions:
+            add: Adicionar actividad
+            edit: Editar actividad
+        messages:
+            success:
+            failed:
+            confirm: ¿Seguro que desea eliminar el elemento seleccionado.?
+            placeholderAdd: Escriba nombre...
+        table:
+            date: Fecha
+            guide: Guía
+            precioguia: Precio del Guía
+            total: Total
+            type: Tipo de Actividad
+            pax: Pax
+            booking: Reservación
+            actions: Acciones
+        labels:
+            date: Fecha
+            guide: Guía
+            precioguia: Precio del Guía
+            total: Total
+            pax: Pax
+            type: Tipo de Actividad
+            booking: Reservación
+            actions: Acciones
+        buttons:
+            accept: Aceptar
+            cancel: Cancelar
+

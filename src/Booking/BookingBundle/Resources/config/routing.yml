@@ -22,3 +22,9 @@ BookingBundle_propietario:
         resource: "@BookingBundle/Resources/config/routing/propietario.yml"
         prefix:   /propietario
 
+
+BookingBundle_actividad:
+        resource: "@BookingBundle/Resources/config/routing/actividad.yml"
+        prefix:   /actividad
+
+

@@ -2,6 +2,7 @@
 
 namespace Booking\BookingBundle\Entity;
 
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Orx;
 
@@ -14,6 +15,7 @@ use Doctrine\ORM\Query\Expr\Orx;
 class CasaRepository extends EntityRepository
 {
     protected $columns = array('nombre','direccion','telefono','categoria','cantidadHab','clima','banno','disponible','observacion');
+    //protected $columns = array('nombre','direccion','telefono');
 
     public function queryEntity($options = array())
     {
@@ -38,7 +40,7 @@ class CasaRepository extends EntityRepository
 
                        foreach ($columns as $col) {
 
-                           $aLike[] = $qb->expr()->like($col, '\'%' . $options['sSearch']['value'] . '%\'');
+                           $aLike[] = $qb->expr()->like('a.'.$col, '\'%' . $options['sSearch'] . '%\'');
                        }
 
                        return $aLike;
@@ -67,8 +69,15 @@ class CasaRepository extends EntityRepository
             /**
              * @var Casa $r
              * */
-            array_push($dataExport, $r->toArray());
+
+            $dataHouse = $r->toArray();
+            $dataHouse[4]=$this->isAvailable($r);
+            array_push($dataExport, $dataHouse);
         }
+
+
+
+
 
         return $dataExport;
 
@@ -94,7 +103,7 @@ class CasaRepository extends EntityRepository
             $aLike = array();
             for ( $i=0 ; $i<count($this->columns) ; $i++ ){
                 if ( isset($get['bSearchable_'.$i]) && $get['bSearchable_'.$i] == "true" ){
-                    $aLike[] = $cb->expr()->like($this->columns[$i], '\'%'. $get['sSearch'] .'%\'');
+                    $aLike[] = $cb->expr()->like('a.'.$this->columns[$i], '\'%'. $get['sSearch'] .'%\'');
                 }
             }
             if(count($aLike) > 0) $cb->andWhere(new Orx($aLike));
@@ -108,5 +117,40 @@ class CasaRepository extends EntityRepository
         $query = $cb->getQuery();
         $aResultTotal = $query->getResult();
         return $aResultTotal[0][1];
+    }
+
+    /**
+     * Checks if a house is available
+     * @param Casa $casa
+     * @return bool
+     */
+    public function isAvailable(Casa $casa){
+        $today = new  \DateTime();
+        /**
+         * @var EntityManager $em
+         */
+        $em = $this->_em;
+        $reservadas = $em->getRepository('BookingBundle:Reservacion')
+            ->createQueryBuilder('r')
+            ->where('r.checkin >= :checkin')
+            ->orWhere('r.checkout<= :checkout')
+            ->setParameters(
+                array(
+                    'checkout' => $today->format('Y-m-d'),
+                    'checkin' => $today->format('Y-m-d')
+                )
+            )
+            ->getQuery()
+            ->getResult();
+        $is = array_filter($reservadas,function($value)use($casa){
+            /**
+             * @var Reservacion $value
+             */
+            if ($value->getCasa()->getId() ==$casa->getId()) {
+                return $value;
+            }
+        });
+
+        return count($is)==0;
     }
 }

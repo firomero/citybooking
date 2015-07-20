@@ -304,9 +304,11 @@ class TipoHabController extends Controller
     public function adicionarAction(Request $request)
     {
         $name = $request->get('name');
+        $weight = $request->get('weight');
         $validator = $this->get('validator');
         $tipohab = new TipoHab();
         $tipohab->setNombre($name);
+        $tipohab->setPeso(intval($weight));
 
         $errors = $validator->validate($tipohab);
         if (count($errors) > 0) {

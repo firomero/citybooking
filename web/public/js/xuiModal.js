@@ -52,17 +52,27 @@ var uiWindow = {
        $confirm.modal('show');
 
    },
-   form:function(caption,text,callback,form){
+   form:function(caption,callback,form,events){
        var $uiform = $('<div class="modal fade" id="jModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title">Modal title</h3></div><div class="modal-body"></div><div class="modal-footer"></div></div></div></div>');
-       var $div = $('<div class="btn-group"><button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button><button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button></div>');
+       $uiform.modal();
+       //var $div = $('<div class="btn-group"><button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button><button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button></div>');
        $uiform.find('.modal-title').empty().text(caption);
-       $uiform.find('.modal-body').empty().append(text);
-       form.append($div);
+       $uiform.find('.modal-body').empty().append(form);
+       //$(form).append($div);
        if (typeof(callback)==='function'){
-           form.on('submit',function(){
+           $(form).on('submit',function(){
               return  callback();
            });
        }
+       if (events!='') {
+           var fn = function(item){
+               $uiform.on(item.event,item.callback);
+
+           }
+
+           events.forEach(fn);
+       }
+
        $uiform.find('.btn.btn-primary').click(function(){
            $uiform.find('form').submit();
        });

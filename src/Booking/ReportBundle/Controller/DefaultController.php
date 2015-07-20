@@ -91,7 +91,7 @@ class DefaultController extends Controller
         $view = $this->listSummerAction();
         return $this->exportPDF($view, 'Boooking List Summer');
     }
-    //... simulacion de la fuente de datos
+    //... simulacion de la fuente de datos--done
     public function dataFacturasTour(){
         //... IN ... simulacion de datos ........................
         $data = array();
@@ -144,6 +144,8 @@ class DefaultController extends Controller
         //... OUT ... simulacion de datos ........................
         return $data;
     }
+
+    //done
     public function dataListReserv(){
         $data = array('list'=>array(), 'date'=>'ABRIL 2016');
         for($i=0; $i<100; $i++)
@@ -171,7 +173,7 @@ class DefaultController extends Controller
                 'snummer' => '815150098',
                 'contact'=>'#006638&nbsp; MartinMentzel',
                 'omschrijving'=>'Casa Belen 1850    double room',
-                'omschrijving'=>'Casa Belen 1850    double room',
+
                 'startdate'=>'19/04/2015',
                 'aantal'=>'3',
                 'kostprijs'=>'120',

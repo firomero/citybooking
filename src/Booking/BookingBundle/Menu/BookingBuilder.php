@@ -44,6 +44,11 @@ class BookingBuilder extends ContainerAware{
 
         ))->setAttribute('icon', 'icon-book');
 
+        $menu->addChild('Gestión de Actividades', array(
+            'route' => 'actividad',
+
+        ))->setAttribute('icon', 'icon-bolt');
+
         $menu->addChild('Gestión de Propietario', array(
             'route' => 'propietario',
 
