@@ -18,16 +18,24 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <![endif]-->
     <!-- GLOBAL STYLES -->
-    <link rel="stylesheet" href="{{asset('public/plugins/bootstrap/css/bootstrap.css')}}" />
-    <link rel="stylesheet" href="{{asset('public/css/main.css')}}" />
-    <link rel="stylesheet" href="{{asset('public/css/MoneAdmin.css')}}" />
-    <link rel="stylesheet" href="{{asset('public/css/theme.css')}}" />
-    <link rel="stylesheet" href="{{asset('public/plugins/Font-Awesome/css/font-awesome.css')}}" />
+
+
+    <link rel="stylesheet" href="{{asset('public/plugins/bootstrap/css/bootstrap.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('public/plugins/Font-Awesome/css/font-awesome.min.css')}}" />
+    {#<link rel="stylesheet" href="{{asset('public/css/main.css')}}" />#}
+    {#<link rel="stylesheet" href="{{asset('public/css/MoneAdmin.css')}}" />#}
+    {#<link rel="stylesheet" href="{{asset('public/css/theme.css')}}" />#}
     <!--END GLOBAL STYLES -->
 
     <!-- PAGE LEVEL STYLES -->
-    <link href="{{asset('public/css/layout2.css')}}" rel="stylesheet" />
-       <link href="{{asset('public/plugins/flot/examples/examples.css')}}" rel="stylesheet" />
+    {#<link href="{{asset('public/css/layout2.css')}}" rel="stylesheet" />#}
+       {#<link href="{{asset('public/plugins/flot/examples/examples.css')}}" rel="stylesheet" />#}
+    {% stylesheets 'public/css/main.css' 'public/css/MoneAdmin.css' 'public/css/theme.css' 'public/css/layout2.css' 'public/plugins/flot/examples/examples.css'
+    filter='yui_css' %}
+    <link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
+    {% endstylesheets %}
+
+
        {#<link rel="stylesheet" href="{{asset('public/plugins/timeline/timeline.css')}}" />#}
     <!-- END PAGE LEVEL  STYLES -->
      <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -1013,8 +1021,15 @@
     <script src="{{asset('public/plugins/modernizr-2.6.2-respond-1.1.0.min.js')}}"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-    <script src="{{ asset('public/js/angular.js') }}"></script>
-    <script src="{{ asset('public/js/ui-bootstrap.js') }}"></script>
+    <script src="{{ asset('public/js/angular.min.js') }}"></script>
+    <script src="{{ asset('public/js/ui-bootstrap.min.js') }}"></script>
+
+    {#{% javascripts '@OfertaBundle/Resources/public/js/*'#}
+    {#filter='yui_js'#}
+    {#output='js/frontend.js' %}#}
+    {#<script src="{{ asset_url }}" type="text/javascript"></script>#}
+    {#{% endjavascripts %}#}
+
 
 
     <!-- END GLOBAL SCRIPTS -->

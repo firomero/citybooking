@@ -62,7 +62,7 @@ class CasaRepository extends EntityRepository
             }
         }
 
-        $result = $qb->getQuery()->getResult();
+        $result = $qb->getQuery()->useResultCache(true, 3600)->getResult();
         $dataExport = array();
 
         foreach ($result as $r) {

@@ -8,5 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Symfony\\Bundle\\SwiftmailerBundle\\' => array($vendorDir . '/symfony/swiftmailer-bundle'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
+    'Incenteev\\ParameterHandler\\' => array($vendorDir . '/incenteev/composer-parameter-handler'),
     'FOS\\JsRoutingBundle\\' => array($vendorDir . '/friendsofsymfony/jsrouting-bundle'),
+    'Elao\\WebProfilerExtraBundle\\' => array($vendorDir . '/elao/web-profiler-extra-bundle'),
 );

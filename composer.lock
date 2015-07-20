@@ -4,21 +4,21 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3ab7d9a30cdcf659885fa98fb7529a66",
+    "hash": "8fcb816ca0bd8d5f362851937d5f831b",
     "packages": [
         {
             "name": "doctrine/annotations",
-            "version": "v1.2.4",
+            "version": "v1.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "b5202eb9e83f8db52e0e58867e0a46e63be8332e"
+                "reference": "f4a91702ca3cd2e568c3736aa031ed00c3752af4"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://composer.prod.uci.cu:8080/dist/doctrine-annotations-b5202eb9e83f8db52e0e58867e0a46e63be8332e-zip-15a4bf.zip",
-                "reference": "b5202eb9e83f8db52e0e58867e0a46e63be8332e",
-                "shasum": "333daf55d6a6880147502ed149d17876958a0d4e"
+                "url": "http://composer.prod.uci.cu:8080/dist/doctrine-annotations-f4a91702ca3cd2e568c3736aa031ed00c3752af4-zip-2997c2.zip",
+                "reference": "f4a91702ca3cd2e568c3736aa031ed00c3752af4",
+                "shasum": "b726d98d9cd8b213d225695136cecd6738fc3037"
             },
             "require": {
                 "doctrine/lexer": "1.*",
@@ -72,7 +72,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2014-12-23 22:40:37"
+            "time": "2015-06-17 12:21:22"
         },
         {
             "name": "doctrine/cache",
@@ -422,6 +422,90 @@
             "time": "2013-03-25 20:13:59"
         },
         {
+            "name": "doctrine/doctrine-cache-bundle",
+            "version": "v1.0.1",
+            "target-dir": "Doctrine/Bundle/DoctrineCacheBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/DoctrineCacheBundle.git",
+                "reference": "e4b6f810aa047f9cbfe41c3d6a3d7e83d7477a9d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "http://composer.prod.uci.cu:8080/dist/doctrine-doctrine-cache-bundle-e4b6f810aa047f9cbfe41c3d6a3d7e83d7477a9d-zip-62e58f.zip",
+                "reference": "e4b6f810aa047f9cbfe41c3d6a3d7e83d7477a9d",
+                "shasum": "36ce8b8cbbbaefedfe6b81996945c899d3c56ebd"
+            },
+            "require": {
+                "doctrine/cache": "~1.3",
+                "doctrine/inflector": "~1.0",
+                "php": ">=5.3.2",
+                "symfony/doctrine-bridge": "~2.2",
+                "symfony/framework-bundle": "~2.2",
+                "symfony/security": "~2.2"
+            },
+            "require-dev": {
+                "instaclick/coding-standard": "~1.1",
+                "instaclick/object-calisthenics-sniffs": "dev-master",
+                "instaclick/symfony2-coding-standard": "dev-remaster",
+                "phpunit/phpunit": "~3.7",
+                "satooshi/php-coveralls": "~0.6.1",
+                "squizlabs/php_codesniffer": "dev-master",
+                "symfony/console": "~2.2",
+                "symfony/finder": "~2.2",
+                "symfony/validator": "~2.2",
+                "symfony/yaml": "~2.2"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Bundle\\DoctrineCacheBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Fabio B. Silva",
+                    "email": "fabio.bat.silva@gmail.com"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@hotmail.com"
+                },
+                {
+                    "name": "Doctrine Project",
+                    "homepage": "http://www.doctrine-project.org/"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony2 Bundle for Doctrine Cache",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "cache",
+                "caching"
+            ],
+            "time": "2014-11-28 09:43:36"
+        },
+        {
             "name": "doctrine/inflector",
             "version": "v1.0.1",
             "source": {
@@ -614,6 +698,60 @@
             "time": "2014-06-03 19:53:45"
         },
         {
+            "name": "elao/web-profiler-extra-bundle",
+            "version": "v2.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Elao/WebProfilerExtraBundle.git",
+                "reference": "b68a3b424096db659878a0f6c2024cc069cfb9b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "http://composer.prod.uci.cu:8080/dist/elao-web-profiler-extra-bundle-b68a3b424096db659878a0f6c2024cc069cfb9b5-zip-2952f0.zip",
+                "reference": "b68a3b424096db659878a0f6c2024cc069cfb9b5",
+                "shasum": "d725aced7c9f1ebd01414a49172989d8a130b565"
+            },
+            "require": {
+                "symfony/framework-bundle": "~2.1",
+                "symfony/twig-bundle": "~2.0",
+                "twig/twig": "~1.12"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Elao\\WebProfilerExtraBundle\\": "."
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Elao Team",
+                    "homepage": "http://www.elao.com"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "http://github.com/Elao/WebProfilerExtraBundle/contributors"
+                }
+            ],
+            "description": "Add routing, container, assetic & twig information inside the profiler",
+            "homepage": "http://github.com/Elao/WebProfilerExtraBundle",
+            "keywords": [
+                "bundle",
+                "elao",
+                "extra",
+                "profiler"
+            ],
+            "time": "2015-06-01 07:07:31"
+        },
+        {
             "name": "friendsofsymfony/jsrouting-bundle",
             "version": "1.5.4",
             "source": {
@@ -740,18 +878,17 @@
         },
         {
             "name": "incenteev/composer-parameter-handler",
-            "version": "v2.1.0",
-            "target-dir": "Incenteev/ParameterHandler",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Incenteev/ParameterHandler.git",
-                "reference": "143272a0a09c62616a3c8011fc165a10c6b35241"
+                "reference": "84a205fe80a46101607bafbc423019527893ddd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://composer.prod.uci.cu:8080/dist/incenteev-composer-parameter-handler-143272a0a09c62616a3c8011fc165a10c6b35241-zip-c09d11.zip",
-                "reference": "143272a0a09c62616a3c8011fc165a10c6b35241",
-                "shasum": "62e4a58ae6c3ec52d78a898b7906afb46dcc4933"
+                "url": "http://composer.prod.uci.cu:8080/dist/incenteev-composer-parameter-handler-84a205fe80a46101607bafbc423019527893ddd0-zip-9fcc42.zip",
+                "reference": "84a205fe80a46101607bafbc423019527893ddd0",
+                "shasum": "d79ce9c44c5637f32ce6c13a1409a0aaffe40cae"
             },
             "require": {
                 "php": ">=5.3.3",
@@ -769,8 +906,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Incenteev\\ParameterHandler": ""
+                "psr-4": {
+                    "Incenteev\\ParameterHandler\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -788,7 +925,7 @@
             "keywords": [
                 "parameters management"
             ],
-            "time": "2013-12-07 10:10:39"
+            "time": "2015-06-03 08:27:03"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -1026,17 +1163,17 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.13.1",
+            "version": "1.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "c31a2c4e8db5da8b46c74cf275d7f109c0f249ac"
+                "reference": "b287fbbe1ca27847064beff2bad7fb6920bf08cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://composer.prod.uci.cu:8080/dist/monolog-monolog-c31a2c4e8db5da8b46c74cf275d7f109c0f249ac-zip-f19d24.zip",
-                "reference": "c31a2c4e8db5da8b46c74cf275d7f109c0f249ac",
-                "shasum": "812a8a9b5cb536bd20cadbd88dd4f6f17f79b581"
+                "url": "http://composer.prod.uci.cu:8080/dist/monolog-monolog-b287fbbe1ca27847064beff2bad7fb6920bf08cc-zip-02bf4f.zip",
+                "reference": "b287fbbe1ca27847064beff2bad7fb6920bf08cc",
+                "shasum": "6fcf4216a155e535ed10b8a6cb7b01e0ea15f6d2"
             },
             "require": {
                 "php": ">=5.3.0",
@@ -1046,12 +1183,14 @@
                 "psr/log-implementation": "1.0.0"
             },
             "require-dev": {
-                "aws/aws-sdk-php": "~2.4, >2.4.8",
+                "aws/aws-sdk-php": "^2.4.9",
                 "doctrine/couchdb": "~1.0@dev",
                 "graylog2/gelf-php": "~1.0",
-                "phpunit/phpunit": "~4.0",
-                "raven/raven": "~0.5",
-                "ruflin/elastica": "0.90.*",
+                "php-console/php-console": "^3.1.3",
+                "phpunit/phpunit": "~4.5",
+                "phpunit/phpunit-mock-objects": "2.3.0",
+                "raven/raven": "~0.8",
+                "ruflin/elastica": ">=0.90 <3.0",
                 "swiftmailer/swiftmailer": "~5.3",
                 "videlalvaro/php-amqplib": "~2.4"
             },
@@ -1061,6 +1200,7 @@
                 "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
                 "ext-mongo": "Allow sending log messages to a MongoDB server",
                 "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
+                "php-console/php-console": "Allow sending log messages to Google Chrome",
                 "raven/raven": "Allow sending log messages to a Sentry server",
                 "rollbar/rollbar": "Allow sending log messages to Rollbar",
                 "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
@@ -1069,7 +1209,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.13.x-dev"
+                    "dev-master": "1.14.x-dev"
                 }
             },
             "autoload": {
@@ -1095,7 +1235,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2015-03-09 09:58:04"
+            "time": "2015-06-19 13:29:54"
         },
         {
             "name": "psr/log",
@@ -1137,18 +1277,18 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v2.3.16",
+            "version": "v2.3.22",
             "target-dir": "Sensio/Bundle/DistributionBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "df552307f1426f69ada59cfcae85c43b7c10a8cd"
+                "reference": "98bdda791e7c2dfb5fd55781e69a4b00e4f751a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://composer.prod.uci.cu:8080/dist/sensio-distribution-bundle-df552307f1426f69ada59cfcae85c43b7c10a8cd-zip-b80e22.zip",
-                "reference": "df552307f1426f69ada59cfcae85c43b7c10a8cd",
-                "shasum": "bdee406102aab5158791d2302da313d33fb3819c"
+                "url": "http://composer.prod.uci.cu:8080/dist/sensio-distribution-bundle-98bdda791e7c2dfb5fd55781e69a4b00e4f751a6-zip-d3d776.zip",
+                "reference": "98bdda791e7c2dfb5fd55781e69a4b00e4f751a6",
+                "shasum": "be56f59d7f8dcc2b88cd2734f5a2f20338a1d505"
             },
             "require": {
                 "symfony/framework-bundle": "~2.2"
@@ -1179,7 +1319,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2015-05-02 16:01:47"
+            "time": "2015-06-05 22:32:08"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -1282,23 +1422,23 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.0",
+            "version": "v5.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "31454f258f10329ae7c48763eb898a75c39e0a9f"
+                "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://composer.prod.uci.cu:8080/dist/swiftmailer-swiftmailer-31454f258f10329ae7c48763eb898a75c39e0a9f-zip-f82353.zip",
-                "reference": "31454f258f10329ae7c48763eb898a75c39e0a9f",
-                "shasum": "5a5bcf05ab6c50d5dcc9573c1b5b322bec9b6375"
+                "url": "http://composer.prod.uci.cu:8080/dist/swiftmailer-swiftmailer-0697e6aa65c83edf97bb0f23d8763f94e3f11421-zip-86df66.zip",
+                "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421",
+                "shasum": "fdf64e3cf0aff3b4098d7b4f763129579f2cc651"
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "mockery/mockery": "~0.9.1"
+                "mockery/mockery": "~0.9.1,<0.9.4"
             },
             "type": "library",
             "extra": {
@@ -1327,10 +1467,11 @@
             "description": "Swiftmailer, free feature-rich PHP mailer",
             "homepage": "http://swiftmailer.org",
             "keywords": [
+                "email",
                 "mail",
                 "mailer"
             ],
-            "time": "2015-03-14 06:06:39"
+            "time": "2015-06-06 14:19:39"
         },
         {
             "name": "symfony/assetic-bundle",
@@ -1514,17 +1655,17 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.3.28",
+            "version": "v2.3.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "56bc4057e3849d38aeb5e9742bc800b0518fe1f0"
+                "reference": "6dfe5551b71d156739a0df1043ba81b326e36f4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://composer.prod.uci.cu:8080/dist/symfony-symfony-56bc4057e3849d38aeb5e9742bc800b0518fe1f0-zip-bbbc5a.zip",
-                "reference": "56bc4057e3849d38aeb5e9742bc800b0518fe1f0",
-                "shasum": "9cab1c87d7ad533d6e5690b5b34f522fc2d4ba21"
+                "url": "http://composer.prod.uci.cu:8080/dist/symfony-symfony-6dfe5551b71d156739a0df1043ba81b326e36f4a-zip-7676b9.zip",
+                "reference": "6dfe5551b71d156739a0df1043ba81b326e36f4a",
+                "shasum": "939f76b1684fd331267b36dad3e6c7adbd03d447"
             },
             "require": {
                 "doctrine/common": "~2.3",
@@ -1605,20 +1746,20 @@
             ],
             "authors": [
                 {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                },
-                {
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
                 }
             ],
             "description": "The Symfony PHP framework",
-            "homepage": "http://symfony.com",
+            "homepage": "https://symfony.com",
             "keywords": [
                 "framework"
             ],
-            "time": "2015-05-10 15:02:48"
+            "time": "2015-05-29 22:16:04"
         },
         {
             "name": "twig/extensions",
@@ -1669,17 +1810,17 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.18.1",
+            "version": "v1.18.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "9f70492f44398e276d1b81c1b43adfe6751c7b7f"
+                "reference": "e8e6575abf6102af53ec283f7f14b89e304fa602"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://composer.prod.uci.cu:8080/dist/twig-twig-9f70492f44398e276d1b81c1b43adfe6751c7b7f-zip-27fc52.zip",
-                "reference": "9f70492f44398e276d1b81c1b43adfe6751c7b7f",
-                "shasum": "4d1c9aae3480a764da17aec2fe809215614f1a10"
+                "url": "http://composer.prod.uci.cu:8080/dist/twig-twig-e8e6575abf6102af53ec283f7f14b89e304fa602-zip-dceee1.zip",
+                "reference": "e8e6575abf6102af53ec283f7f14b89e304fa602",
+                "shasum": "fdf9e98d005803bc4681dbad973fd5a6497ca4f7"
             },
             "require": {
                 "php": ">=5.2.7"
@@ -1722,7 +1863,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-04-19 08:30:27"
+            "time": "2015-06-06 23:31:24"
         },
         {
             "name": "willdurand/jsonp-callback-validator",

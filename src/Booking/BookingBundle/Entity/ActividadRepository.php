@@ -60,7 +60,9 @@ class ActividadRepository extends EntityRepository {
             }
         }
 
-        $result = $qb->getQuery()->getResult();
+        $result = $qb->getQuery()->useResultCache(true, 3600)->getResult();
+
+
         $dataExport = array();
 
         foreach ($result as $r) {
@@ -108,7 +110,7 @@ class ActividadRepository extends EntityRepository {
          * SQL queries
          * Get data to display
          */
-        $query = $cb->getQuery();
+        $query = $cb->getQuery()->useResultCache(true);
         $aResultTotal = $query->getResult();
 
         return $aResultTotal[0][1];
