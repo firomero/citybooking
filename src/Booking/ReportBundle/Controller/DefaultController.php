@@ -144,8 +144,6 @@ class DefaultController extends Controller
         //... OUT ... simulacion de datos ........................
         return $data;
     }
-
-    //done
     public function dataListReserv(){
         $data = array('list'=>array(), 'date'=>'ABRIL 2016');
         for($i=0; $i<100; $i++)

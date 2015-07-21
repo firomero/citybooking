@@ -118,7 +118,7 @@ class ReportManager {
         $dataOutput = array();
 
         foreach ($reservaciones as $book) {
-            $r = array(
+            $dataOutput[] = array(
                 'date'=> date_format(new \DateTime(),'d/m/Y'),
                 'supplier_agency'=> $book->getAgencia()->getNombre(),
                 'supplier_name'=> $book->getCasa()->getPropietario()->getNombre(),
@@ -150,14 +150,9 @@ class ReportManager {
                             'services_total' => $activity->getTotal()
                         );
                     }
-
-
                     return $services;
                 })
             );
-
-
-
         }
 
         return $dataOutput;
@@ -178,6 +173,7 @@ class ReportManager {
 
         foreach ($reservaciones as $book) {
             $data['list'][]=array(
+
                 'referencia' => $book->getCliente()->getReferencia(),
                 'cliente'=>$book->getCliente()->getNombre(),
                 'entrada'=>$book->getCheckin()->format('d/m/Y'),

@@ -13,7 +13,7 @@ define ('PDF_PAGE_ORIENTATION', 'L');
 define ('PDF_CREATOR', 'TCPDF');
 define ('PDF_AUTHOR', 'TCPDF');
 define ('PDF_HEADER_TITLE', 'Boooking');
-define ('PDF_HEADER_STRING', "www.boooking.org\nBycod Teams - www.bycod.com");
+define ('PDF_HEADER_STRING', "www.boooking.org\nCodechanic Teams - www.codechanic.com");
 define ('PDF_UNIT', 'mm');
 define ('PDF_MARGIN_HEADER', 5);
 define ('PDF_MARGIN_FOOTER', 10);
