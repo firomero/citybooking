@@ -4,7 +4,7 @@ report_homepage:
 
 report_facturastour:
     pattern:  /facturasTour
-    defaults: { _controller: ReportBundle:Default:facturasTour  }
+    defaults: { _controller: ReportBundle:Reporte:facturasTour  }
 
 report_facturasHouse:
     pattern:  /facturasHouse
