@@ -6,30 +6,23 @@ report_facturastour:
     pattern:  /facturasTour
     defaults: { _controller: ReportBundle:Reporte:facturasTour  }
 
-report_facturasHouse:
-    pattern:  /facturasHouse
-    defaults: { _controller: ReportBundle:Default:facturasHouse  }
-
 report_listReserv:
     pattern:  /listReserv
-    defaults: { _controller: ReportBundle:Default:listReserv  }
+    defaults: { _controller: ReportBundle:Reporte:listReserv  }
+#... view report template
+report_facturasTour_view:
+    pattern:  /viewFacturasTour
+    defaults: { _controller: ReportBundle:Reporte:viewFacturasTour  }
 
-report_listSummer:
-    pattern:  /listSummer
-    defaults: { _controller: ReportBundle:Default:listSummer  }
+report_listReserv_view:
+    pattern:  /viewListReserv
+    defaults: { _controller: ReportBundle:Reporte:viewListReserv  }
 
 report_facturastour_pdf:
-    pattern:  /facturasTour/pdf
-    defaults: { _controller: ReportBundle:Default:pdfFacturasTour  }
-
-report_facturasHouse_pdf:
-    pattern:  /facturasHouse/pdf
-    defaults: { _controller: ReportBundle:Default:pdfFacturasHouse  }
+    pattern:  /viewFacturasTour/pdf
+    defaults: { _controller: ReportBundle:Reporte:pdfFacturasTour  }
 
 report_listReserv_pdf:
-    pattern:  /listReserv/pdf
-    defaults: { _controller: ReportBundle:Default:pdfListReserv  }
+    pattern:  /viewListReserv/pdf
+    defaults: { _controller: ReportBundle:Reporte:pdfListReserv  }
 
-report_listSummer_pdf:
-    pattern:  /listSummer/pdf
-    defaults: { _controller: ReportBundle:Default:pdfListSummer  }

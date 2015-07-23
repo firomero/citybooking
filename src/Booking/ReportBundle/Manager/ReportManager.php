@@ -150,12 +150,9 @@ class ReportManager {
                             'services_total' => $activity->getTotal()
                         );
                     }
-
-
                     return $services;
                 })
             );
-
         }
 
         return $dataOutput;
@@ -176,6 +173,7 @@ class ReportManager {
 
         foreach ($reservaciones as $book) {
             $data['list'][]=array(
+
                 'referencia' => $book->getCliente()->getReferencia(),
                 'cliente'=>$book->getCliente()->getNombre(),
                 'entrada'=>$book->getCheckin()->format('d/m/Y'),

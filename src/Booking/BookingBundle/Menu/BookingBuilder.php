@@ -71,11 +71,15 @@ class BookingBuilder extends ContainerAware{
 
         $menu->addChild('Gestión de Tipo de Habitación', array(
             'route' => 'tipohab',
-
         ))->setAttribute('icon', 'icon-star');
 
+        $menu->addChild('Reportes de Facturas para Tour', array(
+            'route' => 'report_facturasTour_view',
+        ))->setAttribute('icon', 'icon-columns');
 
-
+        $menu->addChild('Reportes de Reservaciones', array(
+            'route' => 'report_listReserv_view',
+        ))->setAttribute('icon', 'icon-columns');
 
         return $menu;
     }

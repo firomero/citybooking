@@ -501,7 +501,7 @@ class Reservacion
                  */
                 return $value->getTipoActividad()->getNombre().'DÍA: '.$value->getFecha()->format('d/m/Y H:i').' '.$this->getCasa()->getNombre().' '.$value->getTotal();
             },
-            $this->tipoHab->getValues());
+            $this->actividades->getValues());
     }
 
     /**
