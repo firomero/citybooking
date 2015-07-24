@@ -1,0 +1,28 @@
+<div class="col-lg-4 col-md-4">
+    <div class="col-md-12">{{ form_errors(form) }}</div>
+    <form class="ajaxForm" method="post" action="{{ path('habitacion_crear') }}"  {{ form_enctype(form) }}>
+
+        <div class="control-group mensajes">
+            {{ form_label(form.casa, 'booking.habitacion.labels.house'| trans({}, 'BookingBundle') ) }}
+
+                {{ form_widget(form.casa,{'attr':{ 'class': 'form-control' }}) }}
+
+        </div>
+        <div class="control-group mensajes">
+            {{ form_label(form.tipo, 'booking.habitacion.labels.type' | trans({}, 'BookingBundle') ) }}
+
+                {{ form_widget(form.tipo,{'attr':{ 'class': 'form-control' }}) }}
+        </div>
+
+        <div  class="control-group">
+            <button type="submit"
+                    class="btn btn-primary action edit">{{ 'booking.habitacion.buttons.accept' | trans({}, 'BookingBundle') }}</button>
+            <button type="button" class="btn btn-success"
+                    data-dismiss="modal">{{ 'booking.habitacion.buttons.cancel' | trans({}, 'BookingBundle') }}</button>
+        </div>
+
+
+        {{ form_rest(form) }}
+
+    </form>
+</div>

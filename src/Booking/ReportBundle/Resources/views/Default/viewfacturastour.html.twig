@@ -1,0 +1,9 @@
+{% extends 'BookingBundle::layout.html.twig' %}
+
+{% block content %}
+    <a class="btn btn-mini info edit" title="Exportar" href="{{ path('report_facturastour_pdf') }}"><i class="icon-share"></i></a>
+    {% for item in list %}
+        {% include 'ReportBundle:Default:facturastouritem.html.twig' with {'item' : item } %}
+        </br></br>
+    {% endfor %}
+{% endblock content %}

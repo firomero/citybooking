@@ -1,9 +1,8 @@
 
-Symfony Standard Edition
-========================
+CITYBOOKING-PROJECT
+=======
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony2
-application that you can use as the skeleton for your new applications.
+plication that you can use as the skeleton for your new applications.
 
 This document contains information on how to download, install, and start
 using Symfony. For a more detailed explanation, see the [Installation][1]
@@ -170,6 +169,5 @@ Enjoy!
 [11]: http://symfony.com/doc/2.3/cookbook/logging/monolog.html
 [12]: http://symfony.com/doc/2.3/cookbook/assetic/asset_management.html
 [13]: http://symfony.com/doc/2.3/bundles/SensioGeneratorBundle/index.html
-=======
-# citybooking
+======
 Avoids Manual Overbooking

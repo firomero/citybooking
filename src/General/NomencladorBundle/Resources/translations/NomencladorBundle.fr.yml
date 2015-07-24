@@ -1,0 +1,16 @@
+# the yml style configuration data
+nomenclador:
+    agencia:
+        header:
+            list: Listado de Agencias
+        actions:
+        messages:
+            success:
+            failed:
+    tipohab:
+        header:
+            list: Listado de Tipos de Habitaciones
+        actions:
+        messages:
+            success:
+            failed:

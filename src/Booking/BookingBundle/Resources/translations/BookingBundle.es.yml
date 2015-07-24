@@ -1,0 +1,152 @@
+booking:
+    cliente:
+        header:
+            list: Listado de Clientes
+            info: Información
+        actions:
+            add: Adicionar Cliente
+        messages:
+            success: exito
+            failed: failed
+        labels:
+            name: Nombre
+            reference: Referencia
+        buttons:
+            acept: Aceptar
+            cancel: Cancelar
+    habitacion:
+        header:
+            list: Listado de habitaciones
+            confirm: Información
+        actions:
+            add: Adicionar habitación
+            edit: Editar habitación
+            delete: Eliminar
+        messages:
+            success:
+            failed:
+            confirm: ¿Seguro que desea eliminar el elemento seleccionado.?
+            placeholderAdd: Escriba nombre...
+        labels:
+            name: Nombre
+            actions: Acciones
+            house: Casa
+            type: Tipo
+        buttons:
+            accept: Aceptar
+            cancel: Cancelar
+    reservacion:
+        header:
+            list: Listado de reservaciones
+            confirm: Información
+            delete: Eliminar
+        actions:
+            add: Adicionar reservación
+            edit: Editar reservación
+            acept: Aceptar
+            cancel: Cancelar
+        messages:
+            success:
+            failed:
+            confirm: ¿Seguro que desea eliminar el elemento seleccionado.?
+            placeholderAdd: Escriba nombre...
+        table:
+            agency: Agencia
+            client: Cliente
+            checkin: Check in
+            checkout: Check out
+            price: Precio
+            house: Casa
+            night: Noches
+            pax: Pax
+            tipoHab: Tipo de Habitación
+            confirmed: Confirmado
+            description: Observación
+            status: Estado
+            actions: Acciones
+        buttons:
+            accept: Aceptar
+            cancel: Cancelar
+    propietario:
+        header:
+            list: Listado de Propietarios
+            info: Información
+        actions:
+            add: Adicionar Propietario
+        labels:
+            name: Nombre
+            ci: CI
+            actions: Acciones
+        messages:
+            success: éxitoi
+            failed:  fallido
+        buttons:
+            accept: Aceptar
+            cancel: Cancelar
+
+    casa:
+        header:
+            list: Listado de casas
+            confirm: Información
+            roomlist: Gestión de Habitaciones
+        actions:
+            add: Adicionar reservación
+            edit: Editar reservación
+        messages:
+            success:
+            failed:
+            confirm: ¿Seguro que desea eliminar el elemento seleccionado.?
+            placeholderAdd: Escriba nombre...
+        table:
+            name: Nombre
+            address: Dirección
+            phone: Teléfono
+            available: Disponible
+            actions: Acciones
+        labels:
+            name: Nombre
+            category: Categoría
+            address: Dirección
+            phone: Teléfono
+            air:  Clima
+            bath: Baño
+            available: Disponible
+            description: Descripción
+            owner: Propietario
+        buttons:
+            accept: Aceptar
+            cancel: Cancelar
+    actividad:
+        header:
+            list: Listado de Actividades
+            confirm: Información
+        actions:
+            add: Adicionar actividad
+            edit: Editar actividad
+        messages:
+            success:
+            failed:
+            confirm: ¿Seguro que desea eliminar el elemento seleccionado.?
+            placeholderAdd: Escriba nombre...
+        table:
+            date: Fecha
+            guide: Guía
+            precioguia: Precio del Guía
+            total: Total
+            type: Tipo de Actividad
+            pax: Pax
+            booking: Reservación
+            actions: Acciones
+        labels:
+            date: Fecha
+            guide: Guía
+            precioguia: Precio del Guía
+            total: Total
+            pax: Pax
+            type: Tipo de Actividad
+            booking: Reservación
+            actions: Acciones
+        buttons:
+            accept: Aceptar
+            cancel: Cancelar
+

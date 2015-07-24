@@ -1,0 +1,15 @@
+nomenclador_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: NomencladorBundle:Default:index }
+
+nomenclador_crudagencia:
+    resource: "@NomencladorBundle/Resources/config/routing/agencia.yml"
+    prefix:   /agencia
+
+nomenclador_crudtipoAct:
+    resource: "@NomencladorBundle/Resources/config/routing/tipoactividad.yml"
+    prefix: /tipoactividad
+
+nomenclador_crudtipohab:
+    resource: "@NomencladorBundle/Resources/config/routing/tipohab.yml"
+    prefix:   /tipohab

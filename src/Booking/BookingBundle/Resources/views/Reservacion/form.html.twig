@@ -1,0 +1,80 @@
+
+    <div class="col-md-12">{{ form_errors(form) }}</div>
+    <form class="ajaxForm" method="post" action="{{ path('reservacion_crear') }}"  {{ form_enctype(form) }}>
+
+        <div class="form-group">
+            {{ form_label(form.agencia, 'booking.reservacion.table.agency'| trans({}, 'BookingBundle') ) }}
+
+            {{ form_widget(form.agencia,{'attr':{ 'class': 'form-control agencia-name' }}) }}
+
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.cliente, 'booking.reservacion.table.client' | trans({}, 'BookingBundle') ) }}
+
+            {{ form_widget(form.cliente,{'attr':{ 'class': 'form-control cliente-name' }}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.checkin, 'booking.reservacion.table.checkin' | trans({}, 'BookingBundle') ) }}
+
+            {{ form_widget(form.checkin,{'attr':{ 'class': 'form-control dating checkin' }}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.checkout, 'booking.reservacion.table.checkout' | trans({}, 'BookingBundle') ) }}
+
+            {{ form_widget(form.checkout,{'attr':{ 'class': 'form-control dating checkout' }}) }}
+        </div>
+
+
+
+        <div class="form-group">
+            {{ form_label(form.noches, 'booking.reservacion.table.night' | trans({}, 'BookingBundle') ) }}
+
+            {{ form_widget(form.noches,{'attr':{ 'class': 'form-control' }}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.pax, 'booking.reservacion.table.pax' | trans({}, 'BookingBundle') ) }}
+
+            {{ form_widget(form.pax,{'attr':{ 'class': 'form-control pax' }}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.tipoHab, 'booking.reservacion.table.tipoHab' | trans({}, 'BookingBundle') ) }}
+
+            {{ form_widget(form.tipoHab,{'attr':{ 'class': 'form-control tipoHab' }}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.precio, 'booking.reservacion.table.price' | trans({}, 'BookingBundle') ) }}
+
+            {{ form_widget(form.precio,{'attr':{ 'class': 'form-control' }}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.casa, 'booking.reservacion.table.house' | trans({}, 'BookingBundle') ) }}
+
+            {{ form_widget(form.casa,{'attr':{ 'class': 'form-control casa-name' }}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.confirmado, 'booking.reservacion.table.confirmed' | trans({}, 'BookingBundle') ) }}
+
+            {{ form_widget(form.confirmado,{'attr':{ 'class': 'form-control dating' }}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.observacion, 'booking.reservacion.table.description' | trans({}, 'BookingBundle') ) }}
+
+            {{ form_widget(form.observacion,{'attr':{ 'class': 'form-control' }}) }}
+        </div>
+        <div  class="form-group">
+            <button type="submit"
+                    class="btn btn-primary action edit">{{ 'booking.reservacion.buttons.accept' | trans({}, 'BookingBundle') }}</button>
+            <button type="button" class="btn btn-default"
+                    data-dismiss="modal">{{ 'booking.reservacion.buttons.cancel' | trans({}, 'BookingBundle') }}</button>
+        </div>
+        {{ form_rest(form) }}
+    </form>

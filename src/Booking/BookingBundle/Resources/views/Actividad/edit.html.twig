@@ -1,0 +1,59 @@
+<div class="col-md-12">{{ form_errors(form) }}</div>
+<form class="ajaxForm" method="POST" action="{{ path('actividad_update',{ id:entity.id }) }}"  {{ form_enctype(form) }}>
+    <div class="control-group">
+        {{ form_label(form.fecha, 'booking.actividad.labels.date'| trans({}, 'BookingBundle') ) }}
+
+        {{ form_widget(form.fecha,{'attr':{'class':'form-control dating'}}) }}
+
+    </div>
+    <div class="control-group">
+        {{ form_label(form.guia, 'booking.actividad.labels.guide' | trans({}, 'BookingBundle')  ) }}
+
+        {{ form_widget(form.guia,{'attr':{'class':'form-control'}}) }}
+
+    </div>
+
+    <div class="control-group">
+        {{ form_label(form.total, 'booking.actividad.labels.total' | trans({}, 'BookingBundle')  ) }}
+
+        {{ form_widget(form.total,{'attr':{'class':'form-control'}}) }}
+
+    </div>
+
+    <div class="control-group">
+        {{ form_label(form.precioguia,  'booking.actividad.labels.precioguia'| trans({}, 'BookingBundle')) }}
+
+        {{ form_widget(form.precioguia,{'attr':{'class':'form-control'}}) }}
+
+    </div>
+
+    <div class="control-group">
+        {{ form_label(form.tipoActividad, 'booking.actividad.labels.type' | trans({}, 'BookingBundle')) }}
+        <div class="controls">
+            {{ form_widget(form.tipoActividad,{'attr':{'class':'form-control'}}) }}
+        </div>
+    </div>
+
+    <div class="control-group">
+        {{ form_label(form.pax, 'booking.actividad.labels.pax' | trans({}, 'BookingBundle')) }}
+        <div class="controls">
+            {{ form_widget(form.pax,{'attr':{'class':'form-control'}}) }}
+        </div>
+    </div>
+
+    <div class="control-group">
+        {{ form_label(form.reservacion,  'booking.actividad.labels.booking'| trans({}, 'BookingBundle')  ) }}
+
+        {{ form_widget(form.reservacion,{'attr':{'class':'form-control'}}) }}
+
+    </div>
+
+    <div class="control-group">
+        <button type="button"
+                class="btn btn-primary action">{{ 'booking.actividad.buttons.accept' | trans({}, 'BookingBundle') }}</button>
+        <button type="button" class="btn btn-success"
+                data-dismiss="modal">{{ 'booking.actividad.buttons.cancel' | trans({}, 'BookingBundle') }}</button>
+    </div>
+    {{ form_rest(form) }}
+
+</form>

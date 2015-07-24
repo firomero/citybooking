@@ -1,7 +1,12 @@
-vendor
-vendor/
 .idea/
 .idea
 app/cache
 app/cache/
 bundles
+app/logs
+web/bundles/
+web/bundles
+/web/bundles/acmedemo/
+parameters.yml
+app/config/parameters.yml
+

@@ -1,0 +1,72 @@
+nomenclador:
+    agencia:
+        header:
+            list: Listado de Agencias
+            confirm: Información
+            name: Nombre
+            actions: Acciones
+        actions:
+            add: Adicionar Agencia
+            accept: Aceptar
+            cancel: Cancelar
+        messages:
+            success:
+            failed:
+            confirm: ¿Seguro que desea eliminar el elemento seleccionado.?
+            placeholderAdd: Escriba nombre...
+        labels:
+            name: Nombre
+            actions: Acciones
+    tipohab:
+        header:
+            list: Listado de Tipos de Habitaciones
+        actions:
+            add: Adicionar Tipo de Habitación
+        messages:
+            success:
+            failed:
+            confirm: ¿Seguro que desea eliminar el elemento seleccionado.?
+            placeholderAdd: Escriba nombre...
+        labels:
+            name: Nombre
+            actions: Acciones
+        buttons:
+            accept: Aceptar
+            cancel: Cancelar
+
+    tipoActividad:
+        header:
+            list: Listado de Actividades
+            confirm: Información
+        actions:
+            add: Adicionar Actividad
+        messages:
+            success:
+            failed:
+            confirm: ¿Seguro que desea eliminar el elemento seleccionado.?
+            placeholderAdd: Escriba nombre...
+        labels:
+            name: Nombre
+            actions: Acciones
+        buttons:
+            accept: Aceptar
+            cancel: Cancelar
+
+booking:
+    habitacion:
+        header:
+            list: Listado de habitaciones
+            confirm: Información
+        actions:
+            add: Adicionar habitación
+        messages:
+            success:
+            failed:
+            confirm: ¿Seguro que desea eliminar el elemento seleccionado.?
+            placeholderAdd: Escriba nombre...
+        labels:
+            name: Nombre
+            actions: Acciones
+        buttons:
+            accept: Aceptar
+            cancel: Cancelar

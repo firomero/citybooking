@@ -1,0 +1,50 @@
+actividad:
+    path:     /
+    defaults: { _controller: "BookingBundle:Actividad:index" }
+
+actividad_show:
+    path:     /{id}/show
+    defaults: { _controller: "BookingBundle:Actividad:show" }
+
+actividad_new:
+    path:     /new
+    defaults: { _controller: "BookingBundle:Actividad:new" }
+
+actividad_create:
+    path:     /create
+    defaults: { _controller: "BookingBundle:Actividad:create" }
+    requirements: { _method: post }
+
+actividad_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BookingBundle:Actividad:edit" }
+
+actividad_update:
+    path:     /{id}/update
+    defaults: { _controller: "BookingBundle:Actividad:update" }
+    requirements: { _method: post }
+
+actividad_delete:
+    path:     /delete
+    defaults: { _controller: "BookingBundle:Actividad:delete" }
+    requirements: { _method: post|delete }
+    options:
+        expose: true
+#Ajax routes
+actividad_listar:
+    path: /listar
+    defaults: { _controller: "BookingBundle:Actividad:listar"  }
+    options:
+        expose: true
+
+actividad_new_form:
+    path: /nueva/form
+    defaults: { _controller: "BookingBundle:Actividad:addform" }
+    options:
+        expose: true
+
+actividad_edit_form:
+    path: /editar/form
+    defaults: { _controller: "BookingBundle:Actividad:editform" }
+    options:
+        expose: true

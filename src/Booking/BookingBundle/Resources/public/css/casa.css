@@ -1,0 +1,41 @@
+select.form-control{
+    width: 80%;
+}
+
+.btn.btn-mini.pull-right
+{
+    margin-top: -0.4em;
+    margin-top: -2.4em;
+}
+
+table{
+    width:100%;
+}
+table td{
+    white-space: nowrap;  /** added **/
+}
+table td:last-child{
+    width:100%;
+}
+
+.inner {
+    background: none repeat scroll 0 0 #fff;
+    border: 0 solid #e4e4e4;
+    min-height: 800px;
+    padding-left: 10px;
+    padding-right: 15px;
+    position: relative;
+}
+
+.btn.btn-mini.pull-right.add {
+    margin-top: -1%;
+}
+
+
+i.doDelete{
+   margin-left: 1.2em;
+   margin-top: -1.2em;
+    cursor: pointer;
+    float: right;
+}
+

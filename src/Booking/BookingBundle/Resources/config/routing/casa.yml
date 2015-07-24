@@ -1,0 +1,79 @@
+casa:
+    path:     /
+    defaults: { _controller: "BookingBundle:Casa:index" }
+
+casa_show:
+    path:     /{id}/show
+    defaults: { _controller: "BookingBundle:Casa:show" }
+
+casa_new:
+    path:     /new
+    defaults: { _controller: "BookingBundle:Casa:new" }
+
+casa_create:
+    path:     /create
+    defaults: { _controller: "BookingBundle:Casa:create" }
+    requirements: { _method: post }
+    options:
+        expose: true
+
+casa_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BookingBundle:Casa:edit" }
+
+casa_update:
+    path:     /{id}/update
+    defaults: { _controller: "BookingBundle:Casa:update" }
+    requirements: { _method: post|put }
+    options:
+        expose: true
+
+casa_delete:
+    path:     /delete/issue
+    defaults: { _controller: "BookingBundle:Casa:delete" }
+    requirements: { _method: post|delete }
+    options:
+        expose: true
+
+
+#AJAX
+ajax_casa_listar:
+    path: /listar
+    defaults: { _controller: "BookingBundle:Casa:listar" }
+    options:
+        expose: true
+
+ajax_form:
+    path: /form/fetch
+    defaults: { _controller: "BookingBundle:Casa:editform" }
+    options:
+        expose: true
+
+ajax_tabs:
+    path: /tabs/serve
+    defaults: { _controller: "BookingBundle:Casa:tabServe" }
+    options:
+        expose: true
+
+ajax_type:
+    path: /hab/type
+    defaults: { _controller: "BookingBundle:Casa:habsTipo" }
+    options:
+       expose: true
+
+ajax_habsByhouse:
+    path: /habs/by/house
+    defaults: { _controller: "BookingBundle:Casa:habsByCasa" }
+    options:
+        expose: true
+
+ajax_room_add:
+    path: /ajax/room/add
+    defaults: { _controller: "BookingBundle:Casa:addRoom" }
+    options:
+        expose: true
+ajax_room_delete:
+    path: /ajax/room/delete
+    defaults: { _controller: "BookingBundle:Casa:deleteRoom" }
+    options:
+        expose: true

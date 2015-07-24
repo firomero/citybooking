@@ -1,0 +1,16 @@
+{%  extends '::base.html.twig'%}
+{% block javascript %}
+    <!-- PAGE LEVEL SCRIPTS -->
+    <script src="{{ asset('bundles/nomenclador/trans/'~app.request.locale~'.json') }}"></script>
+    <script src="{{asset('public/plugins/dataTables/jquery.dataTables.js')}}"></script>
+    <script src="{{asset('public/plugins/dataTables/dataTables.bootstrap.js')}}"></script>
+{% endblock javascript %}
+
+ {% block  stylesheet %}
+     <link href="{{asset('public/plugins/dataTables/dataTables.bootstrap.css')}}" rel="stylesheet" />
+ {% endblock stylesheet %}
+
+{% block menu %}
+    {{ knp_menu_render('BookingBundle:BookingBuilder:mainMenu') }}
+    </div>
+{% endblock %}

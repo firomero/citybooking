@@ -1,0 +1,55 @@
+agencia:
+    pattern:  /
+    defaults: { _controller: "NomencladorBundle:Agencia:index" }
+
+agencia_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "NomencladorBundle:Agencia:show" }
+
+agencia_new:
+    pattern:  /new
+    defaults: { _controller: "NomencladorBundle:Agencia:new" }
+
+agencia_create:
+    pattern:  /create
+    defaults: { _controller: "NomencladorBundle:Agencia:create" }
+    requirements: { _method: post }
+
+agencia_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "NomencladorBundle:Agencia:edit" }
+
+agencia_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "NomencladorBundle:Agencia:update" }
+    requirements: { _method: post|put }
+
+agencia_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "NomencladorBundle:Agencia:delete" }
+    requirements: { _method: post|delete }
+
+ #AJAX CALL
+ajax_agencia_listar:
+    pattern: ajax/agencia/listar
+    defaults: { _controller: "NomencladorBundle:Agencia:listar" }
+    options:
+        expose: true
+
+agencia_ajax_add:
+    pattern: /ajax/agencia/add
+    defaults: {  _controller: "NomencladorBundle:Agencia:adicionar" }
+    options:
+        expose: true
+
+agencia_ajax_edit:
+    pattern: /ajax/agencia/edit
+    defaults: {  _controller: "NomencladorBundle:Agencia:editar" }
+    options:
+        expose: true
+
+agencia_ajax_delete:
+    pattern: /ajax/agencia/delete
+    defaults: {  _controller: "NomencladorBundle:Agencia:eliminar" }
+    options:
+        expose: true

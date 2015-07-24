@@ -1,0 +1,46 @@
+
+{% extends '::base.html.twig' %}
+{% block javascript %}
+    <!-- PAGE LEVEL SCRIPTS -->
+    <script src="{{ asset('bundles/booking/trans/'~app.request.locale~'.json') }}"></script>
+    <script src="{{ asset('public/plugins/dataTables/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('public/plugins/dataTables/dataTables.bootstrap.js') }}"></script>
+    <script src="{{ asset('public/js/booking.js') }}"></script>
+    <script src="{{ asset('public/js/xuiModal.js') }}"></script>
+
+    {#{% javascripts 'public/js/booking.js' 'public/js/xuiModal.js'#}
+    {#filter='yui_js'#}
+    {#output='js/frontend.js' %}#}
+    {#<script src="{{ asset_url }}" type="text/javascript"></script>#}
+    {#{% endjavascripts %}#}
+
+{% endblock javascript %}
+ {% block  stylesheet %}
+     <link href="{{ asset('public/plugins/dataTables/dataTables.bootstrap.css') }}" rel="stylesheet"/>
+
+ {% endblock stylesheet %}
+
+{% block menu %}
+    <div class="media user-media well-small">
+        <a class="user-link" href="#">
+            <img class="media-object img-thumbnail user-img" alt="User Picture" src="{{asset('public/img/User.png')}}" />
+        </a>
+        <br />
+        <div class="media-body">
+            <h5 class="media-heading"> {{ app.user.username |capitalize }}</h5>
+            <ul class="list-unstyled user-info">
+
+                <li>
+                    <a class="btn btn-success btn-xs btn-circle" style="width: 10px;height: 12px;"></a> Conectado
+
+                </li>
+
+            </ul>
+        </div>
+        <br />
+    </div>
+
+
+    {{ knp_menu_render('BookingBundle:BookingBuilder:mainMenu') }}
+    </div>
+{% endblock %}

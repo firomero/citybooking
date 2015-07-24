@@ -1,0 +1,18 @@
+# the yml style configuration data
+booking:
+    cliente:
+        header:
+            list: Listado de Clientes
+        actions:
+            add: Adicionar Cliente
+        messages:
+            success:
+            failed:
+    propietario:
+        header:
+            list: Listado de Propietarios
+        actions:
+            add: Adicionar Propietario
+        messages:
+            success:
+            failed:

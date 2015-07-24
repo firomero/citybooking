@@ -1,0 +1,28 @@
+report_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: ReportBundle:Default:index }
+
+report_facturastour:
+    pattern:  /facturasTour
+    defaults: { _controller: ReportBundle:Reporte:facturasTour  }
+
+report_listReserv:
+    pattern:  /listReserv
+    defaults: { _controller: ReportBundle:Reporte:listReserv  }
+#... view report template
+report_facturasTour_view:
+    pattern:  /viewFacturasTour
+    defaults: { _controller: ReportBundle:Reporte:viewFacturasTour  }
+
+report_listReserv_view:
+    pattern:  /viewListReserv
+    defaults: { _controller: ReportBundle:Reporte:viewListReserv  }
+
+report_facturastour_pdf:
+    pattern:  /viewFacturasTour/pdf
+    defaults: { _controller: ReportBundle:Reporte:pdfFacturasTour  }
+
+report_listReserv_pdf:
+    pattern:  /viewListReserv/pdf
+    defaults: { _controller: ReportBundle:Reporte:pdfListReserv  }
+

@@ -1,0 +1,30 @@
+BookingBundle_casa:
+        resource: "@BookingBundle/Resources/config/routing/casa.yml"
+        prefix:   /casa
+
+
+BookingBundle_cliente:
+        resource: "@BookingBundle/Resources/config/routing/cliente.yml"
+        prefix:   /cliente
+
+
+BookingBundle_habitacion:
+        resource: "@BookingBundle/Resources/config/routing/habitacion.yml"
+        prefix:   /habitacion
+
+
+BookingBundle_reservacion:
+        resource: "@BookingBundle/Resources/config/routing/reservacion.yml"
+        prefix: /reservacion
+
+
+BookingBundle_propietario:
+        resource: "@BookingBundle/Resources/config/routing/propietario.yml"
+        prefix:   /propietario
+
+
+BookingBundle_actividad:
+        resource: "@BookingBundle/Resources/config/routing/actividad.yml"
+        prefix:   /actividad
+
+

@@ -1,0 +1,55 @@
+propietario:
+    path:     /
+    defaults: { _controller: "BookingBundle:Propietario:index" }
+
+propietario_show:
+    path:     /{id}/show
+    defaults: { _controller: "BookingBundle:Propietario:show" }
+
+propietario_new:
+    path:     /new
+    defaults: { _controller: "BookingBundle:Propietario:new" }
+
+propietario_create:
+    path:     /create
+    defaults: { _controller: "BookingBundle:Propietario:create" }
+    requirements: { _method: post }
+
+propietario_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BookingBundle:Propietario:edit" }
+
+propietario_update:
+    path:     /{id}/update
+    defaults: { _controller: "BookingBundle:Propietario:update" }
+    requirements: { _method: post|put }
+
+propietario_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BookingBundle:Propietario:delete" }
+    requirements: { _method: post|delete }
+
+#AJAX CALL
+ajax_propietario_listar:
+    pattern: ajax/agencia/listar
+    defaults: { _controller: "BookingBundle:Propietario:listar" }
+    options:
+        expose: true
+
+propietario_ajax_add:
+    pattern: /ajax/propietario/add
+    defaults: {  _controller: "BookingBundle:Propietario:adicionar" }
+    options:
+        expose: true
+
+propietario_ajax_edit:
+    pattern: /ajax/propietario/edit
+    defaults: {  _controller: "BookingBundle:Propietario:editar" }
+    options:
+        expose: true
+
+propietario_ajax_delete:
+    pattern: /ajax/propietario/delete
+    defaults: {  _controller: "BookingBundle:Propietario:eliminar" }
+    options:
+        expose: true

@@ -1,0 +1,55 @@
+cliente:
+    path:     /
+    defaults: { _controller: "BookingBundle:Cliente:index" }
+
+cliente_show:
+    path:     /{id}/show
+    defaults: { _controller: "BookingBundle:Cliente:show" }
+
+cliente_new:
+    path:     /new
+    defaults: { _controller: "BookingBundle:Cliente:new" }
+
+cliente_create:
+    path:     /create
+    defaults: { _controller: "BookingBundle:Cliente:create" }
+    requirements: { _method: post }
+
+cliente_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BookingBundle:Cliente:edit" }
+
+cliente_update:
+    path:     /{id}/update
+    defaults: { _controller: "BookingBundle:Cliente:update" }
+    requirements: { _method: post|put }
+
+cliente_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BookingBundle:Cliente:delete" }
+    requirements: { _method: post|delete }
+
+ #AJAX CALL
+ajax_cliente_listar:
+    pattern: ajax/agencia/listar
+    defaults: { _controller: "BookingBundle:Cliente:listar" }
+    options:
+        expose: true
+
+cliente_ajax_add:
+    pattern: /ajax/cliente/add
+    defaults: {  _controller: "BookingBundle:Cliente:adicionar" }
+    options:
+        expose: true
+
+cliente_ajax_edit:
+    pattern: /ajax/cliente/edit
+    defaults: {  _controller: "BookingBundle:Cliente:editar" }
+    options:
+        expose: true
+
+cliente_ajax_delete:
+    pattern: /ajax/cliente/delete
+    defaults: {  _controller: "BookingBundle:Cliente:eliminar" }
+    options:
+        expose: true
