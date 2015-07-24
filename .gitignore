@@ -4,3 +4,4 @@ vendor/
 .idea
 app/cache
 app/cache/
+bundles
