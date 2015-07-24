@@ -5,38 +5,38 @@ imports:
 #    validation:
 #        cache: apc
 
-#doctrine:
-#    orm:
-#        metadata_cache_driver: doctrine_cache.providers.vendor_filesystem_cache
-#        result_cache_driver: doctrine_cache.providers.vendor_filesystem_cache
-#        query_cache_driver: doctrine_cache.providers.vendor_filesystem_cache
-
 doctrine:
     orm:
-        metadata_cache_driver:
-            type: service
-            id: doctrine_cache.providers.vendor_filesystem_metadata_cache
-        result_cache_driver:
-            type: service
-            id: doctrine_cache.providers.vendor_filesystem_metadata_cache
-        query_cache_driver:
-            type: service
-            id: doctrine_cache.providers.vendor_filesystem_metadata_cache
+        metadata_cache_driver: apc
+        result_cache_driver: apc
+        query_cache_driver: apc
 
-doctrine_cache:
-    providers:
-        vendor_filesystem_metadata_cache:
-            file_system:
-                extension: cache
-                directory: %kernel.root_dir%/cache/doctrine
-        vendor_filesystem_result_cache:
-            file_system:
-                extension: cache
-                directory: %kernel.root_dir%/cache/doctrine
-        vendor_filesystem_query_cache:
-            file_system:
-                extension: cache
-                directory: %kernel.root_dir%/cache/doctrine
+#doctrine:
+#    orm:
+#        metadata_cache_driver:
+#            type: service
+#            id: doctrine_cache.providers.vendor_filesystem_metadata_cache
+#        result_cache_driver:
+#            type: service
+#            id: doctrine_cache.providers.vendor_filesystem_metadata_cache
+#        query_cache_driver:
+#            type: service
+#            id: doctrine_cache.providers.vendor_filesystem_metadata_cache
+#
+#doctrine_cache:
+#    providers:
+#        vendor_filesystem_metadata_cache:
+#            file_system:
+#                extension: cache
+#                directory: %kernel.root_dir%/cache/doctrine
+#        vendor_filesystem_result_cache:
+#            file_system:
+#                extension: cache
+#                directory: %kernel.root_dir%/cache/doctrine
+#        vendor_filesystem_query_cache:
+#            file_system:
+#                extension: cache
+#                directory: %kernel.root_dir%/cache/doctrine
 
 
 monolog:
@@ -48,4 +48,8 @@ monolog:
         nested:
             type:  stream
             path:  %kernel.logs_dir%/%kernel.environment%.log
-            level: debug
+            level: critical
+
+parameters:
+    router.options.matcher.cache_class: ~
+    router.options.matcher_class: Symfony\Component\Routing\Matcher\ApacheUrlMatcher

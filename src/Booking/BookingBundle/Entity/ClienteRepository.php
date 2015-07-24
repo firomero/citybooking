@@ -49,7 +49,7 @@ class ClienteRepository extends EntityRepository
             }
         }
 
-        $result = $qb->getQuery()->useResultCache(true, 3600)->getResult();
+        $result = $qb->getQuery()->getResult();
         $dataExport = array();
 
         foreach ($result as $r) {

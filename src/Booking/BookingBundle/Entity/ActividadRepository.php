@@ -110,7 +110,7 @@ class ActividadRepository extends EntityRepository {
          * SQL queries
          * Get data to display
          */
-        $query = $cb->getQuery()->useResultCache(true);
+        $query = $cb->getQuery();
         $aResultTotal = $query->getResult();
 
         return $aResultTotal[0][1];

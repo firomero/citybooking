@@ -5,11 +5,15 @@
     <script src="{{ asset('bundles/booking/trans/'~app.request.locale~'.json') }}"></script>
     <script src="{{ asset('public/plugins/dataTables/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('public/plugins/dataTables/dataTables.bootstrap.js') }}"></script>
-    {% javascripts 'public/js/booking.js' 'public/js/xuiModal.js'
-    filter='yui_js'
-    output='js/frontend.js' %}
-    <script src="{{ asset_url }}" type="text/javascript"></script>
-    {% endjavascripts %}
+    <script src="{{ asset('public/js/booking.js') }}"></script>
+    <script src="{{ asset('public/js/xuiModal.js') }}"></script>
+
+    {#{% javascripts 'public/js/booking.js' 'public/js/xuiModal.js'#}
+    {#filter='yui_js'#}
+    {#output='js/frontend.js' %}#}
+    {#<script src="{{ asset_url }}" type="text/javascript"></script>#}
+    {#{% endjavascripts %}#}
+
 {% endblock javascript %}
  {% block  stylesheet %}
      <link href="{{ asset('public/plugins/dataTables/dataTables.bootstrap.css') }}" rel="stylesheet"/>
