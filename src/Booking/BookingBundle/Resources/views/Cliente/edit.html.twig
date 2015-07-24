@@ -1,0 +1,23 @@
+<div class="col-md-12">{{ form_errors(form) }}</div>
+<form class="ajaxForm" method="POST" action="{{ path('cliente_update',{ id:entity.id }) }}"  {{ form_enctype(form) }}>
+    <div class="control-group">
+        {{ form_label(form.nombre, 'booking.actividad.labels.date'| trans({}, 'BookingBundle') ) }}
+
+        {{ form_widget(form.nombre,{'attr':{'class':'form-control dating'}}) }}
+
+    </div>
+    <div class="control-group">
+        {{ form_label(form.referencia, 'booking.actividad.labels.guide' | trans({}, 'BookingBundle')  ) }}
+
+        {{ form_widget(form.referencia,{'attr':{'class':'form-control'}}) }}
+
+    </div>
+    <div class="control-group">
+        <button type="submit"
+                class="btn btn-primary action">{{ 'booking.actividad.buttons.accept' | trans({}, 'BookingBundle') }}</button>
+        <button type="button" class="btn btn-success"
+                data-dismiss="modal">{{ 'booking.actividad.buttons.cancel' | trans({}, 'BookingBundle') }}</button>
+    </div>
+    {{ form_rest(form) }}
+
+</form>

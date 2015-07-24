@@ -75,8 +75,8 @@ class ReservacionManager
             ->createQueryBuilder('r')
             ->addSelect('casa')
             ->innerJoin('r.casa', 'casa')
-            ->where('r.checkin >= :checkin')
-            ->orWhere('r.checkout<= :checkout')
+            ->where('r.checkin <= :checkin')
+            ->andWhere('r.checkout>= :checkout')
             ->setParameters(
                 array(
                     'checkout' => $checkout,

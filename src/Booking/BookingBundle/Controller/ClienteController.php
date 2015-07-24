@@ -2,6 +2,7 @@
 
 namespace Booking\BookingBundle\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,7 +53,7 @@ class ClienteController extends Controller
             )
         );
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+//        $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }
@@ -162,11 +163,11 @@ class ClienteController extends Controller
             $entity,
             array(
                 'action' => $this->generateUrl('cliente_update', array('id' => $entity->getId())),
-                'method' => 'PUT',
+               // 'method' => 'PUT',
             )
         );
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+      //  $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
@@ -193,8 +194,6 @@ class ClienteController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('cliente_edit', array('id' => $id)));
         }
 
         return $this->redirect($this->generateUrl('cliente'));
@@ -297,6 +296,27 @@ class ClienteController extends Controller
         } catch (\Exception $e) {
             return new Response(json_encode(array('message' => $e->getMessage())), 500);
         }
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function editformAction(Request $request)
+    {
+
+        $id = $request->get('id');
+        $entity = $this->get('doctrine')->getManager()->getRepository('BookingBundle:Cliente')->find($id);
+        $form = $this->createEditForm($entity);
+        $response = new JsonResponse(
+            array(
+                'form' => $this->renderView('BookingBundle:Cliente:edit.html.twig',
+                    array(
+                        'entity' => $entity,
+                        'form' => $form->createView(),
+                    ))), 200);
+
+        return $response;
     }
 
     /**

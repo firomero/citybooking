@@ -62,7 +62,7 @@ class CasaRepository extends EntityRepository
             }
         }
 
-        $result = $qb->getQuery()->useResultCache(true)->getResult();
+        $result = $qb->getQuery()->getResult();
         $dataExport = array();
 
         foreach ($result as $r) {
@@ -132,8 +132,8 @@ class CasaRepository extends EntityRepository
         $em = $this->_em;
         $reservadas = $em->getRepository('BookingBundle:Reservacion')
             ->createQueryBuilder('r')
-            ->where('r.checkin >= :checkin')
-            ->orWhere('r.checkout<= :checkout')
+            ->where('r.checkin <= :checkin')
+            ->andWhere('r.checkout>= :checkout')
             ->setParameters(
                 array(
                     'checkout' => $today->format('Y-m-d'),
@@ -142,6 +142,7 @@ class CasaRepository extends EntityRepository
             )
             ->getQuery()
             ->getResult();
+
         $is = array_filter($reservadas,function($value)use($casa){
             /**
              * @var Reservacion $value

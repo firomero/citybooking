@@ -53,25 +53,36 @@ $clienteTable.postDraw = function () {
 
                 var $btnEdit = $(this);
                 var $saveBtn = $('.btn.btn-default.action');
+                var urlform = Routing.generate('cliente_edit_form');
+                var html = '';
+                $.post(urlform,{
+                    id:$btnEdit.data('id')
+                },function(data, response,xhr){
+                    html = data.form;
+                    //alert(html);
+                    uiWindow.form('Editar Cliente','',html,'');
 
-                $saveBtn.off('click');
-                $saveBtn.click(function () {
-                    $clienteTable.editCliente($btnEdit);
-                });
-                var $modalView = $('#myModalDialog');
-                $modalView.modal();
-                $modalView.find('#myModalLabelConfirmar').text('Editar Cliente');
-                $modalView.find('#booking_bookingbundle_cliente_nombre').val($btnEdit.data('name'));
-                $modalView.find('#booking_bookingbundle_cliente_referencia').val($btnEdit.data('reference'));
-                $modalView.on('hide.bs.modal', function () {
-                    $saveBtn.off('click');
-                    $saveBtn.click(function (event) {
+                },"json");
 
-                        $clienteTable.addCliente();
-                    });
-                    $modalView.find('#myModalLabelConfirmar').text('Adicionar Cliente');
-                });
-                $modalView.modal('show');
+                //$saveBtn.off('click');
+                //$saveBtn.click(function () {
+                //    $clienteTable.editCliente($btnEdit);
+                //});
+
+                //var $modalView = $('#myModalDialog');
+                //$modalView.modal();
+                //$modalView.find('#myModalLabelConfirmar').text('Editar Cliente');
+                //$modalView.find('#booking_bookingbundle_cliente_nombre').val($btnEdit.data('name'));
+                //$modalView.find('#booking_bookingbundle_cliente_referencia').val($btnEdit.data('reference'));
+                //$modalView.on('hide.bs.modal', function () {
+                //    $saveBtn.off('click');
+                //    $saveBtn.click(function (event) {
+                //
+                //        $clienteTable.addCliente();
+                //    });
+                //    $modalView.find('#myModalLabelConfirmar').text('Adicionar Cliente');
+                //});
+                //$modalView.modal('show');
             });
 
             //Eliminar Cliente
@@ -116,8 +127,14 @@ $clienteTable.addCliente = function () {
             },
             "json"
         ).fail(function (response) {
-                var error = $.parseJSON(response.responseText);
-                $clienteTable.insertError(error.message);
+
+                try{
+                    var error = response;
+                }
+                catch (err){
+                    console.log(err);
+                }
+                $clienteTable.insertError(error);
             });
     }
     else {

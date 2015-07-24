@@ -22,7 +22,7 @@ cliente_edit:
 cliente_update:
     path:     /{id}/update
     defaults: { _controller: "BookingBundle:Cliente:update" }
-    requirements: { _method: post|put }
+    requirements: { _method: post }
 
 cliente_delete:
     path:     /{id}/delete
@@ -51,5 +51,12 @@ cliente_ajax_edit:
 cliente_ajax_delete:
     pattern: /ajax/cliente/delete
     defaults: {  _controller: "BookingBundle:Cliente:eliminar" }
+    options:
+        expose: true
+
+
+cliente_edit_form:
+    path: /editar/form/cliente
+    defaults: { _controller: "BookingBundle:Cliente:editform" }
     options:
         expose: true

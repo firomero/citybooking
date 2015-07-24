@@ -17,7 +17,8 @@ class ClienteType extends AbstractType
         $builder
             ->add('nombre')
             ->add('referencia')
-            ->add('actividades');
+//            ->add('actividades')
+        ;
     }
 
     /**
