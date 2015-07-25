@@ -1,6 +1,6 @@
 
     <div class="col-md-12">{{ form_errors(form) }}</div>
-    <form class="ajaxForm" method="post" action="{{ path('reservacion_crear') }}"  {{ form_enctype(form) }}>
+    <form class="ajaxForm" method="post" action="{{ path('reservacion_crear') }}"  {{ form_enctype(form) }} novalidate="novalidate">
 
         <div class="form-group">
             {{ form_label(form.agencia, 'booking.reservacion.table.agency'| trans({}, 'BookingBundle') ) }}

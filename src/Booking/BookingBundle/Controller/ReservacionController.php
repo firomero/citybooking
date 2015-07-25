@@ -62,6 +62,7 @@ class ReservacionController extends Controller
              * @var ReservacionManager $model
              */
             $model = $this->get('booking.reservacionmanager');
+            var_dump($entity);exit;
             $model->setPrecio($entity);
 
             $em->persist($entity);

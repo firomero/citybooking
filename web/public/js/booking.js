@@ -44,7 +44,7 @@ $.fn.editablefield = function(){
         });
 
         //button for adding elements to the hidden select
-        var $button = $('<button></button>');
+        var $button = $('<button type="button"></button>');
         $button.addClass(settings.buttonClass);
         $button.click(function(){
             var $tableElement =$('<tr><td><span></span><i class="doDelete icon-minus"></i></td></tr>') ;

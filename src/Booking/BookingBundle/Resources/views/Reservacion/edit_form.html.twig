@@ -1,5 +1,5 @@
 <form class="ajaxForm" method="post"
-      action="{{ path('reservacion_actualizar',{ id: entity.id }) }}"  {{ form_enctype(edit_form) }}>
+      action="{{ path('reservacion_actualizar',{ id: entity.id }) }}"  {{ form_enctype(edit_form) }} novalidate="novalidate">
 
     <div class="form-group">
         {{ form_label(edit_form.casa, 'booking.habitacion.labels.house'| trans({}, 'BookingBundle') ) }}
