@@ -51,9 +51,10 @@
         <div class="control-group">
             {{ form_label(form.propietario,  'booking.casa.labels.owner'| trans({}, 'BookingBundle') ) }}
 
-                {{ form_widget(form.propietario,{'attr':{'class':'form-control'}}) }}
+                {{ form_widget(form.propietario,{'attr':{'class':'control-group'}}) }}
 
         </div>
+
         <div class="control-group">
             {{ form_label(form.disponible,  'booking.casa.labels.available'| trans({}, 'BookingBundle')  ) }}
 

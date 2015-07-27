@@ -15,8 +15,9 @@ class PropietarioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre')
-            ->add('ci');
+            ->add('nombre','text',array('attr'=>array('class'=>'form-control')))
+            ->add('ci','text',array('attr'=>array('class'=>'form-control')))
+            ->add('cell','text',array('attr'=>array('class'=>'form-control')));
     }
 
     /**

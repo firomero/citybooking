@@ -79,15 +79,14 @@ class Casa
 
     /**
      * @var boolean
-     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="disponible", type="boolean")
      */
     private $disponible;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="observacion", type="text")
+     * @ORM\Column(name="observacion", type="text", nullable=true)
      */
     private $observacion;
 
@@ -95,7 +94,7 @@ class Casa
     /**
      * @var Propietario
      *
-     * @ORM\ManyToOne(targetEntity="Propietario")
+     * @ORM\ManyToOne(targetEntity="Propietario", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="propietarioid", referencedColumnName="id")
      * })

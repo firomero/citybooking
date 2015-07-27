@@ -37,16 +37,16 @@ class Actividad
      * @Assert\Regex(pattern="/[A-Za-z0-9]/")
      * @Assert\Length( min =3 )
      * @Assert\NotBlank(message = "Por favor, inserte el nombre del guia.")
-     * @ORM\Column(name="guia", type="string", length=255)
+     * @ORM\Column(name="lugar", type="string", length=255)
      */
-    private $guia;
+    private $lugar;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="total", type="float")
+     * @ORM\Column(name="coordinacion", type="float")
      */
-    private $total;
+    private $coordinacion;
 
     /**
      * @var integer
@@ -59,9 +59,9 @@ class Actividad
     /**
      * @var float
      * @Assert\NotBlank()
-     * @ORM\Column(name="precioguia", type="float")
+     * @ORM\Column(name="precio", type="float")
      */
-    private $precioguia;
+    private $precio;
 
 
     /**
@@ -125,9 +125,9 @@ class Actividad
      * @param string $guia
      * @return Actividad
      */
-    public function setGuia($guia)
+    public function setLugar($lugar)
     {
-        $this->guia = $guia;
+        $this->lugar = $lugar;
     
         return $this;
     }
@@ -137,9 +137,9 @@ class Actividad
      *
      * @return string 
      */
-    public function getGuia()
+    public function getLugar()
     {
-        return $this->guia;
+        return $this->lugar;
     }
 
     /**
@@ -148,9 +148,9 @@ class Actividad
      * @param float $total
      * @return Actividad
      */
-    public function setTotal($total)
+    public function setCoordinacion($coordinacion)
     {
-        $this->total = $total;
+        $this->coordinacion = $coordinacion;
     
         return $this;
     }
@@ -160,9 +160,9 @@ class Actividad
      *
      * @return float 
      */
-    public function getTotal()
+    public function getCoordinacion()
     {
-        return $this->total;
+        return $this->coordinacion;
     }
 
     /**
@@ -194,9 +194,9 @@ class Actividad
      * @param float $precioguia
      * @return Actividad
      */
-    public function setPrecioguia($precioguia)
+    public function setPrecio($precio)
     {
-        $this->precioguia = $precioguia;
+        $this->precio = $precio;
     
         return $this;
     }
@@ -206,9 +206,9 @@ class Actividad
      *
      * @return float 
      */
-    public function getPrecioguia()
+    public function getPrecio()
     {
-        return $this->precioguia;
+        return $this->precio;
     }
 
     /**

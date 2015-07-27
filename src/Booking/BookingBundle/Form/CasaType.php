@@ -24,7 +24,7 @@ class CasaType extends AbstractType
             ->add('banno')
             ->add('disponible')
             ->add('observacion')
-            ->add('propietario')
+            ->add('propietario', new PropietarioType())
         ;
     }
     

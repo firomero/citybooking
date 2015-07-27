@@ -37,12 +37,36 @@ class Propietario
 
     /**
      * @var string
-     * @Assert\Length( min =3 )
-     * @Assert\NotBlank(message = "Por favor, escriba el número de identificación." )
+     * @Assert\Length( min =6 )
      * @Assert\Regex(pattern="/[0-9]/")
      * @ORM\Column(name="ci", type="string", length=255)
      */
     private $ci;
+
+    /**
+     * @var string
+     * @Assert\Length( min =6 )
+     * @Assert\Regex(pattern="/[0-9]/")
+     * @Assert\NotBlank(message = "Por favor, escriba el móvil." )
+     * @ORM\Column(name="cell", type="string", length=255)
+     */
+    private $cell;
+
+    /**
+     * @return string
+     */
+    public function getCell()
+    {
+        return $this->cell;
+    }
+
+    /**
+     * @param string $cell
+     */
+    public function setCell($cell)
+    {
+        $this->cell = $cell;
+    }
 
 
     /**

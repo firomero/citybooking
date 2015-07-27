@@ -17,10 +17,10 @@ class ActividadType extends AbstractType
     {
         $builder
             ->add($builder->create('fecha','text')->addViewTransformer(new DateTransformer()))
-            ->add('guia')
-            ->add('total')
+            ->add('lugar')
+            ->add('coordinacion')
             ->add('pax')
-            ->add('precioguia')
+            ->add('precio')
             ->add('tipoActividad')
             ->add('reservacion')
         ;
