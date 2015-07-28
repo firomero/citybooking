@@ -33,9 +33,33 @@ class Actividad
     private $fecha;
 
     /**
+     * @var \DateTime
+     * @Assert\Time()
+     * @Assert\NotBlank(message = "Por favor, inserte la hora")
+     * @ORM\Column(name="hora", type="datetime")
+     */
+    private $hora;
+
+    /**
+     * @return \DateTime
+     */
+    public function getHora()
+    {
+        return $this->hora;
+    }
+
+    /**
+     * @param \DateTime $hora
+     */
+    public function setHora($hora)
+    {
+        $this->hora = $hora;
+    }
+
+    /**
      * @var string
      * @Assert\Regex(pattern="/[A-Za-z0-9]/")
-     * @Assert\Length( min =3 )
+     * @Assert\Length( min =2 )
      * @Assert\NotBlank(message = "Por favor, inserte el nombre del guia.")
      * @ORM\Column(name="lugar", type="string", length=255)
      */
@@ -261,10 +285,10 @@ class Actividad
         return array(
             $this->id,
             $this->tipoActividad->getNombre(),
-            $this->fecha->format('d/m/Y'),
-            $this->guia,
-            $this->precioguia,
-            $this->total
+            $this->fecha->format('d/m/Y').'-'.$this->hora->format('H:i'),
+            $this->lugar,
+            $this->coordinacion,
+            $this->precio
         );
     }
 
@@ -278,5 +302,14 @@ class Actividad
 
     public function __toString(){
         return $this->getTipoActividad()->getNombre();
+    }
+
+    /**
+     * @Assert\True(message="Debe introducir una fecha válida ")
+     * @return bool
+     */
+    public function isValidConfirm(){
+        $today = new \DateTime();
+        return $this->fecha>= $today;
     }
 }

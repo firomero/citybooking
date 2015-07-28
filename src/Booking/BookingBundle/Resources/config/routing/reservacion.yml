@@ -9,7 +9,7 @@ reservacion_crear:
 
 reservacion_editar:
     pattern: /editar
-    defaults: { _controller: "BookingBundle:Casa:editform" }
+    defaults: { _controller: "BookingBundle:Reservacion:editForm" }
     options:
         expose: true
 

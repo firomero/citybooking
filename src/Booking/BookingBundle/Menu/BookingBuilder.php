@@ -73,11 +73,15 @@ class BookingBuilder extends ContainerAware{
             'route' => 'tipohab',
         ))->setAttribute('icon', 'icon-star');
 
-        $menu->addChild('Reportes de Facturas para Tour', array(
+        $menu->addChild('Reportes',array(
+            'linkAttributes' => array('class'=>'dropdown')
+        ))->setLinkAttribute('class','dropdown');
+
+        $menu['Reportes']->addChild('Reportes de Facturas para Tour', array(
             'route' => 'report_facturasTour_view',
         ))->setAttribute('icon', 'icon-columns');
 
-        $menu->addChild('Reportes de Reservaciones', array(
+        $menu['Reportes']->addChild('Reportes de Reservaciones', array(
             'route' => 'report_listReserv_view',
         ))->setAttribute('icon', 'icon-columns');
 

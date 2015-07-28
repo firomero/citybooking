@@ -133,7 +133,15 @@ class ReportManager {
                 'booking_name'=>$book->getCliente()->getNombre(),
                 'booking_pax'=>$book->getPax(),
                 'booking_number'=>$book->getCliente()->getReferencia(),
-                'total' => $book->getPrecio(),
+                'total' => call_user_func(function()use($book){
+                    return array_reduce($book->getActividades()->getValues(),function($a,$b){
+                        /**
+                         * @var Actividad $b
+                         */
+                        $a+=$b->getPrecio()+$b->getCoordinacion();
+                        return $a;
+                    });
+                }),
                 'services'=>call_user_func(function()use($book){
                     $services = array();
                     $activities = $book->getActividades();
@@ -146,8 +154,8 @@ class ReportManager {
                             'services_checkIn' => $activity->getFecha()->format('d/m/Y'),
                             'services_checkOut' => $activity->getFecha()->format('d/m/Y'),
                             'services_description' => $activity->getTipoActividad()->getNombre(),
-                            'services_price' => $activity->getPrecioguia(),
-                            'services_total' => $activity->getTotal()
+                            'services_price' => $activity->getCoordinacion(),
+                            'services_total' => $activity->getPrecio()+$activity->getCoordinacion()
                         );
                     }
                     return $services;

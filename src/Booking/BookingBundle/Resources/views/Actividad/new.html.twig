@@ -6,6 +6,17 @@
         {{ form_widget(form.fecha,{'attr':{'class':'form-control dating'}}) }}
 
     </div>
+
+    <div class="control-group ">
+        {{ form_label(form.hora, 'booking.actividad.labels.hour'| trans({}, 'BookingBundle') ) }}
+         <div class="input-append bootstrap-timepicker">
+             <span class="add-on"><i class="icon-time"></i>	</span>
+             {{ form_widget(form.hora,{'attr':{'class':'form-control timing'}}) }}
+
+         </div>
+
+    </div>
+
     <div class="control-group">
         {{ form_label(form.lugar, 'booking.actividad.labels.guide' | trans({}, 'BookingBundle')  ) }}
 

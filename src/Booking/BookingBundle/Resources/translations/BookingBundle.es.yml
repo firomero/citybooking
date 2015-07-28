@@ -130,18 +130,20 @@ booking:
             placeholderAdd: Escriba nombre...
         table:
             date: Fecha
-            guide: Guía
-            precioguia: Precio del Guía
-            total: Total
+            hour: Hora
+            guide: Lugar
+            precioguia: Coordinación
+            total: Precio
             type: Tipo de Actividad
             pax: Pax
             booking: Reservación
             actions: Acciones
         labels:
             date: Fecha
-            guide: Guía
-            precioguia: Precio del Guía
-            total: Total
+            hour: Hora
+            guide: Lugar
+            precioguia: Coordinación
+            total: Precio
             pax: Pax
             type: Tipo de Actividad
             booking: Reservación

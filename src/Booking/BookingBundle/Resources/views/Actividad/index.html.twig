@@ -46,6 +46,7 @@
 {% endblock %}
 {% block JavaScriptInline %}
     <script src="{{ asset('public/js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('public/js/bootstrap-timepicker.js') }}"></script>
     {#<script src="{{ asset('public/js/booking.js') }}"></script>#}
     {#<script src="{{ asset('public/js/xuiModal.js') }}"></script>#}
     <script src="{{ asset('bundles/booking/js/actividadDatatables.js') }}"></script>
@@ -55,6 +56,7 @@
      {{ parent() }}
      <link href="{{ asset('bundles/booking/css/actividad.css') }}" rel="stylesheet"/>
      <link href="{{ asset('public/css/loader.css') }}" rel="stylesheet"/>
+     <link href="{{ asset('public/css/bootstrap-timepicker.css') }}" rel="stylesheet"/>
  {% endblock stylesheet %}
 
 

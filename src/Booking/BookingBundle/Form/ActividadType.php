@@ -3,6 +3,7 @@
 namespace Booking\BookingBundle\Form;
 
 use Booking\BookingBundle\DataTransformers\DateTransformer;
+use Booking\BookingBundle\DataTransformers\TimeTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -17,6 +18,7 @@ class ActividadType extends AbstractType
     {
         $builder
             ->add($builder->create('fecha','text')->addViewTransformer(new DateTransformer()))
+            ->add($builder->create('hora','text')->addViewTransformer(new TimeTransformer()))
             ->add('lugar')
             ->add('coordinacion')
             ->add('pax')

@@ -71,6 +71,25 @@ $reservacionTable.postDraw = function (){
 
                                 });
 
+                                var $options = $modalView.find('select.tipoHab option');
+                                var $selected = $modalView.find('select.tipoHab option:selected');
+                                var data = [];
+                                var def = [];
+                                $options.each(function(){
+                                    data.push({id:$(this).val(),value:$(this).html()});
+                                });
+
+                                $selected.each(function(){
+                                    def.push({id:$(this).val(),value:$(this).html()});
+                                });
+
+
+
+                                var aSelectable = $('select.tipoHab').editablelist({
+                                    data:data,
+                                    selected:def
+                                });
+
                             }
                         },
                         "json"

@@ -49,6 +49,10 @@ class ActividadController extends Controller
             return $this->redirect($this->generateUrl('actividad'));
         }
 
+        $this->get('session')->getFlashBag()->set('error','Existen datos inválidos');
+        return $this->redirect($this->generateUrl('actividad'));
+
+
 
     }
 

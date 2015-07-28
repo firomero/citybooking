@@ -39,7 +39,12 @@ actividadManager.controller('managerController',function($scope,$http){
         $http.get(urlform).success(function(data,textStatus,xhr){
             html =  data.form;
             uiWindow.form('Adicionar Actividad','',html,[{event:'shown.bs.modal', callback:function(){
-                $('.dating').datepicker();
+                $('.dating').datepicker({ autoclose:true});
+                $('.timing').timepicker({
+                    minuteStep: 1,
+                    showMeridian: false,
+                    defaultTime: 'current'
+                });
             }}]);
 
         });
