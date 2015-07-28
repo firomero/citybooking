@@ -62,8 +62,10 @@ class ReservacionController extends Controller
              * @var ReservacionManager $model
              */
             $model = $this->get('booking.reservacionmanager');
-            var_dump($entity);exit;
-            $model->setPrecio($entity);
+            if ($entity->getPrecio()==null) {
+                $model->setPrecio($entity);
+            }
+
 
             $em->persist($entity);
             $em->flush();
@@ -307,6 +309,13 @@ class ReservacionController extends Controller
         $checkin = new \DateTime($request->get('checkin'));
         $checkout = new \DateTime($request->get('checkout'));
         $habitaciones = array();
+        $correctDate = true;
+        $today = new \DateTime();
+
+        if ($checkin<$today || $checkout<$today || $checkin>$checkout) {
+            return new Response('Las fechas son inválidas', HttpCode::HTTP_WRONG_REQUEST);
+        }
+
 
         try {
             foreach ($request->get('habitaciones') as $habName) {

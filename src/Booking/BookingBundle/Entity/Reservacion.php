@@ -116,7 +116,7 @@ class Reservacion
     /**
      * @var Cliente
      *
-     * @ORM\ManyToOne(targetEntity="Cliente")
+     * @ORM\ManyToOne(targetEntity="Cliente", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="clienteid", referencedColumnName="id")
      * })
@@ -450,6 +450,11 @@ class Reservacion
         $this->tipoHab->remove($tipoHab->getId());
     }
 
+    public function setTipoHab($tipohab)
+    {
+        $this->tipoHab = new ArrayCollection($tipohab);
+    }
+
 
     /**
      * @param Actividad $actividad
@@ -494,6 +499,10 @@ class Reservacion
             $this->tipoHab->getValues());
     }
 
+    /**
+     * Normalize activities
+     * @return array
+     */
     public function activityList(){
         return array_map(function($value){
                 /**
@@ -521,7 +530,29 @@ class Reservacion
         );
     }
 
+    /**
+     * Returns text representation from a booking
+     * @return string
+     */
     public function __toString(){
         return 'Agencia: '.$this->getAgencia()->getNombre().' Casa:'.$this->casa->getNombre().' Booking:'.$this->getCliente()->getReferencia();
+    }
+
+    /**
+     * @Assert\True(message="Debe introducir un rango válido ")
+     * @return bool
+     */
+    public function isValidRange(){
+        $today = new \DateTime();
+        return $this->checkin >=  $today  && $this->checkout>=$today && $this->checkout > $this->checkin;
+    }
+
+    /**
+     * @Assert\True(message="Debe introducir una fecha válida ")
+     * @return bool
+     */
+    public function isValidConfirm(){
+        $today = new \DateTime();
+        return $this->confirmado>= $today;
     }
 }

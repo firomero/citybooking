@@ -184,7 +184,7 @@ class ReportManager {
                 'hab'=> implode(',',$book->roomList()),
                 'fact'=>$book->getPrecio(),
                 'pagar'=>$book->getPrecio(),
-                'com'=>'20,00',
+                'com'=>5*count($book->getCasa()->getCantidadHab())*$book->getNoches(),
                 'observaciones'=>$book->getObservacion().'\n'.implode(',', $book->activityList())
             );
         }

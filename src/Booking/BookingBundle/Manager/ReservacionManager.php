@@ -35,6 +35,18 @@ class ReservacionManager
      */
     public function setPrecio(Reservacion $entity)
     {
+       $em = $this->_em;
+        $casaHabs = $em->getRepository('BookingBundle:Habitacion')->findByCasa($entity->getCasa());
+
+
+        $entity->setTipoHab(array_map(
+            function ($value) {
+
+                /** @var Habitacion $value*/
+                return $value->getTipo();
+            }
+            , $casaHabs));
+
         $habitaciones = $entity->getTipoHab()->toArray();
         $map = $this->map;
         $total = array_reduce($habitaciones,
@@ -127,7 +139,7 @@ class ReservacionManager
              */
 //            $this->bubbleSortByTipoHab($habitaciones);
 
-            $this->quicksort($habitaciones);
+            $this->sortBy($habitaciones,'desc');
             /*
              * Por cada casa pasada por parámetro, guardo sus habitaciones en un arreglo del que pueda ir eliminando
              * a medida que encuentre un match entre lo que tengo y lo que piden. Este análisis se ejecuta solo si la
@@ -144,10 +156,15 @@ class ReservacionManager
                         return $value->getTipo();
                     }
                     , $casaHabs);
-                  $this->quicksort($checkArray);
+
+                /**
+                 * Ordeno las habitaciones solicitadas por el tipo, de mayor a menor teniendo en cuenta el Peso.
+                 */
+                  $this->sortBy($checkArray,'desc');
 
                 /** @var Casa $casa*/
                 if ($casa->getCantidadHab() >= count($habitaciones)) {
+                    $counter=0;
 
                     foreach ($habitaciones as $habitacion) {
                         $result = current(array_filter($checkArray, function($value)use($habitacion){
@@ -156,20 +173,16 @@ class ReservacionManager
                             }
                         }));
 
-                        $index = $this->bySearch($result,$checkArray);
-                        unset($checkArray[$index]);
+                        if ($result) {
+                            $index = $this->bySearch($result,$checkArray);
+                            unset($checkArray[$index]);
+                            $counter++;
+                        }
                     }
 
-//                    $result = array_filter($habitaciones,function($value)use($checkArray){
-//                        return current(array_filter($checkArray,function($valor)use($value){
-//                            if ($value->getPeso() <= $valor->getPeso()  ) {
-//                                return $valor;
-//                            }
-//                        }));
-//
-//                    });
 
-                    if (count($result)>=count($habitaciones)) {
+
+                    if ($counter>=count($habitaciones)) {
                         $casasOutput[] = $casa->toArray();
                     }
                 }
@@ -241,6 +254,47 @@ class ReservacionManager
        }
        return -1;
    }
+
+    /**
+     * QuickSort de PHP
+     * @param $array
+     * @param string $direction
+     * @return bool
+     */
+    function sortBy(&$array, $direction = 'asc')
+    {
+
+
+        usort($array,function($a,$b)use($direction){
+
+            /**
+             * @var TipoHab $a
+             * @var TipoHab $b
+             */
+            if ($a->getPeso()==$b->getPeso()) {
+                return 0;
+            }
+
+            return $direction == 'asc'?($a->getPeso()> $b->getPeso()?-1:1):($a->getPeso() < $b->getPeso()?-1:1);
+        });
+
+        return true;
+    }
+
+    /**
+     * Intervals Day
+     * @param $CheckIn
+     * @param $CheckOut
+     * @return float
+     */
+    public  function IntervalDays($CheckIn, $CheckOut){
+        $CheckInX = explode("-", $CheckIn);
+        $CheckOutX =  explode("-", $CheckOut);
+        $date1 =  mktime(0, 0, 0, $CheckInX[1],$CheckInX[2],$CheckInX[0]);
+        $date2 =  mktime(0, 0, 0, $CheckOutX[1],$CheckOutX[2],$CheckOutX[0]);
+        $interval =($date2 - $date1)/(3600*24);
+        return  $interval ;
+    }
 
 
 

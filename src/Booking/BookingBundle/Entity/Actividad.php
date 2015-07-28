@@ -78,7 +78,7 @@ class Actividad
     /**
      * @var Reservacion
      *
-     * @ORM\ManyToOne(targetEntity="Reservacion")
+     * @ORM\ManyToOne(targetEntity="Reservacion", inversedBy="actividades")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="reservacionid", referencedColumnName="id")
      * })
@@ -266,6 +266,14 @@ class Actividad
             $this->precioguia,
             $this->total
         );
+    }
+
+    /**
+     * Total Ampunt of Activity
+     * @return float
+     */
+    public function getTotal(){
+        return $this->precio + $this->coordinacion;
     }
 
     public function __toString(){

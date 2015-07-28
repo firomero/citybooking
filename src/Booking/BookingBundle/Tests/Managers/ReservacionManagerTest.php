@@ -103,8 +103,6 @@ class ReservacionManagerTest extends \PHPUnit_Framework_TestCase {
         sort($check);
         $indexQuest = count($quest);
 
-        var_dump(count($check)-$indexQuest);
-
         $this->assertTrue(max($check)>=max($quest)&&min($quest)<=$quest[count($check)-$indexQuest]);
 
 
@@ -114,5 +112,62 @@ class ReservacionManagerTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue(true);
     }
 
+    public function testSortedSort(){
+        $a = [5,1,8,34,9,34,56,1,5,0];
+        $this->sortBy($a,'desc');
+        var_dump(print_r($a));
+        $this->assertGreaterThan($a[0],$a[count($a)-1],"Not greater");
+    }
+
+    /**
+     * QuickSort
+     * @param $array
+     * @return array
+     */
+    private function quicksort($array)
+    {
+        if (count($array) < 2) {
+            return $array;
+        }
+        $left = $right = array();
+        reset($array);
+        $pivot_key = key($array);
+        $pivot = array_shift($array);
+        foreach ($array as $k => $v) {
+            if ($v > $pivot) {
+                $left[$k] = $v;
+            } else {
+                $right[$k] = $v;
+            }
+        }
+
+        return array_merge($this->quicksort($left), array($pivot_key => $pivot), $this->quicksort($right));
+    }
+
+
+    /**
+     * QuickSort de PHP
+     * @param $array
+     * @param string $direction
+     * @return bool
+     */
+    function sortBy(&$array, $direction = 'asc')
+    {
+
+
+        usort($array,function($a,$b)use($direction){
+
+            if ($a==$b) {
+                return 0;
+            }
+
+            return $direction == 'asc'?($a> $b?-1:1):($a < $b?-1:1);
+        });
+
+        return true;
+    }
+
 }
+
+
  

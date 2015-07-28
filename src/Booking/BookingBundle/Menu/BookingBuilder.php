@@ -34,10 +34,10 @@ class BookingBuilder extends ContainerAware{
 
         ))->setAttribute('icon', 'icon-group');
 
-        $menu->addChild('Gestión de Habitación', array(
-            'route' => 'habitacion',
-
-        ))->setAttribute('icon', 'icon-suitcase');
+//        $menu->addChild('Gestión de Habitación', array(
+//            'route' => 'habitacion',
+//
+//        ))->setAttribute('icon', 'icon-suitcase');
 
         $menu->addChild('Gestión de Reservaciones', array(
             'route' => 'reservacion_index',
@@ -49,10 +49,10 @@ class BookingBuilder extends ContainerAware{
 
         ))->setAttribute('icon', 'icon-bolt');
 
-        $menu->addChild('Gestión de Propietario', array(
-            'route' => 'propietario',
-
-        ))->setAttribute('icon', 'icon-lock');
+//        $menu->addChild('Gestión de Propietario', array(
+//            'route' => 'propietario',
+//
+//        ))->setAttribute('icon', 'icon-lock');
 
         $menu->addChild('', array(
 

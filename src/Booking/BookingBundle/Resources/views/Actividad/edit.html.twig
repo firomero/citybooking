@@ -7,23 +7,23 @@
 
     </div>
     <div class="control-group">
-        {{ form_label(form.guia, 'booking.actividad.labels.guide' | trans({}, 'BookingBundle')  ) }}
+        {{ form_label(form.lugar, 'booking.actividad.labels.guide' | trans({}, 'BookingBundle')  ) }}
 
-        {{ form_widget(form.guia,{'attr':{'class':'form-control'}}) }}
-
-    </div>
-
-    <div class="control-group">
-        {{ form_label(form.total, 'booking.actividad.labels.total' | trans({}, 'BookingBundle')  ) }}
-
-        {{ form_widget(form.total,{'attr':{'class':'form-control'}}) }}
+        {{ form_widget(form.lugar,{'attr':{'class':'form-control'}}) }}
 
     </div>
 
     <div class="control-group">
-        {{ form_label(form.precioguia,  'booking.actividad.labels.precioguia'| trans({}, 'BookingBundle')) }}
+        {{ form_label(form.precio, 'booking.actividad.labels.total' | trans({}, 'BookingBundle')  ) }}
 
-        {{ form_widget(form.precioguia,{'attr':{'class':'form-control'}}) }}
+        {{ form_widget(form.precio,{'attr':{'class':'form-control'}}) }}
+
+    </div>
+
+    <div class="control-group">
+        {{ form_label(form.coordinacion,  'booking.actividad.labels.precioguia'| trans({}, 'BookingBundle')) }}
+
+        {{ form_widget(form.coordinacion,{'attr':{'class':'form-control'}}) }}
 
     </div>
 

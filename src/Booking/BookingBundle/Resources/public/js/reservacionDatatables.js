@@ -234,7 +234,7 @@ $(function(){
     $('.btn.btn-mini.pull-right.add').click(function(){
         var $editModal = $('#myEditDialog');
         $editModal.modal();
-
+//todo revisar el multiple data and display
         /*Aqui se cargan los autocomplete necesarios, agencia, cliente*/
         $editModal.on('shown.bs.modal',function(){
 
@@ -279,27 +279,42 @@ $(function(){
                 },
                 function(status, data,response)
                 {
-                    console.log(status.aaData);
                     var serverData = status.aaData;
                     var mapped = serverData.map(function(array){
 
-                        return array[1];
+                        return {
+                            name: array[1],
+                            ref: array[2]
+                        };
                     });
-                    console.log(mapped);
+
+
+
                     if (response.status==200) {
 
-
                         var $clienteComplete = $('.cliente-name').autocomplete({
-                            source:mapped
+                            source:mapped,
+                            select: function(event,ui){
+                                $( ".referencia-name" ).val( ui.item.ref );
+                                $( ".cliente-name" ).val( ui.item.name );
+                                return  false;
+                            }
 
-                        });
+                        }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+                            return $( "<li>" )
+                                .append( "<a>" + item.name + "</a>" )
+                                .appendTo( ul );
+                        };
 
-                        $clienteComplete.autocomplete( "option", "appendTo", "#myEditDialog" );
+                        //$clienteComplete.autocomplete( "option", "appendTo", "#myEditDialog" );
+
+
 
                     }
                 },
                 "json"
             )
+            ;
 
 
             /*Casas Disponibles*/
@@ -308,6 +323,7 @@ $(function(){
 
             var $casaComplete = $('.casa-name').autocomplete({
                 source:function(request, response){
+
 
                     var checkin = $('.checkin').val();
                     var checkout = $('.checkout').val();
@@ -322,15 +338,23 @@ $(function(){
                             pax: pax,
                             habitaciones: tipoHab
                         },
-                        success: function( data ) {
+                        success: function( data, text, xhr ) {
+
                             response( $.map( data.casasDisponibles, function( item ) {
                                 return {
                                     label: item[1],
                                     value: item[1]
                                 }
                             }));
+                        },
+                        error: function(data, text, xhr ){
+
+                            if (data.status==400) {
+                                alert(data.responseText);
+                            }
                         }
-                    });
+
+                    })
                 },
                 minLength: 2
             });
