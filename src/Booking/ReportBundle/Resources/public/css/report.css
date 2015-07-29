@@ -63,8 +63,20 @@
 
 .results{
     border:solid 1px #428bca;
+    margin: 1em;
 }
 
 .noResults{
     border:solid 1px #cccccc;
+}
+
+i{
+    cursor: pointer;
+}
+.nav.nav-stacked li{
+    margin-bottom: 0.5em;
+}
+
+.nav.nav-stacked li i{
+    margin-left: 1em;
 }

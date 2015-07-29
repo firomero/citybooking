@@ -17,6 +17,8 @@ report_facturasTour_view:
 report_listReserv_view:
     pattern:  /viewListReserv
     defaults: { _controller: ReportBundle:Reporte:viewListReserv  }
+    options:
+        expose: true
 
 report_facturastour_pdf:
     pattern:  /viewFacturasTour/pdf
@@ -38,5 +40,15 @@ report_options_dayseek:
 report_options_book_house:
     pattern: /options/book/house
     defaults: { _controller: ReportBundle:Reporte:homeBook }
+    options:
+        expose: true
+report_options_book_house_month:
+    pattern: /options/book/month
+    defaults: { _controller: ReportBundle:Reporte:homeBookMonth }
+    options:
+        expose: true
+report_options_tour_house_month:
+    pattern: /options/tour/month
+    defaults: { _controller: ReportBundle:Reporte:facturasMonthTour }
     options:
         expose: true

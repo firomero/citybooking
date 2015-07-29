@@ -98,7 +98,7 @@ class ReporteController extends  Controller{
         if (isset($casa)) {
             $filter ['casa']= $casa;
         }
-        if (isset($casa)) {
+        if (isset($agencia)) {
             $filter ['agencia']= $agencia;
         }
         $data = $manager->invoiceBooking($filter);
@@ -136,7 +136,7 @@ class ReporteController extends  Controller{
         if (isset($casa)) {
             $filter ['casa']= $casa;
         }
-        if (isset($casa)) {
+        if (isset($agencia)) {
             $filter ['agencia']= $agencia;
         }
         $data = $manager->invoiceBooking($filter);
@@ -178,5 +178,21 @@ class ReporteController extends  Controller{
             $this->get('logger')->addCritical($e->getMessage());
             return new JsonResponse(array('Ha ocurrido un error procesando los datos. Revise sus datos de entrada.'),HttpCode::HTTP_SERVER_ERROR);
         }
+    }
+
+    public function homeBookMonthAction(Request $request){
+
+        $date = $request->query->get('date');
+        $manager = $this->get('reportbundle.manager.reportmanager');
+        $data = $manager->getMonth(date_create_from_format('m/Y',$date));
+        $data['date'] = date_format(new \DateTime('now'),'d/m/Y');
+        return $this->render('ReportBundle:Default:viewlistreservas.html.twig', $data);
+    }
+
+    public function facturasMonthTourAction(Request $request){
+        $manager = $this->get('reportbundle.manager.reportmanager');
+        $date = $request->query->get('date');
+        $data = $manager->invoiceTour(array(),date_create_from_format('m/Y',$date));
+        return $this->render('ReportBundle:Default:viewfacturastour.html.twig', array('list'=>$data));
     }
 } 

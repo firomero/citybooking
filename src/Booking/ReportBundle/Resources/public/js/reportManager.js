@@ -35,13 +35,18 @@ $reportManager.controller('managerController',function($scope,$http){
     $('.date').datepicker({ autoclose:true});
     //$('#dpMonths').datepicker({ autoclose:true, dateFormat:'mm/yyyy'});
     $('#dpMonths').datepicker();
+    $('#dpMonths1').datepicker();
+    $('#dpMonths2').datepicker();
     var cachedHuses = [];
     var urlCasa = Routing.generate('ajax_casa_listar');
+    $scope.meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
     $http.get(urlCasa).
         success(
         function(data, status, headers, config)
         {
+
+            $scope.houses = data.aaData;
 
             var cachedHuses = data.aaData.map(function(array){
 
@@ -108,6 +113,21 @@ $reportManager.controller('managerController',function($scope,$http){
 
         }
 
+    }
+
+    $scope.houseGenerate = function(id){
+       var urlReport = Routing.generate('report_listReserv_view',{casa:id});
+        document.location.href = urlReport;
+    }
+
+    $scope.bookGenerate = function(){
+        var urlBook = Routing.generate('report_options_book_house_month',{date:$scope.monthbook});
+        document.location.href = urlBook;
+    }
+
+    $scope.tourGenerate = function(){
+        var urlTour = Routing.generate('report_options_tour_house_month',{date:$scope.tourbook});
+        document.location.href = urlTour;
     }
 });
 

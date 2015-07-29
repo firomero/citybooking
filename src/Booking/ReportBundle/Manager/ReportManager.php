@@ -111,10 +111,18 @@ class ReportManager {
      * filters casa | all
      * @return array
      */
-    public function invoiceTour($casa=array()){
+    public function invoiceTour($casa=array(),\DateTime $mes=null){
         $em = $this->em;
 
         $reservaciones = $em->getRepository('BookingBundle:Reservacion')->findBy($casa);
+
+        if (!is_null($mes)) {
+            $reservaciones = array_filter($reservaciones,function(Reservacion $value)use($mes){
+                if ($value->getCheckin()->format('m/Y')==$mes->format('m/Y')) {
+                    return $value;
+                }
+            });
+        }
 
         $dataOutput = array();
 
@@ -154,7 +162,7 @@ class ReportManager {
                         $services[]=array(
                             'services_checkIn' => $activity->getFecha()->format('d/m/Y'),
                             'services_checkOut' => $activity->getFecha()->format('d/m/Y'),
-                            'services_description' => $activity->getTipoActividad()->getNombre(),
+                            'services_description' => $activity->getTipoActividad()->getNombre().'-'.$activity->getLugar().'-'.$activity->getHora()->format('H:i'),
                             'services_price' => $activity->getCoordinacion(),
                             'services_total' => $activity->getPrecio()+$activity->getCoordinacion()
                         );
@@ -300,6 +308,45 @@ class ReportManager {
         return array_map(function(Reservacion $reservacion){
             return $reservacion->__toString();
         },$reservaciones);
+    }
+
+    /**
+     * Devuelve las reservaciones  dado un mes.
+     * @param \DateTime $mes
+     * @return array
+     */
+    public function getMonth(\DateTime $mes=null)
+    {
+        $em = $this->em;
+        $reservaciones = $em->getRepository('BookingBundle:Reservacion')->findAll();
+
+        if (!is_null($mes)) {
+            $reservaciones = array_filter($reservaciones,function(Reservacion $value)use($mes){
+                if ($value->getCheckin()->format('m/Y')==$mes->format('m/Y')) {
+                    return $value;
+                }
+            });
+        }
+
+        return array(
+            'list'=>array_map(function(Reservacion $book){
+                return array(
+
+                    'referencia' => $book->getCliente()->getReferencia(),
+                    'cliente'=>$book->getCliente()->getNombre(),
+                    'entrada'=>$book->getCheckin()->format('d/m/Y'),
+                    'salida'=>$book->getCheckout()->format('d/m/Y'),
+                    'n'=>$book->getNoches(),
+                    'servicio'=>$book->getCasa()->getNombre(),
+                    'p'=>$book->getPax(),
+                    'hab'=> implode(',',$book->roomList()),
+                    'fact'=>$book->getPrecio(),
+                    'pagar'=>$book->getPrecio(),
+                    'com'=>5*count($book->getCasa()->getCantidadHab())*$book->getNoches(),
+                    'observaciones'=>$book->getObservacion().'\n'.implode(',', $book->activityList())
+                );
+            },$reservaciones)
+        );
     }
 
 

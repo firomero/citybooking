@@ -18,6 +18,24 @@
                                 Selección por casa
                             </a>
                         </li>
+                        <li>
+                            <a data-toggle="tab" href="#genhouse">
+                                <i class="green icon-home bigger-110"></i>
+                                General por casa
+                            </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#genmonth">
+                                <i class="green icon-home bigger-110"></i>
+                                General por mes
+                            </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#tour">
+                                <i class="green  icon-tumblr-sign bigger-110"></i>
+                                Tour por mes
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <div class="tab-content">
@@ -40,9 +58,9 @@
                             <div class="searchResults">
                                 <ul class="nav nav-stacked">
                                     <li data-ng-repeat="casa in casas">
-                                        <span id="{{ '{{ casa.casaid }}' }}" data-ng-class="{results:booking.length>0}">{{ '{{ casa.nombrecasa }}' }}</span>
+                                        <span id="{{ '{{ casa.casaid }}' }}" data-ng-class="{results:casas.length>0}">{{ '{{ casa.nombrecasa }}' }}</span>
                                     </li>
-                                    <li data-ng-show="casas.length==0"><span data-ng-class="{noResults:booking.length==0}">Sin resultados</span>
+                                    <li data-ng-show="casas.length==0"><span data-ng-class="{noResults:casas.length==0}">Sin resultados</span>
                                     </li>
                                 </ul>
                             </div>
@@ -85,6 +103,46 @@
                           </div>
                         </div>
 
+                    </div>
+
+
+                    <div class="panel panel-default tab-pane" id="genhouse">
+                        <ul class="nav nav-stacked">
+                            <li data-ng-repeat="casa in houses">
+                                <span id="{{ '{{ casa[0] }}' }}" data-ng-class="{results:houses.length>0}">{{ '{{ casa[1] }}' }}<i class="icon-list" data-ng-click="houseGenerate(casa[0])"></i></span>
+                            </li>
+                            <li data-ng-show="houses.length==0"><span data-ng-class="{noResults:houses.length==0}">Sin resultados</span>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="panel panel-default tab-pane" id="genmonth">
+                        <div class="col-lg-3">
+                            <div class="input-group input-append  date" id="dpMonths1" data-date="102/2015"
+                                 data-date-format="mm/yyyy" data-date-viewmode="years"
+                                 data-date-minviewmode="months">
+                                <input type="text" class="month form-control" data-ng-model="monthbook" readonly>
+                                <span class="input-group-addon add-on"><i class="icon-calendar"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <button class="btn btn-primary" data-ng-click="bookGenerate()">Generar</button>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default tab-pane" id="tour">
+                        <div class="col-lg-3">
+                            <div class="input-group input-append  date" id="dpMonths2" data-date="102/2015"
+                                 data-date-format="mm/yyyy" data-date-viewmode="years"
+                                 data-date-minviewmode="months">
+                                <input type="text" class="month form-control" data-ng-model="tourbook" readonly>
+                                <span class="input-group-addon add-on"><i class="icon-calendar"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <button class="btn btn-primary" data-ng-click="tourGenerate()">Generar</button>
+                        </div>
                     </div>
                 </div>
             </div>
