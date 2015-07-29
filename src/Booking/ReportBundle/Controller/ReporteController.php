@@ -77,6 +77,10 @@ class ReporteController extends  Controller{
         }
     }
     //html exporter
+    /**
+     * @param Request $request
+     * @return Response
+     */
     public function facturasTourAction(Request $request){
         $manager = $this->get('reportbundle.manager.reportmanager');
         $filter = array();
@@ -90,6 +94,11 @@ class ReporteController extends  Controller{
         $data['date'] = date('now');
         return $this->render('ReportBundle:Default:facturastour.html.twig', $data);
     }
+
+    /**
+     * @param Request $request
+     * @return Response
+     */
     public function listReservAction(Request $request){
         $manager = $this->get('reportbundle.manager.reportmanager');
         $filter = array();
@@ -106,11 +115,22 @@ class ReporteController extends  Controller{
         return $this->render('ReportBundle:Default:listreservas.html.twig', $data);
     }
     //... exportar a pdf ...
+    /**
+     * Tour PDF
+     * @param Request $request
+     * @return Response
+     */
     public function pdfFacturasTourAction(Request $request){
         $view = $this->facturasTourAction($request);
         $exporter = $this->get('booking_reportbundle.exporter.pdfexporter');
         return $exporter->export($view, 'Boooking Tour Invoice');
     }
+
+    /**
+     * Booking PDF
+     * @param Request $request
+     * @return Response
+     */
     public function pdfListReservAction(Request $request){
         $view = $this->listReservAction($request);
         $exporter = $this->get('booking_reportbundle.exporter.pdfexporter');
@@ -118,6 +138,11 @@ class ReporteController extends  Controller{
     }
 
     //... exportar a html ......................................
+    /**
+     * Facturas HTML
+     * @param Request $request
+     * @return Response
+     */
     public function viewFacturasTourAction(Request $request){
         $manager = $this->get('reportbundle.manager.reportmanager');
         $filter = array();
@@ -128,6 +153,12 @@ class ReporteController extends  Controller{
         $data = $manager->invoiceTour($filter);
         return $this->render('ReportBundle:Default:viewfacturastour.html.twig', array('list'=>$data));
     }
+
+    /**
+     * Booking HTML
+     * @param Request $request
+     * @return Response
+     */
     public function viewListReservAction(Request $request){
         $manager = $this->get('reportbundle.manager.reportmanager');
         $filter = array();
@@ -143,12 +174,22 @@ class ReporteController extends  Controller{
         $data['date'] = date_format(new \DateTime('now'),'d/m/Y');
         return $this->render('ReportBundle:Default:viewlistreservas.html.twig', $data);
     }
+
     //Options
+    /**
+     * Página principal de las operaciones de los reportes
+     * @return Response
+     */
     public function optionsAction(){
         return $this->render('ReportBundle:Default:options.html.twig');
 
     }
 
+    /**
+     * Busqueda por fecha
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function dateSeekAction(Request $request){
 
         $date = $request->query->get('date');
@@ -164,6 +205,11 @@ class ReporteController extends  Controller{
         }
     }
 
+    /**
+     * Facturas Booking General
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function homeBookAction(Request $request){
 
         $date = $request->query->get('date');
@@ -180,6 +226,11 @@ class ReporteController extends  Controller{
         }
     }
 
+    /**
+     * Facturas Booking por mes
+     * @param Request $request
+     * @return Response
+     */
     public function homeBookMonthAction(Request $request){
 
         $date = $request->query->get('date');
@@ -189,6 +240,11 @@ class ReporteController extends  Controller{
         return $this->render('ReportBundle:Default:viewlistreservas.html.twig', $data);
     }
 
+    /**
+     * Facturas Tour por Mes
+     * @param Request $request
+     * @return Response
+     */
     public function facturasMonthTourAction(Request $request){
         $manager = $this->get('reportbundle.manager.reportmanager');
         $date = $request->query->get('date');
