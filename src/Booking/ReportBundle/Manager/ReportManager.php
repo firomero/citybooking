@@ -12,6 +12,7 @@ namespace Booking\ReportBundle\Manager;
 use Booking\BookingBundle\Entity\Actividad;
 use Booking\BookingBundle\Entity\Casa;
 use Booking\BookingBundle\Entity\Reservacion;
+use Booking\ReportBundle\Controller\ReporteController;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use General\NomencladorBundle\Entity\Agencia;
@@ -199,6 +200,106 @@ class ReportManager {
 
         return $data;
 
+    }
+
+    /**
+     * Devuelve las casas según su estado, si reservada o no en determinada fecha
+     * @param \DateTime $date
+     * @param $state
+     * @return array
+     */
+    public function seekDate(\DateTime $date, $state){
+        $em = $this->em;
+        $rs = $em->createQueryBuilder('rs');
+        $rs->select('rs')
+            ->from('BookingBundle:Reservacion','rs')
+            ->where('rs.checkin <= :checkin')
+            ->andWhere('rs.checkout>= :checkout')
+            ->setParameters(
+                array(
+                    'checkout' => $date,
+                    'checkin' => $date
+                )
+            )
+            ;
+        $queryResult = $rs->getQuery()->getResult();
+
+        if ($state==ReporteController::RESERVADA) {
+            return array_map(function($r){
+
+                    /**
+                     * @var Reservacion $r
+                     *
+                     *
+                     */
+                  return array(
+                      'casaid'=>$r->getCasa()->getId(),
+                      'nombrecasa'=>$r->getCasa()->getNombre(),
+                  );
+
+            },$queryResult);
+
+        }
+        $reservadas = array_map(function($val){
+            /**
+             * @var Reservacion $val
+             *
+             *
+             */
+            return $val->getCasa()->getId();
+        },$queryResult);
+
+        $cs = $em->createQueryBuilder('cs');
+         $cs->select('cs')
+            ->from('BookingBundle:Casa','cs');
+
+        if (count($reservadas)>0) {
+            $cs->where($cs->expr()->notIn('cs.id',':casas'))
+                ->setParameter('casas',$reservadas);
+        }
+
+
+        $casas = $cs->getQuery()->getResult();
+
+        return array_map(function($val){
+            /**
+             * @var Casa $val
+             *
+             *
+             */
+            return array(
+                'casaid'=>$val->getId(),
+                'nombrecasa'=>$val->getNombre(),
+            );
+        },$casas);
+
+
+
+
+    }
+
+    /**
+     * Devuelve las reservaciones de una casa dado un mes, si es nulo las devuelve todas
+     * @param \DateTime $mes
+     * @param Casa $casa
+     * @return array
+     */
+    public function getReservaciones(Casa $casa, \DateTime $mes=null)
+    {
+        $em = $this->em;
+        $reservaciones = $em->getRepository('BookingBundle:Reservacion')->findByCasa($casa);
+
+        if (!is_null($mes)) {
+            $reservaciones = array_filter($reservaciones,function(Reservacion $value)use($mes){
+                if ($value->getCheckin()->format('m/Y')==$mes->format('m/Y')) {
+                    return $value;
+                }
+            });
+        }
+
+        return array_map(function(Reservacion $reservacion){
+            return $reservacion->__toString();
+        },$reservaciones);
     }
 
 

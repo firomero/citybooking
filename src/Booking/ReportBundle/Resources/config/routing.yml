@@ -26,3 +26,17 @@ report_listReserv_pdf:
     pattern:  /viewListReserv/pdf
     defaults: { _controller: ReportBundle:Reporte:pdfListReserv  }
 
+report_options:
+    pattern: /options/export
+    defaults: { _controller: ReportBundle:Reporte:options }
+
+report_options_dayseek:
+    pattern: /options/dat
+    defaults: { _controller: ReportBundle:Reporte:dateSeek }
+    options:
+        expose: true
+report_options_book_house:
+    pattern: /options/book/house
+    defaults: { _controller: ReportBundle:Reporte:homeBook }
+    options:
+        expose: true

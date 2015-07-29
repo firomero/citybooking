@@ -85,6 +85,11 @@ class BookingBuilder extends ContainerAware{
             'route' => 'report_listReserv_view',
         ))->setAttribute('icon', 'icon-columns');
 
+        $menu['Reportes']->addChild('Personalizados', array(
+            'route' => 'report_options',
+        ))->setAttribute('icon', 'icon-columns');
+
+
         return $menu;
     }
 } 

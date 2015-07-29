@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 
 class ReporteController extends  Controller{
+   const DISPONIBLE='disponible';
+   const RESERVADA='reservada';
     /**
      * Dada una casa devuelve las reservaciones asociadas.
      * @param Request $request
@@ -107,13 +109,14 @@ class ReporteController extends  Controller{
     public function pdfFacturasTourAction(Request $request){
         $view = $this->facturasTourAction($request);
         $exporter = $this->get('booking_reportbundle.exporter.pdfexporter');
-        return $exporter->export($view, 'Boooking Tour Facture');
+        return $exporter->export($view, 'Boooking Tour Invoice');
     }
     public function pdfListReservAction(Request $request){
         $view = $this->listReservAction($request);
         $exporter = $this->get('booking_reportbundle.exporter.pdfexporter');
         return $exporter->export($view, 'Boooking List Reserv');
     }
+
     //... exportar a html ......................................
     public function viewFacturasTourAction(Request $request){
         $manager = $this->get('reportbundle.manager.reportmanager');
@@ -139,5 +142,41 @@ class ReporteController extends  Controller{
         $data = $manager->invoiceBooking($filter);
         $data['date'] = date_format(new \DateTime('now'),'d/m/Y');
         return $this->render('ReportBundle:Default:viewlistreservas.html.twig', $data);
+    }
+    //Options
+    public function optionsAction(){
+        return $this->render('ReportBundle:Default:options.html.twig');
+
+    }
+
+    public function dateSeekAction(Request $request){
+
+        $date = $request->query->get('date');
+        $query = $request->query->get('state');
+        $manager = $this->get('reportbundle.manager.reportmanager');
+        try{
+            return new JsonResponse(array('casas'=>$manager->seekDate(new \DateTime($date),$query)),HttpCode::HTTP_OK);
+        }
+        catch(\Exception $e){
+
+            $this->get('logger')->addCritical($e->getMessage());
+            return new JsonResponse(array('Ha ocurrido un error procesando los datos. Revise sus datos de entrada.'),HttpCode::HTTP_SERVER_ERROR);
+        }
+    }
+
+    public function homeBookAction(Request $request){
+
+        $date = $request->query->get('date');
+        $casa = $request->query->get('casa');
+        $manager = $this->get('reportbundle.manager.reportmanager');
+        $home = $this->getDoctrine()->getManager()->getRepository('BookingBundle:Casa')->findOneBy(array('nombre'=>$casa));
+        try{
+            return new JsonResponse(array('booking'=>$manager->getReservaciones($home,date_create_from_format('m/Y',$date)),HttpCode::HTTP_OK));
+        }
+        catch(\Exception $e){
+
+            $this->get('logger')->addCritical($e->getMessage());
+            return new JsonResponse(array('Ha ocurrido un error procesando los datos. Revise sus datos de entrada.'),HttpCode::HTTP_SERVER_ERROR);
+        }
     }
 } 

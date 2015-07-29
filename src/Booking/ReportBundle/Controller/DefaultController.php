@@ -77,11 +77,11 @@ class DefaultController extends Controller
     //... exportar a pdf ...
     public function pdfFacturasTourAction(){
         $view = $this->facturasTourAction();
-        return $this->exportPDF($view, 'Boooking Tour Facture');
+        return $this->exportPDF($view, 'Boooking Tour Invoice');
     }
     public function pdfFacturasHouseAction(){
         $view = $this->facturasHouseAction();
-        return $this->exportPDF($view, 'Boooking House Facture');
+        return $this->exportPDF($view, 'Boooking House Invoice');
     }
     public function pdfListReservAction(){
         $view = $this->listReservAction();
