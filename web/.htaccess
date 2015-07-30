@@ -627,6 +627,10 @@ DirectoryIndex app.php
    RewriteCond %{REQUEST_URI} ^/booking/actividad/editar/form$
    RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_edit_form,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:editformAction]
 
+   # actividad_closest
+   RewriteCond %{REQUEST_URI} ^/booking/actividad/activity/closest$
+   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_closest,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:closestActivitiesAction]
+
    # fos_user_security_login
    RewriteCond %{REQUEST_URI} ^/login$
    RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_security_login,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\SecurityController\:\:loginAction]
@@ -728,7 +732,7 @@ DirectoryIndex app.php
    RewriteCond %{ENV:_ROUTING__allow_GET} =1 [OR]
    RewriteCond %{ENV:_ROUTING__allow_HEAD} =1
    RewriteRule .* app.php [QSA,L]
-
+ #End Symfony
 
 </IfModule>
 
