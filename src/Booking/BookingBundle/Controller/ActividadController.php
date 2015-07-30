@@ -2,6 +2,7 @@
 
 namespace Booking\BookingBundle\Controller;
 
+use General\NomencladorBundle\HttpCode;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -309,5 +310,22 @@ class ActividadController extends Controller
                     ))), 200);
 
         return $response;
+    }
+
+    /**
+     * Return the closest activity
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function closestActivitiesAction(Request $request){
+        $date = $request->query->get('date');
+        $type = $request->query->get('type');
+        try{
+            return new JsonResponse(array('activities'=>$this->getDoctrine()->getManager()->getRepository('BookingBundle:Actividad')->closestActivity(new \DateTime($date),$this->getDoctrine()->getManager()->getRepository('NomencladorBundle:TipoActividad')->find(intval($type)))),HttpCode::HTTP_OK);
+
+        }catch (\Exception $e){
+            $this->get('logger')->addAlert($e->getMessage());
+            return new JsonResponse(array('Error en la búsqueda de datos'),HttpCode::HTTP_SERVER_ERROR);
+        }
     }
 }

@@ -7,9 +7,15 @@
 
     </div>
 
-    <div class="control-group input-append bootstrap-timepicker">
-        {{ form_label(form.hora, 'booking.actividad.labels.hour'| trans({}, 'BookingBundle') ) }}
+    <div class="control-group">
+        {{ form_label(form.fecha, 'booking.actividad.labels.date'| trans({}, 'BookingBundle') ) }}
 
+        {{ form_widget(form.fecha,{'attr':{'class':'form-control dating','data-ng-model':'date'}}) }}
+
+    </div>
+
+    <div class="control-group ">
+        {{ form_label(form.hora, 'booking.actividad.labels.hour'| trans({}, 'BookingBundle') ) }}
         <div class="input-append bootstrap-timepicker">
             <span class="add-on"><i class="icon-time"></i>	</span>
             {{ form_widget(form.hora,{'attr':{'class':'form-control timing'}}) }}
@@ -17,6 +23,7 @@
         </div>
 
     </div>
+
     <div class="control-group">
         {{ form_label(form.lugar, 'booking.actividad.labels.guide' | trans({}, 'BookingBundle')  ) }}
 
@@ -41,7 +48,15 @@
     <div class="control-group">
         {{ form_label(form.tipoActividad, 'booking.actividad.labels.type' | trans({}, 'BookingBundle')) }}
         <div class="controls">
-            {{ form_widget(form.tipoActividad,{'attr':{'class':'form-control'}}) }}
+            <div class="closestActivities">
+                <ul data-ng-class="{hidden:activities.length==0}" class="nav nav-stacked">
+                    <li data-ng-repeat="activity in activities">
+
+                    </li>
+
+                </ul>
+            </div>
+            {{ form_widget(form.tipoActividad,{'attr':{'class':'form-control','data-ng-change':'loadClosest()','data-ng-model':'closest'}}) }}
         </div>
     </div>
 

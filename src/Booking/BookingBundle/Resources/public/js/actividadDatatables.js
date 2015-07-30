@@ -76,6 +76,26 @@ $actividadDataTable.postDraw=function(){
                             $(document).delegate('.modal.fade','shown.bs.modal',function(){
                                 $('.dating').datepicker({dateFormat:'Y-m-d'});
                                 $('.dating').datepicker('option', 'dateFormat', 'Y-m-d');
+                                $('#jModal').attr('data-ng-controller','formController');
+
+                                //Can't use angular in jQuery modal,so let's use jQuery
+                                $('[data-ng-model="closest"]').change(function(){
+                                    var date = $('.form-control.dating').val();
+                                    var type = $(this).val();
+                                    if (type!="" && date!="") {
+                                        var closestUrl = Routing.generate('actividad_closest',{date:date,type:type});
+                                        $.get(closestUrl,{},function(data,status,xhr){
+                                            if (xhr.status==200) {
+                                                var activities = data.activities;
+                                                var $ul = $('#jModal').find('.nav');
+                                                $ul.empty();
+                                                activities.forEach(function(item){
+                                                    $ul.append('<li data-id="'+item[0]+'">'+item[1]+':'+item[2]+':'+item[3]+'</li>');
+                                                });
+                                            }
+                                        },"json");
+                                    }
+                                });
                             });
                         }
                     }

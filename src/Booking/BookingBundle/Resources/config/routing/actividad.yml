@@ -48,3 +48,8 @@ actividad_edit_form:
     defaults: { _controller: "BookingBundle:Actividad:editform" }
     options:
         expose: true
+actividad_closest:
+    path: /activity/closest
+    defaults: { _controller: "BookingBundle:Actividad:closestActivities" }
+    options:
+        expose: true

@@ -5,6 +5,7 @@ namespace Booking\BookingBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Orx;
+use Proxies\__CG__\General\NomencladorBundle\Entity\TipoActividad;
 
 class ActividadRepository extends EntityRepository {
     protected $columns = array('fecha', 'guia','total','pax', 'precioguia', 'tipoActividad', 'reservacion');
@@ -76,6 +77,11 @@ class ActividadRepository extends EntityRepository {
 
     }
 
+    /**
+     * Count datatable filter
+     * @param array $get
+     * @return mixed
+     */
     public function getFilteredCount(array $get)
     {
         /* DB table to use */
@@ -114,6 +120,22 @@ class ActividadRepository extends EntityRepository {
         $aResultTotal = $query->getResult();
 
         return $aResultTotal[0][1];
+    }
+
+    /**
+     * Closest Activity with a date and a type given
+     * @param \DateTime $dateTime
+     * @param $tipoActividad
+     * @return array
+     */
+    public function closestActivity(\DateTime $dateTime, $tipoActividad){
+        $em = $this->_em;
+        $activities= $em->getRepository('BookingBundle:Actividad')->findBy(array('tipoActividad'=>$tipoActividad));
+        return array_map(function(Actividad $actividad){
+            return $actividad->toArray();
+        },array_filter($activities,function(Actividad $activity)use($dateTime){
+            return ($activity->getFecha()->format('m')==$dateTime->format('m'));
+        }));
     }
 
 } 

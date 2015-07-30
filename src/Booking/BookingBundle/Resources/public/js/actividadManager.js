@@ -45,10 +45,46 @@ actividadManager.controller('managerController',function($scope,$http){
                     showMeridian: false,
                     defaultTime: 'current'
                 });
+                //Can't use angular in jQuery modal,so let's use jQuery
+                $('[data-ng-model="closest"]').change(function(){
+                    console.log('like angular');
+                    var date = $('[data-ng-model="date"]').val();
+                    var type = $(this).val();
+                    if (type!="" && date!="") {
+                        var closestUrl = Routing.generate('actividad_closest',{date:date,type:type});
+                        $.get(closestUrl,{},function(data,status,xhr){
+                            if (xhr.status==200) {
+                                var activities = data.activities;
+                                var $ul = $('#jModal').find('.nav');
+                                $ul.empty();
+                                activities.forEach(function(item){
+                                    $ul.append('<li data-id="'+item[0]+'">'+item[1]+':'+item[2]+':'+item[3]+'</li>');
+                                });
+                            }
+                        },"json");
+                    }
+                });
+
+
             }}]);
 
         });
 
     }
 
+});
+
+
+actividadManager.controller('formController',function($scope,$http){
+    $scope.loadClosest=function(){
+        var closestUrl = Routing.generate('actividad_closest',{date:$scope.date,type:$scope.type});
+        $http.get(closestUrl).success(
+            function(data,textStatus,xhr){
+                $scope.activities = data.activities;
+
+            }
+        ).error(function(data,textStatus,xhr){
+                console.log(data);
+            })
+    }
 });
