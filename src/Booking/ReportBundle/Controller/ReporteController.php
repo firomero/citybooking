@@ -134,7 +134,7 @@ class ReporteController extends  Controller{
     public function pdfListReservAction(Request $request){
         $view = $this->listReservAction($request);
         $exporter = $this->get('booking_reportbundle.exporter.pdfexporter');
-        return $exporter->export($view, 'Boooking List Reserv');
+        return $exporter->export($view, 'Boooking List Reserv',date('Ymd-His'));
     }
 
     //... exportar a html ......................................

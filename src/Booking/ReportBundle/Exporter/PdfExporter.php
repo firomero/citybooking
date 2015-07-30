@@ -51,16 +51,17 @@ class PdfExporter implements ExporterInterface {
      * Returns the View
      * @param $view
      * @param string $title
+     * @param string $file
      * @return Response
      */
-    public function export($view, $title = 'Boooking')
+    public function export($view, $title = 'Boooking',$file='tmp')
     {
         $pdf = $this->driver($title);
         $html = $view->getContent();
         $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
         $pdf->AddPage();
         $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
-        $pdf->Output('tmp.pdf', 'I');
+        $pdf->Output($file.'.pdf', 'I');
         $response = new Response('');
         $response->headers->set('Content-Type', 'application/pdf');
         return $response;

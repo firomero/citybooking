@@ -28,6 +28,11 @@ $reservacionTable.postDraw = function (){
             var $btnEditar = $('<button class="btn btn-mini info edit" ></button>');
             $btnEditar.append($('<i class="icon-edit bigger-125"></i>'));
             $btnEditar.attr('data-id',html);
+
+            var $btnActivity = $('<button class="btn btn-mini info activity" ></button>');
+            $btnActivity.append($('<i class="icon-list bigger-125"></i>'));
+            $btnActivity.attr('data-id',html);
+
             var $parent = $(this).closest('tr');
             var $text = $parent.find('.reservacion-text');
             $btnEditar.attr('data-name',$text.html());
@@ -38,7 +43,7 @@ $reservacionTable.postDraw = function (){
             $btnEliminar.attr('data-id',html);
             $btnEliminar.append($('<i class="icon-trash bigger-125"></i>'));
 
-            $btnGroup.append($btnEditar).append($btnEliminar);
+            $btnGroup.append($btnEditar).append($btnEliminar).append($btnActivity);
             $column.append($btnGroup);
             $(this).closest('tr').append($column);
             //Events
@@ -100,12 +105,109 @@ $reservacionTable.postDraw = function (){
                 $modalView.modal('show');
             });
 
+            //Asociar Actividad
+            $('.btn.btn-mini.info.activity').click(function(){
+                var $btnAssoc = $(this);
+                var urlActivityForm = Routing.generate('reservacion_activity_form',{id:$btnAssoc.data('id')});
+                $.get(urlActivityForm,{},function(data,status,xhr){
+                    if (xhr.status==200) {
+                        var html = data.form;
+                        uiWindow.form('Adicionar Actividad','',html,[{event: 'shown.bs.modal',callback:function(){
+                            $('.dating').datepicker({ autoclose:true, dateFormat:'Y-m-d'});
+                            $('.timing').timepicker({
+                                minuteStep: 1,
+                                showMeridian: false,
+                                defaultTime: 'current'
+                            });
+
+                            //Activity Type
+                            var urlActivityList = Routing.generate('tipoactividad_ajax_listar');
+                            $.get(urlActivityList,{},function(data,status,xhr){
+                                var types = data.aaData
+                                types.forEach(function(item){
+                                    var $opt = $('<option></option>');
+                                    $('#activity_type').append($opt.val(item[0]).html(item[1]));
+                                });
+                            },"json");
+
+                            //Can't use angular in jQuery modal,so let's use jQuery
+                            $('[data-ng-model="closest"]').change(function(){
+                                var date = $('[data-ng-model="date"]').val();
+                                var type = $(this).val();
+                                if (type!="" && date!="") {
+                                    var closestUrl = Routing.generate('actividad_closest',{date:date,type:type});
+                                    $.get(closestUrl,{},function(data,status,xhr){
+                                        if (xhr.status==200) {
+                                            var activities = data.activities;
+                                            var $ul = $('#jModal').find('.nav');
+                                            $ul.empty();
+                                            activities.forEach(function(item){
+                                            $ul.append('<li data-id="'+item[0]+'">'+item[1]+':'+item[2]+':'+item[3]+'</li>');
+                                            });
+                                        }
+                                    },"json");
+                                }
+                            });
+
+                            //Now bind the simulated submit
+                            $('#doAction').click(function(){
+                                var $errorShow = $('.col-md-12');
+                                $errorShow.empty();
+
+                                var  fecha = $('#activity_date').val();
+                                var  hora = $('#activity_hour').val();
+                                var  lugar = $('#activity_place').val();
+                                var  precio = $('#activity_price').val();
+                                var  coordinacion = $('#activity_coordinate').val();
+                                var  pax = $('#activity_pax').val();
+                                var  tipo = $('#activity_type').val();
+                                var  booking = $('#booking').val();
+                                var urlAssoc = Routing.generate('reservacion_associate',{
+                                    fecha:fecha,
+                                    hora:hora,
+                                    lugar:lugar,
+                                    precio:precio,
+                                    coordinacion:coordinacion,
+                                    pax:pax,
+                                    tipo:tipo,
+                                    booking:booking
+
+
+                                });
+                                $.get(urlAssoc,{},function(data,status,xhr){
+                                    if (xhr.status==200) {
+                                        $('.ajaxForm input[type="text"]').val('');
+                                    }
+                                },"json").fail(function(data,status,xhr){
+                                    $errorShow.empty();
+                                    $errorShow.append($('<div class="alert alert-danger"></div>'));
+                                    var text="";
+                                    if (data.status==400) {
+                                        text="Hay error en los datos de entrada, por favor revise sus datos";
+                                    }
+                                    else{
+                                        text="Ha ocurrido un error de servidor";
+                                    }
+                                    $errorShow.find('.alert').append(text);
+
+
+                                });
+                            });
+
+                        }}]);
+                    }
+                },"json");
+            });
+
+
             //Eliminar Reservacion
             $btnEliminar.click(function(){
                 var $acept = $('#doDelete').find('.delete');
                 var id = $(this).attr('data-id');
                 $acept.click(function(){
                     $reservacionTable.deleteReservacion(id);
+                }).fail(function(data,status,xhr){
+
                 });
 
             });

@@ -17,11 +17,13 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use General\NomencladorBundle\Entity\Agencia;
 
-class ReportManager {
+class ReportManager
+{
 
     protected $em;
 
-    public function __construct(EntityManager $entityManager){
+    public function __construct(EntityManager $entityManager)
+    {
         $this->em = $entityManager;
     }
 
@@ -29,23 +31,24 @@ class ReportManager {
      * @param Casa $casa
      * @return array
      */
-    public function reporteCasa(Casa $casa){
+    public function reporteCasa(Casa $casa)
+    {
 
         $qb = $this->em->createQueryBuilder('r');
 
         /** @var QueryBuilder $qb */
         $reservaciones = $qb->select('r')
-            ->from('BookingBundle:Reservacion','r')
-            ->innerJoin('r.casa','casa')
-            ->where('casa.id=?',':idcasa')
-            ->setParameter('idcasa',$casa->getId())
+            ->from('BookingBundle:Reservacion', 'r')
+            ->innerJoin('r.casa', 'casa')
+            ->where('casa.id=?', ':idcasa')
+            ->setParameter('idcasa', $casa->getId())
             ->getQuery()->getResult();
 
         $dataResult = array();
         /** @var Reservacion $reser */
         foreach ($reservaciones as $reser) {
 
-            $dataResult[]=$reser->toArray();
+            $dataResult[] = $reser->toArray();
         }
 
         return $dataResult;
@@ -57,22 +60,23 @@ class ReportManager {
      * @param Agencia $agencia
      * @return array
      */
-    public function reporteAgencia(Agencia $agencia){
+    public function reporteAgencia(Agencia $agencia)
+    {
         $qb = $this->em->createQueryBuilder('r');
 
         /** @var QueryBuilder $qb */
         $reservaciones = $qb->select('r')
-            ->from('BookingBundle:Reservacion','r')
-            ->innerJoin('r.agencia','agencia')
-            ->where('agencia.id=?',':idagencia')
-            ->setParameter('idagencia',$agencia->getId())
+            ->from('BookingBundle:Reservacion', 'r')
+            ->innerJoin('r.agencia', 'agencia')
+            ->where('agencia.id=?', ':idagencia')
+            ->setParameter('idagencia', $agencia->getId())
             ->getQuery()->getResult();
 
         $dataResult = array();
         /** @var Reservacion $reser */
         foreach ($reservaciones as $reser) {
 
-            $dataResult[]=$reser->toArray();
+            $dataResult[] = $reser->toArray();
         }
 
         return $dataResult;
@@ -85,22 +89,23 @@ class ReportManager {
      * @internal param Reservacion $agencia
      * @return array
      */
-    public function invoiceActivity(Reservacion $reservacion){
+    public function invoiceActivity(Reservacion $reservacion)
+    {
         $qb = $this->em->createQueryBuilder('a');
 
         /** @var QueryBuilder $qb */
         $actividades = $qb->select('a')
-            ->from('BookingBundle:Actividad','a')
-            ->innerJoin('a.reservacion.','reservacion')
-            ->where('reservacion.id=?',':idreservacion')
-            ->setParameter('idreservacion',$reservacion->getId())
+            ->from('BookingBundle:Actividad', 'a')
+            ->innerJoin('a.reservacion.', 'reservacion')
+            ->where('reservacion.id=?', ':idreservacion')
+            ->setParameter('idreservacion', $reservacion->getId())
             ->getQuery()->getResult();
 
         $dataResult = array();
         /** @var Actividad $actividad */
         foreach ($actividades as $actividad) {
 
-            $dataResult[]=$actividad->toArray();
+            $dataResult[] = $actividad->toArray();
         }
 
         return $dataResult;
@@ -111,14 +116,15 @@ class ReportManager {
      * filters casa | all
      * @return array
      */
-    public function invoiceTour($casa=array(),\DateTime $mes=null){
+    public function invoiceTour($casa = array(), \DateTime $mes = null)
+    {
         $em = $this->em;
 
         $reservaciones = $em->getRepository('BookingBundle:Reservacion')->findBy($casa);
 
         if (!is_null($mes)) {
-            $reservaciones = array_filter($reservaciones,function(Reservacion $value)use($mes){
-                if ($value->getCheckin()->format('m/Y')==$mes->format('m/Y')) {
+            $reservaciones = array_filter($reservaciones, function (Reservacion $value) use ($mes) {
+                if ($value->getCheckin()->format('m/Y') == $mes->format('m/Y')) {
                     return $value;
                 }
             });
@@ -128,30 +134,30 @@ class ReportManager {
 
         foreach ($reservaciones as $book) {
             $dataOutput[] = array(
-                'date'=> date_format(new \DateTime(),'d/m/Y'),
-                'supplier_agency'=> $book->getAgencia()->getNombre(),
-                'supplier_name'=> $book->getCasa()->getPropietario()->getNombre(),
-                'supplier_mobile'=> $book->getCasa()->getTelefono(),
-                'supplier_phone'=> '0053 4199 6686',
-                'supplier_email'=> 'bookingcuba.micubalocal@gmail.com',
-                'client_agency'=> 'MiCuba - Reisspecialist in    Cuba&nbsp;',
-                'client_address'=> 'Veembroederhof 173, 1019 HD in Amsterdam, Nl',
-                'client_mobile'=> '0031 6 442135578',
-                'client_web'=> 'www.micuba.nl',
-                'client_email'=> 'julio@micuba.nl',
-                'booking_name'=>$book->getCliente()->getNombre(),
-                'booking_pax'=>$book->getPax(),
-                'booking_number'=>$book->getCliente()->getReferencia(),
-                'total' => call_user_func(function()use($book){
-                    return array_reduce($book->getActividades()->getValues(),function($a,$b){
+                'date' => date_format(new \DateTime(), 'd/m/Y'),
+                'supplier_agency' => $book->getAgencia()->getNombre(),
+                'supplier_name' => $book->getCasa()->getPropietario()->getNombre(),
+                'supplier_mobile' => $book->getCasa()->getTelefono(),
+                'supplier_phone' => '0053 4199 6686',
+                'supplier_email' => 'bookingcuba.micubalocal@gmail.com',
+                'client_agency' => 'MiCuba - Reisspecialist in    Cuba',
+                'client_address' => 'Veembroederhof 173, 1019 HD in Amsterdam, Nl',
+                'client_mobile' => '0031 6 442135578',
+                'client_web' => 'www.micuba.nl',
+                'client_email' => 'julio@micuba.nl',
+                'booking_name' => $book->getCliente()->getNombre(),
+                'booking_pax' => $book->getPax(),
+                'booking_number' => $book->getCliente()->getReferencia(),
+                'total' => call_user_func(function () use ($book) {
+                    return array_reduce($book->getActividades()->getValues(), function ($a, $b) {
                         /**
                          * @var Actividad $b
                          */
-                        $a+=$b->getPrecio()+$b->getCoordinacion();
+                        $a += $b->getPrecio() + $b->getCoordinacion();
                         return $a;
                     });
                 }),
-                'services'=>call_user_func(function()use($book){
+                'services' => call_user_func(function () use ($book) {
                     $services = array();
                     $activities = $book->getActividades();
 
@@ -159,12 +165,12 @@ class ReportManager {
                         /**
                          * @var Actividad $activity
                          */
-                        $services[]=array(
+                        $services[] = array(
                             'services_checkIn' => $activity->getFecha()->format('d/m/Y'),
                             'services_checkOut' => $activity->getFecha()->format('d/m/Y'),
-                            'services_description' => $activity->getTipoActividad()->getNombre().'-'.$activity->getLugar().'-'.$activity->getHora()->format('H:i'),
+                            'services_description' => $activity->getTipoActividad()->getNombre() . '-' . $activity->getLugar() . '-' . $activity->getHora()->format('H:i'),
                             'services_price' => $activity->getCoordinacion(),
-                            'services_total' => $activity->getPrecio()+$activity->getCoordinacion()
+                            'services_total' => $activity->getPrecio() + $activity->getCoordinacion()
                         );
                     }
                     return $services;
@@ -180,31 +186,58 @@ class ReportManager {
      * Filters casa | agencia | all
      * @return array
      */
-    public function invoiceBooking($filters=array()){
+    public function invoiceBooking($filters = array())
+    {
         $data = array(
-            'list'=>array()
+            'list' => array(),
+            'total' => array()
         );
         $em = $this->em;
 
         $reservaciones = $em->getRepository('BookingBundle:Reservacion')->findBy($filters);
 
         foreach ($reservaciones as $book) {
-            $data['list'][]=array(
+            $data['list'][] = array(
 
                 'referencia' => $book->getCliente()->getReferencia(),
-                'cliente'=>$book->getCliente()->getNombre(),
-                'entrada'=>$book->getCheckin()->format('d/m/Y'),
-                'salida'=>$book->getCheckout()->format('d/m/Y'),
-                'n'=>$book->getNoches(),
-                'servicio'=>$book->getCasa()->getNombre(),
-                'p'=>$book->getPax(),
-                'hab'=> implode(',',$book->roomList()),
-                'fact'=>$book->getPrecio(),
-                'pagar'=>$book->getPrecio(),
-                'com'=>5*count($book->getCasa()->getCantidadHab())*$book->getNoches(),
-                'observaciones'=>$book->getObservacion().'\n'.implode(',', $book->activityList())
+                'cliente' => $book->getCliente()->getNombre(),
+                'entrada' => $book->getCheckin()->format('d/m/Y'),
+                'salida' => $book->getCheckout()->format('d/m/Y'),
+                'n' => $book->getNoches(),
+                'servicio' => $book->getCasa()->getNombre(),
+                'p' => $book->getPax(),
+                'hab' => implode(',', $book->roomList()),
+                'fact' => $book->getPrecio(),
+                'pagar' => $book->getPrecio() - 5 * count($book->getCasa()->getCantidadHab()) * $book->getNoches(),
+                'com' => 5 * count($book->getCasa()->getCantidadHab()) * $book->getNoches(),
+                'observaciones' => $book->getObservacion() . '\n' . implode(',', $book->activityList())
             );
         }
+
+        $data['total']['noche'] = array_reduce($data['list'], function ($a, $b) {
+            $a += $b['n'];
+            return $a;
+        });
+        $data['total']['pax'] = array_reduce($data['list'], function ($a, $b) {
+            $a += $b['p'];
+            return $a;
+        });
+        $data['total']['fact'] = array_reduce($data['list'], function ($a, $b) {
+            $a += $b['fact'];
+            return $a;
+        });
+        $data['total']['pagar'] = array_reduce($data['list'], function ($a, $b) {
+            $a += $b['pagar'];
+            return $a;
+        });
+        $data['total']['com'] = array_reduce($data['list'], function ($a, $b) {
+            $a += $b['com'];
+            return $a;
+        });
+        $data['total']['cliente'] = array_reduce($data['list'], function ($a) {
+           $b=$a+1;
+            return $b;
+        });
 
         return $data;
 
@@ -216,11 +249,12 @@ class ReportManager {
      * @param $state
      * @return array
      */
-    public function seekDate(\DateTime $date, $state){
+    public function seekDate(\DateTime $date, $state)
+    {
         $em = $this->em;
         $rs = $em->createQueryBuilder('rs');
         $rs->select('rs')
-            ->from('BookingBundle:Reservacion','rs')
+            ->from('BookingBundle:Reservacion', 'rs')
             ->where('rs.checkin <= :checkin')
             ->andWhere('rs.checkout>= :checkout')
             ->setParameters(
@@ -228,60 +262,57 @@ class ReportManager {
                     'checkout' => $date,
                     'checkin' => $date
                 )
-            )
-            ;
+            );
         $queryResult = $rs->getQuery()->getResult();
 
-        if ($state==ReporteController::RESERVADA) {
-            return array_map(function($r){
+        if ($state == ReporteController::RESERVADA) {
+            return array_map(function ($r) {
 
-                    /**
-                     * @var Reservacion $r
-                     *
-                     *
-                     */
-                  return array(
-                      'casaid'=>$r->getCasa()->getId(),
-                      'nombrecasa'=>$r->getCasa()->getNombre(),
-                  );
+                /**
+                 * @var Reservacion $r
+                 *
+                 *
+                 */
+                return array(
+                    'casaid' => $r->getCasa()->getId(),
+                    'nombrecasa' => $r->getCasa()->getNombre(),
+                );
 
-            },$queryResult);
+            }, $queryResult);
 
         }
-        $reservadas = array_map(function($val){
+        $reservadas = array_map(function ($val) {
             /**
              * @var Reservacion $val
              *
              *
              */
             return $val->getCasa()->getId();
-        },$queryResult);
+        }, $queryResult);
 
         $cs = $em->createQueryBuilder('cs');
-         $cs->select('cs')
-            ->from('BookingBundle:Casa','cs');
+        $cs->select('cs')
+            ->from('BookingBundle:Casa', 'cs');
 
-        if (count($reservadas)>0) {
-            $cs->where($cs->expr()->notIn('cs.id',':casas'))
-                ->setParameter('casas',$reservadas);
+        if (count($reservadas) > 0) {
+            $cs->where($cs->expr()->notIn('cs.id', ':casas'))
+                ->setParameter('casas', $reservadas);
         }
 
 
         $casas = $cs->getQuery()->getResult();
 
-        return array_map(function($val){
+        return array_map(function ($val) {
             /**
              * @var Casa $val
              *
              *
              */
             return array(
-                'casaid'=>$val->getId(),
-                'nombrecasa'=>$val->getNombre(),
+                'casaid' => $val->getId(),
+                'nombrecasa' => $val->getNombre(),
             );
-        },$casas);
-
-
+        }, $casas);
 
 
     }
@@ -292,22 +323,22 @@ class ReportManager {
      * @param Casa $casa
      * @return array
      */
-    public function getReservaciones(Casa $casa, \DateTime $mes=null)
+    public function getReservaciones(Casa $casa, \DateTime $mes = null)
     {
         $em = $this->em;
         $reservaciones = $em->getRepository('BookingBundle:Reservacion')->findByCasa($casa);
 
         if (!is_null($mes)) {
-            $reservaciones = array_filter($reservaciones,function(Reservacion $value)use($mes){
-                if ($value->getCheckin()->format('m/Y')==$mes->format('m/Y')) {
+            $reservaciones = array_filter($reservaciones, function (Reservacion $value) use ($mes) {
+                if ($value->getCheckin()->format('m/Y') == $mes->format('m/Y')) {
                     return $value;
                 }
             });
         }
 
-        return array_map(function(Reservacion $reservacion){
+        return array_map(function (Reservacion $reservacion) {
             return $reservacion->__toString();
-        },$reservaciones);
+        }, $reservaciones);
     }
 
     /**
@@ -315,37 +346,37 @@ class ReportManager {
      * @param \DateTime $mes
      * @return array
      */
-    public function getMonth(\DateTime $mes=null)
+    public function getMonth(\DateTime $mes = null)
     {
         $em = $this->em;
         $reservaciones = $em->getRepository('BookingBundle:Reservacion')->findAll();
 
         if (!is_null($mes)) {
-            $reservaciones = array_filter($reservaciones,function(Reservacion $value)use($mes){
-                if ($value->getCheckin()->format('m/Y')==$mes->format('m/Y')) {
+            $reservaciones = array_filter($reservaciones, function (Reservacion $value) use ($mes) {
+                if ($value->getCheckin()->format('m/Y') == $mes->format('m/Y')) {
                     return $value;
                 }
             });
         }
 
         return array(
-            'list'=>array_map(function(Reservacion $book){
+            'list' => array_map(function (Reservacion $book) {
                 return array(
 
                     'referencia' => $book->getCliente()->getReferencia(),
-                    'cliente'=>$book->getCliente()->getNombre(),
-                    'entrada'=>$book->getCheckin()->format('d/m/Y'),
-                    'salida'=>$book->getCheckout()->format('d/m/Y'),
-                    'n'=>$book->getNoches(),
-                    'servicio'=>$book->getCasa()->getNombre(),
-                    'p'=>$book->getPax(),
-                    'hab'=> implode(',',$book->roomList()),
-                    'fact'=>$book->getPrecio(),
-                    'pagar'=>$book->getPrecio(),
-                    'com'=>5*count($book->getCasa()->getCantidadHab())*$book->getNoches(),
-                    'observaciones'=>$book->getObservacion().'\n'.implode(',', $book->activityList())
+                    'cliente' => $book->getCliente()->getNombre(),
+                    'entrada' => $book->getCheckin()->format('d/m/Y'),
+                    'salida' => $book->getCheckout()->format('d/m/Y'),
+                    'n' => $book->getNoches(),
+                    'servicio' => $book->getCasa()->getNombre(),
+                    'p' => $book->getPax(),
+                    'hab' => implode(',', $book->roomList()),
+                    'fact' => $book->getPrecio(),
+                    'pagar' => $book->getPrecio(),
+                    'com' => 5 * count($book->getCasa()->getCantidadHab()) * $book->getNoches(),
+                    'observaciones' => $book->getObservacion() . '\n' . implode(',', $book->activityList())
                 );
-            },$reservaciones)
+            }, $reservaciones)
         );
     }
 

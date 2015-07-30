@@ -1,0 +1,71 @@
+<div class="col-md-12"></div>
+<div class="ajaxForm" >
+    <div class="control-group">
+        <label for="activity_date">{{ 'booking.actividad.labels.date'| trans({}, 'BookingBundle') }}</label>
+        <input class="form-control dating fecha" data-ng-model="date" type="text" id="activity_date"/>
+
+    </div>
+
+    <div class="control-group ">
+        <label for="activity_hour">{{ 'booking.actividad.labels.hour'| trans({}, 'BookingBundle') }}</label>
+         <div class="input-append bootstrap-timepicker">
+             <span class="add-on"><i class="icon-time"></i>	</span>
+             <input class="form-control timing hora" type="text" id="activity_hour"/>
+
+         </div>
+
+    </div>
+
+    <div class="control-group">
+        <label for="activity_place">{{ 'booking.actividad.labels.guide' | trans({}, 'BookingBundle') }}</label>
+       <input type="text" class="form-control" id="activity_place"/>
+
+    </div>
+
+    <div class="control-group">
+        <label for="activity_price">{{ 'booking.actividad.labels.total' | trans({}, 'BookingBundle') }}</label>
+        <input type="text" class="form-control" id="activity_price"/>
+
+
+    </div>
+
+    <div class="control-group">
+
+        <label for="activity_coordinate">{{ 'booking.actividad.labels.precioguia' | trans({}, 'BookingBundle') }}</label>
+        <input type="text" class="form-control" id="activity_coordinate"/>
+
+
+    </div>
+
+    <div class="control-group">
+        <label for="activity_type">{{ 'booking.actividad.labels.type' | trans({}, 'BookingBundle') }}</label>
+        <div class="controls">
+            <div class="closestActivities">
+                <ul data-ng-class="{hidden:activities.length==0}" class="nav nav-stacked">
+                    <li data-ng-repeat="activity in activities">
+
+                    </li>
+
+                </ul>
+            </div>
+            <select class="form-control" data-ng-model="closest" data-ng-change="loadClosest()" id="activity_type"></select>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label for="activity_pax">{{ 'booking.actividad.labels.pax' | trans({}, 'BookingBundle') }}</label>
+        <input type="text" class="form-control" id="activity_pax"/>
+
+    </div>
+
+    <div class="control-group">
+        <br/>
+        <input type="hidden" id="booking" value="{{ booking }}"/>
+        <button type="button"
+                class="btn btn-primary action" id="doAction">{{ 'booking.actividad.buttons.accept' | trans({}, 'BookingBundle') }}</button>
+        <button type="button" class="btn btn-success"
+                data-dismiss="modal">{{ 'booking.actividad.buttons.cancel' | trans({}, 'BookingBundle') }}</button>
+    </div>
+
+
+</div>

@@ -125,7 +125,7 @@ class Reservacion
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="\General\NomencladorBundle\Entity\TipoHab")
+     * @ORM\ManyToMany(targetEntity="\General\NomencladorBundle\Entity\TipoHab",  inversedBy="reservaciones")
      * @ORM\JoinTable(name="tipo_reservacion",
      *      joinColumns={@ORM\JoinColumn(name="reservacionid", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tipoid", referencedColumnName="id")}
@@ -134,7 +134,7 @@ class Reservacion
      protected $tipoHab;
 
     /**
-     * @ORM\OneToMany(targetEntity="Actividad", mappedBy="reservacion")
+     * @ORM\OneToMany(targetEntity="Actividad", mappedBy="reservacion",  cascade="ALL")
      **/
     private $actividades;
 
@@ -552,7 +552,7 @@ class Reservacion
      * @return bool
      */
     public function isValidConfirm(){
-        $today = new \DateTime();
-        return $this->confirmado>= $today;
+        $today = date_create_from_format('Y-m-d','now');
+        return $this->confirmado >= $today;
     }
 }

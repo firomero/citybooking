@@ -167,6 +167,12 @@ class ReservacionManagerTest extends \PHPUnit_Framework_TestCase {
         return true;
     }
 
+    public function testConfirmed(){
+        $today = new \DateTime('now');
+        $confirmed = date('2015-08-03');
+        $this->assertGreaterThanOrEqual($confirmed,$today);
+    }
+
 }
 
 

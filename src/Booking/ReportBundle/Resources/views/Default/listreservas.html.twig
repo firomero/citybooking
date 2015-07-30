@@ -1,4 +1,3 @@
-
 <table width="100%" border="1" cellspacing="0">
   <tr>
     <td colspan="12" align="center" bgcolor="#6666FF"> <strong>{{ date }}</strong></td>
@@ -33,4 +32,18 @@
             <td >{{ item.observaciones }}</td>
           </tr>
     {% endfor %}
+    <tr>
+        <td height="25" ><strong>Totales</strong></td>
+        <td ><strong>{{ total.cliente }}</strong></td>
+        <td ></td>
+        <td ></td>
+        <td ><strong>{{ total.noche }}</strong></td>
+        <td></td>
+        <td ><strong>{{ total.pax }}</strong></td>
+        <td ></td>
+        <td ><strong>{{ total.fact }}</strong></td>
+        <td ><strong>{{ total.pagar }}</strong></td>
+        <td ><strong>{{ total.com }}</strong></td>
+        <td ></td>
+    </tr>
 </table>

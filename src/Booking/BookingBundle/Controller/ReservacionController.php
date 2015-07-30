@@ -9,6 +9,7 @@
 namespace Booking\BookingBundle\Controller;
 
 
+use Booking\BookingBundle\Entity\Actividad;
 use Booking\BookingBundle\Entity\Habitacion;
 use Booking\BookingBundle\Entity\Reservacion;
 use Booking\BookingBundle\Form\ReservacionType;
@@ -58,6 +59,7 @@ class ReservacionController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
+
             /** @var Reservacion $entity
              * @var ReservacionManager $model
              */
@@ -66,9 +68,24 @@ class ReservacionController extends Controller
                 $model->setPrecio($entity);
             }
 
+            /**
+             * @var EntityManager $em
+             */
+            $em->beginTransaction();
+
+
 
             $em->persist($entity);
-            $em->flush();
+
+            try{
+
+                $em->flush();
+                $em->commit();
+            }catch (\Exception $e)
+            {
+                $em->rollback();
+                $this->get('logger')->addCritical('Error en consulta' . $e->getMessage());
+            }
 
 
             return $this->redirect($this->generateUrl('reservacion_index'));
@@ -330,5 +347,69 @@ class ReservacionController extends Controller
         }
     }
 
+    /**
+     * Asocia una actividad con una reservación
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function associateActivityAction(Request $request){
+
+        $params = $request->query->all();
+        $em = $this->get('doctrine')->getManager();
+        $actividad = new Actividad();
+        $actividad->setCoordinacion($params['coordinacion']);
+        $actividad->setFecha(date_create_from_format('m/d/Y',$params['fecha']));
+        $actividad->setHora(date_create_from_format('H:i',$params['hora']));
+        $actividad->setLugar($params['lugar']);
+        $actividad->setPrecio(intval($params['precio']));
+        $actividad->setPax(intval($params['pax']));
+        try{
+            $actividad->setTipoActividad($em->getRepository('NomencladorBundle:TipoActividad')->find(intval($params['tipo'])));
+            $actividad->setReservacion($em->getRepository('BookingBundle:Reservacion')->find(intval($params['booking'])));
+        }
+        catch(\Exception $e){
+            $this->get('logger')->addCritical($e->getMessage());
+            return new JsonResponse(array('Asociaciones no accesibles'),HttpCode::HTTP_SERVER_UNAVAILABLE);
+        }
+
+        $validator = $this->get('validator');
+        $errors = $validator->validate($actividad);
+
+        if (count($errors)>0) {
+
+            $string = "";
+            foreach($errors as $e){
+                $string.=$e;
+            }
+            $this->get('logger')->addCritical($string);
+            return new JsonResponse(array('Existen datos Inválidos'),HttpCode::HTTP_WRONG_REQUEST);
+        } else {
+            try{
+
+                $em->persist($actividad);
+                $em->flush();
+                return new JsonResponse(array(),200);
+
+            }catch (\Exception $e){
+                $this->get('logger')->addCritical($e->getMessage());
+                return new JsonResponse(array('Ha ocurrido un error en el procesamiento de los datos'),HttpCode::HTTP_SERVER_ERROR);
+            }
+        }
+    }
+
+    /**
+     * Devuelve el formulario personalizado
+     * @param Request $request
+     */
+    public function serveActivityFormAction(Request $request){
+
+      return  new JsonResponse(
+            array(
+                'form' => $this->renderView('BookingBundle:Reservacion:activity.html.twig',
+                    array(
+                        'booking'=> $request->get('id'),
+                    ))), 200);
+
+    }
 
 } 

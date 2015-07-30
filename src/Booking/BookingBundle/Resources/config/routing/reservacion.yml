@@ -20,6 +20,8 @@ reservacion_actualizar:
 reservacion_cancelar:
     pattern: /cancelar
     defaults: { _controller: "BookingBundle:Reservacion:delete" }
+    options:
+        expose: true
 
 reservacion_listar:
     pattern: /listar
@@ -38,6 +40,18 @@ reservacion_casas_disponibles:
     defaults: { _controller: "BookingBundle:Reservacion:casasDisponibles" }
     options:
         expose: true
+
+reservacion_associate:
+    pattern: /associate/activity
+    defaults: { _controller: "BookingBundle:Reservacion:associateActivity" }
+    options:
+        expose: true
+
+reservacion_activity_form:
+    pattern: /activity/custom/form
+    defaults: { _controller: "BookingBundle:Reservacion:serveActivityForm" }
+    options:
+       expose: true
 
 ## the yml style configuration data
 # reservacion_index: página principal, te da el formulario de nuevo (form)

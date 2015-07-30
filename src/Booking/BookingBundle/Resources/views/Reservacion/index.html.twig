@@ -160,12 +160,14 @@
     </script>
     <script src="{{ asset('bundles/booking/js/reservacionDatatables.js') }}"></script>
     <script src="{{ asset('public/js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('public/js/bootstrap-timepicker.js') }}"></script>
     {#<script src="{{ asset('public/js/booking.js') }}"></script>#}
 {% endblock JavaScriptInline %}
 
  {% block  stylesheet %}
      {{ parent() }}
      <link href="{{ asset('bundles/booking/css/reservacion.css') }}" rel="stylesheet"/>
+     <link href="{{ asset('public/css/bootstrap-timepicker.css') }}" rel="stylesheet"/>
      <link href="{{ asset('public/css/loader.css') }}" rel="stylesheet"/>
  {% endblock stylesheet %}
 
