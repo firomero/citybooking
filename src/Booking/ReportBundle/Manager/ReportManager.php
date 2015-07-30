@@ -134,7 +134,7 @@ class ReportManager {
                 'supplier_mobile'=> $book->getCasa()->getTelefono(),
                 'supplier_phone'=> '0053 4199 6686',
                 'supplier_email'=> 'bookingcuba.micubalocal@gmail.com',
-                'client_agency'=> 'MiCuba - Reisspecialist in    Cuba&nbsp;',
+                'client_agency'=> 'MiCuba - Reisspecialist in    Cuba',
                 'client_address'=> 'Veembroederhof 173, 1019 HD in Amsterdam, Nl',
                 'client_mobile'=> '0031 6 442135578',
                 'client_web'=> 'www.micuba.nl',

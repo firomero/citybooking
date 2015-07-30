@@ -46,20 +46,20 @@ class Habitacion
      */
     private $tipo;
 
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Reservacion")
-     * @ORM\JoinTable(name="ntipo_habitacion",
-     *      joinColumns={@ORM\JoinColumn(name="tipoid", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="reservacionid", referencedColumnName="id")}
-     * )
-     */
-
-    protected $reservaciones;
+//
+//    /**
+//     * @ORM\ManyToMany(targetEntity="Reservacion")
+//     * @ORM\JoinTable(name="ntipo_habitacion",
+//     *      joinColumns={@ORM\JoinColumn(name="tipoid", referencedColumnName="id")},
+//     *      inverseJoinColumns={@ORM\JoinColumn(name="reservacionid", referencedColumnName="id")}
+//     * )
+//     */
+//
+//    protected $reservaciones;
 
     public function __construct()
     {
-        $this->reservaciones = new ArrayCollection();
+//        $this->reservaciones = new ArrayCollection();
     }
 
 
@@ -119,38 +119,38 @@ class Habitacion
         return $this->tipo;
     }
 
-    /**
-     * Add reservaciones
-     *
-     * @param \Booking\BookingBundle\Entity\Reservacion $reservaciones
-     * @return Habitacion
-     */
-    public function addReservacione(\Booking\BookingBundle\Entity\Reservacion $reservaciones)
-    {
-        $this->reservaciones[] = $reservaciones;
-    
-        return $this;
-    }
+//    /**
+//     * Add reservaciones
+//     *
+//     * @param \Booking\BookingBundle\Entity\Reservacion $reservaciones
+//     * @return Habitacion
+//     */
+//    public function addReservacione(\Booking\BookingBundle\Entity\Reservacion $reservaciones)
+//    {
+//        $this->reservaciones[] = $reservaciones;
+//
+//        return $this;
+//    }
 
-    /**
-     * Remove reservaciones
-     *
-     * @param \Booking\BookingBundle\Entity\Reservacion $reservaciones
-     */
-    public function removeReservacione(\Booking\BookingBundle\Entity\Reservacion $reservaciones)
-    {
-        $this->reservaciones->removeElement($reservaciones);
-    }
-
-    /**
-     * Get reservaciones
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getReservaciones()
-    {
-        return $this->reservaciones;
-    }
+//    /**
+//     * Remove reservaciones
+//     *
+//     * @param \Booking\BookingBundle\Entity\Reservacion $reservaciones
+//     */
+//    public function removeReservacione(\Booking\BookingBundle\Entity\Reservacion $reservaciones)
+//    {
+//        $this->reservaciones->removeElement($reservaciones);
+//    }
+//
+//    /**
+//     * Get reservaciones
+//     *
+//     * @return \Doctrine\Common\Collections\Collection
+//     */
+//    public function getReservaciones()
+//    {
+//        return $this->reservaciones;
+//    }
 
     public function toArray(){
         return array(

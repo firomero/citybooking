@@ -58,6 +58,7 @@ class ReservacionController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
+
             /** @var Reservacion $entity
              * @var ReservacionManager $model
              */
@@ -66,9 +67,24 @@ class ReservacionController extends Controller
                 $model->setPrecio($entity);
             }
 
+            /**
+             * @var EntityManager $em
+             */
+            $em->beginTransaction();
+
+
 
             $em->persist($entity);
-            $em->flush();
+
+            try{
+
+                $em->flush();
+                $em->commit();
+            }catch (\Exception $e)
+            {
+                $em->rollback();
+                $this->get('logger')->addCritical('Error en consulta' . $e->getMessage());
+            }
 
 
             return $this->redirect($this->generateUrl('reservacion_index'));

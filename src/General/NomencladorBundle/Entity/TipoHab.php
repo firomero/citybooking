@@ -42,6 +42,11 @@ class TipoHab
     private $peso;
 
     /**
+     * @ORM\ManyToMany(targetEntity="\Booking\BookingBundle\Entity\Reservacion" , mappedBy="tipoHab")
+     */
+    protected $reservaciones;
+
+    /**
      * Get id
      *
      * @return integer 

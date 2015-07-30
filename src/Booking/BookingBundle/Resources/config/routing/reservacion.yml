@@ -20,6 +20,8 @@ reservacion_actualizar:
 reservacion_cancelar:
     pattern: /cancelar
     defaults: { _controller: "BookingBundle:Reservacion:delete" }
+    options:
+        expose: true
 
 reservacion_listar:
     pattern: /listar
