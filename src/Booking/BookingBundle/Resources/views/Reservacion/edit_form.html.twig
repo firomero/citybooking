@@ -69,12 +69,12 @@
         {{ form_widget(edit_form.observacion,{'attr':{ 'class': 'form-control' }}) }}
     </div>
 
-    {#<div class="form-group">#}
-        {#<button type="submit"#}
-                {#class="btn btn-primary action edit">{{ 'booking.reservacion.buttons.accept' | trans({}, 'BookingBundle') }}</button>#}
-        {#<button type="button" class="btn btn-success"#}
-                {#data-dismiss="modal">{{ 'booking.reservacion.buttons.cancel' | trans({}, 'BookingBundle') }}</button>#}
-    {#</div>#}
+    <div class="form-group">
+        <button type="submit"
+                class="btn btn-primary action edit">{{ 'booking.reservacion.buttons.accept' | trans({}, 'BookingBundle') }}</button>
+        <button type="button" class="btn btn-success"
+                data-dismiss="modal">{{ 'booking.reservacion.buttons.cancel' | trans({}, 'BookingBundle') }}</button>
+    </div>
     {{ form_rest(edit_form) }}
 
 </form>

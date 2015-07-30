@@ -60,7 +60,7 @@ class ActividadRepository extends EntityRepository {
             }
         }
 
-        $result = $qb->getQuery()->useResultCache(true)->getResult();
+        $result = $qb->getQuery()->getResult();
 
 
         $dataExport = array();
