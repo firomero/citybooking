@@ -73,3 +73,7 @@ table td{
 /*table td:last-child{*/
     /*width:100%;*/
 /*}*/
+
+table.dataTable, table.dataTable td, table.dataTable th {
+    box-sizing: border-box;
+}
