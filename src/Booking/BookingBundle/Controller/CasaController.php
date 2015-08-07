@@ -227,7 +227,7 @@ class CasaController extends Controller
         try{
 
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('BookingBundle:Casa')->findOneBy(array('nombre'=>$id));
+            $entity = $em->getRepository('BookingBundle:Casa')->findOneBy($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Casa entity.');

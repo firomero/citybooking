@@ -251,4 +251,51 @@ class ReporteController extends  Controller{
         $data = $manager->invoiceTour(array(),date_create_from_format('m/Y',$date));
         return $this->render('ReportBundle:Default:viewfacturastour.html.twig', array('list'=>$data));
     }
+
+    /**
+     * Invoice for a custom booking
+     * @param Request $request
+     * @return Response
+     */
+    public function customInvoiceAction(Request $request){
+        $manager = $this->get('reportbundle.manager.reportmanager');
+        $id = $request->query->get('id');
+        $data = $manager->customActivityInvoice($this->getDoctrine()->getManager()->getRepository('BookingBundle:Reservacion')->find($id));
+        return $this->render('ReportBundle:Default:customInvoice.html.twig', array('list'=>$data, 'booking'=>$id));
+    }
+
+    /**
+     * Invoice for a custom bookingPDF
+     * @param Request $request
+     * @return Response
+     */
+    public function customInvoicePDFAction(Request $request){
+        $view = $this->customInvoicePlaneAction($request);
+        $booking = $request->get('id');
+        /**
+         * @var Reservacion $reservacion
+         */
+        $reservacion = $this->getDoctrine()->getManager()->getRepository('BookingBundle:Reservacion')->find($booking);
+        $exporter = $this->get('booking_reportbundle.exporter.pdfexporter');
+        $result =  $exporter->export($view, 'Boooking Tour Invoice', $reservacion->getCliente()->getReferencia(),"D");
+        return $result;
+
+    }
+
+    /**
+     * Invoice for a custom booking
+     * @param Request $request
+     * @return Response
+     */
+    public function customInvoicePlaneAction(Request $request){
+        $manager = $this->get('reportbundle.manager.reportmanager');
+        $id = $request->query->get('id');
+        if ($id==null)
+        {
+            $id = $request->get('id');
+
+        }
+        $data = $manager->customActivityInvoice($this->getDoctrine()->getManager()->getRepository('BookingBundle:Reservacion')->find($id));
+        return $this->render('ReportBundle:Default:customInvoicePlane.html.twig', array('list'=>$data));
+    }
 } 

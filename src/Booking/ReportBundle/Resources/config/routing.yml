@@ -52,3 +52,16 @@ report_options_tour_house_month:
     defaults: { _controller: ReportBundle:Reporte:facturasMonthTour }
     options:
         expose: true
+
+report_custom_invoice:
+    pattern: /invoice/custom/booking
+    defaults: { _controller: ReportBundle:Reporte:customInvoice }
+    options:
+        expose: true
+report_custom_invoice_pdf:
+    pattern: /invoice/{id}/custom/booking/pdf
+    defaults: { _controller: ReportBundle:Reporte:customInvoicePDF }
+#report_custom_invoice_plane:
+#    pattern: /invoice/custom/booking/plaintext
+#    defaults: { _controller: ReportBundle:Reporte:customInvoicePlane }
+#

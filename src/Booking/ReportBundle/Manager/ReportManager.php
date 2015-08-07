@@ -182,6 +182,62 @@ class ReportManager
     }
 
     /**
+     * Invoice for a custom booking
+     * @param Reservacion $book
+     * @return array
+     */
+    public function customActivityInvoice(Reservacion $book){
+        $dataOutput = array(
+
+        );
+        $dataOutput[]= array(
+                    'date' => date_format(new \DateTime(), 'd/m/Y'),
+                    'supplier_agency' => $book->getAgencia()->getNombre(),
+                    'supplier_name' => $book->getCasa()->getPropietario()->getNombre(),
+                    'supplier_mobile' => $book->getCasa()->getTelefono(),
+                    'supplier_phone' => '0053 4199 6686',
+                    'supplier_email' => 'bookingcuba.micubalocal@gmail.com',
+                    'client_agency' => 'MiCuba - Reisspecialist in    Cuba',
+                    'client_address' => 'Veembroederhof 173, 1019 HD in Amsterdam, Nl',
+                    'client_mobile' => '0031 6 442135578',
+                    'client_web' => 'www.micuba.nl',
+                    'client_email' => 'julio@micuba.nl',
+                    'booking_name' => $book->getCliente()->getNombre(),
+                    'booking_pax' => $book->getPax(),
+                    'booking_number' => $book->getCliente()->getReferencia(),
+                    'total' => call_user_func(function () use ($book) {
+                        return array_reduce($book->getActividades()->getValues(), function ($a, $b) {
+                            /**
+                             * @var Actividad $b
+                             */
+                            $a += $b->getPrecio() + $b->getCoordinacion();
+                            return $a;
+                        });
+                    }),
+                    'services' => call_user_func(function () use ($book) {
+                        $services = array();
+                        $activities = $book->getActividades();
+
+                        foreach ($activities as $activity) {
+                            /**
+                             * @var Actividad $activity
+                             */
+                            $services[] = array(
+                                'services_checkIn' => $activity->getFecha()->format('d/m/Y'),
+                                'services_checkOut' => $activity->getFecha()->format('d/m/Y'),
+                                'services_description' => $activity->getTipoActividad()->getNombre() . '-' . $activity->getLugar() . '-' . $activity->getHora()->format('H:i'),
+                                'services_price' => $activity->getCoordinacion(),
+                                'services_total' => $activity->getPrecio() + $activity->getCoordinacion()
+                            );
+                        }
+                        return $services;
+                    })
+                );
+
+        return $dataOutput;
+    }
+
+    /**
      * Generates the invoice for all bookings
      * Filters casa | agencia | all
      * @return array

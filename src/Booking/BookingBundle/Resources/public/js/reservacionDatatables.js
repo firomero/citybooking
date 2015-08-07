@@ -33,6 +33,10 @@ $reservacionTable.postDraw = function (){
             $btnActivity.append($('<i class="icon-list bigger-125"></i>'));
             $btnActivity.attr('data-id',html);
 
+            var $btnInvoice = $('<button class="btn btn-mini info invoice" ></button>');
+            $btnInvoice.append($('<i class="icon-money bigger-125"></i>'));
+            $btnInvoice.attr('data-id',html);
+
             var $parent = $(this).closest('tr');
             var $text = $parent.find('.reservacion-text');
             $btnEditar.attr('data-name',$text.html());
@@ -43,7 +47,7 @@ $reservacionTable.postDraw = function (){
             $btnEliminar.attr('data-id',html);
             $btnEliminar.append($('<i class="icon-trash bigger-125"></i>'));
 
-            $btnGroup.append($btnEditar).append($btnEliminar).append($btnActivity);
+            $btnGroup.append($btnEditar).append($btnEliminar).append($btnActivity).append($btnInvoice);
             $column.append($btnGroup);
             $(this).closest('tr').append($column);
             //Events
@@ -177,6 +181,8 @@ $reservacionTable.postDraw = function (){
                                 $.get(urlAssoc,{},function(data,status,xhr){
                                     if (xhr.status==200) {
                                         $('.ajaxForm input[type="text"]').val('');
+                                        $errorShow.append($('<div class="alert alert-info"></div>'));
+                                        $errorShow.find('.alert').append("Actividad adicionada correctamente").fadeOut(600);
                                     }
                                 },"json").fail(function(data,status,xhr){
                                     $errorShow.empty();
@@ -197,6 +203,11 @@ $reservacionTable.postDraw = function (){
                         }}]);
                     }
                 },"json");
+            });
+
+            //Invoice for a custom booking and tour
+            $('.invoice').click(function(){
+                document.location.href=Routing.generate('report_custom_invoice',{id:$(this).data('id')});
             });
 
 
