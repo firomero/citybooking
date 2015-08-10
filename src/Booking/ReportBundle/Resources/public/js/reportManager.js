@@ -32,7 +32,19 @@ $reportManager.controller('managerController',function($scope,$http){
     UI Configuration ReportManager     */
 
     var $panelBody = $('.panel-body');
-    $('.date').datepicker({ autoclose:true});
+    //$('.date').datepicker({ autoclose:true});
+    $('.daterange').daterangepicker({
+        locale : {
+            applyLabel: 'Aplicar',
+            cancelLabel: 'Cancelar',
+            fromLabel: 'Desde',
+            toLabel: 'Hasta',
+            weekLabel: 'W',
+            customRangeLabel: 'Rango',
+            firstDay: 0
+        },
+        format:"DD/MM/YYYY"
+    });
     //$('#dpMonths').datepicker({ autoclose:true, dateFormat:'mm/yyyy'});
     $('#dpMonths').datepicker();
     $('#dpMonths1').datepicker();
@@ -79,7 +91,7 @@ $reportManager.controller('managerController',function($scope,$http){
     $scope.doSearch = function(state){
 
         $panelBody.find('.alert').detach();
-        var urlseek = Routing.generate('report_options_dayseek',{date:$scope.daterange,state:state});
+        var urlseek = Routing.generate('report_options_dayseek',{date:$('.daterange').val(),state:state});
         $http.get(urlseek).success(
             function(data, status, headers, config)
             {

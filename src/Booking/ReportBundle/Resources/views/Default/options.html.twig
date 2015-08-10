@@ -49,7 +49,7 @@
                         <div class="panel-body">
                             <div class="form-group">
 
-                                <input type="text" class="date" data-ng-model="daterange">
+                                <input type="text" class="daterange" data-ng-model="daterange">
                                 <button class="btn btn-primary" data-ng-click="doSearch('disponible')">Disponibles
                                 </button>
                                 <button class="btn btn-primary" data-ng-click="doSearch('reservada')">Reservadas
@@ -151,6 +151,8 @@
     </div>
 {% endblock %}
 {% block JavaScriptInline %}
+    <script src="{{ asset('public/js/moment.min.js') }}"></script>
+    <script src="{{ asset('public/js/daterangepicker.min.js') }}"></script>
     <script src="{{ asset('public/js/bootstrap-datepicker.js') }}"></script>
     <script src="{{ asset('bundles/report/js/reportManager.js') }}"></script>
 {% endblock JavaScriptInline %}

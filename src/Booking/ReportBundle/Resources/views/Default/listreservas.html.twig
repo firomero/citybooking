@@ -32,6 +32,7 @@
             <td >{{ item.observaciones }}</td>
           </tr>
     {% endfor %}
+    {% if total %}
     <tr>
         <td height="25" ><strong>Totales</strong></td>
         <td ><strong>{{ total.cliente }}</strong></td>
@@ -46,4 +47,5 @@
         <td ><strong>{{ total.com }}</strong></td>
         <td ></td>
     </tr>
+    {% endif %}
 </table>

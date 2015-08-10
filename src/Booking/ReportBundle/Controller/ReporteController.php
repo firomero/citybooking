@@ -193,10 +193,16 @@ class ReporteController extends  Controller{
     public function dateSeekAction(Request $request){
 
         $date = $request->query->get('date');
+        $date=array_map(function($value){
+            return trim($value);
+        },explode('-',$date));
+
+        $in = date_create_from_format('d/m/Y',$date[0]);
+        $out = date_create_from_format('d/m/Y',$date[1]);
         $query = $request->query->get('state');
         $manager = $this->get('reportbundle.manager.reportmanager');
         try{
-            return new JsonResponse(array('casas'=>$manager->seekDate(new \DateTime($date),$query)),HttpCode::HTTP_OK);
+            return new JsonResponse(array('casas'=>$manager->seekDate($in,$out,$query)),HttpCode::HTTP_OK);
         }
         catch(\Exception $e){
 

@@ -301,25 +301,27 @@ class ReportManager
 
     /**
      * Devuelve las casas según su estado, si reservada o no en determinada fecha
-     * @param \DateTime $date
+     * @param \DateTime $dateIn
+     * @param \DateTime $dateOut
      * @param $state
      * @return array
      */
-    public function seekDate(\DateTime $date, $state)
+    public function seekDate(\DateTime $dateIn, \DateTime $dateOut, $state)
     {
         $em = $this->em;
         $rs = $em->createQueryBuilder('rs');
         $rs->select('rs')
             ->from('BookingBundle:Reservacion', 'rs')
-            ->where('rs.checkin <= :checkin')
-            ->andWhere('rs.checkout>= :checkout')
+            ->where('rs.checkin >= :checkin')
+            ->andWhere('rs.checkout<= :checkout')
             ->setParameters(
                 array(
-                    'checkout' => $date,
-                    'checkin' => $date
+                    'checkout' => $dateOut,
+                    'checkin' => $dateIn
                 )
             );
         $queryResult = $rs->getQuery()->getResult();
+
 
         if ($state == ReporteController::RESERVADA) {
             return array_map(function ($r) {
@@ -432,7 +434,8 @@ class ReportManager
                     'com' => 5 * count($book->getCasa()->getCantidadHab()) * $book->getNoches(),
                     'observaciones' => $book->getObservacion() . '\n' . implode(',', $book->activityList())
                 );
-            }, $reservaciones)
+            }, $reservaciones),
+            'total'=>false
         );
     }
 
