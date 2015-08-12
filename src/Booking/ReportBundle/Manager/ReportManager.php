@@ -412,7 +412,7 @@ class ReportManager {
             });
         }
 
-        return array(
+        $data = array(
             'list' => array_map(function (Reservacion $book) {
                 return array(
 
@@ -430,8 +430,35 @@ class ReportManager {
                     'observaciones' => $book->getObservacion() . '\n' . implode(',', $book->activityList())
                 );
             }, $reservaciones),
-            'total'=>false
+            'total'=>array(),
         );
+
+        $data['total']['noche'] = array_reduce($data['list'], function ($a, $b) {
+            $a += $b['n'];
+            return $a;
+        });
+        $data['total']['pax'] = array_reduce($data['list'], function ($a, $b) {
+            $a += $b['p'];
+            return $a;
+        });
+        $data['total']['fact'] = array_reduce($data['list'], function ($a, $b) {
+            $a += $b['fact'];
+            return $a;
+        });
+        $data['total']['pagar'] = array_reduce($data['list'], function ($a, $b) {
+            $a += $b['pagar'];
+            return $a;
+        });
+        $data['total']['com'] = array_reduce($data['list'], function ($a, $b) {
+            $a += $b['com'];
+            return $a;
+        });
+        $data['total']['cliente'] = array_reduce($data['list'], function ($a) {
+            $b=$a+1;
+            return $b;
+        });
+
+        return $data;
     }
 
 

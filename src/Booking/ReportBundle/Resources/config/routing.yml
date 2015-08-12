@@ -42,6 +42,10 @@ report_options_book_house:
     defaults: { _controller: ReportBundle:Reporte:homeBook }
     options:
         expose: true
+report_options_book_month_pdf:
+    pattern: /options/book/month/{mes}/pdf
+    defaults: { _controller: ReportBundle:Reporte:pdfhomeBookMonth }
+
 report_options_book_house_month:
     pattern: /options/book/month
     defaults: { _controller: ReportBundle:Reporte:homeBookMonth }

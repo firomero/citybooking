@@ -1,0 +1,6 @@
+{% extends 'BookingBundle::layout.html.twig' %}
+
+{% block content %}
+    <a class="btn btn-mini info edit" title="Exportar" href="{{ path('report_options_book_month_pdf',{'mes':mes}) }}"><i class="icon-share"></i></a>
+    {% include 'ReportBundle:Default:listreservas.html.twig' %}
+{% endblock content %}

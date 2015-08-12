@@ -240,10 +240,36 @@ class ReporteController extends  Controller{
     public function homeBookMonthAction(Request $request){
 
         $date = $request->query->get('date');
+        $layout = $request->query->get('layout');
         $manager = $this->get('reportbundle.manager.reportmanager');
         $data = $manager->getMonth(date_create_from_format('m/Y',$date));
         $data['date'] = date_format(new \DateTime('now'),'d/m/Y');
-        return $this->render('ReportBundle:Default:viewlistreservas.html.twig', $data);
+        $f = date_create_from_format('m/Y',$date);
+        $data['mes'] = $f->format('m-Y');
+        $template = 'ReportBundle:Default:viewmonthlistreservas.html.twig';
+        if (!is_null($layout)) {
+            $template = 'ReportBundle:Default:listreservas.html.twig';
+        }
+        return $this->render($template, $data);
+    }
+
+    /**
+     * Booking PDF
+     * @param Request $request
+     * @return Response
+     */
+    public function pdfhomeBookMonthAction(Request $request){
+        $date = $request->get('mes');
+        $data =date_create_from_format('m-Y',$date);
+        $request->query->add(
+            array(
+                'date'=>$data->format('m/Y'),
+                'layout'=>'false'
+
+        ));
+        $view = $this->homeBookMonthAction($request);
+        $exporter = $this->get('booking_reportbundle.exporter.pdfexporter');
+        return $exporter->export($view, 'Boooking for '.date('F'),date('Ymd-His'));
     }
 
     /**
