@@ -1,5 +1,5 @@
 'use strict'
-var $reportManager = angular.module('reportManager',[]);
+var $reportManager = angular.module('reportManager',['angularUtils.directives.dirPagination']);
 $reportManager.controller('managerController',function($scope,$http){
    /*
    UI configuration jQuery

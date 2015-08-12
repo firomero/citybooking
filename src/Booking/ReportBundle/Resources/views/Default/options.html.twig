@@ -108,12 +108,17 @@
 
                     <div class="panel panel-default tab-pane" id="genhouse">
                         <ul class="nav nav-stacked">
-                            <li data-ng-repeat="casa in houses">
+                            {#<li data-ng-repeat="casa in houses">#}
+                            <li dir-paginate="casa in houses| itemsPerPage: 10" pagination-id="cust">
                                 <span id="{{ '{{ casa[0] }}' }}" data-ng-class="{results:houses.length>0}">{{ '{{ casa[1] }}' }}<i class="icon-list" data-ng-click="houseGenerate(casa[0])"></i></span>
                             </li>
                             <li data-ng-show="houses.length==0"><span data-ng-class="{noResults:houses.length==0}">Sin resultados</span>
                             </li>
                         </ul>
+                        <div class="pagination ">
+                            <dir-pagination-controls template-url="{{ asset('public/js/dirPagination.tpl.html') }}"
+                                                     pagination-id="cust"></dir-pagination-controls>
+                        </div>
 
                     </div>
 
@@ -154,6 +159,7 @@
     <script src="{{ asset('public/js/moment.min.js') }}"></script>
     <script src="{{ asset('public/js/daterangepicker.min.js') }}"></script>
     <script src="{{ asset('public/js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('public/js/dirPagination.js') }}"></script>
     <script src="{{ asset('bundles/report/js/reportManager.js') }}"></script>
 {% endblock JavaScriptInline %}
  {% block  stylesheet %}
