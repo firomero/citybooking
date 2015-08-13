@@ -3,6 +3,7 @@
 namespace Booking\BookingBundle\Entity;
 
 use Booking\BookingBundle\BookingBundle;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Booking\BookingBundle\Entity\Propietario;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -100,6 +101,40 @@ class Casa
      * })
      */
     private $propietario;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Habitacion", mappedBy="casa")
+     */
+    protected $habitaciones;
+
+    /**
+     * @return mixed
+     */
+    public function getHabitaciones()
+    {
+        return $this->habitaciones;
+    }
+
+    /**
+     * @param mixed $habitaciones
+     */
+    public function setHabitaciones($habitaciones)
+    {
+        $this->habitaciones = $habitaciones;
+    }
+
+    public function  __construct(){
+        $this->habitaciones = new ArrayCollection();
+    }
+
+    public function addHabitacion(Habitacion $habitacion){
+        $this->habitaciones->add($habitacion);
+    }
+
+    public function removeHabitacion(Habitacion $habitacion){
+        $this->habitaciones->remove($habitacion->getId());
+    }
+
 
 
     /**

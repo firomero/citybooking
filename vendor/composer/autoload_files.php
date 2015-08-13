@@ -10,4 +10,5 @@ return array(
     $vendorDir . '/kriswallsmith/assetic/src/functions.php',
     $vendorDir . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/functions.php',
     $vendorDir . '/tcpdf/tcpdf.php',
+    $vendorDir . '/booking/booking.php',
 );

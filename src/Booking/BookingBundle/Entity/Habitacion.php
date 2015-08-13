@@ -29,7 +29,7 @@ class Habitacion
     /**
      * @var Casa
      *
-     * @ORM\ManyToOne(targetEntity="Casa")
+     * @ORM\ManyToOne(targetEntity="Casa", inversedBy="habitaciones")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="casaid", referencedColumnName="id")
      * })

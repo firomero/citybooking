@@ -1,0 +1,26 @@
+{
+    "name": "codechanic/booking-custom",
+    "type":        "library",
+    "description": "Custom Booking Functions and Customization",
+    "keywords":    ["booking", "library", "custom"],
+    "homepage":    "http://github.com/firomerorom4/citybooking ",
+    "license":     "MIT",
+    "authors": [
+        {
+            "name": "Codechanic Team",
+            "email":"firodriguez@emailn.de",
+            "homepage": " http://www.linkedin.com/company/codechanic"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "autoload": {
+
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.3-dev"
+        }
+    }
+}

@@ -85,10 +85,23 @@ class ReservacionManager
         $em = $this->_em;
         $reservadas = $em->getRepository('BookingBundle:Reservacion')
             ->createQueryBuilder('r')
-            ->addSelect('casa')
-            ->innerJoin('r.casa', 'casa')
             ->where('r.checkin <= :checkin')
             ->andWhere('r.checkout>= :checkout')
+            ->setParameters(
+                array(
+                    'checkout' => $checkout,
+                    'checkin' => $checkin,
+                )
+            )
+            ->getQuery()
+            ->getResult();
+
+        $reservada1 = $em->getRepository('BookingBundle:Reservacion')
+            ->createQueryBuilder('r')
+            ->where('r.checkin <= :checkin')
+            ->andWhere('r.checkout>= :checkin')
+            ->andWhere('r.checkin<= :checkout')
+            ->andWhere('r.checkout<= :checkout')
             ->setParameters(
                 array(
                     'checkout' => $checkout,
@@ -97,13 +110,29 @@ class ReservacionManager
             )
             ->getQuery()
             ->getResult();
-        $reservadasId = array();
-        foreach ($reservadas as $reservada) {
+
+        $reservada2 = $em->getRepository('BookingBundle:Reservacion')
+            ->createQueryBuilder('r')
+            ->where('r.checkin >= :checkin')
+            ->andWhere('r.checkout>= :checkout')
+            ->andWhere('r.checkin<= :checkout')
+            ->setParameters(
+                array(
+                    'checkout' => $checkout,
+                    'checkin' => $checkin
+                )
+            )
+            ->getQuery()
+            ->getResult();
+
+        $reservadas = array_merge($reservadas,$reservada1,$reservada2);
+
+        $reservadasId =array_unique( array_map(function($reservada){
             /**
-             * @var Casa $reservada
+             * @var Reservacion $reservada
              */
-            $reservadasId[] = $reservada->getId();
-        }
+            return $reservada->getCasa()->getId();
+        },$reservadas));
 
         $qb = $em->createQueryBuilder('c');
         if (count($reservadasId) > 0) {
@@ -117,7 +146,10 @@ class ReservacionManager
             $casas = $this->_em->getRepository('BookingBundle:Casa')->findAll();
         }
 
-        return $this->filtrarCasa($casas, $habitaciones);
+
+//        return $this->filtrarCasa($casas, $habitaciones);
+        $c = array_merge($this->filtrarCasa($casas, $habitaciones),$this->availableBookedHab($checkin,$checkout,$habitaciones));
+        return array_unique_callback($c,function($val){/**@var Casa $val*/return $val[1];});
     }
 
     /**
@@ -128,16 +160,12 @@ class ReservacionManager
     protected function filtrarCasa($casas, $habitaciones)
     {
         {
-            /**
-             * @var EntityManager $em
-             */
-            $em = $this->_em;
             $casasOutput = array();
 
             /**
              * Ordeno las habitaciones solicitadas por el tipo, de mayor a menor teniendo en cuenta el Peso.
              */
-//            $this->bubbleSortByTipoHab($habitaciones);
+
 
             $this->sortBy($habitaciones,'desc');
             /*
@@ -146,7 +174,11 @@ class ReservacionManager
              * cantidad de habitaciones de la casa es igual o mayor que la cantidad solicitada.
              * */
             foreach ($casas as $casa) {
-                $casaHabs = $em->getRepository('BookingBundle:Habitacion')->findByCasa($casa);
+//                $casaHabs = $em->getRepository('BookingBundle:Habitacion')->findByCasa($casa);
+                /**
+                 * @var Casa $casa
+                 */
+                $casaHabs = $casa->getHabitaciones()->toArray();
 
                 //Los tipos de habitaciones de una casa
                 $checkArray = array_map(
@@ -188,11 +220,139 @@ class ReservacionManager
                 }
             }
 
+
+
             return $casasOutput;
+
 
         }
 
     }
+
+    /**
+     * @param \DateTime $checkin
+     * @param \DateTime $checkout
+     * @param array $habitaciones
+     * @return array
+     */
+    protected function availableBookedHab(\DateTime $checkin, \DateTime $checkout, array $habitaciones){
+        $casasOutput = array();
+        $this->sortBy($habitaciones,'desc');
+        /**
+         * @var EntityManager $em
+         */
+        $em = $this->_em;
+        $reservadas = $em->getRepository('BookingBundle:Reservacion')
+            ->createQueryBuilder('r')
+            ->where('r.checkin <= :checkin')
+            ->andWhere('r.checkout>= :checkout')
+            ->setParameters(
+                array(
+                    'checkout' => $checkout,
+                    'checkin' => $checkin
+                )
+            )
+            ->getQuery()
+            ->getResult();
+
+        $reservada1 = $em->getRepository('BookingBundle:Reservacion')
+            ->createQueryBuilder('r')
+            ->where('r.checkin <= :checkin')
+            ->andWhere('r.checkout>= :checkin')
+            ->andWhere('r.checkin<= :checkout')
+            ->andWhere('r.checkout<= :checkout')
+            ->setParameters(
+                array(
+                    'checkout' => $checkout,
+                    'checkin' => $checkin
+                )
+            )
+            ->getQuery()
+            ->getResult();
+
+        $reservada2 = $em->getRepository('BookingBundle:Reservacion')
+            ->createQueryBuilder('r')
+            ->where('r.checkin >= :checkin')
+            ->andWhere('r.checkout>= :checkout')
+            ->andWhere('r.checkin<= :checkout')
+            ->setParameters(
+                array(
+                    'checkout' => $checkout,
+                    'checkin' => $checkin
+                )
+            )
+            ->getQuery()
+            ->getResult();
+
+        $reservadas = array_merge($reservadas,$reservada1,$reservada2);
+
+
+        $closure = function($val){
+            /**
+             * @var Reservacion $val
+             */
+            return array(
+                'casa'=>$val->getCasa(),
+                'habs'=> call_user_func(function()use($val){
+                    $hbs = array_map(function($h){ /** @var Habitacion $h*/return $h->getTipo();},$val->getCasa()->getHabitaciones()->toArray());
+                    $r = $val->getTipoHab()->toArray();
+                    $this->sortBy($hbs,'desc');
+                    $this->sortBy($r,'desc');
+
+                    if (sizeof($hbs)==sizeof($r)) {
+                        return array();
+                    }
+                    $a = array_udiff($hbs,$r,function($a,$b){
+                        if ($a->getPeso()<$b->getPeso()) {
+                            return -1;
+                        } elseif ($a->getPeso()>$b->getPeso()) {
+                            return 1;
+                        }
+                        else{
+                            return 0;
+                        }
+                    });
+                    return $a;
+                })
+            );
+        };
+
+        $c = array_filter(array_map($closure,$reservadas),function($var)use($habitaciones){
+            if (count($var['habs'])>=count($habitaciones)) {
+                $counter=0;
+                foreach($habitaciones as $hb){
+                    $result = current(array_filter($var['habs'], function($value)use($hb){
+                        if ($value->getPeso()>=$hb->getPeso()) {
+                            return $value;
+                        }
+                    }));
+
+                    if ($result) {
+                        $index = $this->bySearch($result,$var['habs']);
+                        unset($var['habs'][$index]);
+                        $counter++;
+                    }
+
+                    if ($counter>=count($habitaciones)) {
+                        return $var['casa']->toArray();
+                    }
+                }
+            }
+        });
+
+
+
+      return array_map(function($item){
+          return $item['casa']->toArray();
+      },$c);
+
+
+
+
+
+    }
+
+
 
     /**
      * QuickSort
