@@ -149,7 +149,9 @@ class ReservacionManager
 
 //        return $this->filtrarCasa($casas, $habitaciones);
         $c = array_merge($this->filtrarCasa($casas, $habitaciones),$this->availableBookedHab($checkin,$checkout,$habitaciones));
-        return array_unique_callback($c,function($val){/**@var Casa $val*/return $val[1];});
+        $u =  array_unique_callback($c,function($val){/**@var Casa $val*/return $val[1];});
+
+        return $u;
     }
 
     /**
@@ -287,6 +289,8 @@ class ReservacionManager
         $reservadas = array_merge($reservadas,$reservada1,$reservada2);
 
 
+
+
         $closure = function($val){
             /**
              * @var Reservacion $val
@@ -317,7 +321,8 @@ class ReservacionManager
             );
         };
 
-        $c = array_filter(array_map($closure,$reservadas),function($var)use($habitaciones){
+
+        $c = array_filter(array_unique_callback(array_map($closure,$reservadas),function($casa){return $casa['casa']->getNombre();}),function($var)use($habitaciones){
             if (count($var['habs'])>=count($habitaciones)) {
                 $counter=0;
                 foreach($habitaciones as $hb){
@@ -339,9 +344,7 @@ class ReservacionManager
                 }
             }
         });
-
-
-
+        var_dump($c);exit;
       return array_map(function($item){
           return $item['casa']->toArray();
       },$c);

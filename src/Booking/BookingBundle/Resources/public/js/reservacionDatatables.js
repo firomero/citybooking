@@ -50,179 +50,182 @@ $reservacionTable.postDraw = function (){
             $btnGroup.append($btnEditar).append($btnEliminar).append($btnActivity).append($btnInvoice);
             $column.append($btnGroup);
             $(this).closest('tr').append($column);
-            //Events
 
-            //Editar Reservacion
-            $('.btn.btn-mini.edit').click(function () {
-
-                var $btnEdit = $(this);
-
-
-                var $modalView = $('#myModalDialog');
-                $modalView.modal();
-                $modalView.find('#myModalLabelConfirmar').text('Editar Reservación');
-                $modalView.on('shown.bs.modal',function(){
-                    $.post(
-                        Routing.generate('reservacion_editar'),
-                        {
-
-                            id:$btnEdit.data('id')
-                        },
-                        function (data, text, response) {
-                            if (response.status == 200) {
-
-                                $('.se-pre-con').addClass('hidden');
-                                $modalView.find('.modal-body').empty();
-                                $modalView.find('.modal-body').append('<div class="se-pre-con hidden"></div>').append(data.form);
-                                $modalView.find('.btn.btn-default.action.edit').click(function(){
-                                    $('.se-pre-con').removeClass('hidden');
-                                    $modalView.find('form').submit();
-
-                                });
-
-                                var $options = $modalView.find('select.tipoHab option');
-                                var $selected = $modalView.find('select.tipoHab option:selected');
-                                var data = [];
-                                var def = [];
-                                $options.each(function(){
-                                    data.push({id:$(this).val(),value:$(this).html()});
-                                });
-
-                                $selected.each(function(){
-                                    def.push({id:$(this).val(),value:$(this).html()});
-                                });
-
-
-
-                                var aSelectable = $('select.tipoHab').editablelist({
-                                    data:data,
-                                    selected:def
-                                });
-
-                            }
-                        },
-                        "json"
-                    ).fail(function () {
-                            $reservacionTable.insertError();
-                        });
-                });
-                $modalView.modal('show');
-            });
-
-            //Asociar Actividad
-            $('.btn.btn-mini.info.activity').click(function(){
-                var $btnAssoc = $(this);
-                var urlActivityForm = Routing.generate('reservacion_activity_form',{id:$btnAssoc.data('id')});
-                $.get(urlActivityForm,{},function(data,status,xhr){
-                    if (xhr.status==200) {
-                        var html = data.form;
-                        uiWindow.form('Adicionar Actividad','',html,[{event: 'shown.bs.modal',callback:function(){
-                            $('.dating').datepicker({ autoclose:true, dateFormat:'Y-m-d'});
-                            $('.timing').timepicker({
-                                minuteStep: 1,
-                                showMeridian: false,
-                                defaultTime: 'current'
-                            });
-
-                            //Activity Type
-                            var urlActivityList = Routing.generate('tipoactividad_ajax_listar');
-                            $.get(urlActivityList,{},function(data,status,xhr){
-                                var types = data.aaData
-                                types.forEach(function(item){
-                                    var $opt = $('<option></option>');
-                                    $('#activity_type').append($opt.val(item[0]).html(item[1]));
-                                });
-                            },"json");
-
-                            //Can't use angular in jQuery modal,so let's use jQuery
-                            $('[data-ng-model="closest"]').change(function(){
-                                var date = $('[data-ng-model="date"]').val();
-                                var type = $(this).val();
-                                if (type!="" && date!="") {
-                                    var closestUrl = Routing.generate('actividad_closest',{date:date,type:type});
-                                    $.get(closestUrl,{},function(data,status,xhr){
-                                        if (xhr.status==200) {
-                                            var activities = data.activities;
-                                            var $ul = $('#jModal').find('.nav');
-                                            $ul.empty();
-                                            activities.forEach(function(item){
-                                            $ul.append('<li data-id="'+item[0]+'">'+item[1]+':'+item[2]+':'+item[3]+'</li>');
-                                            });
-                                        }
-                                    },"json");
-                                }
-                            });
-
-                            //Now bind the simulated submit
-                            $('#doAction').click(function(){
-                                var $errorShow = $('.col-md-12');
-                                $errorShow.empty();
-
-                                var  fecha = $('#activity_date').val();
-                                var  hora = $('#activity_hour').val();
-                                var  lugar = $('#activity_place').val();
-                                var  precio = $('#activity_price').val();
-                                var  coordinacion = $('#activity_coordinate').val();
-                                var  pax = $('#activity_pax').val();
-                                var  tipo = $('#activity_type').val();
-                                var  booking = $('#booking').val();
-                                var urlAssoc = Routing.generate('reservacion_associate',{
-                                    fecha:fecha,
-                                    hora:hora,
-                                    lugar:lugar,
-                                    precio:precio,
-                                    coordinacion:coordinacion,
-                                    pax:pax,
-                                    tipo:tipo,
-                                    booking:booking
-
-
-                                });
-                                $.get(urlAssoc,{},function(data,status,xhr){
-                                    if (xhr.status==200) {
-                                        $('.ajaxForm input[type="text"]').val('');
-                                        $errorShow.append($('<div class="alert alert-info"></div>'));
-                                        $errorShow.find('.alert').append("Actividad adicionada correctamente").fadeOut(600);
-                                    }
-                                },"json").fail(function(data,status,xhr){
-                                    $errorShow.empty();
-                                    $errorShow.append($('<div class="alert alert-danger"></div>'));
-                                    var text="";
-                                    if (data.status==400) {
-                                        text="Hay error en los datos de entrada, por favor revise sus datos";
-                                    }
-                                    else{
-                                        text="Ha ocurrido un error de servidor";
-                                    }
-                                    $errorShow.find('.alert').append(text);
-
-
-                                });
-                            });
-
-                        }}]);
-                    }
-                },"json");
-            });
-
-            //Invoice for a custom booking and tour
-            $('.invoice').click(function(){
-                document.location.href=Routing.generate('report_custom_invoice',{id:$(this).data('id')});
-            });
-
-
-            //Eliminar Reservacion
-            $btnEliminar.click(function(){
-                var $acept = $('#doDelete').find('.delete');
-                var id = $(this).attr('data-id');
-                $acept.click(function(){
-                    $reservacionTable.deleteReservacion(id);
-                }).fail(function(data,status,xhr){
-
-                });
-
-            });
         }
+    });
+
+
+    //Events
+
+    //Editar Reservacion
+    $('.btn.btn-mini.edit').click(function () {
+
+        var $btnEdit = $(this);
+
+
+        var $modalView = $('#myModalDialog');
+        $modalView.modal();
+        $modalView.find('#myModalLabelConfirmar').text('Editar Reservación');
+        $modalView.on('shown.bs.modal',function(){
+            $.post(
+                Routing.generate('reservacion_editar'),
+                {
+
+                    id:$btnEdit.data('id')
+                },
+                function (data, text, response) {
+                    if (response.status == 200) {
+
+                        $('.se-pre-con').addClass('hidden');
+                        $modalView.find('.modal-body').empty();
+                        $modalView.find('.modal-body').append('<div class="se-pre-con hidden"></div>').append(data.form);
+                        $modalView.find('.btn.btn-default.action.edit').click(function(){
+                            $('.se-pre-con').removeClass('hidden');
+                            $modalView.find('form').submit();
+
+                        });
+
+                        var $options = $modalView.find('select.tipoHab option');
+                        var $selected = $modalView.find('select.tipoHab option:selected');
+                        var data = [];
+                        var def = [];
+                        $options.each(function(){
+                            data.push({id:$(this).val(),value:$(this).html()});
+                        });
+
+                        $selected.each(function(){
+                            def.push({id:$(this).val(),value:$(this).html()});
+                        });
+
+
+
+                        var aSelectable = $('select.tipoHab').editablelist({
+                            data:data,
+                            selected:def
+                        });
+
+                    }
+                },
+                "json"
+            ).fail(function () {
+                    $reservacionTable.insertError();
+                });
+        });
+        $modalView.modal('show');
+    });
+
+    //Asociar Actividad
+    $('.btn.btn-mini.info.activity').click(function(){
+        var $btnAssoc = $(this);
+        var urlActivityForm = Routing.generate('reservacion_activity_form',{id:$btnAssoc.data('id')});
+        $.get(urlActivityForm,{},function(data,status,xhr){
+            if (xhr.status==200) {
+                var html = data.form;
+                uiWindow.form('Adicionar Actividad','',html,[{event: 'shown.bs.modal',callback:function(){
+                    $('.dating').datepicker({ autoclose:true, dateFormat:'Y-m-d'});
+                    $('.timing').timepicker({
+                        minuteStep: 1,
+                        showMeridian: false,
+                        defaultTime: 'current'
+                    });
+
+                    //Activity Type
+                    var urlActivityList = Routing.generate('tipoactividad_ajax_listar');
+                    $.get(urlActivityList,{},function(data,status,xhr){
+                        var types = data.aaData
+                        types.forEach(function(item){
+                            var $opt = $('<option></option>');
+                            $('#activity_type').append($opt.val(item[0]).html(item[1]));
+                        });
+                    },"json");
+
+                    //Can't use angular in jQuery modal,so let's use jQuery
+                    $('[data-ng-model="closest"]').change(function(){
+                        var date = $('[data-ng-model="date"]').val();
+                        var type = $(this).val();
+                        if (type!="" && date!="") {
+                            var closestUrl = Routing.generate('actividad_closest',{date:date,type:type});
+                            $.get(closestUrl,{},function(data,status,xhr){
+                                if (xhr.status==200) {
+                                    var activities = data.activities;
+                                    var $ul = $('#jModal').find('.nav');
+                                    $ul.empty();
+                                    activities.forEach(function(item){
+                                        $ul.append('<li data-id="'+item[0]+'">'+item[1]+':'+item[2]+':'+item[3]+'</li>');
+                                    });
+                                }
+                            },"json");
+                        }
+                    });
+
+                    //Now bind the simulated submit
+                    $('#doAction').click(function(){
+                        var $errorShow = $('.col-md-12');
+                        $errorShow.empty();
+
+                        var  fecha = $('#activity_date').val();
+                        var  hora = $('#activity_hour').val();
+                        var  lugar = $('#activity_place').val();
+                        var  precio = $('#activity_price').val();
+                        var  coordinacion = $('#activity_coordinate').val();
+                        var  pax = $('#activity_pax').val();
+                        var  tipo = $('#activity_type').val();
+                        var  booking = $('#booking').val();
+                        var urlAssoc = Routing.generate('reservacion_associate',{
+                            fecha:fecha,
+                            hora:hora,
+                            lugar:lugar,
+                            precio:precio,
+                            coordinacion:coordinacion,
+                            pax:pax,
+                            tipo:tipo,
+                            booking:booking
+
+
+                        });
+                        $.get(urlAssoc,{},function(data,status,xhr){
+                            if (xhr.status==200) {
+                                $('.ajaxForm input[type="text"]').val('');
+                                $errorShow.append($('<div class="alert alert-info"></div>'));
+                                $errorShow.find('.alert').append("Actividad adicionada correctamente").fadeOut(600);
+                            }
+                        },"json").fail(function(data,status,xhr){
+                            $errorShow.empty();
+                            $errorShow.append($('<div class="alert alert-danger"></div>'));
+                            var text="";
+                            if (data.status==400) {
+                                text="Hay error en los datos de entrada, por favor revise sus datos";
+                            }
+                            else{
+                                text="Ha ocurrido un error de servidor";
+                            }
+                            $errorShow.find('.alert').append(text);
+
+
+                        });
+                    });
+
+                }}]);
+            }
+        },"json");
+    });
+
+    //Invoice for a custom booking and tour
+    $('.invoice').click(function(){
+        document.location.href=Routing.generate('report_custom_invoice',{id:$(this).data('id')});
+    });
+
+
+    //Eliminar Reservacion
+    $('.btn.btn-mini.danger').click(function(){
+        var $acept = $('#doDelete').find('.delete');
+        var id = $(this).attr('data-id');
+        $acept.click(function(){
+            $reservacionTable.deleteReservacion(id);
+        }).fail(function(data,status,xhr){
+
+        });
+
     });
 
     $('.dating').datepicker();
