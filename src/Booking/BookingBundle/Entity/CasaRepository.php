@@ -154,4 +154,112 @@ class CasaRepository extends EntityRepository
 
         return count($is)==0;
     }
+
+    /**
+     * @param \DateTime $checkin
+     * @param \DateTime $checkout
+     * @param Casa $casa
+     * @return array
+     */
+    public function LockedRangeHabs(\DateTime $checkin, \DateTime $checkout, Casa $casa){
+        /**
+         * @var EntityManager $em
+         */
+        $em = $this->_em;
+        $qb = $em->createQueryBuilder('hb');
+        $qb->select('hb')
+            ->from('BookingBundle:Habitacion','hb')
+            ->innerJoin('hb.casa','casa')
+            ->where('hb.checkin<=:checkin')
+            ->andWhere('hb.checkout>=:checkout')
+            ->andWhere('casa.id=:casa')
+            ->setParameters(
+               array(
+                   'checkin'=>$checkin,
+                   'checkout'=>$checkout,
+                   'casa'=>$casa->getId()
+               )
+            )
+        ;
+
+        $qb2 = $em->createQueryBuilder('hb');
+        $qb2->select('hb')
+            ->from('BookingBundle:Habitacion','hb')
+            ->innerJoin('hb.casa','casa')
+            ->where('r.checkin <= :checkin')
+            ->andWhere('r.checkout>= :checkin')
+            ->andWhere('r.checkin<= :checkout')
+            ->andWhere('casa.id=:casa')
+            ->setParameters(
+                array(
+                    'checkin'=>$checkin,
+                    'checkout'=>$checkout,
+                    'casa'=>$casa->getId()
+                )
+            )
+        ;
+
+        $qb3 = $em->createQueryBuilder('hb');
+        $qb3->select('hb')
+            ->from('BookingBundle:Habitacion','hb')
+            ->innerJoin('hb.casa','casa')
+            ->where('r.checkin >= :checkin')
+            ->andWhere('r.checkout>= :checkout')
+            ->andWhere('r.checkin<= :checkout')
+            ->andWhere('casa.id=:casa')
+            ->setParameters(
+                array(
+                    'checkin'=>$checkin,
+                    'checkout'=>$checkout,
+                    'casa'=>$casa->getId()
+                )
+            )
+        ;
+
+        $output = array_unique_callback(
+            array_merge($qb->getQuery()->getResult(),$qb2->getQuery()->getResult(),$qb3->getQuery()->getResult()),
+            function($hb){
+
+                /**
+                 * @var Habitacion $hb
+                 */
+                return $hb->getId();
+            }
+        );
+
+
+
+        return $output;
+    }
+
+    /**
+     * In day locked habs
+     * @param \DateTime $day
+     * @param Casa $casa
+     * @return array
+     */
+    public function LockedDayHabs(\DateTime $day, Casa $casa){
+        /**
+         * @var EntityManager $em
+         */
+        $em = $this->_em;
+        $qb = $em->createQueryBuilder('hb');
+        $qb->select('hb')
+            ->from('BookingBundle:Habitacion','hb')
+            ->innerJoin('hb.casa','casa')
+            ->innerJoin('hb.books','books','WITH','hb.id=books.hab')
+            ->where('books.checkin<=:checkin')
+            ->andWhere('books.checkout>=:checkout')
+            ->andWhere('casa.id=:casa')
+            ->setParameters(
+                array(
+                    'checkin'=>$day,
+                    'checkout'=>$day,
+                    'casa'=>$casa->getId()
+                )
+            )
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
 }

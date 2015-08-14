@@ -59,33 +59,20 @@ class ReservacionController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-
-
-            /** @var Reservacion $entity
+            //todo ahora la lógica de salvar aumenta,, incluyendo el registro de las habitaciones que se reservan, pasarla al manager
+            /**
              * @var ReservacionManager $model
              */
             $model = $this->get('booking.reservacionmanager');
-            if ($entity->getPrecio()==null) {
-                $model->setPrecio($entity);
-            }
-
-            /**
-             * @var EntityManager $em
-             */
-            $em->beginTransaction();
-
-
-
-            $em->persist($entity);
 
             try{
-
-                $em->flush();
-                $em->commit();
-            }catch (\Exception $e)
+                $model->save($entity);
+            }
+            catch (\Exception $e)
             {
-                $em->rollback();
-                $this->get('logger')->addCritical('Error en consulta' . $e->getMessage());
+                $this->get('logger')->addCritical('Error salvando los datos datos' .$e->getMessage());
+                $this->get('session')->getFlashBag()->add('error','Ha ocurrido un error salvando los datos');
+
             }
 
 

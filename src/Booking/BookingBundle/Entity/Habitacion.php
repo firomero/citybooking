@@ -46,6 +46,27 @@ class Habitacion
      */
     private $tipo;
 
+    /**
+     * @ORM\OneToMany(targetEntity="BookedHab", mappedBy="hab")
+     */
+    protected $books;
+
+    /**
+     * @return mixed
+     */
+    public function getBooks()
+    {
+        return $this->books;
+    }
+
+    /**
+     * @param mixed $books
+     */
+    public function setBooks($books)
+    {
+        $this->books = $books;
+    }
+
 //
 //    /**
 //     * @ORM\ManyToMany(targetEntity="Reservacion")
@@ -60,6 +81,15 @@ class Habitacion
     public function __construct()
     {
 //        $this->reservaciones = new ArrayCollection();
+        $this->books = new ArrayCollection();
+    }
+
+    public function addBook($book){
+        $this->books->add($book);
+    }
+
+    public function removeBook($book){
+        $this->books->remove($book->getId());
     }
 
 

@@ -1,6 +1,8 @@
 <?php
 /**
  * Customized Booking functions  and configurations
+ * @package Booking
+ * @author firomero<firomerorom4@gmail.com>
  */
 
 /**
@@ -42,6 +44,52 @@ function object_unique( $obj ){
 
     return $obj;
 }
+
+/**
+ * The QuickSort Method
+ * @param $array
+ * @return array
+ */
+function quicksort($array)
+{
+    if (count($array) < 2) {
+        return $array;
+    }
+    $left = $right = array();
+    reset($array);
+    $pivot_key = key($array);
+    $pivot = array_shift($array);
+    foreach ($array as $k => $v) {
+        if ($v->getPeso() > $pivot->getPeso()) {
+            $left[$k] = $v;
+        } else {
+            $right[$k] = $v;
+        }
+    }
+
+    return array_merge(quicksort($left), array($pivot_key => $pivot), quicksort($right));
+}
+
+/**
+ * The BubbleSort Method
+ * @param $array
+ */
+function bubbleSortByTipoHab($array)
+{
+        if (!$length = count($array)) {
+            return $array;
+        }
+        for ($outer = 0; $outer < $length; $outer++) {
+            for ($inner = 0; $inner < $length; $inner++) {
+                if (($array[$inner]->getPeso() > $array[$outer]->getPeso())
+                ) {
+                    $tmp = $array[$outer];
+                    $array[$outer] = $array[$inner];
+                    $array[$inner] = $tmp;
+                }
+            }
+        }
+    }
 
 
 
