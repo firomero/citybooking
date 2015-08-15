@@ -40,698 +40,717 @@ DirectoryIndex app.php
     # Rewrite all other queries to the front controller.
     RewriteRule .? %{ENV:BASE}/app.php [L]
 
-    #Symfony
-
-   # skip "real" requests
-   RewriteCond %{REQUEST_FILENAME} -f
-   RewriteRule .* - [QSA,L]
-
-   # _wdt
-   RewriteCond %{REQUEST_URI} ^/_wdt/([^/]++)$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_wdt,E=_ROUTING_param_token:%1,E=_ROUTING_default__controller:web_profiler.controller.profiler\:toolbarAction]
-
-   # _profiler_home
-   RewriteCond %{REQUEST_URI} ^/_profiler$
-   RewriteRule .* $0/ [QSA,L,R=301]
-   RewriteCond %{REQUEST_URI} ^/_profiler/$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler_home,E=_ROUTING_default__controller:web_profiler.controller.profiler\:homeAction]
-
-   # _profiler_search
-   RewriteCond %{REQUEST_URI} ^/_profiler/search$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler_search,E=_ROUTING_default__controller:web_profiler.controller.profiler\:searchAction]
-
-   # _profiler_search_bar
-   RewriteCond %{REQUEST_URI} ^/_profiler/search_bar$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler_search_bar,E=_ROUTING_default__controller:web_profiler.controller.profiler\:searchBarAction]
-
-   # _profiler_purge
-   RewriteCond %{REQUEST_URI} ^/_profiler/purge$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler_purge,E=_ROUTING_default__controller:web_profiler.controller.profiler\:purgeAction]
-
-   # _profiler_info
-   RewriteCond %{REQUEST_URI} ^/_profiler/info/([^/]++)$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler_info,E=_ROUTING_param_about:%1,E=_ROUTING_default__controller:web_profiler.controller.profiler\:infoAction]
-
-   # _profiler_phpinfo
-   RewriteCond %{REQUEST_URI} ^/_profiler/phpinfo$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler_phpinfo,E=_ROUTING_default__controller:web_profiler.controller.profiler\:phpinfoAction]
-
-   # _profiler_search_results
-   RewriteCond %{REQUEST_URI} ^/_profiler/([^/]++)/search/results$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler_search_results,E=_ROUTING_param_token:%1,E=_ROUTING_default__controller:web_profiler.controller.profiler\:searchResultsAction]
-
-   # _profiler
-   RewriteCond %{REQUEST_URI} ^/_profiler/([^/]++)$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler,E=_ROUTING_param_token:%1,E=_ROUTING_default__controller:web_profiler.controller.profiler\:panelAction]
-
-   # _profiler_router
-   RewriteCond %{REQUEST_URI} ^/_profiler/([^/]++)/router$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler_router,E=_ROUTING_param_token:%1,E=_ROUTING_default__controller:web_profiler.controller.router\:panelAction]
-
-   # _profiler_exception
-   RewriteCond %{REQUEST_URI} ^/_profiler/([^/]++)/exception$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler_exception,E=_ROUTING_param_token:%1,E=_ROUTING_default__controller:web_profiler.controller.exception\:showAction]
-
-   # _profiler_exception_css
-   RewriteCond %{REQUEST_URI} ^/_profiler/([^/]++)/exception\.css$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler_exception_css,E=_ROUTING_param_token:%1,E=_ROUTING_default__controller:web_profiler.controller.exception\:cssAction]
-
-   # _configurator_home
-   RewriteCond %{REQUEST_URI} ^/_configurator$
-   RewriteRule .* $0/ [QSA,L,R=301]
-   RewriteCond %{REQUEST_URI} ^/_configurator/$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_configurator_home,E=_ROUTING_default__controller:Sensio\\Bundle\\DistributionBundle\\Controller\\ConfiguratorController\:\:checkAction]
-
-   # _configurator_step
-   RewriteCond %{REQUEST_URI} ^/_configurator/step/([^/]++)$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_configurator_step,E=_ROUTING_param_index:%1,E=_ROUTING_default__controller:Sensio\\Bundle\\DistributionBundle\\Controller\\ConfiguratorController\:\:stepAction]
-
-   # _configurator_final
-   RewriteCond %{REQUEST_URI} ^/_configurator/final$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_configurator_final,E=_ROUTING_default__controller:Sensio\\Bundle\\DistributionBundle\\Controller\\ConfiguratorController\:\:finalAction]
-
-   # homepage
-   RewriteCond %{REQUEST_URI} ^/$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:homepage,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:indexAction]
-
-   # nomenclador_homepage
-   RewriteCond %{REQUEST_URI} ^/nomencladores/hello/([^/]++)$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:nomenclador_homepage,E=_ROUTING_param_name:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\DefaultController\:\:indexAction]
-
-   # agencia
-   RewriteCond %{REQUEST_URI} ^/nomencladores/agencia$
-   RewriteRule .* $0/ [QSA,L,R=301]
-   RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:agencia,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:indexAction]
-
-   # agencia_show
-   RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/([^/]++)/show$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:agencia_show,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:showAction]
-
-   # agencia_new
-   RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/new$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:agencia_new,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:newAction]
-
-   # agencia_create
-   RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/create$
-   RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
-   RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/create$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:agencia_create,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:createAction]
-
-   # agencia_edit
-   RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/([^/]++)/edit$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:agencia_edit,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:editAction]
-
-   # agencia_update
-   RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/([^/]++)/update$
-   RewriteCond %{REQUEST_METHOD} !^(POST|PUT)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_PUT:1]
-   RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/([^/]++)/update$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:agencia_update,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:updateAction]
-
-   # agencia_delete
-   RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/([^/]++)/delete$
-   RewriteCond %{REQUEST_METHOD} !^(POST|DELETE)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_DELETE:1]
-   RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/([^/]++)/delete$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:agencia_delete,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:deleteAction]
-
-   # ajax_agencia_listar
-   RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/ajax/agencia/listar$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_agencia_listar,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:listarAction]
-
-   # agencia_ajax_add
-   RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/ajax/agencia/add$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:agencia_ajax_add,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:adicionarAction]
-
-   # agencia_ajax_edit
-   RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/ajax/agencia/edit$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:agencia_ajax_edit,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:editarAction]
-
-   # agencia_ajax_delete
-   RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/ajax/agencia/delete$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:agencia_ajax_delete,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:eliminarAction]
-
-   # tipoactividad
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad$
-   RewriteRule .* $0/ [QSA,L,R=301]
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:indexAction]
-
-   # tipoactividad_show
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/([^/]++)/show$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad_show,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:showAction]
-
-   # tipoactividad_new
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/new$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad_new,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:newAction]
-
-   # tipoactividad_create
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/create$
-   RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/create$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad_create,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:createAction]
-
-   # tipoactividad_edit
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/([^/]++)/edit$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad_edit,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:editAction]
-
-   # tipoactividad_update
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/([^/]++)/update$
-   RewriteCond %{REQUEST_METHOD} !^(POST|PUT)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_PUT:1]
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/([^/]++)/update$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad_update,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:updateAction]
-
-   # tipoactividad_delete
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/([^/]++)/delete$
-   RewriteCond %{REQUEST_METHOD} !^(POST|DELETE)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_DELETE:1]
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/([^/]++)/delete$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad_delete,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:deleteAction]
-
-   # tipoactividad_ajax_listar
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/ajax/agencia/listar$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad_ajax_listar,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:listarAction]
-
-   # tipoactividad_ajax_add
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/ajax/agencia/add$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad_ajax_add,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:adicionarAction]
-
-   # tipoactividad_ajax_edit
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/ajax/agencia/edit$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad_ajax_edit,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:editarAction]
-
-   # tipoactividad_ajax_delete
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/ajax/agencia/delete$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad_ajax_delete,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:eliminarAction]
-
-   # tipohab
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab$
-   RewriteRule .* $0/ [QSA,L,R=301]
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipohab,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:indexAction]
-
-   # tipohab_show
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/([^/]++)/show$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipohab_show,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:showAction]
-
-   # tipohab_new
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/new$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipohab_new,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:newAction]
-
-   # tipohab_create
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/create$
-   RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/create$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipohab_create,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:createAction]
-
-   # tipohab_edit
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/([^/]++)/edit$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipohab_edit,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:editAction]
-
-   # tipohab_update
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/([^/]++)/update$
-   RewriteCond %{REQUEST_METHOD} !^(POST|PUT)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_PUT:1]
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/([^/]++)/update$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipohab_update,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:updateAction]
-
-   # tipohab_delete
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/([^/]++)/delete$
-   RewriteCond %{REQUEST_METHOD} !^(POST|DELETE)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_DELETE:1]
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/([^/]++)/delete$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipohab_delete,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:deleteAction]
-
-   # ajax_tipohab_listar
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/ajax/agencia/listar$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_tipohab_listar,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:listarAction]
-
-   # tipohab_ajax_add
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/ajax/tipohab/add$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipohab_ajax_add,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:adicionarAction]
-
-   # tipohab_ajax_edit
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/ajax/tipohab/edit$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipohab_ajax_edit,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:editarAction]
-
-   # tipohab_ajax_delete
-   RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/ajax/tipohab/delete$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipohab_ajax_delete,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:eliminarAction]
-
-   # report_homepage
-   RewriteCond %{REQUEST_URI} ^/reportes/hello/([^/]++)$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_homepage,E=_ROUTING_param_name:%1,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\DefaultController\:\:indexAction]
-
-   # report_facturastour
-   RewriteCond %{REQUEST_URI} ^/reportes/facturasTour$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_facturastour,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:facturasTourAction]
-
-   # report_listReserv
-   RewriteCond %{REQUEST_URI} ^/reportes/listReserv$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_listReserv,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:listReservAction]
-
-   # report_facturasTour_view
-   RewriteCond %{REQUEST_URI} ^/reportes/viewFacturasTour$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_facturasTour_view,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:viewFacturasTourAction]
-
-   # report_listReserv_view
-   RewriteCond %{REQUEST_URI} ^/reportes/viewListReserv$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_listReserv_view,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:viewListReservAction]
-
-   # report_facturastour_pdf
-   RewriteCond %{REQUEST_URI} ^/reportes/viewFacturasTour/pdf$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_facturastour_pdf,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:pdfFacturasTourAction]
-
-   # report_listReserv_pdf
-   RewriteCond %{REQUEST_URI} ^/reportes/viewListReserv/pdf$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_listReserv_pdf,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:pdfListReservAction]
-
-   # report_options
-   RewriteCond %{REQUEST_URI} ^/reportes/options/export$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_options,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:optionsAction]
-
-   # report_options_dayseek
-   RewriteCond %{REQUEST_URI} ^/reportes/options/dat$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_options_dayseek,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:dateSeekAction]
-
-   # report_options_book_house
-   RewriteCond %{REQUEST_URI} ^/reportes/options/book/house$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_options_book_house,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:homeBookAction]
-
-   # report_options_book_house_month
-   RewriteCond %{REQUEST_URI} ^/reportes/options/book/month$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_options_book_house_month,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:homeBookMonthAction]
-
-   # report_options_tour_house_month
-   RewriteCond %{REQUEST_URI} ^/reportes/options/tour/month$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_options_tour_house_month,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:facturasMonthTourAction]
-
-   # casa
-   RewriteCond %{REQUEST_URI} ^/booking/casa$
-   RewriteRule .* $0/ [QSA,L,R=301]
-   RewriteCond %{REQUEST_URI} ^/booking/casa/$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:casa,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:indexAction]
-
-   # casa_show
-   RewriteCond %{REQUEST_URI} ^/booking/casa/([^/]++)/show$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:casa_show,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:showAction]
-
-   # casa_new
-   RewriteCond %{REQUEST_URI} ^/booking/casa/new$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:casa_new,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:newAction]
-
-   # casa_create
-   RewriteCond %{REQUEST_URI} ^/booking/casa/create$
-   RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
-   RewriteCond %{REQUEST_URI} ^/booking/casa/create$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:casa_create,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:createAction]
-
-   # casa_edit
-   RewriteCond %{REQUEST_URI} ^/booking/casa/([^/]++)/edit$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:casa_edit,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:editAction]
-
-   # casa_update
-   RewriteCond %{REQUEST_URI} ^/booking/casa/([^/]++)/update$
-   RewriteCond %{REQUEST_METHOD} !^(POST|PUT)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_PUT:1]
-   RewriteCond %{REQUEST_URI} ^/booking/casa/([^/]++)/update$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:casa_update,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:updateAction]
-
-   # casa_delete
-   RewriteCond %{REQUEST_URI} ^/booking/casa/delete/issue$
-   RewriteCond %{REQUEST_METHOD} !^(POST|DELETE)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_DELETE:1]
-   RewriteCond %{REQUEST_URI} ^/booking/casa/delete/issue$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:casa_delete,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:deleteAction]
-
-   # ajax_casa_listar
-   RewriteCond %{REQUEST_URI} ^/booking/casa/listar$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_casa_listar,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:listarAction]
-
-   # ajax_form
-   RewriteCond %{REQUEST_URI} ^/booking/casa/form/fetch$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_form,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:editformAction]
-
-   # ajax_tabs
-   RewriteCond %{REQUEST_URI} ^/booking/casa/tabs/serve$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_tabs,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:tabServeAction]
-
-   # ajax_type
-   RewriteCond %{REQUEST_URI} ^/booking/casa/hab/type$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_type,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:habsTipoAction]
-
-   # ajax_habsByhouse
-   RewriteCond %{REQUEST_URI} ^/booking/casa/habs/by/house$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_habsByhouse,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:habsByCasaAction]
-
-   # ajax_room_add
-   RewriteCond %{REQUEST_URI} ^/booking/casa/ajax/room/add$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_room_add,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:addRoomAction]
-
-   # ajax_room_delete
-   RewriteCond %{REQUEST_URI} ^/booking/casa/ajax/room/delete$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_room_delete,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:deleteRoomAction]
-
-   # cliente
-   RewriteCond %{REQUEST_URI} ^/booking/cliente$
-   RewriteRule .* $0/ [QSA,L,R=301]
-   RewriteCond %{REQUEST_URI} ^/booking/cliente/$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:indexAction]
-
-   # cliente_show
-   RewriteCond %{REQUEST_URI} ^/booking/cliente/([^/]++)/show$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente_show,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:showAction]
-
-   # cliente_new
-   RewriteCond %{REQUEST_URI} ^/booking/cliente/new$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente_new,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:newAction]
-
-   # cliente_create
-   RewriteCond %{REQUEST_URI} ^/booking/cliente/create$
-   RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
-   RewriteCond %{REQUEST_URI} ^/booking/cliente/create$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente_create,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:createAction]
-
-   # cliente_edit
-   RewriteCond %{REQUEST_URI} ^/booking/cliente/([^/]++)/edit$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente_edit,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:editAction]
-
-   # cliente_update
-   RewriteCond %{REQUEST_URI} ^/booking/cliente/([^/]++)/update$
-   RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
-   RewriteCond %{REQUEST_URI} ^/booking/cliente/([^/]++)/update$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente_update,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:updateAction]
-
-   # cliente_delete
-   RewriteCond %{REQUEST_URI} ^/booking/cliente/([^/]++)/delete$
-   RewriteCond %{REQUEST_METHOD} !^(POST|DELETE)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_DELETE:1]
-   RewriteCond %{REQUEST_URI} ^/booking/cliente/([^/]++)/delete$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente_delete,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:deleteAction]
-
-   # ajax_cliente_listar
-   RewriteCond %{REQUEST_URI} ^/booking/cliente/ajax/agencia/listar$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_cliente_listar,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:listarAction]
-
-   # cliente_ajax_add
-   RewriteCond %{REQUEST_URI} ^/booking/cliente/ajax/cliente/add$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente_ajax_add,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:adicionarAction]
-
-   # cliente_ajax_edit
-   RewriteCond %{REQUEST_URI} ^/booking/cliente/ajax/cliente/edit$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente_ajax_edit,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:editarAction]
-
-   # cliente_ajax_delete
-   RewriteCond %{REQUEST_URI} ^/booking/cliente/ajax/cliente/delete$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente_ajax_delete,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:eliminarAction]
-
-   # cliente_edit_form
-   RewriteCond %{REQUEST_URI} ^/booking/cliente/editar/form/cliente$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente_edit_form,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:editformAction]
-
-   # ajax_habitacion_listar
-   RewriteCond %{REQUEST_URI} ^/booking/habitacion/ajax/habitacion$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_habitacion_listar,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\HabitacionController\:\:listarAction]
-
-   # habitacion
-   RewriteCond %{REQUEST_URI} ^/booking/habitacion$
-   RewriteRule .* $0/ [QSA,L,R=301]
-   RewriteCond %{REQUEST_URI} ^/booking/habitacion/$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:habitacion,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\HabitacionController\:\:indexAction]
-
-   # habitacion_crear
-   RewriteCond %{REQUEST_URI} ^/booking/habitacion/adicionar/habitacion$
-   RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
-   RewriteCond %{REQUEST_URI} ^/booking/habitacion/adicionar/habitacion$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:habitacion_crear,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\HabitacionController\:\:createAction]
-
-   # habitacion_edit
-   RewriteCond %{REQUEST_URI} ^/booking/habitacion/editar/habitacion$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:habitacion_edit,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\HabitacionController\:\:editarAction]
-
-   # habitacion_actualizar
-   RewriteCond %{REQUEST_URI} ^/booking/habitacion/actualizar/([^/]++)/habitacion$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:habitacion_actualizar,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\HabitacionController\:\:updateAction]
-
-   # habitacion_delete
-   RewriteCond %{REQUEST_URI} ^/booking/habitacion/eliminar/habitacion$
-   RewriteCond %{REQUEST_METHOD} !^(POST|DELETE)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_DELETE:1]
-   RewriteCond %{REQUEST_URI} ^/booking/habitacion/eliminar/habitacion$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:habitacion_delete,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\HabitacionController\:\:deleteAction]
-
-   # reservacion_index
-   RewriteCond %{REQUEST_URI} ^/booking/reservacion/index$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:reservacion_index,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ReservacionController\:\:indexAction]
-
-   # reservacion_crear
-   RewriteCond %{REQUEST_URI} ^/booking/reservacion/crear$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:reservacion_crear,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ReservacionController\:\:createAction]
-
-   # reservacion_editar
-   RewriteCond %{REQUEST_URI} ^/booking/reservacion/editar$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:reservacion_editar,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ReservacionController\:\:editFormAction]
-
-   # reservacion_actualizar
-   RewriteCond %{REQUEST_URI} ^/booking/reservacion/([^/]++)/actuaizar$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:reservacion_actualizar,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ReservacionController\:\:updateAction]
-
-   # reservacion_cancelar
-   RewriteCond %{REQUEST_URI} ^/booking/reservacion/cancelar$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:reservacion_cancelar,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ReservacionController\:\:deleteAction]
-
-   # reservacion_listar
-   RewriteCond %{REQUEST_URI} ^/booking/reservacion/listar$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:reservacion_listar,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ReservacionController\:\:listarAction]
-
-   # reservacion_mostrar
-   RewriteCond %{REQUEST_URI} ^/booking/reservacion/mostrar$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:reservacion_mostrar,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ReservacionController\:\:mostrarAction]
-
-   # reservacion_casas_disponibles
-   RewriteCond %{REQUEST_URI} ^/booking/reservacion/casas_disponibles$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:reservacion_casas_disponibles,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ReservacionController\:\:casasDisponiblesAction]
-
-   # propietario
-   RewriteCond %{REQUEST_URI} ^/booking/propietario$
-   RewriteRule .* $0/ [QSA,L,R=301]
-   RewriteCond %{REQUEST_URI} ^/booking/propietario/$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:propietario,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:indexAction]
-
-   # propietario_show
-   RewriteCond %{REQUEST_URI} ^/booking/propietario/([^/]++)/show$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:propietario_show,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:showAction]
-
-   # propietario_new
-   RewriteCond %{REQUEST_URI} ^/booking/propietario/new$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:propietario_new,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:newAction]
-
-   # propietario_create
-   RewriteCond %{REQUEST_URI} ^/booking/propietario/create$
-   RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
-   RewriteCond %{REQUEST_URI} ^/booking/propietario/create$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:propietario_create,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:createAction]
-
-   # propietario_edit
-   RewriteCond %{REQUEST_URI} ^/booking/propietario/([^/]++)/edit$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:propietario_edit,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:editAction]
-
-   # propietario_update
-   RewriteCond %{REQUEST_URI} ^/booking/propietario/([^/]++)/update$
-   RewriteCond %{REQUEST_METHOD} !^(POST|PUT)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_PUT:1]
-   RewriteCond %{REQUEST_URI} ^/booking/propietario/([^/]++)/update$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:propietario_update,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:updateAction]
-
-   # propietario_delete
-   RewriteCond %{REQUEST_URI} ^/booking/propietario/([^/]++)/delete$
-   RewriteCond %{REQUEST_METHOD} !^(POST|DELETE)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_DELETE:1]
-   RewriteCond %{REQUEST_URI} ^/booking/propietario/([^/]++)/delete$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:propietario_delete,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:deleteAction]
-
-   # ajax_propietario_listar
-   RewriteCond %{REQUEST_URI} ^/booking/propietario/ajax/agencia/listar$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_propietario_listar,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:listarAction]
-
-   # propietario_ajax_add
-   RewriteCond %{REQUEST_URI} ^/booking/propietario/ajax/propietario/add$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:propietario_ajax_add,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:adicionarAction]
-
-   # propietario_ajax_edit
-   RewriteCond %{REQUEST_URI} ^/booking/propietario/ajax/propietario/edit$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:propietario_ajax_edit,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:editarAction]
-
-   # propietario_ajax_delete
-   RewriteCond %{REQUEST_URI} ^/booking/propietario/ajax/propietario/delete$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:propietario_ajax_delete,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:eliminarAction]
-
-   # actividad
-   RewriteCond %{REQUEST_URI} ^/booking/actividad$
-   RewriteRule .* $0/ [QSA,L,R=301]
-   RewriteCond %{REQUEST_URI} ^/booking/actividad/$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:indexAction]
-
-   # actividad_show
-   RewriteCond %{REQUEST_URI} ^/booking/actividad/([^/]++)/show$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_show,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:showAction]
-
-   # actividad_new
-   RewriteCond %{REQUEST_URI} ^/booking/actividad/new$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_new,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:newAction]
-
-   # actividad_create
-   RewriteCond %{REQUEST_URI} ^/booking/actividad/create$
-   RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
-   RewriteCond %{REQUEST_URI} ^/booking/actividad/create$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_create,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:createAction]
-
-   # actividad_edit
-   RewriteCond %{REQUEST_URI} ^/booking/actividad/([^/]++)/edit$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_edit,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:editAction]
-
-   # actividad_update
-   RewriteCond %{REQUEST_URI} ^/booking/actividad/([^/]++)/update$
-   RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
-   RewriteCond %{REQUEST_URI} ^/booking/actividad/([^/]++)/update$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_update,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:updateAction]
-
-   # actividad_delete
-   RewriteCond %{REQUEST_URI} ^/booking/actividad/delete$
-   RewriteCond %{REQUEST_METHOD} !^(POST|DELETE)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_DELETE:1]
-   RewriteCond %{REQUEST_URI} ^/booking/actividad/delete$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_delete,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:deleteAction]
-
-   # actividad_listar
-   RewriteCond %{REQUEST_URI} ^/booking/actividad/listar$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_listar,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:listarAction]
-
-   # actividad_new_form
-   RewriteCond %{REQUEST_URI} ^/booking/actividad/nueva/form$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_new_form,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:addformAction]
-
-   # actividad_edit_form
-   RewriteCond %{REQUEST_URI} ^/booking/actividad/editar/form$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_edit_form,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:editformAction]
-
-   # actividad_closest
-   RewriteCond %{REQUEST_URI} ^/booking/actividad/activity/closest$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_closest,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:closestActivitiesAction]
-
-   # fos_user_security_login
-   RewriteCond %{REQUEST_URI} ^/login$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_security_login,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\SecurityController\:\:loginAction]
-
-   # fos_user_security_check
-   RewriteCond %{REQUEST_URI} ^/login_check$
-   RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
-   RewriteCond %{REQUEST_URI} ^/login_check$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_security_check,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\SecurityController\:\:checkAction]
-
-   # fos_user_security_logout
-   RewriteCond %{REQUEST_URI} ^/logout$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_security_logout,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\SecurityController\:\:logoutAction]
-
-   # fos_user_profile_show
-   RewriteCond %{REQUEST_URI} ^/profile/$
-   RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
-   RewriteRule .* - [S=2,E=_ROUTING_allow_GET:1,E=_ROUTING_allow_HEAD:1]
-   RewriteCond %{REQUEST_URI} ^/profile$
-   RewriteRule .* $0/ [QSA,L,R=301]
-   RewriteCond %{REQUEST_URI} ^/profile/$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_profile_show,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\ProfileController\:\:showAction]
-
-   # fos_user_profile_edit
-   RewriteCond %{REQUEST_URI} ^/profile/edit$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_profile_edit,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\ProfileController\:\:editAction]
-
-   # fos_user_registration_register
-   RewriteCond %{REQUEST_URI} ^/register$
-   RewriteRule .* $0/ [QSA,L,R=301]
-   RewriteCond %{REQUEST_URI} ^/register/$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_registration_register,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\RegistrationController\:\:registerAction]
-
-   # fos_user_registration_check_email
-   RewriteCond %{REQUEST_URI} ^/register/check\-email$
-   RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_GET:1,E=_ROUTING_allow_HEAD:1]
-   RewriteCond %{REQUEST_URI} ^/register/check\-email$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_registration_check_email,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\RegistrationController\:\:checkEmailAction]
-
-   # fos_user_registration_confirm
-   RewriteCond %{REQUEST_URI} ^/register/confirm/([^/]++)$
-   RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_GET:1,E=_ROUTING_allow_HEAD:1]
-   RewriteCond %{REQUEST_URI} ^/register/confirm/([^/]++)$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_registration_confirm,E=_ROUTING_param_token:%1,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\RegistrationController\:\:confirmAction]
-
-   # fos_user_registration_confirmed
-   RewriteCond %{REQUEST_URI} ^/register/confirmed$
-   RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_GET:1,E=_ROUTING_allow_HEAD:1]
-   RewriteCond %{REQUEST_URI} ^/register/confirmed$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_registration_confirmed,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\RegistrationController\:\:confirmedAction]
-
-   # fos_user_resetting_request
-   RewriteCond %{REQUEST_URI} ^/resetting/request$
-   RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_GET:1,E=_ROUTING_allow_HEAD:1]
-   RewriteCond %{REQUEST_URI} ^/resetting/request$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_resetting_request,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\ResettingController\:\:requestAction]
-
-   # fos_user_resetting_send_email
-   RewriteCond %{REQUEST_URI} ^/resetting/send\-email$
-   RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
-   RewriteCond %{REQUEST_URI} ^/resetting/send\-email$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_resetting_send_email,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\ResettingController\:\:sendEmailAction]
-
-   # fos_user_resetting_check_email
-   RewriteCond %{REQUEST_URI} ^/resetting/check\-email$
-   RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_GET:1,E=_ROUTING_allow_HEAD:1]
-   RewriteCond %{REQUEST_URI} ^/resetting/check\-email$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_resetting_check_email,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\ResettingController\:\:checkEmailAction]
-
-   # fos_user_resetting_reset
-   RewriteCond %{REQUEST_URI} ^/resetting/reset/([^/]++)$
-   RewriteCond %{REQUEST_METHOD} !^(GET|POST|HEAD)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_GET:1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_HEAD:1]
-   RewriteCond %{REQUEST_URI} ^/resetting/reset/([^/]++)$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_resetting_reset,E=_ROUTING_param_token:%1,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\ResettingController\:\:resetAction]
-
-   # fos_user_change_password
-   RewriteCond %{REQUEST_URI} ^/profile/change\-password$
-   RewriteCond %{REQUEST_METHOD} !^(GET|POST|HEAD)$ [NC]
-   RewriteRule .* - [S=1,E=_ROUTING_allow_GET:1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_HEAD:1]
-   RewriteCond %{REQUEST_URI} ^/profile/change\-password$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_change_password,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\ChangePasswordController\:\:changePasswordAction]
-
-   # fos_js_routing_js
-   RewriteCond %{REQUEST_URI} ^/js/routing(?:\.(js|json))?$
-   RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_js_routing_js,E=_ROUTING_param__format:%1,E=_ROUTING_default__controller:fos_js_routing.controller\:indexAction,E=_ROUTING_default__format:js]
-
-   # 405 Method Not Allowed
-   RewriteCond %{ENV:_ROUTING__allow_POST} =1 [OR]
-   RewriteCond %{ENV:_ROUTING__allow_PUT} =1 [OR]
-   RewriteCond %{ENV:_ROUTING__allow_DELETE} =1 [OR]
-   RewriteCond %{ENV:_ROUTING__allow_GET} =1 [OR]
-   RewriteCond %{ENV:_ROUTING__allow_HEAD} =1
-   RewriteRule .* app.php [QSA,L]
+ #Symfony
+ # skip "real" requests
+ RewriteCond %{REQUEST_FILENAME} -f
+ RewriteRule .* - [QSA,L]
+
+ # _wdt
+ RewriteCond %{REQUEST_URI} ^/_wdt/([^/]++)$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_wdt,E=_ROUTING_param_token:%1,E=_ROUTING_default__controller:web_profiler.controller.profiler\:toolbarAction]
+
+ # _profiler_home
+ RewriteCond %{REQUEST_URI} ^/_profiler$
+ RewriteRule .* $0/ [QSA,L,R=301]
+ RewriteCond %{REQUEST_URI} ^/_profiler/$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler_home,E=_ROUTING_default__controller:web_profiler.controller.profiler\:homeAction]
+
+ # _profiler_search
+ RewriteCond %{REQUEST_URI} ^/_profiler/search$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler_search,E=_ROUTING_default__controller:web_profiler.controller.profiler\:searchAction]
+
+ # _profiler_search_bar
+ RewriteCond %{REQUEST_URI} ^/_profiler/search_bar$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler_search_bar,E=_ROUTING_default__controller:web_profiler.controller.profiler\:searchBarAction]
+
+ # _profiler_purge
+ RewriteCond %{REQUEST_URI} ^/_profiler/purge$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler_purge,E=_ROUTING_default__controller:web_profiler.controller.profiler\:purgeAction]
+
+ # _profiler_info
+ RewriteCond %{REQUEST_URI} ^/_profiler/info/([^/]++)$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler_info,E=_ROUTING_param_about:%1,E=_ROUTING_default__controller:web_profiler.controller.profiler\:infoAction]
+
+ # _profiler_phpinfo
+ RewriteCond %{REQUEST_URI} ^/_profiler/phpinfo$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler_phpinfo,E=_ROUTING_default__controller:web_profiler.controller.profiler\:phpinfoAction]
+
+ # _profiler_search_results
+ RewriteCond %{REQUEST_URI} ^/_profiler/([^/]++)/search/results$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler_search_results,E=_ROUTING_param_token:%1,E=_ROUTING_default__controller:web_profiler.controller.profiler\:searchResultsAction]
+
+ # _profiler
+ RewriteCond %{REQUEST_URI} ^/_profiler/([^/]++)$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler,E=_ROUTING_param_token:%1,E=_ROUTING_default__controller:web_profiler.controller.profiler\:panelAction]
+
+ # _profiler_router
+ RewriteCond %{REQUEST_URI} ^/_profiler/([^/]++)/router$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler_router,E=_ROUTING_param_token:%1,E=_ROUTING_default__controller:web_profiler.controller.router\:panelAction]
+
+ # _profiler_exception
+ RewriteCond %{REQUEST_URI} ^/_profiler/([^/]++)/exception$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler_exception,E=_ROUTING_param_token:%1,E=_ROUTING_default__controller:web_profiler.controller.exception\:showAction]
+
+ # _profiler_exception_css
+ RewriteCond %{REQUEST_URI} ^/_profiler/([^/]++)/exception\.css$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_profiler_exception_css,E=_ROUTING_param_token:%1,E=_ROUTING_default__controller:web_profiler.controller.exception\:cssAction]
+
+ # _configurator_home
+ RewriteCond %{REQUEST_URI} ^/_configurator$
+ RewriteRule .* $0/ [QSA,L,R=301]
+ RewriteCond %{REQUEST_URI} ^/_configurator/$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_configurator_home,E=_ROUTING_default__controller:Sensio\\Bundle\\DistributionBundle\\Controller\\ConfiguratorController\:\:checkAction]
+
+ # _configurator_step
+ RewriteCond %{REQUEST_URI} ^/_configurator/step/([^/]++)$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_configurator_step,E=_ROUTING_param_index:%1,E=_ROUTING_default__controller:Sensio\\Bundle\\DistributionBundle\\Controller\\ConfiguratorController\:\:stepAction]
+
+ # _configurator_final
+ RewriteCond %{REQUEST_URI} ^/_configurator/final$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:_configurator_final,E=_ROUTING_default__controller:Sensio\\Bundle\\DistributionBundle\\Controller\\ConfiguratorController\:\:finalAction]
+
+ # homepage
+ RewriteCond %{REQUEST_URI} ^/$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:homepage,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:indexAction]
+
+ # nomenclador_homepage
+ RewriteCond %{REQUEST_URI} ^/nomencladores/hello/([^/]++)$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:nomenclador_homepage,E=_ROUTING_param_name:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\DefaultController\:\:indexAction]
+
+ # agencia
+ RewriteCond %{REQUEST_URI} ^/nomencladores/agencia$
+ RewriteRule .* $0/ [QSA,L,R=301]
+ RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:agencia,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:indexAction]
+
+ # agencia_show
+ RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/([^/]++)/show$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:agencia_show,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:showAction]
+
+ # agencia_new
+ RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/new$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:agencia_new,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:newAction]
+
+ # agencia_create
+ RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/create$
+ RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
+ RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/create$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:agencia_create,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:createAction]
+
+ # agencia_edit
+ RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/([^/]++)/edit$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:agencia_edit,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:editAction]
+
+ # agencia_update
+ RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/([^/]++)/update$
+ RewriteCond %{REQUEST_METHOD} !^(POST|PUT)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_PUT:1]
+ RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/([^/]++)/update$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:agencia_update,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:updateAction]
+
+ # agencia_delete
+ RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/([^/]++)/delete$
+ RewriteCond %{REQUEST_METHOD} !^(POST|DELETE)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_DELETE:1]
+ RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/([^/]++)/delete$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:agencia_delete,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:deleteAction]
+
+ # ajax_agencia_listar
+ RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/ajax/agencia/listar$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_agencia_listar,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:listarAction]
+
+ # agencia_ajax_add
+ RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/ajax/agencia/add$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:agencia_ajax_add,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:adicionarAction]
+
+ # agencia_ajax_edit
+ RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/ajax/agencia/edit$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:agencia_ajax_edit,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:editarAction]
+
+ # agencia_ajax_delete
+ RewriteCond %{REQUEST_URI} ^/nomencladores/agencia/ajax/agencia/delete$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:agencia_ajax_delete,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\AgenciaController\:\:eliminarAction]
+
+ # tipoactividad
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad$
+ RewriteRule .* $0/ [QSA,L,R=301]
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:indexAction]
+
+ # tipoactividad_show
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/([^/]++)/show$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad_show,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:showAction]
+
+ # tipoactividad_new
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/new$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad_new,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:newAction]
+
+ # tipoactividad_create
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/create$
+ RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/create$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad_create,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:createAction]
+
+ # tipoactividad_edit
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/([^/]++)/edit$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad_edit,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:editAction]
+
+ # tipoactividad_update
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/([^/]++)/update$
+ RewriteCond %{REQUEST_METHOD} !^(POST|PUT)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_PUT:1]
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/([^/]++)/update$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad_update,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:updateAction]
+
+ # tipoactividad_delete
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/([^/]++)/delete$
+ RewriteCond %{REQUEST_METHOD} !^(POST|DELETE)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_DELETE:1]
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/([^/]++)/delete$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad_delete,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:deleteAction]
+
+ # tipoactividad_ajax_listar
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/ajax/agencia/listar$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad_ajax_listar,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:listarAction]
+
+ # tipoactividad_ajax_add
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/ajax/agencia/add$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad_ajax_add,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:adicionarAction]
+
+ # tipoactividad_ajax_edit
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/ajax/agencia/edit$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad_ajax_edit,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:editarAction]
+
+ # tipoactividad_ajax_delete
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipoactividad/ajax/agencia/delete$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipoactividad_ajax_delete,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoActividadController\:\:eliminarAction]
+
+ # tipohab
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab$
+ RewriteRule .* $0/ [QSA,L,R=301]
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipohab,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:indexAction]
+
+ # tipohab_show
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/([^/]++)/show$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipohab_show,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:showAction]
+
+ # tipohab_new
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/new$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipohab_new,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:newAction]
+
+ # tipohab_create
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/create$
+ RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/create$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipohab_create,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:createAction]
+
+ # tipohab_edit
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/([^/]++)/edit$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipohab_edit,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:editAction]
+
+ # tipohab_update
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/([^/]++)/update$
+ RewriteCond %{REQUEST_METHOD} !^(POST|PUT)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_PUT:1]
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/([^/]++)/update$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipohab_update,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:updateAction]
+
+ # tipohab_delete
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/([^/]++)/delete$
+ RewriteCond %{REQUEST_METHOD} !^(POST|DELETE)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_DELETE:1]
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/([^/]++)/delete$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipohab_delete,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:deleteAction]
+
+ # ajax_tipohab_listar
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/ajax/agencia/listar$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_tipohab_listar,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:listarAction]
+
+ # tipohab_ajax_add
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/ajax/tipohab/add$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipohab_ajax_add,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:adicionarAction]
+
+ # tipohab_ajax_edit
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/ajax/tipohab/edit$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipohab_ajax_edit,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:editarAction]
+
+ # tipohab_ajax_delete
+ RewriteCond %{REQUEST_URI} ^/nomencladores/tipohab/ajax/tipohab/delete$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:tipohab_ajax_delete,E=_ROUTING_default__controller:General\\NomencladorBundle\\Controller\\TipoHabController\:\:eliminarAction]
+
+ # report_homepage
+ RewriteCond %{REQUEST_URI} ^/reportes/hello/([^/]++)$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_homepage,E=_ROUTING_param_name:%1,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\DefaultController\:\:indexAction]
+
+ # report_facturastour
+ RewriteCond %{REQUEST_URI} ^/reportes/facturasTour$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_facturastour,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:facturasTourAction]
+
+ # report_listReserv
+ RewriteCond %{REQUEST_URI} ^/reportes/listReserv$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_listReserv,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:listReservAction]
+
+ # report_facturasTour_view
+ RewriteCond %{REQUEST_URI} ^/reportes/viewFacturasTour$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_facturasTour_view,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:viewFacturasTourAction]
+
+ # report_listReserv_view
+ RewriteCond %{REQUEST_URI} ^/reportes/viewListReserv$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_listReserv_view,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:viewListReservAction]
+
+ # report_facturastour_pdf
+ RewriteCond %{REQUEST_URI} ^/reportes/viewFacturasTour/pdf$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_facturastour_pdf,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:pdfFacturasTourAction]
+
+ # report_listReserv_pdf
+ RewriteCond %{REQUEST_URI} ^/reportes/viewListReserv/pdf$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_listReserv_pdf,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:pdfListReservAction]
+
+ # report_options
+ RewriteCond %{REQUEST_URI} ^/reportes/options/export$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_options,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:optionsAction]
+
+ # report_options_dayseek
+ RewriteCond %{REQUEST_URI} ^/reportes/options/dat$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_options_dayseek,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:dateSeekAction]
+
+ # report_options_book_house
+ RewriteCond %{REQUEST_URI} ^/reportes/options/book/house$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_options_book_house,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:homeBookAction]
+
+ # report_options_book_month_pdf
+ RewriteCond %{REQUEST_URI} ^/reportes/options/book/month/([^/]++)/pdf$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_options_book_month_pdf,E=_ROUTING_param_mes:%1,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:pdfhomeBookMonthAction]
+
+ # report_options_book_house_month
+ RewriteCond %{REQUEST_URI} ^/reportes/options/book/month$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_options_book_house_month,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:homeBookMonthAction]
+
+ # report_options_tour_house_month
+ RewriteCond %{REQUEST_URI} ^/reportes/options/tour/month$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_options_tour_house_month,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:facturasMonthTourAction]
+
+ # report_custom_invoice
+ RewriteCond %{REQUEST_URI} ^/reportes/invoice/custom/booking$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_custom_invoice,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:customInvoiceAction]
+
+ # report_custom_invoice_pdf
+ RewriteCond %{REQUEST_URI} ^/reportes/invoice/([^/]++)/custom/booking/pdf$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:report_custom_invoice_pdf,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\ReportBundle\\Controller\\ReporteController\:\:customInvoicePDFAction]
+
+ # casa
+ RewriteCond %{REQUEST_URI} ^/booking/casa$
+ RewriteRule .* $0/ [QSA,L,R=301]
+ RewriteCond %{REQUEST_URI} ^/booking/casa/$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:casa,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:indexAction]
+
+ # casa_show
+ RewriteCond %{REQUEST_URI} ^/booking/casa/([^/]++)/show$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:casa_show,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:showAction]
+
+ # casa_new
+ RewriteCond %{REQUEST_URI} ^/booking/casa/new$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:casa_new,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:newAction]
+
+ # casa_create
+ RewriteCond %{REQUEST_URI} ^/booking/casa/create$
+ RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
+ RewriteCond %{REQUEST_URI} ^/booking/casa/create$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:casa_create,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:createAction]
+
+ # casa_edit
+ RewriteCond %{REQUEST_URI} ^/booking/casa/([^/]++)/edit$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:casa_edit,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:editAction]
+
+ # casa_update
+ RewriteCond %{REQUEST_URI} ^/booking/casa/([^/]++)/update$
+ RewriteCond %{REQUEST_METHOD} !^(POST|PUT)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_PUT:1]
+ RewriteCond %{REQUEST_URI} ^/booking/casa/([^/]++)/update$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:casa_update,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:updateAction]
+
+ # casa_delete
+ RewriteCond %{REQUEST_URI} ^/booking/casa/delete/issue$
+ RewriteCond %{REQUEST_METHOD} !^(POST|DELETE)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_DELETE:1]
+ RewriteCond %{REQUEST_URI} ^/booking/casa/delete/issue$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:casa_delete,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:deleteAction]
+
+ # ajax_casa_listar
+ RewriteCond %{REQUEST_URI} ^/booking/casa/listar$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_casa_listar,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:listarAction]
+
+ # ajax_form
+ RewriteCond %{REQUEST_URI} ^/booking/casa/form/fetch$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_form,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:editformAction]
+
+ # ajax_tabs
+ RewriteCond %{REQUEST_URI} ^/booking/casa/tabs/serve$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_tabs,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:tabServeAction]
+
+ # ajax_type
+ RewriteCond %{REQUEST_URI} ^/booking/casa/hab/type$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_type,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:habsTipoAction]
+
+ # ajax_habsByhouse
+ RewriteCond %{REQUEST_URI} ^/booking/casa/habs/by/house$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_habsByhouse,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:habsByCasaAction]
+
+ # ajax_room_add
+ RewriteCond %{REQUEST_URI} ^/booking/casa/ajax/room/add$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_room_add,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:addRoomAction]
+
+ # ajax_room_delete
+ RewriteCond %{REQUEST_URI} ^/booking/casa/ajax/room/delete$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_room_delete,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\CasaController\:\:deleteRoomAction]
+
+ # cliente
+ RewriteCond %{REQUEST_URI} ^/booking/cliente$
+ RewriteRule .* $0/ [QSA,L,R=301]
+ RewriteCond %{REQUEST_URI} ^/booking/cliente/$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:indexAction]
+
+ # cliente_show
+ RewriteCond %{REQUEST_URI} ^/booking/cliente/([^/]++)/show$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente_show,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:showAction]
+
+ # cliente_new
+ RewriteCond %{REQUEST_URI} ^/booking/cliente/new$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente_new,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:newAction]
+
+ # cliente_create
+ RewriteCond %{REQUEST_URI} ^/booking/cliente/create$
+ RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
+ RewriteCond %{REQUEST_URI} ^/booking/cliente/create$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente_create,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:createAction]
+
+ # cliente_edit
+ RewriteCond %{REQUEST_URI} ^/booking/cliente/([^/]++)/edit$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente_edit,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:editAction]
+
+ # cliente_update
+ RewriteCond %{REQUEST_URI} ^/booking/cliente/([^/]++)/update$
+ RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
+ RewriteCond %{REQUEST_URI} ^/booking/cliente/([^/]++)/update$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente_update,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:updateAction]
+
+ # cliente_delete
+ RewriteCond %{REQUEST_URI} ^/booking/cliente/([^/]++)/delete$
+ RewriteCond %{REQUEST_METHOD} !^(POST|DELETE)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_DELETE:1]
+ RewriteCond %{REQUEST_URI} ^/booking/cliente/([^/]++)/delete$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente_delete,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:deleteAction]
+
+ # ajax_cliente_listar
+ RewriteCond %{REQUEST_URI} ^/booking/cliente/ajax/agencia/listar$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_cliente_listar,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:listarAction]
+
+ # cliente_ajax_add
+ RewriteCond %{REQUEST_URI} ^/booking/cliente/ajax/cliente/add$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente_ajax_add,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:adicionarAction]
+
+ # cliente_ajax_edit
+ RewriteCond %{REQUEST_URI} ^/booking/cliente/ajax/cliente/edit$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente_ajax_edit,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:editarAction]
+
+ # cliente_ajax_delete
+ RewriteCond %{REQUEST_URI} ^/booking/cliente/ajax/cliente/delete$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente_ajax_delete,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:eliminarAction]
+
+ # cliente_edit_form
+ RewriteCond %{REQUEST_URI} ^/booking/cliente/editar/form/cliente$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:cliente_edit_form,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ClienteController\:\:editformAction]
+
+ # ajax_habitacion_listar
+ RewriteCond %{REQUEST_URI} ^/booking/habitacion/ajax/habitacion$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_habitacion_listar,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\HabitacionController\:\:listarAction]
+
+ # habitacion
+ RewriteCond %{REQUEST_URI} ^/booking/habitacion$
+ RewriteRule .* $0/ [QSA,L,R=301]
+ RewriteCond %{REQUEST_URI} ^/booking/habitacion/$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:habitacion,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\HabitacionController\:\:indexAction]
+
+ # habitacion_crear
+ RewriteCond %{REQUEST_URI} ^/booking/habitacion/adicionar/habitacion$
+ RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
+ RewriteCond %{REQUEST_URI} ^/booking/habitacion/adicionar/habitacion$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:habitacion_crear,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\HabitacionController\:\:createAction]
+
+ # habitacion_edit
+ RewriteCond %{REQUEST_URI} ^/booking/habitacion/editar/habitacion$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:habitacion_edit,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\HabitacionController\:\:editarAction]
+
+ # habitacion_actualizar
+ RewriteCond %{REQUEST_URI} ^/booking/habitacion/actualizar/([^/]++)/habitacion$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:habitacion_actualizar,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\HabitacionController\:\:updateAction]
+
+ # habitacion_delete
+ RewriteCond %{REQUEST_URI} ^/booking/habitacion/eliminar/habitacion$
+ RewriteCond %{REQUEST_METHOD} !^(POST|DELETE)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_DELETE:1]
+ RewriteCond %{REQUEST_URI} ^/booking/habitacion/eliminar/habitacion$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:habitacion_delete,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\HabitacionController\:\:deleteAction]
+
+ # reservacion_index
+ RewriteCond %{REQUEST_URI} ^/booking/reservacion/index$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:reservacion_index,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ReservacionController\:\:indexAction]
+
+ # reservacion_crear
+ RewriteCond %{REQUEST_URI} ^/booking/reservacion/crear$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:reservacion_crear,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ReservacionController\:\:createAction]
+
+ # reservacion_editar
+ RewriteCond %{REQUEST_URI} ^/booking/reservacion/editar$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:reservacion_editar,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ReservacionController\:\:editFormAction]
+
+ # reservacion_actualizar
+ RewriteCond %{REQUEST_URI} ^/booking/reservacion/([^/]++)/actuaizar$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:reservacion_actualizar,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ReservacionController\:\:updateAction]
+
+ # reservacion_cancelar
+ RewriteCond %{REQUEST_URI} ^/booking/reservacion/cancelar$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:reservacion_cancelar,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ReservacionController\:\:deleteAction]
+
+ # reservacion_listar
+ RewriteCond %{REQUEST_URI} ^/booking/reservacion/listar$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:reservacion_listar,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ReservacionController\:\:listarAction]
+
+ # reservacion_mostrar
+ RewriteCond %{REQUEST_URI} ^/booking/reservacion/mostrar$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:reservacion_mostrar,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ReservacionController\:\:mostrarAction]
+
+ # reservacion_casas_disponibles
+ RewriteCond %{REQUEST_URI} ^/booking/reservacion/casas_disponibles$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:reservacion_casas_disponibles,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ReservacionController\:\:casasDisponiblesAction]
+
+ # reservacion_associate
+ RewriteCond %{REQUEST_URI} ^/booking/reservacion/associate/activity$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:reservacion_associate,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ReservacionController\:\:associateActivityAction]
+
+ # reservacion_activity_form
+ RewriteCond %{REQUEST_URI} ^/booking/reservacion/activity/custom/form$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:reservacion_activity_form,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ReservacionController\:\:serveActivityFormAction]
+
+ # propietario
+ RewriteCond %{REQUEST_URI} ^/booking/propietario$
+ RewriteRule .* $0/ [QSA,L,R=301]
+ RewriteCond %{REQUEST_URI} ^/booking/propietario/$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:propietario,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:indexAction]
+
+ # propietario_show
+ RewriteCond %{REQUEST_URI} ^/booking/propietario/([^/]++)/show$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:propietario_show,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:showAction]
+
+ # propietario_new
+ RewriteCond %{REQUEST_URI} ^/booking/propietario/new$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:propietario_new,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:newAction]
+
+ # propietario_create
+ RewriteCond %{REQUEST_URI} ^/booking/propietario/create$
+ RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
+ RewriteCond %{REQUEST_URI} ^/booking/propietario/create$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:propietario_create,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:createAction]
+
+ # propietario_edit
+ RewriteCond %{REQUEST_URI} ^/booking/propietario/([^/]++)/edit$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:propietario_edit,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:editAction]
+
+ # propietario_update
+ RewriteCond %{REQUEST_URI} ^/booking/propietario/([^/]++)/update$
+ RewriteCond %{REQUEST_METHOD} !^(POST|PUT)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_PUT:1]
+ RewriteCond %{REQUEST_URI} ^/booking/propietario/([^/]++)/update$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:propietario_update,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:updateAction]
+
+ # propietario_delete
+ RewriteCond %{REQUEST_URI} ^/booking/propietario/([^/]++)/delete$
+ RewriteCond %{REQUEST_METHOD} !^(POST|DELETE)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_DELETE:1]
+ RewriteCond %{REQUEST_URI} ^/booking/propietario/([^/]++)/delete$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:propietario_delete,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:deleteAction]
+
+ # ajax_propietario_listar
+ RewriteCond %{REQUEST_URI} ^/booking/propietario/ajax/agencia/listar$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:ajax_propietario_listar,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:listarAction]
+
+ # propietario_ajax_add
+ RewriteCond %{REQUEST_URI} ^/booking/propietario/ajax/propietario/add$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:propietario_ajax_add,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:adicionarAction]
+
+ # propietario_ajax_edit
+ RewriteCond %{REQUEST_URI} ^/booking/propietario/ajax/propietario/edit$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:propietario_ajax_edit,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:editarAction]
+
+ # propietario_ajax_delete
+ RewriteCond %{REQUEST_URI} ^/booking/propietario/ajax/propietario/delete$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:propietario_ajax_delete,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\PropietarioController\:\:eliminarAction]
+
+ # actividad
+ RewriteCond %{REQUEST_URI} ^/booking/actividad$
+ RewriteRule .* $0/ [QSA,L,R=301]
+ RewriteCond %{REQUEST_URI} ^/booking/actividad/$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:indexAction]
+
+ # actividad_show
+ RewriteCond %{REQUEST_URI} ^/booking/actividad/([^/]++)/show$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_show,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:showAction]
+
+ # actividad_new
+ RewriteCond %{REQUEST_URI} ^/booking/actividad/new$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_new,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:newAction]
+
+ # actividad_create
+ RewriteCond %{REQUEST_URI} ^/booking/actividad/create$
+ RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
+ RewriteCond %{REQUEST_URI} ^/booking/actividad/create$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_create,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:createAction]
+
+ # actividad_edit
+ RewriteCond %{REQUEST_URI} ^/booking/actividad/([^/]++)/edit$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_edit,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:editAction]
+
+ # actividad_update
+ RewriteCond %{REQUEST_URI} ^/booking/actividad/([^/]++)/update$
+ RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
+ RewriteCond %{REQUEST_URI} ^/booking/actividad/([^/]++)/update$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_update,E=_ROUTING_param_id:%1,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:updateAction]
+
+ # actividad_delete
+ RewriteCond %{REQUEST_URI} ^/booking/actividad/delete$
+ RewriteCond %{REQUEST_METHOD} !^(POST|DELETE)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_DELETE:1]
+ RewriteCond %{REQUEST_URI} ^/booking/actividad/delete$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_delete,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:deleteAction]
+
+ # actividad_listar
+ RewriteCond %{REQUEST_URI} ^/booking/actividad/listar$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_listar,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:listarAction]
+
+ # actividad_new_form
+ RewriteCond %{REQUEST_URI} ^/booking/actividad/nueva/form$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_new_form,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:addformAction]
+
+ # actividad_edit_form
+ RewriteCond %{REQUEST_URI} ^/booking/actividad/editar/form$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_edit_form,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:editformAction]
+
+ # actividad_closest
+ RewriteCond %{REQUEST_URI} ^/booking/actividad/activity/closest$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:actividad_closest,E=_ROUTING_default__controller:Booking\\BookingBundle\\Controller\\ActividadController\:\:closestActivitiesAction]
+
+ # fos_user_security_login
+ RewriteCond %{REQUEST_URI} ^/login$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_security_login,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\SecurityController\:\:loginAction]
+
+ # fos_user_security_check
+ RewriteCond %{REQUEST_URI} ^/login_check$
+ RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
+ RewriteCond %{REQUEST_URI} ^/login_check$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_security_check,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\SecurityController\:\:checkAction]
+
+ # fos_user_security_logout
+ RewriteCond %{REQUEST_URI} ^/logout$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_security_logout,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\SecurityController\:\:logoutAction]
+
+ # fos_user_profile_show
+ RewriteCond %{REQUEST_URI} ^/profile/$
+ RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
+ RewriteRule .* - [S=2,E=_ROUTING_allow_GET:1,E=_ROUTING_allow_HEAD:1]
+ RewriteCond %{REQUEST_URI} ^/profile$
+ RewriteRule .* $0/ [QSA,L,R=301]
+ RewriteCond %{REQUEST_URI} ^/profile/$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_profile_show,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\ProfileController\:\:showAction]
+
+ # fos_user_profile_edit
+ RewriteCond %{REQUEST_URI} ^/profile/edit$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_profile_edit,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\ProfileController\:\:editAction]
+
+ # fos_user_registration_register
+ RewriteCond %{REQUEST_URI} ^/register$
+ RewriteRule .* $0/ [QSA,L,R=301]
+ RewriteCond %{REQUEST_URI} ^/register/$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_registration_register,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\RegistrationController\:\:registerAction]
+
+ # fos_user_registration_check_email
+ RewriteCond %{REQUEST_URI} ^/register/check\-email$
+ RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_GET:1,E=_ROUTING_allow_HEAD:1]
+ RewriteCond %{REQUEST_URI} ^/register/check\-email$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_registration_check_email,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\RegistrationController\:\:checkEmailAction]
+
+ # fos_user_registration_confirm
+ RewriteCond %{REQUEST_URI} ^/register/confirm/([^/]++)$
+ RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_GET:1,E=_ROUTING_allow_HEAD:1]
+ RewriteCond %{REQUEST_URI} ^/register/confirm/([^/]++)$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_registration_confirm,E=_ROUTING_param_token:%1,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\RegistrationController\:\:confirmAction]
+
+ # fos_user_registration_confirmed
+ RewriteCond %{REQUEST_URI} ^/register/confirmed$
+ RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_GET:1,E=_ROUTING_allow_HEAD:1]
+ RewriteCond %{REQUEST_URI} ^/register/confirmed$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_registration_confirmed,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\RegistrationController\:\:confirmedAction]
+
+ # fos_user_resetting_request
+ RewriteCond %{REQUEST_URI} ^/resetting/request$
+ RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_GET:1,E=_ROUTING_allow_HEAD:1]
+ RewriteCond %{REQUEST_URI} ^/resetting/request$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_resetting_request,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\ResettingController\:\:requestAction]
+
+ # fos_user_resetting_send_email
+ RewriteCond %{REQUEST_URI} ^/resetting/send\-email$
+ RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_POST:1]
+ RewriteCond %{REQUEST_URI} ^/resetting/send\-email$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_resetting_send_email,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\ResettingController\:\:sendEmailAction]
+
+ # fos_user_resetting_check_email
+ RewriteCond %{REQUEST_URI} ^/resetting/check\-email$
+ RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_GET:1,E=_ROUTING_allow_HEAD:1]
+ RewriteCond %{REQUEST_URI} ^/resetting/check\-email$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_resetting_check_email,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\ResettingController\:\:checkEmailAction]
+
+ # fos_user_resetting_reset
+ RewriteCond %{REQUEST_URI} ^/resetting/reset/([^/]++)$
+ RewriteCond %{REQUEST_METHOD} !^(GET|POST|HEAD)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_GET:1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_HEAD:1]
+ RewriteCond %{REQUEST_URI} ^/resetting/reset/([^/]++)$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_resetting_reset,E=_ROUTING_param_token:%1,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\ResettingController\:\:resetAction]
+
+ # fos_user_change_password
+ RewriteCond %{REQUEST_URI} ^/profile/change\-password$
+ RewriteCond %{REQUEST_METHOD} !^(GET|POST|HEAD)$ [NC]
+ RewriteRule .* - [S=1,E=_ROUTING_allow_GET:1,E=_ROUTING_allow_POST:1,E=_ROUTING_allow_HEAD:1]
+ RewriteCond %{REQUEST_URI} ^/profile/change\-password$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_user_change_password,E=_ROUTING_default__controller:FOS\\UserBundle\\Controller\\ChangePasswordController\:\:changePasswordAction]
+
+ # fos_js_routing_js
+ RewriteCond %{REQUEST_URI} ^/js/routing(?:\.(js|json))?$
+ RewriteRule .* app.php [QSA,L,E=_ROUTING_route:fos_js_routing_js,E=_ROUTING_param__format:%1,E=_ROUTING_default__controller:fos_js_routing.controller\:indexAction,E=_ROUTING_default__format:js]
+
+ # 405 Method Not Allowed
+ RewriteCond %{ENV:_ROUTING__allow_POST} =1 [OR]
+ RewriteCond %{ENV:_ROUTING__allow_PUT} =1 [OR]
+ RewriteCond %{ENV:_ROUTING__allow_DELETE} =1 [OR]
+ RewriteCond %{ENV:_ROUTING__allow_GET} =1 [OR]
+ RewriteCond %{ENV:_ROUTING__allow_HEAD} =1
+ RewriteRule .* app.php [QSA,L]
  #End Symfony
 
 </IfModule>

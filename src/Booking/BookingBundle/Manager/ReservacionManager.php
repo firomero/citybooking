@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\Expr\Orx;
 use General\NomencladorBundle\Entity\TipoHab;
+use Proxies\__CG__\General\NomencladorBundle\Entity\TipoActividad;
 
 class ReservacionManager
 {
@@ -262,30 +263,34 @@ class ReservacionManager
         $em->beginTransaction();
         $this->sortBy($rhabs);
         $this->sortHabs($chabs);
-        for ($i = 0; $i < count($rhabs); $i++) {
 
-            /**
-             * @var Habitacion $hb
-             */
+        while(count($chabs)>0&&count($rhabs)>0){
 
             $book = new BookedHab();
-            $t = new Habitacion();
-            $index = binary_search_uncentered_callable($chabs,0,count($chabs),$rhabs[$i],function($val){ $val->getTipo()->getPeso();});
+            $rt = array_shift($rhabs);
+            $cht = current($chabs);
+            $index = binary_search_uncentered_callable($chabs,0,count($chabs),$rt,
+                function($object){
+                    if ($object instanceof TipoHab) {
+                        return $object->getPeso();
+                    }
+                    else
 
+                        return $object->getTipo()->getPeso();
+                });
             if ($index!=-1) {
-                $t = $chabs[$index];
+                $cht = $chabs[$index];
                 unset($chabs[$index]);
             }
             else{
-                $t=array_shift($chabs);
+                array_shift($chabs);
             }
-            $book->setHab($t);
+            $book->setHab($cht);
             $book->setCheckin($reservacion->getCheckin());
             $book->setCheckout($reservacion->getCheckout());
             $em->persist($book);
-
-
         }
+
         $em->persist($reservacion);
 
         try {
