@@ -358,6 +358,11 @@
 
     <!--PAGE CONTENT -->
     <div id="content" width="100%" style="margin: 36px !important;">
+        {% block flash %}
+            {% for mensaje in app.session.flashbag.get('error' ) %}
+                <div class="alert alert-danger">{{ mensaje }}</div>
+            {% endfor %}
+        {% endblock %}
         <!--BLOCK SECTION -->
 
         <!--END BLOCK SECTION -->

@@ -53,4 +53,20 @@ class BookingTests extends \PHPUnit_Framework_TestCase{
 
     }
 
+    public function testBinaryTrue(){
+        $a = [1,2,3,4,5,6,7,8,9,44,56,5255];
+
+        $s = binary_search_uncentered($a,0,count($a),9);
+
+        $this->assertTrue($s,'404');
+    }
+
+    public function testBinaryFalse(){
+        $a = [1,2,3,4,5,6,7,8,9,44,56,5255];
+
+        $s = binary_search_uncentered($a,0,count($a),99);
+
+        $this->assertFalse($s,'206');
+    }
+
 } 

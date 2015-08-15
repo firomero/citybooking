@@ -269,7 +269,17 @@ class ReservacionManager
              */
 
             $book = new BookedHab();
-            $book->setHab(array_shift($chabs));
+            $t = new Habitacion();
+            $index = binary_search_uncentered_callable($chabs,0,count($chabs),$rhabs[$i],function($val){ $val->getTipo()->getPeso();});
+
+            if ($index!=-1) {
+                $t = $chabs[$index];
+                unset($chabs[$index]);
+            }
+            else{
+                $t=array_shift($chabs);
+            }
+            $book->setHab($t);
             $book->setCheckin($reservacion->getCheckin());
             $book->setCheckout($reservacion->getCheckout());
             $em->persist($book);
