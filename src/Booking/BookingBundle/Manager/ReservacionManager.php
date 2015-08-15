@@ -269,13 +269,12 @@ class ReservacionManager
             $book = new BookedHab();
             $rt = array_shift($rhabs);
             $cht = current($chabs);
-            $index = binary_search_uncentered_callable($chabs,0,count($chabs),$rt,
+            $index = count($chabs)<=1?0: binary_search_uncentered_callable($chabs,0,count($chabs),$rt,
                 function($object){
                     if ($object instanceof TipoHab) {
                         return $object->getPeso();
                     }
                     else
-
                         return $object->getTipo()->getPeso();
                 });
             if ($index!=-1) {

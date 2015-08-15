@@ -181,7 +181,10 @@ class ReporteController extends  Controller{
      * @return Response
      */
     public function optionsAction(){
-        return $this->render('ReportBundle:Default:options.html.twig');
+        $response =  $this->render('ReportBundle:Default:options.html.twig');
+        $response->setPublic();
+        $response->setSharedMaxAge(5 * 60);
+        return $response;
 
     }
 
