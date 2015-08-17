@@ -130,9 +130,9 @@ class ReportManager {
         foreach ($reservaciones as $book) {
             $dataOutput[] = array(
                 'date' => date_format(new \DateTime(), 'd/m/Y'),
-                'supplier_agency' => $book->getAgencia()->getNombre(),
-                'supplier_name' => $book->getCasa()->getPropietario()->getNombre(),
-                'supplier_mobile' => $book->getCasa()->getTelefono(),
+                'supplier_agency' => 'Mi Cuba Local',
+                    'supplier_name' => 'Ruslan Martínez Kabanova',
+                    'supplier_mobile' =>'+53 53657629',
                 'supplier_phone' => '0053 4199 6686',
                 'supplier_email' => 'bookingcuba.micubalocal@gmail.com',
                 'client_agency' => 'MiCuba - Reisspecialist in    Cuba',
@@ -164,7 +164,7 @@ class ReportManager {
                             'services_checkIn' => $activity->getFecha()->format('d/m/Y'),
                             'services_checkOut' => $activity->getFecha()->format('d/m/Y'),
                             'services_description' => $activity->getTipoActividad()->getNombre() . '-' . $activity->getLugar() . '-' . $activity->getHora()->format('H:i'),
-                            'services_price' => $activity->getCoordinacion(),
+                            'services_price' => $activity->getPrecio() + $activity->getCoordinacion(),
                             'services_total' => $activity->getPrecio() + $activity->getCoordinacion()
                         );
                     }
@@ -187,9 +187,9 @@ class ReportManager {
         );
         $dataOutput[]= array(
                     'date' => date_format(new \DateTime(), 'd/m/Y'),
-                    'supplier_agency' => $book->getAgencia()->getNombre(),
-                    'supplier_name' => $book->getCasa()->getPropietario()->getNombre(),
-                    'supplier_mobile' => $book->getCasa()->getTelefono(),
+                    'supplier_agency' => 'Mi Cuba Local',
+                    'supplier_name' => 'Ruslan Martínez Kabanova',
+                    'supplier_mobile' =>'+53 53657629',
                     'supplier_phone' => '0053 4199 6686',
                     'supplier_email' => 'bookingcuba.micubalocal@gmail.com',
                     'client_agency' => 'MiCuba - Reisspecialist in    Cuba',
@@ -221,7 +221,7 @@ class ReportManager {
                                 'services_checkIn' => $activity->getFecha()->format('d/m/Y'),
                                 'services_checkOut' => $activity->getFecha()->format('d/m/Y'),
                                 'services_description' => $activity->getTipoActividad()->getNombre() . '-' . $activity->getLugar() . '-' . $activity->getHora()->format('H:i'),
-                                'services_price' => $activity->getCoordinacion(),
+                                'services_price' => $activity->getPrecio() + $activity->getCoordinacion(),
                                 'services_total' => $activity->getPrecio() + $activity->getCoordinacion()
                             );
                         }
@@ -259,8 +259,8 @@ class ReportManager {
                 'p' => $book->getPax(),
                 'hab' => implode(',', $book->roomList()),
                 'fact' => $book->getPrecio(),
-                'pagar' => $book->getPrecio() - 5 * count($book->getCasa()->getCantidadHab()) * $book->getNoches(),
-                'com' => 5 * count($book->getCasa()->getCantidadHab()) * $book->getNoches(),
+                'pagar' => $book->getPrecio()==0?0: $book->getPrecio() - 5 * count($book->getCasa()->getCantidadHab()) * $book->getNoches(),
+                'com' => $book->getPrecio()==0?0: 5 * count($book->getCasa()->getCantidadHab()) * $book->getNoches(),
                 'observaciones' => $book->getObservacion() . '\n' . implode(',', $book->activityList())
             );
         }
@@ -425,8 +425,8 @@ class ReportManager {
                     'p' => $book->getPax(),
                     'hab' => implode(',', $book->roomList()),
                     'fact' => $book->getPrecio(),
-                    'pagar' => $book->getPrecio(),
-                    'com' => 5 * count($book->getCasa()->getCantidadHab()) * $book->getNoches(),
+                    'pagar' => $book->getPrecio()==0?0:$book->getPrecio() - 5 * count($book->getCasa()->getCantidadHab()) * $book->getNoches(),
+                'com' => $book->getPrecio()==0?0: 5 * count($book->getCasa()->getCantidadHab()) * $book->getNoches(),
                     'observaciones' => $book->getObservacion() . '\n' . implode(',', $book->activityList())
                 );
             }, $reservaciones),

@@ -90,7 +90,8 @@ $actividadDataTable.postDraw=function(){
                                                 var $ul = $('#jModal').find('.nav');
                                                 $ul.empty();
                                                 activities.forEach(function(item){
-                                                    $ul.append('<li data-id="'+item[0]+'">'+item[1]+':'+item[2]+':'+item[3]+'</li>');
+                                                    alert(item);
+                                                     $ul.append('<li data-id="'+item[0]+'">'+item[1]+':'+item[2]+':'+item[3]+':'+item[4]+'CUC'+'</li>');
                                                 });
                                             }
                                         },"json");
