@@ -25,7 +25,7 @@ class Agencia
     private $id;
 
     /**
-     * @var string    
+     * @var string
      * @Assert\Regex(pattern="/[A-Za-z0-9]/")
      * @Assert\Length( min =3 )
      * @Assert\NotBlank(message = "Por favor, escriba el nombre" )
@@ -37,7 +37,7 @@ class Agencia
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -60,7 +60,7 @@ class Agencia
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {

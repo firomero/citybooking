@@ -72,7 +72,7 @@ class Propietario
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -95,7 +95,7 @@ class Propietario
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -130,14 +130,15 @@ class Propietario
     /**
      * Get ci
      *
-     * @return string 
+     * @return string
      */
     public function getCi()
     {
         return $this->ci;
     }
 
-    public function __toString(){
+    public function __toString()
+    {
         return $this->nombre;
     }
 }

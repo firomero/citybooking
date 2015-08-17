@@ -2,12 +2,12 @@
 
 namespace Booking\BookingBundle\Entity;
 
-
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Orx;
 use Proxies\__CG__\General\NomencladorBundle\Entity\TipoActividad;
 
-class ActividadRepository extends EntityRepository {
+class ActividadRepository extends EntityRepository
+{
     protected $columns = array('fecha', 'guia','total','pax', 'precioguia', 'tipoActividad', 'reservacion');
 
     /**
@@ -31,12 +31,11 @@ class ActividadRepository extends EntityRepository {
                     /**
                      * @return array
                      */
-                        call_user_func( function() use ($columns,$qb,$options){
+                        call_user_func(function () use ($columns, $qb, $options) {
 
                             $aLike = array();
 
                             foreach ($columns as $col) {
-
                                 $aLike[] = $qb->expr()->like($col, '\'%' . $options['sSearch']['value'] . '%\'');
                             }
 
@@ -74,7 +73,6 @@ class ActividadRepository extends EntityRepository {
         }
 
         return $dataExport;
-
     }
 
     /**
@@ -128,14 +126,14 @@ class ActividadRepository extends EntityRepository {
      * @param $tipoActividad
      * @return array
      */
-    public function closestActivity(\DateTime $dateTime, $tipoActividad){
+    public function closestActivity(\DateTime $dateTime, $tipoActividad)
+    {
         $em = $this->_em;
         $activities= $em->getRepository('BookingBundle:Actividad')->findBy(array('tipoActividad'=>$tipoActividad));
-        return array_map(function(Actividad $actividad){
+        return array_map(function (Actividad $actividad) {
             return $actividad->toArray();
-        },array_filter($activities,function(Actividad $activity)use($dateTime){
+        }, array_filter($activities, function (Actividad $activity) use ($dateTime) {
             return ($activity->getFecha()->format('m')==$dateTime->format('m'));
         }));
     }
-
-} 
+}

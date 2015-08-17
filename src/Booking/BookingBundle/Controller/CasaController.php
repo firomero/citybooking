@@ -17,7 +17,6 @@ use Booking\BookingBundle\Form\CasaType;
  */
 class CasaController extends Controller
 {
-
     /**
      * Lists all Casa entities.
      *
@@ -42,7 +41,6 @@ class CasaController extends Controller
      */
     public function editformAction(Request $request)
     {
-
         $id = $request->get('id');
         $entity = $this->get('doctrine')->getManager()->getRepository('BookingBundle:Casa')->find($id);
         $form = $this->createEditForm($entity);
@@ -83,8 +81,6 @@ class CasaController extends Controller
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
-
-
     }
 
     /**
@@ -224,8 +220,7 @@ class CasaController extends Controller
     {
         $id = $request->get('id');
 
-        try{
-
+        try {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('BookingBundle:Casa')->findOneBy($id);
 
@@ -237,8 +232,8 @@ class CasaController extends Controller
             $em->flush();
 
             return new Response(json_encode(array()), 200);
-        }catch (\Exception $e){
-            return new Response($e->getMessage(),500);
+        } catch (\Exception $e) {
+            return new Response($e->getMessage(), 500);
         }
     }
 
@@ -268,7 +263,6 @@ class CasaController extends Controller
     {
         $options = $request->query->all();
         try {
-
             $casa = $this->getDoctrine()->getRepository('BookingBundle:Casa')->queryEntity($options);
             $total = count($this->getDoctrine()->getRepository('BookingBundle:Casa')->findAll());
 
@@ -286,21 +280,16 @@ class CasaController extends Controller
                 'aaData' => $casa
 
             )), 200);
+        } catch (\Exception $e) {
+            return new Response(json_encode(array('message'=> $e->getMessage())), 500);
         }
-
-        catch(\Exception $e)
-        {
-            return new Response(json_encode(array('message'=> $e->getMessage())),500);
-        }
-
-
     }
 
     /**
      * @return JsonResponse
      */
-    public function tabServeAction(){
-
+    public function tabServeAction()
+    {
         $response = new JsonResponse(
             array(
                 'tabs' => $this->renderView('BookingBundle:Casa:tabstpl.html.twig'
@@ -313,59 +302,56 @@ class CasaController extends Controller
     /**
      * @return JsonResponse
      */
-    public function habsTipoAction(){
+    public function habsTipoAction()
+    {
         $em = $this->getDoctrine()->getManager();
-        try
-        {
+        try {
             $th = $em->getRepository('NomencladorBundle:TipoHab')->findAll();
-            $dataResult =  array_map(function($object){ return array('id'=>$object->getId(),'tipo'=>$object->getNombre());},$th);
+            $dataResult =  array_map(function ($object) { return array('id'=>$object->getId(), 'tipo'=>$object->getNombre());}, $th);
             $response = new JsonResponse(
                 array(
                     'tipo' => $dataResult, 200
                 ));
 
             return $response;
+        } catch (\Exception $e) {
+            return new JsonResponse(array($e->getMessage()), 500);
         }
-        catch(\Exception $e){
-            return new JsonResponse(array($e->getMessage()),500);
-        }
-
-
-
     }
 
     /**
      * @param Request $request
      * @return JsonResponse
      */
-    public function habsByCasaAction(Request $request){
+    public function habsByCasaAction(Request $request)
+    {
         $id = $request->query->get('id');
         $em = $this->getDoctrine()->getManager();
-       try{
-           $casa = $em->getRepository('BookingBundle:Casa')->find($id);
-           $habsCasa = $em->getRepository('BookingBundle:Habitacion')->findBy(array('casa'=>$casa));
-           $dataResult =  array_map(function($object){ return array('id'=>$object->getId(),'tipo'=>$object->getTipo()->getNombre());},$habsCasa);
-           $response = new JsonResponse(
+        try {
+            $casa = $em->getRepository('BookingBundle:Casa')->find($id);
+            $habsCasa = $em->getRepository('BookingBundle:Habitacion')->findBy(array('casa'=>$casa));
+            $dataResult =  array_map(function ($object) { return array('id'=>$object->getId(), 'tipo'=>$object->getTipo()->getNombre());}, $habsCasa);
+            $response = new JsonResponse(
                array(
                    'habs' => $dataResult, 200
                ));
 
-           return $response;
-       }
-       catch(\Exception $e){
-           return new JsonResponse(array($e->getMessage()),500);
-       }
+            return $response;
+        } catch (\Exception $e) {
+            return new JsonResponse(array($e->getMessage()), 500);
+        }
     }
 
     /**
      * @param Request $request
      * @return JsonResponse
      */
-    public function addRoomAction(Request $request){
+    public function addRoomAction(Request $request)
+    {
         $tipo = $request->query->get('type');
         $id = $request->query->get('id');
         $em = $this->getDoctrine()->getManager();
-        try{
+        try {
             $casa = $em->getRepository('BookingBundle:Casa')->find($id);
             $type = $em->getRepository('NomencladorBundle:TipoHab')->find($tipo);
             $hab = new Habitacion();
@@ -384,13 +370,9 @@ class CasaController extends Controller
                 ));
 
             return $response;
-
+        } catch (\Exception $e) {
+            return new JsonResponse(array($e->getMessage()), 500);
         }
-        catch(\Exception $e)
-        {
-            return new JsonResponse(array($e->getMessage()),500);
-        }
-
     }
 
 
@@ -398,11 +380,12 @@ class CasaController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function deleteRoomAction(Request $request){
+    public function deleteRoomAction(Request $request)
+    {
         $hb = $request->query->get('hab');
         $id = $request->query->get('id');
         $em = $this->getDoctrine()->getManager();
-        try{
+        try {
             $casa = $em->getRepository('BookingBundle:Casa')->find($id);
             $hab = $em->getRepository('BookingBundle:Habitacion')->find($hb);
             $casa->Decrement();
@@ -415,16 +398,8 @@ class CasaController extends Controller
                 ));
 
             return $response;
-
+        } catch (\Exception $e) {
+            return new JsonResponse(array($e->getMessage()), 500);
         }
-        catch(\Exception $e)
-        {
-            return new JsonResponse(array($e->getMessage()),500);
-        }
-
     }
-
-
-
-
 }

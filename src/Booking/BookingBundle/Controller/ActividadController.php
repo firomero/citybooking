@@ -17,7 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ActividadController extends Controller
 {
-
     /**
      * Lists all Actividad entities.
      *
@@ -50,11 +49,8 @@ class ActividadController extends Controller
             return $this->redirect($this->generateUrl('actividad'));
         }
 
-        $this->get('session')->getFlashBag()->set('error','Existen datos inválidos');
+        $this->get('session')->getFlashBag()->set('error', 'Existen datos inválidos');
         return $this->redirect($this->generateUrl('actividad'));
-
-
-
     }
 
     /**
@@ -182,8 +178,6 @@ class ActividadController extends Controller
 
 
         return $this->redirect($this->generateUrl('actividad'));
-
-
     }
     /**
      * Deletes a Actividad entity.
@@ -193,8 +187,7 @@ class ActividadController extends Controller
     {
         $id = $request->get('id');
 
-        try{
-
+        try {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('BookingBundle:Actividad')->find($id);
 
@@ -206,10 +199,9 @@ class ActividadController extends Controller
             $em->flush();
 
             return new Response(json_encode(array()), 200);
-        }catch (\Exception $e){
-
-            $this->get('logger')->addCritical($e->getMessage(),array($e->getFile(),$e->getLine()));
-            return new Response('Ha ocurrido un error en la operación',500);
+        } catch (\Exception $e) {
+            $this->get('logger')->addCritical($e->getMessage(), array($e->getFile(), $e->getLine()));
+            return new Response('Ha ocurrido un error en la operación', 500);
         }
     }
 
@@ -241,7 +233,6 @@ class ActividadController extends Controller
     {
         $options = $request->query->all();
         try {
-
             $casa = $this->getDoctrine()->getRepository('BookingBundle:Actividad')->queryEntity($options);
             $total = count($this->getDoctrine()->getRepository('BookingBundle:Actividad')->findAll());
 
@@ -259,15 +250,10 @@ class ActividadController extends Controller
                 'aaData' => $casa
 
             )), 200);
+        } catch (\Exception $e) {
+            $this->get('logger')->addCritical($e->getMessage(), array($e->getFile(), $e->getLine()));
+            return new Response('Ha ocurrido un error en la operación', 500);
         }
-
-        catch(\Exception $e)
-        {
-            $this->get('logger')->addCritical($e->getMessage(),array($e->getFile(),$e->getLine()));
-            return new Response('Ha ocurrido un error en la operación',500);
-        }
-
-
     }
 
 
@@ -276,8 +262,8 @@ class ActividadController extends Controller
      *
      * @return JsonResponse
      */
-    public function addformAction(){
-
+    public function addformAction()
+    {
         $entity = new Actividad();
         $form = $this->createCreateForm($entity);
         $response = new JsonResponse(
@@ -288,7 +274,6 @@ class ActividadController extends Controller
                     ))), 200);
 
         return $response;
-
     }
 
     /**
@@ -297,7 +282,6 @@ class ActividadController extends Controller
      */
     public function editformAction(Request $request)
     {
-
         $id = $request->get('id');
         $entity = $this->get('doctrine')->getManager()->getRepository('BookingBundle:Actividad')->find($id);
         $form = $this->createEditForm($entity);
@@ -317,15 +301,15 @@ class ActividadController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function closestActivitiesAction(Request $request){
+    public function closestActivitiesAction(Request $request)
+    {
         $date = $request->query->get('date');
         $type = $request->query->get('type');
-        try{
-            return new JsonResponse(array('activities'=>$this->getDoctrine()->getManager()->getRepository('BookingBundle:Actividad')->closestActivity(new \DateTime($date),$this->getDoctrine()->getManager()->getRepository('NomencladorBundle:TipoActividad')->find(intval($type)))),HttpCode::HTTP_OK);
-
-        }catch (\Exception $e){
+        try {
+            return new JsonResponse(array('activities'=>$this->getDoctrine()->getManager()->getRepository('BookingBundle:Actividad')->closestActivity(new \DateTime($date), $this->getDoctrine()->getManager()->getRepository('NomencladorBundle:TipoActividad')->find(intval($type)))), HttpCode::HTTP_OK);
+        } catch (\Exception $e) {
             $this->get('logger')->addAlert($e->getMessage());
-            return new JsonResponse(array('Error en la búsqueda de datos'),HttpCode::HTTP_SERVER_ERROR);
+            return new JsonResponse(array('Error en la búsqueda de datos'), HttpCode::HTTP_SERVER_ERROR);
         }
     }
 }

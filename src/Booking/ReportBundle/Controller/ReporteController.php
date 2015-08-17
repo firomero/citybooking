@@ -7,6 +7,7 @@
  */
 
 namespace Booking\ReportBundle\Controller;
+
 use General\NomencladorBundle\HttpCode;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,26 +15,26 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class ReporteController extends  Controller{
-   const DISPONIBLE='disponible';
-   const RESERVADA='reservada';
+class ReporteController extends  Controller
+{
+    const DISPONIBLE='disponible';
+    const RESERVADA='reservada';
     /**
      * Dada una casa devuelve las reservaciones asociadas.
      * @param Request $request
      * @return JsonResponse
      */
-    public function reporteCasaAction(Request $request){
+    public function reporteCasaAction(Request $request)
+    {
         $id = $request->query->get('id');
         $em = $this->getDoctrine()->getManager();
-        try{
+        try {
             $rManager = $this->get('reportbundle.manager.reportmanager');
             $casa = $em->getRepository('BookingBundle:Casa')->find($id);
             $reporte = $rManager->reporteCasa($casa);
-            return new JsonResponse($reporte,HttpCode::HTTP_OK);
-        }
-        catch(\Exception $e)
-        {
-            return new Response($e->getMessage(),HttpCode::HTTP_SERVER_ERROR);
+            return new JsonResponse($reporte, HttpCode::HTTP_OK);
+        } catch (\Exception $e) {
+            return new Response($e->getMessage(), HttpCode::HTTP_SERVER_ERROR);
         }
     }
     /**
@@ -45,15 +46,13 @@ class ReporteController extends  Controller{
     {
         $id = $request->query->get('id');
         $em = $this->getDoctrine()->getManager();
-        try{
+        try {
             $rManager = $this->get('reportbundle.manager.reportmanager');
             $agencia = $em->getRepository('NomencladorBundle:Agencia')->find($id);
             $reporte = $rManager->reporteAgencia($agencia);
-            return new JsonResponse($reporte,HttpCode::HTTP_OK);
-        }
-        catch(\Exception $e)
-        {
-            return new Response($e->getMessage(),HttpCode::HTTP_SERVER_ERROR);
+            return new JsonResponse($reporte, HttpCode::HTTP_OK);
+        } catch (\Exception $e) {
+            return new Response($e->getMessage(), HttpCode::HTTP_SERVER_ERROR);
         }
     }
     /**
@@ -65,15 +64,13 @@ class ReporteController extends  Controller{
     {
         $id = $request->query->get('id');
         $em = $this->getDoctrine()->getManager();
-        try{
+        try {
             $rManager = $this->get('reportbundle.manager.reportmanager');
             $reservacion = $em->getRepository('BookingBundle:Reservacion')->find($id);
             $reporte = $rManager->reporteAgencia($reservacion);
-            return new JsonResponse($reporte,HttpCode::HTTP_OK);
-        }
-        catch(\Exception $e)
-        {
-            return new Response($e->getMessage(),HttpCode::HTTP_SERVER_ERROR);
+            return new JsonResponse($reporte, HttpCode::HTTP_OK);
+        } catch (\Exception $e) {
+            return new Response($e->getMessage(), HttpCode::HTTP_SERVER_ERROR);
         }
     }
     //html exporter
@@ -81,7 +78,8 @@ class ReporteController extends  Controller{
      * @param Request $request
      * @return Response
      */
-    public function facturasTourAction(Request $request){
+    public function facturasTourAction(Request $request)
+    {
         $manager = $this->get('reportbundle.manager.reportmanager');
         $filter = array();
         $casa = $request->query->get('casa');
@@ -99,7 +97,8 @@ class ReporteController extends  Controller{
      * @param Request $request
      * @return Response
      */
-    public function listReservAction(Request $request){
+    public function listReservAction(Request $request)
+    {
         $manager = $this->get('reportbundle.manager.reportmanager');
         $filter = array();
         $casa = $request->query->get('casa');
@@ -111,7 +110,7 @@ class ReporteController extends  Controller{
             $filter ['agencia']= $agencia;
         }
         $data = $manager->invoiceBooking($filter);
-        $data['date'] = date_format(new \DateTime('now'),'d/m/Y');
+        $data['date'] = date_format(new \DateTime('now'), 'd/m/Y');
         return $this->render('ReportBundle:Default:listreservas.html.twig', $data);
     }
     //... exportar a pdf ...
@@ -120,7 +119,8 @@ class ReporteController extends  Controller{
      * @param Request $request
      * @return Response
      */
-    public function pdfFacturasTourAction(Request $request){
+    public function pdfFacturasTourAction(Request $request)
+    {
         $view = $this->facturasTourAction($request);
         $exporter = $this->get('booking_reportbundle.exporter.pdfexporter');
         return $exporter->export($view, 'Boooking Tour Invoice');
@@ -131,10 +131,11 @@ class ReporteController extends  Controller{
      * @param Request $request
      * @return Response
      */
-    public function pdfListReservAction(Request $request){
+    public function pdfListReservAction(Request $request)
+    {
         $view = $this->listReservAction($request);
         $exporter = $this->get('booking_reportbundle.exporter.pdfexporter');
-        return $exporter->export($view, 'Boooking List Reserv',date('Ymd-His'));
+        return $exporter->export($view, 'Boooking List Reserv', date('Ymd-His'));
     }
 
     //... exportar a html ......................................
@@ -143,7 +144,8 @@ class ReporteController extends  Controller{
      * @param Request $request
      * @return Response
      */
-    public function viewFacturasTourAction(Request $request){
+    public function viewFacturasTourAction(Request $request)
+    {
         $manager = $this->get('reportbundle.manager.reportmanager');
         $filter = array();
         $casa = $request->query->get('casa');
@@ -159,7 +161,8 @@ class ReporteController extends  Controller{
      * @param Request $request
      * @return Response
      */
-    public function viewListReservAction(Request $request){
+    public function viewListReservAction(Request $request)
+    {
         $manager = $this->get('reportbundle.manager.reportmanager');
         $filter = array();
         $casa = $request->query->get('casa');
@@ -171,7 +174,7 @@ class ReporteController extends  Controller{
             $filter ['agencia']= $agencia;
         }
         $data = $manager->invoiceBooking($filter);
-        $data['date'] = date_format(new \DateTime('now'),'d/m/Y');
+        $data['date'] = date_format(new \DateTime('now'), 'd/m/Y');
         return $this->render('ReportBundle:Default:viewlistreservas.html.twig', $data);
     }
 
@@ -180,12 +183,12 @@ class ReporteController extends  Controller{
      * Página principal de las operaciones de los reportes
      * @return Response
      */
-    public function optionsAction(){
+    public function optionsAction()
+    {
         $response =  $this->render('ReportBundle:Default:options.html.twig');
         $response->setPublic();
         $response->setSharedMaxAge(5 * 60);
         return $response;
-
     }
 
     /**
@@ -193,24 +196,22 @@ class ReporteController extends  Controller{
      * @param Request $request
      * @return JsonResponse
      */
-    public function dateSeekAction(Request $request){
-
+    public function dateSeekAction(Request $request)
+    {
         $date = $request->query->get('date');
-        $date=array_map(function($value){
+        $date=array_map(function ($value) {
             return trim($value);
-        },explode('-',$date));
+        }, explode('-', $date));
 
-        $in = date_create_from_format('d/m/Y',$date[0]);
-        $out = date_create_from_format('d/m/Y',$date[1]);
+        $in = date_create_from_format('d/m/Y', $date[0]);
+        $out = date_create_from_format('d/m/Y', $date[1]);
         $query = $request->query->get('state');
         $manager = $this->get('reportbundle.manager.reportmanager');
-        try{
-            return new JsonResponse(array('casas'=>$manager->seekDate($in,$out,$query)),HttpCode::HTTP_OK);
-        }
-        catch(\Exception $e){
-
+        try {
+            return new JsonResponse(array('casas'=>$manager->seekDate($in, $out, $query)), HttpCode::HTTP_OK);
+        } catch (\Exception $e) {
             $this->get('logger')->addCritical($e->getMessage());
-            return new JsonResponse(array('Ha ocurrido un error procesando los datos. Revise sus datos de entrada.'),HttpCode::HTTP_SERVER_ERROR);
+            return new JsonResponse(array('Ha ocurrido un error procesando los datos. Revise sus datos de entrada.'), HttpCode::HTTP_SERVER_ERROR);
         }
     }
 
@@ -219,19 +220,17 @@ class ReporteController extends  Controller{
      * @param Request $request
      * @return JsonResponse
      */
-    public function homeBookAction(Request $request){
-
+    public function homeBookAction(Request $request)
+    {
         $date = $request->query->get('date');
         $casa = $request->query->get('casa');
         $manager = $this->get('reportbundle.manager.reportmanager');
         $home = $this->getDoctrine()->getManager()->getRepository('BookingBundle:Casa')->findOneBy(array('nombre'=>$casa));
-        try{
-            return new JsonResponse(array('booking'=>$manager->getReservaciones($home,date_create_from_format('m/Y',$date)),HttpCode::HTTP_OK));
-        }
-        catch(\Exception $e){
-
+        try {
+            return new JsonResponse(array('booking'=>$manager->getReservaciones($home, date_create_from_format('m/Y', $date)), HttpCode::HTTP_OK));
+        } catch (\Exception $e) {
             $this->get('logger')->addCritical($e->getMessage());
-            return new JsonResponse(array('Ha ocurrido un error procesando los datos. Revise sus datos de entrada.'),HttpCode::HTTP_SERVER_ERROR);
+            return new JsonResponse(array('Ha ocurrido un error procesando los datos. Revise sus datos de entrada.'), HttpCode::HTTP_SERVER_ERROR);
         }
     }
 
@@ -240,14 +239,14 @@ class ReporteController extends  Controller{
      * @param Request $request
      * @return Response
      */
-    public function homeBookMonthAction(Request $request){
-
+    public function homeBookMonthAction(Request $request)
+    {
         $date = $request->query->get('date');
         $layout = $request->query->get('layout');
         $manager = $this->get('reportbundle.manager.reportmanager');
-        $data = $manager->getMonth(date_create_from_format('m/Y',$date));
-        $data['date'] = date_format(new \DateTime('now'),'d/m/Y');
-        $f = date_create_from_format('m/Y',$date);
+        $data = $manager->getMonth(date_create_from_format('m/Y', $date));
+        $data['date'] = date_format(new \DateTime('now'), 'd/m/Y');
+        $f = date_create_from_format('m/Y', $date);
         $data['mes'] = $f->format('m-Y');
         $template = 'ReportBundle:Default:viewmonthlistreservas.html.twig';
         if (!is_null($layout)) {
@@ -261,9 +260,10 @@ class ReporteController extends  Controller{
      * @param Request $request
      * @return Response
      */
-    public function pdfhomeBookMonthAction(Request $request){
+    public function pdfhomeBookMonthAction(Request $request)
+    {
         $date = $request->get('mes');
-        $data =date_create_from_format('m-Y',$date);
+        $data =date_create_from_format('m-Y', $date);
         $request->query->add(
             array(
                 'date'=>$data->format('m/Y'),
@@ -272,7 +272,7 @@ class ReporteController extends  Controller{
         ));
         $view = $this->homeBookMonthAction($request);
         $exporter = $this->get('booking_reportbundle.exporter.pdfexporter');
-        return $exporter->export($view, 'Boooking for '.date('F'),date('Ymd-His'));
+        return $exporter->export($view, 'Boooking for '.date('F'), date('Ymd-His'));
     }
 
     /**
@@ -280,10 +280,11 @@ class ReporteController extends  Controller{
      * @param Request $request
      * @return Response
      */
-    public function facturasMonthTourAction(Request $request){
+    public function facturasMonthTourAction(Request $request)
+    {
         $manager = $this->get('reportbundle.manager.reportmanager');
         $date = $request->query->get('date');
-        $data = $manager->invoiceTour(array(),date_create_from_format('m/Y',$date));
+        $data = $manager->invoiceTour(array(), date_create_from_format('m/Y', $date));
         return $this->render('ReportBundle:Default:viewfacturastour.html.twig', array('list'=>$data));
     }
 
@@ -292,7 +293,8 @@ class ReporteController extends  Controller{
      * @param Request $request
      * @return Response
      */
-    public function customInvoiceAction(Request $request){
+    public function customInvoiceAction(Request $request)
+    {
         $manager = $this->get('reportbundle.manager.reportmanager');
         $id = $request->query->get('id');
         $data = $manager->customActivityInvoice($this->getDoctrine()->getManager()->getRepository('BookingBundle:Reservacion')->find($id));
@@ -304,7 +306,8 @@ class ReporteController extends  Controller{
      * @param Request $request
      * @return Response
      */
-    public function customInvoicePDFAction(Request $request){
+    public function customInvoicePDFAction(Request $request)
+    {
         $view = $this->customInvoicePlaneAction($request);
         $booking = $request->get('id');
         /**
@@ -312,9 +315,8 @@ class ReporteController extends  Controller{
          */
         $reservacion = $this->getDoctrine()->getManager()->getRepository('BookingBundle:Reservacion')->find($booking);
         $exporter = $this->get('booking_reportbundle.exporter.pdfexporter');
-        $result =  $exporter->export($view, 'Boooking Tour Invoice', $reservacion->getCliente()->getReferencia(),"D");
+        $result =  $exporter->export($view, 'Boooking Tour Invoice', $reservacion->getCliente()->getReferencia(), "D");
         return $result;
-
     }
 
     /**
@@ -322,15 +324,14 @@ class ReporteController extends  Controller{
      * @param Request $request
      * @return Response
      */
-    public function customInvoicePlaneAction(Request $request){
+    public function customInvoicePlaneAction(Request $request)
+    {
         $manager = $this->get('reportbundle.manager.reportmanager');
         $id = $request->query->get('id');
-        if ($id==null)
-        {
+        if ($id==null) {
             $id = $request->get('id');
-
         }
         $data = $manager->customActivityInvoice($this->getDoctrine()->getManager()->getRepository('BookingBundle:Reservacion')->find($id));
         return $this->render('ReportBundle:Default:customInvoicePlane.html.twig', array('list'=>$data));
     }
-} 
+}

@@ -8,16 +8,13 @@
 
 namespace Booking\BookingBundle\DataTransformers;
 
-
 use Booking\BookingBundle\Entity\Cliente;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-class ClienteTransformer implements DataTransformerInterface{
-
-
-
+class ClienteTransformer implements DataTransformerInterface
+{
     protected $em;
 
     /**
@@ -25,7 +22,6 @@ class ClienteTransformer implements DataTransformerInterface{
      */
     public function __construct(EntityManager $entityManager)
     {
-
         $this->em = $entityManager;
     }
 

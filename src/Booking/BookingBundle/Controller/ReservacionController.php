@@ -8,7 +8,6 @@
 
 namespace Booking\BookingBundle\Controller;
 
-
 use Booking\BookingBundle\Entity\Actividad;
 use Booking\BookingBundle\Entity\Habitacion;
 use Booking\BookingBundle\Entity\Reservacion;
@@ -25,14 +24,12 @@ use Symfony\Component\Validator\Constraints\DateTime;
 
 class ReservacionController extends Controller
 {
-
     /**
      * Devuelve la página principal con el formulario de nuevo
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
     {
-
         $form = $this->createForm(new ReservacionType());
 
         return $this->render(
@@ -42,7 +39,6 @@ class ReservacionController extends Controller
                 'form' => $form->createView()
             )
         );
-
     }
 
 
@@ -65,14 +61,11 @@ class ReservacionController extends Controller
              */
             $model = $this->get('booking.reservacionmanager');
 
-            try{
+            try {
                 $model->save($entity);
-            }
-            catch (\Exception $e)
-            {
+            } catch (\Exception $e) {
                 $this->get('logger')->addCritical('Error salvando los datos datos' .$e->getMessage());
-                $this->get('session')->getFlashBag()->add('error','Ha ocurrido un error salvando los datos');
-
+                $this->get('session')->getFlashBag()->add('error', 'Ha ocurrido un error salvando los datos');
             }
 
 
@@ -88,8 +81,6 @@ class ReservacionController extends Controller
                 'form' => $form->createView(),
             )
         );
-
-
     }
 
 
@@ -122,7 +113,6 @@ class ReservacionController extends Controller
      */
     public function editFormAction(Request $request)
     {
-
         $id = $request->get('id');
         $entity = $this->get('doctrine')->getManager()->getRepository('BookingBundle:Reservacion')->find(
             $id
@@ -226,7 +216,6 @@ class ReservacionController extends Controller
         $id = $request->get('id');
 
         try {
-
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('BookingBundle:Reservacion')->find($id);
 
@@ -276,8 +265,6 @@ class ReservacionController extends Controller
         } catch (\Exception $e) {
             return new Response(json_encode(array('message' => $e->getMessage())), 500);
         }
-
-
     }
 
     /**
@@ -293,7 +280,6 @@ class ReservacionController extends Controller
             $entity = $em->getRepository('BookingBundle:Reservacion')->find($id);
 
             return new JsonResponse($entity->toArray(), HttpCode::HTTP_OK);
-
         } catch (NoResultException $not) {
             return new Response('No se encontró la reservación solicitada', HttpCode::HTTP_RESOURCE_NOTFOUND);
         } catch (\Exception $e) {
@@ -340,47 +326,43 @@ class ReservacionController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function associateActivityAction(Request $request){
-
+    public function associateActivityAction(Request $request)
+    {
         $params = $request->query->all();
         $em = $this->get('doctrine')->getManager();
         $actividad = new Actividad();
         $actividad->setCoordinacion($params['coordinacion']);
-        $actividad->setFecha(date_create_from_format('m/d/Y',$params['fecha']));
-        $actividad->setHora(date_create_from_format('H:i',$params['hora']));
+        $actividad->setFecha(date_create_from_format('m/d/Y', $params['fecha']));
+        $actividad->setHora(date_create_from_format('H:i', $params['hora']));
         $actividad->setLugar($params['lugar']);
         $actividad->setPrecio(intval($params['precio']));
         $actividad->setPax(intval($params['pax']));
-        try{
+        try {
             $actividad->setTipoActividad($em->getRepository('NomencladorBundle:TipoActividad')->find(intval($params['tipo'])));
             $actividad->setReservacion($em->getRepository('BookingBundle:Reservacion')->find(intval($params['booking'])));
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             $this->get('logger')->addCritical($e->getMessage());
-            return new JsonResponse(array('Asociaciones no accesibles'),HttpCode::HTTP_SERVER_UNAVAILABLE);
+            return new JsonResponse(array('Asociaciones no accesibles'), HttpCode::HTTP_SERVER_UNAVAILABLE);
         }
 
         $validator = $this->get('validator');
         $errors = $validator->validate($actividad);
 
         if (count($errors)>0) {
-
             $string = "";
-            foreach($errors as $e){
+            foreach ($errors as $e) {
                 $string.=$e;
             }
             $this->get('logger')->addCritical($string);
-            return new JsonResponse(array('Existen datos Inválidos'),HttpCode::HTTP_WRONG_REQUEST);
+            return new JsonResponse(array('Existen datos Inválidos'), HttpCode::HTTP_WRONG_REQUEST);
         } else {
-            try{
-
+            try {
                 $em->persist($actividad);
                 $em->flush();
-                return new JsonResponse(array(),200);
-
-            }catch (\Exception $e){
+                return new JsonResponse(array(), 200);
+            } catch (\Exception $e) {
                 $this->get('logger')->addCritical($e->getMessage());
-                return new JsonResponse(array('Ha ocurrido un error en el procesamiento de los datos'),HttpCode::HTTP_SERVER_ERROR);
+                return new JsonResponse(array('Ha ocurrido un error en el procesamiento de los datos'), HttpCode::HTTP_SERVER_ERROR);
             }
         }
     }
@@ -389,15 +371,13 @@ class ReservacionController extends Controller
      * Devuelve el formulario personalizado
      * @param Request $request
      */
-    public function serveActivityFormAction(Request $request){
-
-      return  new JsonResponse(
+    public function serveActivityFormAction(Request $request)
+    {
+        return  new JsonResponse(
             array(
                 'form' => $this->renderView('BookingBundle:Reservacion:activity.html.twig',
                     array(
                         'booking'=> $request->get('id'),
                     ))), 200);
-
     }
-
-} 
+}

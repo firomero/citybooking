@@ -10,15 +10,15 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ActividadType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add($builder->create('fecha','text')->addViewTransformer(new DateTransformer()))
-            ->add($builder->create('hora','text')->addViewTransformer(new TimeTransformer()))
+            ->add($builder->create('fecha', 'text')->addViewTransformer(new DateTransformer()))
+            ->add($builder->create('hora', 'text')->addViewTransformer(new TimeTransformer()))
             ->add('lugar')
             ->add('coordinacion')
             ->add('pax')

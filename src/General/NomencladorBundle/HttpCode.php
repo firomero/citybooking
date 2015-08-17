@@ -8,9 +8,8 @@
 
 namespace General\NomencladorBundle;
 
-
-class HttpCode {
-
+class HttpCode
+{
     //2XX SUCCESSFUL OPERATIONS
     const HTTP_OK = 200;
     const HTTP_UNOFFICIAL = 201;
@@ -46,5 +45,4 @@ class HttpCode {
     const HTTP_SERVER_UNAVAILABLE = 503;
     const HTTP_GATEWAY_TIMEOUT = 504;
     const HTTP_UNSUPPORTED_VERSION = 505;
-
-} 
+}

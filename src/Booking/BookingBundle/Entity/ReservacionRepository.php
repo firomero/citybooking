@@ -94,7 +94,6 @@ class ReservacionRepository extends EntityRepository
         }
 
         return $dataExport;
-
     }
 
     /**
@@ -124,8 +123,11 @@ class ReservacionRepository extends EntityRepository
                     $aLike[] = $cb->expr()->like('a.' . $this->columns[$i], '\'%' . $get['sSearch'] . '%\'');
                 }
             }
-            if (count($aLike) > 0) $cb->andWhere(new Orx($aLike));
-            else unset($aLike);
+            if (count($aLike) > 0) {
+                $cb->andWhere(new Orx($aLike));
+            } else {
+                unset($aLike);
+            }
         }
 
         /*
@@ -145,6 +147,5 @@ class ReservacionRepository extends EntityRepository
     {
         $entity->setEstado(Reservacion::CANCELADA);
         $entity->setPrecio(0);
-
     }
 }

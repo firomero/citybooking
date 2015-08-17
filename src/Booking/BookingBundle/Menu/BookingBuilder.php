@@ -8,12 +8,11 @@
 
 namespace Booking\BookingBundle\Menu;
 
-
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Knp\Menu\FactoryInterface;
 
-class BookingBuilder extends ContainerAware{
-
+class BookingBuilder extends ContainerAware
+{
     public function mainMenu(FactoryInterface $factory, array $options)
     {
         $menu = $factory->createItem('root');
@@ -22,7 +21,7 @@ class BookingBuilder extends ContainerAware{
 
         $menu->setCurrentUri($this->container->get('request')->getRequestUri());
 
-        $menu->addChild('Administración', array('route' => 'homepage'))->setAttribute('icon','icon-table');
+        $menu->addChild('Administración', array('route' => 'homepage'))->setAttribute('icon', 'icon-table');
 
         $menu->addChild('Gestión de Casas', array(
             'route' => 'casa',
@@ -73,9 +72,9 @@ class BookingBuilder extends ContainerAware{
             'route' => 'tipohab',
         ))->setAttribute('icon', 'icon-star');
 
-        $menu->addChild('Reportes',array(
+        $menu->addChild('Reportes', array(
             'linkAttributes' => array('class'=>'dropdown')
-        ))->setLinkAttribute('class','dropdown');
+        ))->setLinkAttribute('class', 'dropdown');
 
         $menu['Reportes']->addChild('Reportes de Facturas para Tour', array(
             'route' => 'report_facturasTour_view',
@@ -92,4 +91,4 @@ class BookingBuilder extends ContainerAware{
 
         return $menu;
     }
-} 
+}

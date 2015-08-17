@@ -123,15 +123,18 @@ class Casa
         $this->habitaciones = $habitaciones;
     }
 
-    public function  __construct(){
+    public function __construct()
+    {
         $this->habitaciones = new ArrayCollection();
     }
 
-    public function addHabitacion(Habitacion $habitacion){
+    public function addHabitacion(Habitacion $habitacion)
+    {
         $this->habitaciones->add($habitacion);
     }
 
-    public function removeHabitacion(Habitacion $habitacion){
+    public function removeHabitacion(Habitacion $habitacion)
+    {
         $this->habitaciones->remove($habitacion->getId());
     }
 
@@ -140,7 +143,7 @@ class Casa
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -163,7 +166,7 @@ class Casa
     /**
      * Get direccion
      *
-     * @return string 
+     * @return string
      */
     public function getDireccion()
     {
@@ -186,7 +189,7 @@ class Casa
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -209,7 +212,7 @@ class Casa
     /**
      * Get telefono
      *
-     * @return integer 
+     * @return integer
      */
     public function getTelefono()
     {
@@ -232,7 +235,7 @@ class Casa
     /**
      * Get categoria
      *
-     * @return string 
+     * @return string
      */
     public function getCategoria()
     {
@@ -255,7 +258,7 @@ class Casa
     /**
      * Get cantidadHab
      *
-     * @return integer 
+     * @return integer
      */
     public function getCantidadHab()
     {
@@ -278,7 +281,7 @@ class Casa
     /**
      * Get clima
      *
-     * @return string 
+     * @return string
      */
     public function getClima()
     {
@@ -301,7 +304,7 @@ class Casa
     /**
      * Get banno
      *
-     * @return string 
+     * @return string
      */
     public function getBanno()
     {
@@ -324,7 +327,7 @@ class Casa
     /**
      * Get disponible
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getDisponible()
     {
@@ -347,7 +350,7 @@ class Casa
     /**
      * Get observacion
      *
-     * @return string 
+     * @return string
      */
     public function getObservacion()
     {
@@ -370,7 +373,7 @@ class Casa
     /**
      * Get propietario
      *
-     * @return \Booking\BookingBundle\Entity\Propietario 
+     * @return \Booking\BookingBundle\Entity\Propietario
      */
     public function getPropietario()
     {
@@ -379,7 +382,7 @@ class Casa
 
     public function toArray()
     {
-//        $columns = array('nombre','direccion','telefono','categoria','cantidadHab','clima','banno','disponible','observacion');
+        //        $columns = array('nombre','direccion','telefono','categoria','cantidadHab','clima','banno','disponible','observacion');
         return array(
 
             $this->id,
@@ -396,11 +399,13 @@ class Casa
         return $this->getNombre();
     }
 
-    public function Increment(){
+    public function Increment()
+    {
         $this->cantidadHab++;
     }
 
-    public function Decrement(){
+    public function Decrement()
+    {
         $this->cantidadHab--;
     }
 }

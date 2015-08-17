@@ -3,7 +3,6 @@
 
 namespace Booking\BookingBundle\Manager;
 
-
 use Booking\BookingBundle\Entity\BookedHab;
 use Booking\BookingBundle\Entity\Casa;
 use Booking\BookingBundle\Entity\Habitacion;
@@ -16,7 +15,6 @@ use Proxies\__CG__\General\NomencladorBundle\Entity\TipoActividad;
 
 class ReservacionManager
 {
-
     protected $_em;
     protected $map = array(
         array('unit' => 25, 'breakfast' => 4),
@@ -112,9 +110,8 @@ class ReservacionManager
 //todo en esta parte llamar a las habitaciones disponibles según las fechas disponibles en el servidor, esta parte sería en la llamada de las casas que en la fecha solicitada ya están reservadas
 
         $free= $this->filtrarCasa($casas, $habitaciones);
-        $booked = $this->FreeBookedRoom($checkin,$checkout,$habitaciones);
-        return array_unique_callback(array_merge($free,$booked),function($h){return $h[1];});
-
+        $booked = $this->FreeBookedRoom($checkin, $checkout, $habitaciones);
+        return array_unique_callback(array_merge($free, $booked), function ($h) {return $h[1];});
     }
 
     /**
@@ -139,7 +136,7 @@ class ReservacionManager
              * cantidad de habitaciones de la casa es igual o mayor que la cantidad solicitada.
              * */
             foreach ($casas as $casa) {
-//                $casaHabs = $em->getRepository('BookingBundle:Habitacion')->findByCasa($casa);
+                //                $casaHabs = $em->getRepository('BookingBundle:Habitacion')->findByCasa($casa);
                 /**
                  * @var Casa $casa
                  */
@@ -151,8 +148,7 @@ class ReservacionManager
 
                         /** @var Habitacion $value */
                         return $value->getTipo();
-                    }
-                    , $casaHabs);
+                    }, $casaHabs);
 
                 /**
                  * Ordeno las habitaciones solicitadas por el tipo, de mayor a menor teniendo en cuenta el Peso.
@@ -189,7 +185,6 @@ class ReservacionManager
 
 
         }
-
     }
 
     /**
@@ -200,8 +195,6 @@ class ReservacionManager
      */
     protected function sortBy(&$array, $direction = 'asc')
     {
-
-
         usort($array, function ($a, $b) use ($direction) {
 
             /**
@@ -242,14 +235,13 @@ class ReservacionManager
      */
     public function save(Reservacion $reservacion)
     {
-
         $em = $this->_em;
         $rhabs = $reservacion->getTipoHab()->toArray();
 
         $chabs = $reservacion->getCasa()->getHabitaciones()->toArray();
 
-        $chabs = array_filter($chabs,function($hb)use($reservacion){
-            if (!$this->isBooked($hb,$reservacion->getCheckin(),$reservacion->getCheckout())) {
+        $chabs = array_filter($chabs, function ($hb) use ($reservacion) {
+            if (!$this->isBooked($hb, $reservacion->getCheckin(), $reservacion->getCheckout())) {
                 return $hb;
             }
         });
@@ -264,24 +256,22 @@ class ReservacionManager
         $this->sortBy($rhabs);
         $this->sortHabs($chabs);
 
-        while(count($chabs)>0&&count($rhabs)>0){
-
+        while (count($chabs)>0&&count($rhabs)>0) {
             $book = new BookedHab();
             $rt = array_shift($rhabs);
             $cht = current($chabs);
-            $index = count($chabs)<=1?0: binary_search_uncentered_callable($chabs,0,count($chabs),$rt,
-                function($object){
+            $index = count($chabs)<=1?0: binary_search_uncentered_callable($chabs, 0, count($chabs), $rt,
+                function ($object) {
                     if ($object instanceof TipoHab) {
                         return $object->getPeso();
-                    }
-                    else
+                    } else {
                         return $object->getTipo()->getPeso();
+                    }
                 });
             if ($index!=-1) {
                 $cht = $chabs[$index];
                 unset($chabs[$index]);
-            }
-            else{
+            } else {
                 array_shift($chabs);
             }
             $book->setHab($cht);
@@ -293,13 +283,11 @@ class ReservacionManager
         $em->persist($reservacion);
 
         try {
-
             $em->flush();
             $em->commit();
         } catch (\Exception $e) {
             $em->rollback();
             throw $e;
-
         }
         return true;
     }
@@ -310,19 +298,20 @@ class ReservacionManager
      * @param \DateTime $checkout
      * @return bool
      */
-    protected function isBooked(Habitacion $hb, \DateTime $checkin,\DateTime $checkout){
+    protected function isBooked(Habitacion $hb, \DateTime $checkin, \DateTime $checkout)
+    {
         $em = $this->_em;
         $booked = $em->createQueryBuilder('bk');
-       $dash= $booked->select('bk')
-            ->from('BookingBundle:BookedHab','bk')
+        $dash= $booked->select('bk')
+            ->from('BookingBundle:BookedHab', 'bk')
             ->where('bk.hab=:hb')
-            ->setParameter('hb',$hb)
+            ->setParameter('hb', $hb)
             ->getQuery()->getResult()
             ;
 
 
 
-        $o = array_filter($dash,function($b)use($checkin,$checkout){
+        $o = array_filter($dash, function ($b) use ($checkin,$checkout) {
             /**
              * @var BookedHab $b
              */
@@ -356,8 +345,7 @@ class ReservacionManager
 
                 /** @var Habitacion $value */
                 return $value->getTipo();
-            }
-            , $casaHabs));
+            }, $casaHabs));
 
         $habitaciones = $entity->getTipoHab()->toArray();
         $map = $this->map;
@@ -378,7 +366,6 @@ class ReservacionManager
 
 
         $entity->setPrecio($total);
-
     }
 
     /**
@@ -402,7 +389,6 @@ class ReservacionManager
         });
 
         return true;
-
     }
 
     /**
@@ -430,7 +416,6 @@ class ReservacionManager
      */
     protected function availableBookedHab(\DateTime $checkin, \DateTime $checkout, array $habitaciones)
     {
-
         $this->sortBy($habitaciones, 'desc');
         /**
          * @var EntityManager $em
@@ -542,8 +527,6 @@ class ReservacionManager
         return array_map(function ($item) {
             return $item['casa']->toArray();
         }, $c);
-
-
     }
 
     /**
@@ -553,7 +536,8 @@ class ReservacionManager
      * @param array $habitaciones
      * @return array
      */
-    public function FreeBookedRoom(\DateTime $checkin, \DateTime $checkout, array $habitaciones){
+    public function FreeBookedRoom(\DateTime $checkin, \DateTime $checkout, array $habitaciones)
+    {
         /**
          * @var EntityManager $em
          */
@@ -604,25 +588,25 @@ class ReservacionManager
             ->getResult();
 
         $casas = array_map(
-            function($r){
+            function ($r) {
                 /**@var Reservacion $r*/ return $r->getCasa();
             },
             array_unique_callback(
                 array_merge($reservadas, $reservada1, $reservada2),
-                function($val){
+                function ($val) {
                     /**@var Reservacion $val*/return $val->__toString();
                 }
             )
         );
 
         $this->sortBy($habitaciones, 'desc');
-        $casas = array_filter($casas,function($casa)use($habitaciones, $checkin,$checkout,$em){
+        $casas = array_filter($casas, function ($casa) use ($habitaciones, $checkin, $checkout,$em) {
             /**
              * @var Casa $casa
              */
-            $hbs = array_merge($em->getRepository('BookingBundle:Casa')->LockedDayHabs($checkin,$casa),$em->getRepository('BookingBundle:Casa')->LockedDayHabs($checkout,$casa));
+            $hbs = array_merge($em->getRepository('BookingBundle:Casa')->LockedDayHabs($checkin, $casa), $em->getRepository('BookingBundle:Casa')->LockedDayHabs($checkout, $casa));
             $hbs = array_unique_callback($hbs,
-                function($hb){return $hb->getId();}
+                function ($hb) {return $hb->getId();}
             );
 
 
@@ -639,8 +623,8 @@ class ReservacionManager
                 }
             });
 
-            $types = array_map(function($hb){return $hb->getTipo();},$diff);
-            $this->sortBy($types,'desc');
+            $types = array_map(function ($hb) {return $hb->getTipo();}, $diff);
+            $this->sortBy($types, 'desc');
 
             if (count($types)>=count($habitaciones)) {
                 $counter = 0;
@@ -665,7 +649,7 @@ class ReservacionManager
 
         });
 
-        return array_map(function($casa){ return $casa->toArray();},$casas);
+        return array_map(function ($casa) { return $casa->toArray();}, $casas);
     }
 
     /**

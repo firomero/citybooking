@@ -8,15 +8,14 @@
 
 namespace Booking\BookingBundle\Form;
 
-
 use Booking\BookingBundle\DataTransformers\AgenciaTransformer;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class AgenciaSelectorType extends AbstractType{
-
+class AgenciaSelectorType extends AbstractType
+{
     protected $em;
 
     public function __construct(EntityManager $om)
@@ -37,7 +36,8 @@ class AgenciaSelectorType extends AbstractType{
         ));
     }
 
-    public function getParent(){
+    public function getParent()
+    {
         return 'text';
     }
     /**

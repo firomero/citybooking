@@ -8,7 +8,6 @@
 
 namespace Booking\BookingBundle\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
@@ -19,8 +18,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Booking\BookingBundle\Entity\BookedHabRepository")
  */
-class BookedHab {
-
+class BookedHab
+{
     /**
      * @var integer
      *
@@ -110,7 +109,8 @@ class BookedHab {
      */
     protected $checkout;
 
-    public function __toString(){
+    public function __toString()
+    {
         return 'booked: '.$this->checkin->format('Y-m-d').'to: '.$this->checkout->format('Y-m-d');
     }
 
@@ -118,9 +118,8 @@ class BookedHab {
      * @Assert\True(message="Debe introducir un rango válido ")
      * @return bool
      */
-    public function isValidRange(){
-
+    public function isValidRange()
+    {
         return $this->checkout > $this->checkin;
     }
-
-} 
+}

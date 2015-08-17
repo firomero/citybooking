@@ -8,13 +8,11 @@
 
 namespace Booking\BookingBundle\Entity;
 
-
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Orx;
 
 class PropietarioRepository extends EntityRepository
 {
-
     protected $columns = array('id', 'nombre', 'ci');
 
     public function queryEntity($options = array())
@@ -60,7 +58,6 @@ class PropietarioRepository extends EntityRepository
         }
 
         return $dataExport;
-
     }
 
     public function getFilteredCount(array $get)
@@ -102,4 +99,4 @@ class PropietarioRepository extends EntityRepository
 
         return $aResultTotal[0][1];
     }
-} 
+}

@@ -3,12 +3,13 @@
 
 namespace Booking\BookingBundle\Tests\Managers;
 
-class ReservacionManagerTest extends \PHPUnit_Framework_TestCase {
-
+class ReservacionManagerTest extends \PHPUnit_Framework_TestCase
+{
     /**
      *
      */
-    public function testCasa(){
+    public function testCasa()
+    {
         $casa = [
             4,3,2,1,
 
@@ -18,25 +19,24 @@ class ReservacionManagerTest extends \PHPUnit_Framework_TestCase {
             2,2
         ];
 
-        $this->assertGreaterThanOrEqual(count($quest),count($casa),'Wont run');
+        $this->assertGreaterThanOrEqual(count($quest), count($casa), 'Wont run');
 
 
         if (count($casa)>=count($quest)) {
-
-            $result = array_filter($quest, function($value)use($casa){
-                return current(array_filter($casa,function($valor)use($value){
+            $result = array_filter($quest, function ($value) use ($casa) {
+                return current(array_filter($casa, function ($valor) use ($value) {
                     if ($value<=$valor) {
                         return $valor;
                     }
                 }));
             });
 
-            $this->assertGreaterThanOrEqual(count($quest),count($result),"Dont match");
+            $this->assertGreaterThanOrEqual(count($quest), count($result), "Dont match");
         }
     }
 
-    public function testdoubleRoom(){
-
+    public function testdoubleRoom()
+    {
         $casa = [
             4,3,2,1
 
@@ -53,20 +53,19 @@ class ReservacionManagerTest extends \PHPUnit_Framework_TestCase {
 
         $dc = [2];
 
-        $this->assertGreaterThanOrEqual(count($quest),count($casa),'Wont run');
+        $this->assertGreaterThanOrEqual(count($quest), count($casa), 'Wont run');
 
 
 
         if (count($casa)>=count($quest)) {
-
             foreach ($quest as $pos=> $only) {
-                $el = current(array_filter($check,function($value)use($only){
+                $el = current(array_filter($check, function ($value) use ($only) {
                     if ($value>=$only) {
                         return $value;
                     }
                 }));
 
-                unset($check[array_search($el,$check)]);
+                unset($check[array_search($el, $check)]);
             }
 
 
@@ -75,14 +74,12 @@ class ReservacionManagerTest extends \PHPUnit_Framework_TestCase {
             $subs = count($casa)-count($quest);
 
 
-            $this->assertEquals($result ,$subs,'oops');
-
-
+            $this->assertEquals($result, $subs, 'oops');
         }
-
     }
 
-    public function testSort(){
+    public function testSort()
+    {
         $casa = [
             4,3,2,1
 
@@ -112,11 +109,12 @@ class ReservacionManagerTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue(true);
     }
 
-    public function testSortedSort(){
+    public function testSortedSort()
+    {
         $a = [5,1,8,34,9,34,56,1,5,0];
-        $this->sortBy($a,'desc');
+        $this->sortBy($a, 'desc');
         var_dump(print_r($a));
-        $this->assertGreaterThan($a[0],$a[count($a)-1],"Not greater");
+        $this->assertGreaterThan($a[0], $a[count($a)-1], "Not greater");
     }
 
     /**
@@ -151,11 +149,9 @@ class ReservacionManagerTest extends \PHPUnit_Framework_TestCase {
      * @param string $direction
      * @return bool
      */
-    function sortBy(&$array, $direction = 'asc')
+    public function sortBy(&$array, $direction = 'asc')
     {
-
-
-        usort($array,function($a,$b)use($direction){
+        usort($array, function ($a, $b) use ($direction) {
 
             if ($a==$b) {
                 return 0;
@@ -167,13 +163,10 @@ class ReservacionManagerTest extends \PHPUnit_Framework_TestCase {
         return true;
     }
 
-    public function testConfirmed(){
+    public function testConfirmed()
+    {
         $today = new \DateTime('now');
         $confirmed = date('2015-08-03');
-        $this->assertGreaterThanOrEqual($confirmed,$today);
+        $this->assertGreaterThanOrEqual($confirmed, $today);
     }
-
 }
-
-
- 

@@ -27,19 +27,18 @@ class CasaRepository extends EntityRepository
             ->distinct(true)
             ->select('a');
 
-        if (array_key_exists('sSearch',$options)) {
+        if (array_key_exists('sSearch', $options)) {
             if ($options['sSearch'] != '') {
                 $qb->andWhere(new Orx(
 
                 /**
                  * @return array
                  */
-                   call_user_func( function() use ($columns,$qb,$options){
+                   call_user_func(function () use ($columns, $qb, $options) {
 
                        $aLike = array();
 
                        foreach ($columns as $col) {
-
                            $aLike[] = $qb->expr()->like('a.'.$col, '\'%' . $options['sSearch'] . '%\'');
                        }
 
@@ -50,13 +49,13 @@ class CasaRepository extends EntityRepository
             }
         }
 
-        if ( isset( $options['iDisplayStart'] ) && $options['iDisplayLength'] != '-1' ){
-            $qb->setFirstResult( (int)$options['iDisplayStart'] )
-                ->setMaxResults( (int)$options['iDisplayLength'] );
+        if (isset($options['iDisplayStart']) && $options['iDisplayLength'] != '-1') {
+            $qb->setFirstResult((int)$options['iDisplayStart'])
+                ->setMaxResults((int)$options['iDisplayLength']);
         }
 
 
-        if (array_key_exists('iDisplayLength',$options)) {
+        if (array_key_exists('iDisplayLength', $options)) {
             if ($options['iDisplayLength']!='') {
                 $qb->setMaxResults($options['iDisplayLength']);
             }
@@ -80,7 +79,6 @@ class CasaRepository extends EntityRepository
 
 
         return $dataExport;
-
     }
 
     public function getFilteredCount(array $get)
@@ -99,15 +97,18 @@ class CasaRepository extends EntityRepository
         * word by word on any field. It's possible to do here, but concerned about efficiency
         * on very large tables, and MySQL's regex functionality is very limited
         */
-        if ( isset($get['sSearch']) && $get['sSearch'] != '' ){
+        if (isset($get['sSearch']) && $get['sSearch'] != '') {
             $aLike = array();
-            for ( $i=0 ; $i<count($this->columns) ; $i++ ){
-                if ( isset($get['bSearchable_'.$i]) && $get['bSearchable_'.$i] == "true" ){
+            for ($i=0 ; $i<count($this->columns) ; $i++) {
+                if (isset($get['bSearchable_'.$i]) && $get['bSearchable_'.$i] == "true") {
                     $aLike[] = $cb->expr()->like('a.'.$this->columns[$i], '\'%'. $get['sSearch'] .'%\'');
                 }
             }
-            if(count($aLike) > 0) $cb->andWhere(new Orx($aLike));
-            else unset($aLike);
+            if (count($aLike) > 0) {
+                $cb->andWhere(new Orx($aLike));
+            } else {
+                unset($aLike);
+            }
         }
 
         /*
@@ -124,7 +125,8 @@ class CasaRepository extends EntityRepository
      * @param Casa $casa
      * @return bool
      */
-    public function isAvailable(Casa $casa){
+    public function isAvailable(Casa $casa)
+    {
         $today = new  \DateTime();
         /**
          * @var EntityManager $em
@@ -143,7 +145,7 @@ class CasaRepository extends EntityRepository
             ->getQuery()
             ->getResult();
 
-        $is = array_filter($reservadas,function($value)use($casa){
+        $is = array_filter($reservadas, function ($value) use ($casa) {
             /**
              * @var Reservacion $value
              */
@@ -161,15 +163,16 @@ class CasaRepository extends EntityRepository
      * @param Casa $casa
      * @return array
      */
-    public function LockedRangeHabs(\DateTime $checkin, \DateTime $checkout, Casa $casa){
+    public function LockedRangeHabs(\DateTime $checkin, \DateTime $checkout, Casa $casa)
+    {
         /**
          * @var EntityManager $em
          */
         $em = $this->_em;
         $qb = $em->createQueryBuilder('hb');
         $qb->select('hb')
-            ->from('BookingBundle:Habitacion','hb')
-            ->innerJoin('hb.casa','casa')
+            ->from('BookingBundle:Habitacion', 'hb')
+            ->innerJoin('hb.casa', 'casa')
             ->where('hb.checkin<=:checkin')
             ->andWhere('hb.checkout>=:checkout')
             ->andWhere('casa.id=:casa')
@@ -184,8 +187,8 @@ class CasaRepository extends EntityRepository
 
         $qb2 = $em->createQueryBuilder('hb');
         $qb2->select('hb')
-            ->from('BookingBundle:Habitacion','hb')
-            ->innerJoin('hb.casa','casa')
+            ->from('BookingBundle:Habitacion', 'hb')
+            ->innerJoin('hb.casa', 'casa')
             ->where('r.checkin <= :checkin')
             ->andWhere('r.checkout>= :checkin')
             ->andWhere('r.checkin<= :checkout')
@@ -201,8 +204,8 @@ class CasaRepository extends EntityRepository
 
         $qb3 = $em->createQueryBuilder('hb');
         $qb3->select('hb')
-            ->from('BookingBundle:Habitacion','hb')
-            ->innerJoin('hb.casa','casa')
+            ->from('BookingBundle:Habitacion', 'hb')
+            ->innerJoin('hb.casa', 'casa')
             ->where('r.checkin >= :checkin')
             ->andWhere('r.checkout>= :checkout')
             ->andWhere('r.checkin<= :checkout')
@@ -217,8 +220,8 @@ class CasaRepository extends EntityRepository
         ;
 
         $output = array_unique_callback(
-            array_merge($qb->getQuery()->getResult(),$qb2->getQuery()->getResult(),$qb3->getQuery()->getResult()),
-            function($hb){
+            array_merge($qb->getQuery()->getResult(), $qb2->getQuery()->getResult(), $qb3->getQuery()->getResult()),
+            function ($hb) {
 
                 /**
                  * @var Habitacion $hb
@@ -238,16 +241,17 @@ class CasaRepository extends EntityRepository
      * @param Casa $casa
      * @return array
      */
-    public function LockedDayHabs(\DateTime $day, Casa $casa){
+    public function LockedDayHabs(\DateTime $day, Casa $casa)
+    {
         /**
          * @var EntityManager $em
          */
         $em = $this->_em;
         $qb = $em->createQueryBuilder('hb');
         $qb->select('hb')
-            ->from('BookingBundle:Habitacion','hb')
-            ->innerJoin('hb.casa','casa')
-            ->innerJoin('hb.books','books','WITH','hb.id=books.hab')
+            ->from('BookingBundle:Habitacion', 'hb')
+            ->innerJoin('hb.casa', 'casa')
+            ->innerJoin('hb.books', 'books', 'WITH', 'hb.id=books.hab')
             ->where('books.checkin<=:checkin')
             ->andWhere('books.checkout>=:checkout')
             ->andWhere('casa.id=:casa')

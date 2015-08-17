@@ -15,7 +15,6 @@ use General\NomencladorBundle\Form\TipoActividadType;
  */
 class TipoActividadController extends Controller
 {
-
     /**
      * Lists all TipoActividad entities.
      *
@@ -231,7 +230,6 @@ class TipoActividadController extends Controller
     {
         $options = $request->query->all();
         try {
-
             $tipoactividad = $this->getDoctrine()->getRepository('NomencladorBundle:TipoActividad')->queryEntity($options);
             $total = count($this->getDoctrine()->getRepository('NomencladorBundle:TipoActividad')->findAll());
 
@@ -244,7 +242,6 @@ class TipoActividadController extends Controller
 
             if (isset($options['iDisplayStart']) && $options['iDisplayLength'] != '-1') {
                 $iLimit = abs($options['iDisplayLength'] - $options['iDisplayStart']);
-
             }
 
             return new Response(json_encode(array(
@@ -254,11 +251,8 @@ class TipoActividadController extends Controller
                 'aaData' => $tipoactividad
 
             )), 200);
-        }
-
-        catch(\Exception $e)
-        {
-            return new Response(json_encode(array('message'=> $e->getMessage())),500);
+        } catch (\Exception $e) {
+            return new Response(json_encode(array('message'=> $e->getMessage())), 500);
         }
     }
 
@@ -271,17 +265,15 @@ class TipoActividadController extends Controller
 
         $errors = $validator->validate($tipoactividad);
         if (count($errors)>0) {
-            return new Response(json_encode(array('message'=>$errors->__toString())),400);
+            return new Response(json_encode(array('message'=>$errors->__toString())), 400);
         }
-        try{
+        try {
             $em = $this->get('doctrine')->getManager();
             $em->persist($tipoactividad);
             $em->flush();
-            return new Response(json_encode(array()),200);
-        }
-        catch(\Exception $e)
-        {
-            return new Response(json_encode(array('message'=>$e->getMessage())),500);
+            return new Response(json_encode(array()), 200);
+        } catch (\Exception $e) {
+            return new Response(json_encode(array('message'=>$e->getMessage())), 500);
         }
     }
 
@@ -293,7 +285,7 @@ class TipoActividadController extends Controller
         $tipoactividad = $em->getRepository('NomencladorBundle:TipoActividad')->find($id);
 
         if ($tipoactividad==null) {
-            return new Response(json_encode(array()),404);
+            return new Response(json_encode(array()), 404);
         }
 
         $tipoactividad->setNombre($name);
@@ -302,39 +294,32 @@ class TipoActividadController extends Controller
 
         $errors = $validator->validate($tipoactividad);
         if (count($errors)>0) {
-            return new Response(json_encode(array('message'=>$errors->__toString())),400);
+            return new Response(json_encode(array('message'=>$errors->__toString())), 400);
         }
-        try{
+        try {
             $em->persist($tipoactividad);
             $em->flush();
-            return new Response(json_encode(array()),200);
-        }
-        catch(\Exception $e)
-        {
-            return new Response(json_encode(array('message'=>$e->getMessage())),500);
+            return new Response(json_encode(array()), 200);
+        } catch (\Exception $e) {
+            return new Response(json_encode(array('message'=>$e->getMessage())), 500);
         }
     }
 
     public function eliminarAction(Request $request)
     {
-
         $id = $request->get('id');
         $em = $this->get('doctrine')->getManager();
         $tipoactividad = $em->getRepository('NomencladorBundle:TipoActividad')->find($id);
 
         if ($tipoactividad==null) {
-            return new Response(json_encode(array()),404);
+            return new Response(json_encode(array()), 404);
         }
-        try{
-
-
+        try {
             $em->remove($tipoactividad);
             $em->flush();
-            return new Response(json_encode(array()),204);
-        }
-        catch(\Exception $e)
-        {
-            return new Response(json_encode(array('message'=>$e->getMessage())),500);
+            return new Response(json_encode(array()), 204);
+        } catch (\Exception $e) {
+            return new Response(json_encode(array('message'=>$e->getMessage())), 500);
         }
     }
 }

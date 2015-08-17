@@ -37,7 +37,7 @@ class TipoActividad
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -60,15 +60,15 @@ class TipoActividad
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
         return $this->nombre;
     }
 
-    public function __toString(){
-
+    public function __toString()
+    {
         return $this->getNombre();
     }
 

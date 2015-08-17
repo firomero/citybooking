@@ -113,7 +113,7 @@ class Actividad
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -136,7 +136,7 @@ class Actividad
     /**
      * Get fecha
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFecha()
     {
@@ -159,7 +159,7 @@ class Actividad
     /**
      * Get guia
      *
-     * @return string 
+     * @return string
      */
     public function getLugar()
     {
@@ -182,7 +182,7 @@ class Actividad
     /**
      * Get total
      *
-     * @return float 
+     * @return float
      */
     public function getCoordinacion()
     {
@@ -205,7 +205,7 @@ class Actividad
     /**
      * Get pax
      *
-     * @return integer 
+     * @return integer
      */
     public function getPax()
     {
@@ -228,7 +228,7 @@ class Actividad
     /**
      * Get precioguia
      *
-     * @return float 
+     * @return float
      */
     public function getPrecio()
     {
@@ -274,14 +274,15 @@ class Actividad
     /**
      * Get reservacion
      *
-     * @return \Booking\BookingBundle\Entity\Reservacion 
+     * @return \Booking\BookingBundle\Entity\Reservacion
      */
     public function getReservacion()
     {
         return $this->reservacion;
     }
 
-    public function toArray(){
+    public function toArray()
+    {
         return array(
             $this->id,
             $this->tipoActividad->getNombre(),
@@ -296,11 +297,13 @@ class Actividad
      * Total Ampunt of Activity
      * @return float
      */
-    public function getTotal(){
+    public function getTotal()
+    {
         return $this->precio + $this->coordinacion;
     }
 
-    public function __toString(){
+    public function __toString()
+    {
         return $this->getTipoActividad()->getNombre();
     }
 
@@ -308,7 +311,8 @@ class Actividad
      * @Assert\True(message="Debe introducir una fecha válida ")
      * @return bool
      */
-    public function isValidConfirm(){
+    public function isValidConfirm()
+    {
         $today = new \DateTime();
         return $this->fecha>= $today;
     }

@@ -26,5 +26,3 @@ BookingBundle_propietario:
 BookingBundle_actividad:
         resource: "@BookingBundle/Resources/config/routing/actividad.yml"
         prefix:   /actividad
-
-

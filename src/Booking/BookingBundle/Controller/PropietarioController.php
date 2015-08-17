@@ -15,7 +15,6 @@ use Booking\BookingBundle\Form\PropietarioType;
  */
 class PropietarioController extends Controller
 {
-
     /**
      * Lists all Propietario entities.
      *
@@ -237,7 +236,6 @@ class PropietarioController extends Controller
     {
         $options = $request->query->all();
         try {
-
             $propietarios = $this->getDoctrine()->getRepository('BookingBundle:Propietario')->queryEntity($options);
             $total = count($this->getDoctrine()->getRepository('BookingBundle:Propietario')->findAll());
 
@@ -250,7 +248,6 @@ class PropietarioController extends Controller
 
             if (isset($options['iDisplayStart']) && $options['iDisplayLength'] != '-1') {
                 $iLimit = abs($options['iDisplayLength'] - $options['iDisplayStart']);
-
             }
 
 
@@ -270,8 +267,6 @@ class PropietarioController extends Controller
         } catch (\Exception $e) {
             return new Response(json_encode(array('message' => $e->getMessage())), 500);
         }
-
-
     }
 
     /**
@@ -293,7 +288,6 @@ class PropietarioController extends Controller
             return new Response(json_encode(array('message' => $errors->__toString())), 400);
         }
         try {
-
             $em = $this->get('doctrine')->getManager();
             $em->persist($propietario);
             $em->flush();
@@ -331,8 +325,6 @@ class PropietarioController extends Controller
             return new Response(json_encode(array('message' => $errors->__toString())), 400);
         }
         try {
-
-
             $em->persist($propietario);
             $em->flush();
 
@@ -349,7 +341,6 @@ class PropietarioController extends Controller
      */
     public function eliminarAction(Request $request)
     {
-
         $id = $request->get('id');
         $em = $this->get('doctrine')->getManager();
         $propietario = $em->getRepository('BookingBundle:Propietario')->find($id);
@@ -358,8 +349,6 @@ class PropietarioController extends Controller
             return new Response(json_encode(array()), 404);
         }
         try {
-
-
             $em->remove($propietario);
             $em->flush();
 

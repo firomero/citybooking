@@ -8,15 +8,14 @@
 
 namespace Booking\BookingBundle\Form;
 
-
 use Booking\BookingBundle\DataTransformers\ClienteTransformer;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ClienteSelectorType extends AbstractType {
-
+class ClienteSelectorType extends AbstractType
+{
     protected $em;
 
     public function __construct(EntityManager $om)
@@ -31,7 +30,6 @@ class ClienteSelectorType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $transformer = new ClienteTransformer($this->em);
         $builder->addModelTransformer($transformer);
     }
@@ -54,7 +52,8 @@ class ClienteSelectorType extends AbstractType {
         return 'clienteselector_type';
     }
 
-    public function getParent(){
+    public function getParent()
+    {
         return 'text';
     }
 }

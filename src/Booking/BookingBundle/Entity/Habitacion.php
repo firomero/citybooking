@@ -80,15 +80,17 @@ class Habitacion
 
     public function __construct()
     {
-//        $this->reservaciones = new ArrayCollection();
+        //        $this->reservaciones = new ArrayCollection();
         $this->books = new ArrayCollection();
     }
 
-    public function addBook($book){
+    public function addBook($book)
+    {
         $this->books->add($book);
     }
 
-    public function removeBook($book){
+    public function removeBook($book)
+    {
         $this->books->remove($book->getId());
     }
 
@@ -96,7 +98,7 @@ class Habitacion
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -119,7 +121,7 @@ class Habitacion
     /**
      * Get casa
      *
-     * @return \Booking\BookingBundle\Entity\Casa 
+     * @return \Booking\BookingBundle\Entity\Casa
      */
     public function getCasa()
     {
@@ -182,7 +184,8 @@ class Habitacion
 //        return $this->reservaciones;
 //    }
 
-    public function toArray(){
+    public function toArray()
+    {
         return array(
             $this->id,
             $this->casa->getNombre(),

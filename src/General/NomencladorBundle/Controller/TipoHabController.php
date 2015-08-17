@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class TipoHabController extends Controller
 {
-
     /**
      * Lists all TipoHab entities.
      *
@@ -259,7 +258,6 @@ class TipoHabController extends Controller
     {
         $options = $request->query->all();
         try {
-
             $tipohabs = $this->getDoctrine()->getRepository('NomencladorBundle:TipoHab')->queryEntity($options);
             $total = count($this->getDoctrine()->getRepository('NomencladorBundle:TipoHab')->findAll());
 
@@ -272,7 +270,6 @@ class TipoHabController extends Controller
 
             if (isset($options['iDisplayStart']) && $options['iDisplayLength'] != '-1') {
                 $iLimit = abs($options['iDisplayLength'] - $options['iDisplayStart']);
-
             }
 
 
@@ -292,8 +289,6 @@ class TipoHabController extends Controller
         } catch (\Exception $e) {
             return new Response(json_encode(array('message' => $e->getMessage())), 500);
         }
-
-
     }
 
     /**
@@ -315,7 +310,6 @@ class TipoHabController extends Controller
             return new Response(json_encode(array('message' => $errors->__toString())), 400);
         }
         try {
-
             $em = $this->get('doctrine')->getManager();
             $em->persist($tipohab);
             $em->flush();
@@ -353,8 +347,6 @@ class TipoHabController extends Controller
             return new Response(json_encode(array('message' => $errors->__toString())), 400);
         }
         try {
-
-
             $em->persist($tipohab);
             $em->flush();
 
@@ -371,7 +363,6 @@ class TipoHabController extends Controller
      */
     public function eliminarAction(Request $request)
     {
-
         $id = $request->get('id');
         $em = $this->get('doctrine')->getManager();
         $tipohab = $em->getRepository('NomencladorBundle:TipoHab')->find($id);
@@ -380,8 +371,6 @@ class TipoHabController extends Controller
             return new Response(json_encode(array()), 404);
         }
         try {
-
-
             $em->remove($tipohab);
             $em->flush();
 

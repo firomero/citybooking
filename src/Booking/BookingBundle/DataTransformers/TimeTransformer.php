@@ -11,8 +11,8 @@ namespace Booking\BookingBundle\DataTransformers;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-class TimeTransformer implements DataTransformerInterface {
-
+class TimeTransformer implements DataTransformerInterface
+{
     /**
      * Transforms a value from the original representation to a transformed representation.
      *
@@ -79,8 +79,7 @@ class TimeTransformer implements DataTransformerInterface {
             return "";
         }
 
-        if($value instanceof  \DateTime)
-        {
+        if ($value instanceof  \DateTime) {
             return $value;
         }
 

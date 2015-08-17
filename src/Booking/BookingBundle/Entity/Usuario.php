@@ -16,7 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="fos_user")
  */
 
-class Usuario extends BaseUser  {
+class Usuario extends BaseUser
+{
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -34,6 +35,4 @@ class Usuario extends BaseUser  {
     {
         return $this->id;
     }
-
-
-} 
+}

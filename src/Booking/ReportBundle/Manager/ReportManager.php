@@ -8,7 +8,6 @@
 
 namespace Booking\ReportBundle\Manager;
 
-
 use Booking\BookingBundle\Entity\Actividad;
 use Booking\BookingBundle\Entity\Casa;
 use Booking\BookingBundle\Entity\Reservacion;
@@ -17,11 +16,12 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use General\NomencladorBundle\Entity\Agencia;
 
-class ReportManager {
-
+class ReportManager
+{
     protected $em;
 
-    public function __construct(EntityManager $entityManager){
+    public function __construct(EntityManager $entityManager)
+    {
         $this->em = $entityManager;
     }
 
@@ -29,27 +29,25 @@ class ReportManager {
      * @param Casa $casa
      * @return array
      */
-    public function reporteCasa(Casa $casa){
-
+    public function reporteCasa(Casa $casa)
+    {
         $qb = $this->em->createQueryBuilder('r');
 
         /** @var QueryBuilder $qb */
         $reservaciones = $qb->select('r')
-            ->from('BookingBundle:Reservacion','r')
-            ->innerJoin('r.casa','casa')
-            ->where('casa.id=?',':idcasa')
-            ->setParameter('idcasa',$casa->getId())
+            ->from('BookingBundle:Reservacion', 'r')
+            ->innerJoin('r.casa', 'casa')
+            ->where('casa.id=?', ':idcasa')
+            ->setParameter('idcasa', $casa->getId())
             ->getQuery()->getResult();
 
         $dataResult = array();
         /** @var Reservacion $reser */
         foreach ($reservaciones as $reser) {
-
             $dataResult[]=$reser->toArray();
         }
 
         return $dataResult;
-
     }
 
     /**
@@ -57,21 +55,21 @@ class ReportManager {
      * @param Agencia $agencia
      * @return array
      */
-    public function reporteAgencia(Agencia $agencia){
+    public function reporteAgencia(Agencia $agencia)
+    {
         $qb = $this->em->createQueryBuilder('r');
 
         /** @var QueryBuilder $qb */
         $reservaciones = $qb->select('r')
-            ->from('BookingBundle:Reservacion','r')
-            ->innerJoin('r.agencia','agencia')
-            ->where('agencia.id=?',':idagencia')
-            ->setParameter('idagencia',$agencia->getId())
+            ->from('BookingBundle:Reservacion', 'r')
+            ->innerJoin('r.agencia', 'agencia')
+            ->where('agencia.id=?', ':idagencia')
+            ->setParameter('idagencia', $agencia->getId())
             ->getQuery()->getResult();
 
         $dataResult = array();
         /** @var Reservacion $reser */
         foreach ($reservaciones as $reser) {
-
             $dataResult[]=$reser->toArray();
         }
 
@@ -85,21 +83,21 @@ class ReportManager {
      * @internal param Reservacion $agencia
      * @return array
      */
-    public function invoiceActivity(Reservacion $reservacion){
+    public function invoiceActivity(Reservacion $reservacion)
+    {
         $qb = $this->em->createQueryBuilder('a');
 
         /** @var QueryBuilder $qb */
         $actividades = $qb->select('a')
-            ->from('BookingBundle:Actividad','a')
-            ->innerJoin('a.reservacion.','reservacion')
-            ->where('reservacion.id=?',':idreservacion')
-            ->setParameter('idreservacion',$reservacion->getId())
+            ->from('BookingBundle:Actividad', 'a')
+            ->innerJoin('a.reservacion.', 'reservacion')
+            ->where('reservacion.id=?', ':idreservacion')
+            ->setParameter('idreservacion', $reservacion->getId())
             ->getQuery()->getResult();
 
         $dataResult = array();
         /** @var Actividad $actividad */
         foreach ($actividades as $actividad) {
-
             $dataResult[]=$actividad->toArray();
         }
 
@@ -181,7 +179,8 @@ class ReportManager {
      * @param Reservacion $book
      * @return array
      */
-    public function customActivityInvoice(Reservacion $book){
+    public function customActivityInvoice(Reservacion $book)
+    {
         $dataOutput = array(
 
         );
@@ -291,7 +290,6 @@ class ReportManager {
         });
 
         return $data;
-
     }
 
     /**
@@ -332,7 +330,6 @@ class ReportManager {
                 );
 
             }, $queryResult);
-
         }
         $reservadas = array_map(function ($val) {
             /**
@@ -366,8 +363,6 @@ class ReportManager {
                 'nombrecasa' => $val->getNombre(),
             );
         }, $casas);
-
-
     }
 
     /**
@@ -460,6 +455,4 @@ class ReportManager {
 
         return $data;
     }
-
-
-} 
+}

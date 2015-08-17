@@ -8,14 +8,13 @@
 
 namespace Booking\BookingBundle\DataTransformers;
 
-
 use Booking\BookingBundle\Entity\Casa;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-class CasaTransformer implements DataTransformerInterface {
-
+class CasaTransformer implements DataTransformerInterface
+{
     protected $em;
 
     /**
@@ -23,7 +22,6 @@ class CasaTransformer implements DataTransformerInterface {
      */
     public function __construct(EntityManager $entityManager)
     {
-
         $this->em = $entityManager;
     }
     /**
@@ -59,7 +57,6 @@ class CasaTransformer implements DataTransformerInterface {
             return "";
         }
         return $value->getNombre();
-
     }
 
     /**
@@ -101,7 +98,6 @@ class CasaTransformer implements DataTransformerInterface {
             ->findOneBy(array('nombre' => $value))
         ;
         if ($issue===null) {
-
             return new Casa();
         }
         return $issue;

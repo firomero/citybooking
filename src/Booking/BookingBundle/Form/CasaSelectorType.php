@@ -8,15 +8,14 @@
 
 namespace Booking\BookingBundle\Form;
 
-
 use Booking\BookingBundle\DataTransformers\CasaTransformer;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CasaSelectorType extends AbstractType{
-
+class CasaSelectorType extends AbstractType
+{
     /**
      * Returns the name of this type.
      *
@@ -27,7 +26,8 @@ class CasaSelectorType extends AbstractType{
         return 'casaselector_type';
     }
 
-    public function getParent(){
+    public function getParent()
+    {
         return 'text';
     }
 

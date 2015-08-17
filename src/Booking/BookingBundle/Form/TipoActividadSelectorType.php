@@ -8,7 +8,6 @@
 
 namespace Booking\BookingBundle\Form;
 
-
-class TipoActividadSelectorType {
-
-} 
+class TipoActividadSelectorType
+{
+}

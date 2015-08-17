@@ -8,14 +8,14 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CasaType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('direccion','textarea')
+            ->add('direccion', 'textarea')
             ->add('nombre')
             ->add('telefono')
             ->add('categoria')

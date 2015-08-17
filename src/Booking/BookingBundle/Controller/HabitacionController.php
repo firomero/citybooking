@@ -8,7 +8,6 @@
 
 namespace Booking\BookingBundle\Controller;
 
-
 use Booking\BookingBundle\Entity\Habitacion;
 use Booking\BookingBundle\Form\HabitacionType;
 use General\NomencladorBundle\HttpCode;
@@ -17,7 +16,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class HabitacionController extends Controller{
+class HabitacionController extends Controller
+{
     /**
      * Lists all Habitacion entities.
      *
@@ -37,10 +37,10 @@ class HabitacionController extends Controller{
     }
 
     /*PRIVATE*/
-    public function listarAction(Request $request){
+    public function listarAction(Request $request)
+    {
         $options = $request->query->all();
         try {
-
             $casa = $this->getDoctrine()->getRepository('BookingBundle:Habitacion')->queryEntity($options);
             $total = count($this->getDoctrine()->getRepository('BookingBundle:Habitacion')->findAll());
 
@@ -58,13 +58,9 @@ class HabitacionController extends Controller{
                 'aaData' => $casa
 
             )), 200);
+        } catch (\Exception $e) {
+            return new Response(json_encode(array('message'=> $e->getMessage())), 500);
         }
-
-        catch(\Exception $e)
-        {
-            return new Response(json_encode(array('message'=> $e->getMessage())),500);
-        }
-
     }
 
     /**
@@ -91,13 +87,10 @@ class HabitacionController extends Controller{
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
-
-
     }
 
     public function editarAction(Request $request)
     {
-
         $id = $request->get('id');
         $entity = $this->get('doctrine')->getManager()->getRepository('BookingBundle:Habitacion')->find($id);
         $form = $this->createEditForm($entity);
@@ -153,14 +146,9 @@ class HabitacionController extends Controller{
         if ($editForm->isValid()) {
             $em->flush();
             return $this->redirect($this->generateUrl('habitacion'));
-
-
         }
 
-        return new JsonResponse($editForm->getErrorsAsString(),400);
-
-
-
+        return new JsonResponse($editForm->getErrorsAsString(), 400);
     }
 
 
@@ -193,13 +181,12 @@ class HabitacionController extends Controller{
     {
         $id = $request->get('id');
 
-        try{
-
+        try {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('BookingBundle:Habitacion')->find($id);
 
             if (!$entity) {
-                return new Response('La Habitación no existe',HttpCode::HTTP_RESOURCE_NOTFOUND);
+                return new Response('La Habitación no existe', HttpCode::HTTP_RESOURCE_NOTFOUND);
             }
 
             $entity->getCasa()->Decrement();
@@ -207,13 +194,8 @@ class HabitacionController extends Controller{
             $em->flush();
 
             return new Response(json_encode(array()), 200);
-        }catch (\Exception $e){
-            return new Response($e->getMessage(),500);
+        } catch (\Exception $e) {
+            return new Response($e->getMessage(), 500);
         }
     }
-
-
-
-
-
-} 
+}

@@ -145,7 +145,7 @@ class Reservacion
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -168,7 +168,7 @@ class Reservacion
     /**
      * Get checkin
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCheckin()
     {
@@ -191,7 +191,7 @@ class Reservacion
     /**
      * Get checkout
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCheckout()
     {
@@ -214,7 +214,7 @@ class Reservacion
     /**
      * Get noches
      *
-     * @return integer 
+     * @return integer
      */
     public function getNoches()
     {
@@ -237,7 +237,7 @@ class Reservacion
     /**
      * Get pax
      *
-     * @return integer 
+     * @return integer
      */
     public function getPax()
     {
@@ -260,7 +260,7 @@ class Reservacion
     /**
      * Get habitacion
      *
-     * @return string 
+     * @return string
      */
     public function getHabitacion()
     {
@@ -283,7 +283,7 @@ class Reservacion
     /**
      * Get precio
      *
-     * @return float 
+     * @return float
      */
     public function getPrecio()
     {
@@ -306,7 +306,7 @@ class Reservacion
     /**
      * Get confirmado
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getConfirmado()
     {
@@ -329,7 +329,7 @@ class Reservacion
     /**
      * Get estado
      *
-     * @return string 
+     * @return string
      */
     public function getEstado()
     {
@@ -352,7 +352,7 @@ class Reservacion
     /**
      * Get observacion
      *
-     * @return string 
+     * @return string
      */
     public function getObservacion()
     {
@@ -375,7 +375,7 @@ class Reservacion
     /**
      * Get casa
      *
-     * @return \Booking\BookingBundle\Entity\Casa 
+     * @return \Booking\BookingBundle\Entity\Casa
      */
     public function getCasa()
     {
@@ -421,14 +421,15 @@ class Reservacion
     /**
      * Get cliente
      *
-     * @return \Booking\BookingBundle\Entity\Cliente 
+     * @return \Booking\BookingBundle\Entity\Cliente
      */
     public function getCliente()
     {
         return $this->cliente;
     }
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->tipoHab = new ArrayCollection();
         $this->actividades = new ArrayCollection();
     }
@@ -436,8 +437,8 @@ class Reservacion
     /**
      * @param TipoHab $tipoHab
      */
-    public function addTipoHab(TipoHab $tipoHab){
-
+    public function addTipoHab(TipoHab $tipoHab)
+    {
         $this->tipoHab->add($tipoHab);
     }
 
@@ -445,8 +446,8 @@ class Reservacion
     /**
      * @param TipoHab $tipoHab
      */
-    public function removeTipoHab(TipoHab $tipoHab){
-
+    public function removeTipoHab(TipoHab $tipoHab)
+    {
         $this->tipoHab->remove($tipoHab->getId());
     }
 
@@ -459,14 +460,16 @@ class Reservacion
     /**
      * @param Actividad $actividad
      */
-    public function addActividad(Actividad $actividad){
+    public function addActividad(Actividad $actividad)
+    {
         $this->actividades->add($actividad);
     }
 
     /**
      * @param Actividad $actividad
      */
-    public function removeActividad(Actividad $actividad){
+    public function removeActividad(Actividad $actividad)
+    {
         $this->actividades->remove($actividad->getId());
     }
 
@@ -474,14 +477,16 @@ class Reservacion
      *
      * @return ArrayCollection
      */
-    public function getTipoHab(){
+    public function getTipoHab()
+    {
         return $this->tipoHab;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getActividades(){
+    public function getActividades()
+    {
         return $this->actividades;
     }
 
@@ -489,8 +494,9 @@ class Reservacion
      * Normalize type object
      * @return array
      */
-    public function roomList(){
-        return array_map(function($value){
+    public function roomList()
+    {
+        return array_map(function ($value) {
             /**
              * @var TipoHab $value
              */
@@ -503,8 +509,9 @@ class Reservacion
      * Normalize activities
      * @return array
      */
-    public function activityList(){
-        return array_map(function($value){
+    public function activityList()
+    {
+        return array_map(function ($value) {
                 /**
                  * @var Actividad $value
                  */
@@ -517,7 +524,8 @@ class Reservacion
      * Normalize bppking object
      * @return array
      */
-    public function toArray(){
+    public function toArray()
+    {
         return array(
             $this->id,
             $this->agencia->getNombre(),
@@ -534,7 +542,8 @@ class Reservacion
      * Returns text representation from a booking
      * @return string
      */
-    public function __toString(){
+    public function __toString()
+    {
         return 'Agencia: '.$this->getAgencia()->getNombre().' Casa:'.$this->casa->getNombre().' Booking:'.$this->getCliente()->getReferencia();
     }
 
@@ -542,7 +551,8 @@ class Reservacion
      * @Assert\True(message="Debe introducir un rango válido ")
      * @return bool
      */
-    public function isValidRange(){
+    public function isValidRange()
+    {
         $today = new \DateTime();
         return $this->checkin >=  $today  && $this->checkout>=$today && $this->checkout > $this->checkin;
     }
@@ -551,8 +561,9 @@ class Reservacion
      * @Assert\True(message="Debe introducir una fecha válida ")
      * @return bool
      */
-    public function isValidConfirm(){
-        $today = date_create_from_format('Y-m-d','now');
+    public function isValidConfirm()
+    {
+        $today = date_create_from_format('Y-m-d', 'now');
         return $this->confirmado >= $today;
     }
 }

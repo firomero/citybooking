@@ -8,11 +8,10 @@
 
 namespace Booking\ReportBundle\Exporter;
 
-
 use Symfony\Component\HttpFoundation\Response;
 
-interface ExporterInterface {
-
+interface ExporterInterface
+{
     /**
      * Returns the exporter Manager
      * @param string $title
@@ -30,5 +29,4 @@ interface ExporterInterface {
      * @return Response
      */
     public function export($view, $title='Boooking');
-
-} 
+}

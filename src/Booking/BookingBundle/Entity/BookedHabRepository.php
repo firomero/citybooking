@@ -7,9 +7,10 @@
  */
 
 namespace Booking\BookingBundle\Entity;
+
 use Doctrine\ORM\EntityRepository;
 
 
-class BookedHabRepository extends EntityRepository{
-
-} 
+class BookedHabRepository extends EntityRepository
+{
+}

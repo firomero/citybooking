@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class AgenciaController extends Controller
 {
-
     /**
      * Lists all Agencia entities.
      *
@@ -232,7 +231,6 @@ class AgenciaController extends Controller
     {
         $options = $request->query->all();
         try {
-
             $agencias = $this->getDoctrine()->getRepository('NomencladorBundle:Agencia')->queryEntity($options);
             $total = count($this->getDoctrine()->getRepository('NomencladorBundle:Agencia')->findAll());
 
@@ -245,7 +243,6 @@ class AgenciaController extends Controller
 
             if (isset($options['iDisplayStart']) && $options['iDisplayLength'] != '-1') {
                 $iLimit = abs($options['iDisplayLength'] - $options['iDisplayStart']);
-
             }
 
 
@@ -256,14 +253,9 @@ class AgenciaController extends Controller
                 'aaData' => $agencias
 
             )), 200);
+        } catch (\Exception $e) {
+            return new Response(json_encode(array('message'=> $e->getMessage())), 500);
         }
-
-        catch(\Exception $e)
-        {
-            return new Response(json_encode(array('message'=> $e->getMessage())),500);
-        }
-
-
     }
 
     /**
@@ -280,18 +272,15 @@ class AgenciaController extends Controller
 
         $errors = $validator->validate($agencia);
         if (count($errors)>0) {
-           return new Response(json_encode(array('message'=>$errors->__toString())),400);
+            return new Response(json_encode(array('message'=>$errors->__toString())), 400);
         }
-        try{
-
+        try {
             $em = $this->get('doctrine')->getManager();
             $em->persist($agencia);
             $em->flush();
-            return new Response(json_encode(array()),200);
-        }
-        catch(\Exception $e)
-        {
-            return new Response(json_encode(array('message'=>$e->getMessage())),500);
+            return new Response(json_encode(array()), 200);
+        } catch (\Exception $e) {
+            return new Response(json_encode(array('message'=>$e->getMessage())), 500);
         }
     }
 
@@ -308,7 +297,7 @@ class AgenciaController extends Controller
         $agencia = $em->getRepository('NomencladorBundle:Agencia')->find($id);
 
         if ($agencia==null) {
-            return new Response(json_encode(array()),404);
+            return new Response(json_encode(array()), 404);
         }
 
         $agencia->setNombre($name);
@@ -317,18 +306,14 @@ class AgenciaController extends Controller
 
         $errors = $validator->validate($agencia);
         if (count($errors)>0) {
-            return new Response(json_encode(array('message'=>$errors->__toString())),400);
+            return new Response(json_encode(array('message'=>$errors->__toString())), 400);
         }
-        try{
-
-
+        try {
             $em->persist($agencia);
             $em->flush();
-            return new Response(json_encode(array()),200);
-        }
-        catch(\Exception $e)
-        {
-            return new Response(json_encode(array('message'=>$e->getMessage())),500);
+            return new Response(json_encode(array()), 200);
+        } catch (\Exception $e) {
+            return new Response(json_encode(array('message'=>$e->getMessage())), 500);
         }
     }
 
@@ -339,24 +324,19 @@ class AgenciaController extends Controller
      */
     public function eliminarAction(Request $request)
     {
-
         $id = $request->get('id');
         $em = $this->get('doctrine')->getManager();
         $agencia = $em->getRepository('NomencladorBundle:Agencia')->find($id);
 
         if ($agencia==null) {
-            return new Response(json_encode(array()),404);
+            return new Response(json_encode(array()), 404);
         }
-        try{
-
-
+        try {
             $em->remove($agencia);
             $em->flush();
-            return new Response(json_encode(array()),204);
-        }
-        catch(\Exception $e)
-        {
-            return new Response(json_encode(array('message'=>$e->getMessage())),500);
+            return new Response(json_encode(array()), 204);
+        } catch (\Exception $e) {
+            return new Response(json_encode(array('message'=>$e->getMessage())), 500);
         }
     }
 }

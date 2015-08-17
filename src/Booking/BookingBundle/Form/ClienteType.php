@@ -16,8 +16,8 @@ class ClienteType extends AbstractType
     {
         //todo revisar el data transformer del nombre
         $builder
-            ->add('nombre','text',array('attr'=>array('class'=>'cliente-name  form-control')))
-            ->add('referencia','text',array('attr'=>array('class'=>'referencia-name form-control')))
+            ->add('nombre', 'text', array('attr'=>array('class'=>'cliente-name  form-control')))
+            ->add('referencia', 'text', array('attr'=>array('class'=>'referencia-name form-control')))
 //            ->add('actividades')
         ;
     }

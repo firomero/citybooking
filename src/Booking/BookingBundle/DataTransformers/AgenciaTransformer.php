@@ -8,22 +8,20 @@
 
 namespace Booking\BookingBundle\DataTransformers;
 
-
 use General\NomencladorBundle\Entity\Agencia;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Doctrine\ORM\EntityManager;
 
-class AgenciaTransformer implements DataTransformerInterface{
-
-   protected $em;
+class AgenciaTransformer implements DataTransformerInterface
+{
+    protected $em;
 
     /**
      * @param EntityManager $entityManager
      */
     public function __construct(EntityManager $entityManager)
     {
-
         $this->em = $entityManager;
     }
 
@@ -61,7 +59,6 @@ class AgenciaTransformer implements DataTransformerInterface{
             return "";
         }
         return $value->getNombre();
-
     }
 
     /**
@@ -109,6 +106,5 @@ class AgenciaTransformer implements DataTransformerInterface{
             $em->flush();
         }
         return $issue;
-
     }
 }

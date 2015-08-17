@@ -16,7 +16,6 @@ use Booking\BookingBundle\Form\ClienteType;
  */
 class ClienteController extends Controller
 {
-
     /**
      * Lists all Cliente entities.
      *
@@ -231,7 +230,6 @@ class ClienteController extends Controller
     {
         $options = $request->query->all();
         try {
-
             $clientes = $this->getDoctrine()->getRepository('BookingBundle:Cliente')->queryEntity($options);
             $total = count($this->getDoctrine()->getRepository('BookingBundle:Cliente')->findAll());
 
@@ -244,7 +242,6 @@ class ClienteController extends Controller
 
             if (isset($options['iDisplayStart']) && $options['iDisplayLength'] != '-1') {
                 $iLimit = abs($options['iDisplayLength'] - $options['iDisplayStart']);
-
             }
 
 
@@ -264,8 +261,6 @@ class ClienteController extends Controller
         } catch (\Exception $e) {
             return new Response(json_encode(array('message' => $e->getMessage())), 500);
         }
-
-
     }
 
     /**
@@ -287,7 +282,6 @@ class ClienteController extends Controller
             return new Response(json_encode(array('message' => $errors->__toString())), 400);
         }
         try {
-
             $em = $this->get('doctrine')->getManager();
             $em->persist($cliente);
             $em->flush();
@@ -304,7 +298,6 @@ class ClienteController extends Controller
      */
     public function editformAction(Request $request)
     {
-
         $id = $request->get('id');
         $entity = $this->get('doctrine')->getManager()->getRepository('BookingBundle:Cliente')->find($id);
         $form = $this->createEditForm($entity);
@@ -346,8 +339,6 @@ class ClienteController extends Controller
             return new Response(json_encode(array('message' => $errors->__toString())), 400);
         }
         try {
-
-
             $em->persist($cliente);
             $em->flush();
 
@@ -364,7 +355,6 @@ class ClienteController extends Controller
      */
     public function eliminarAction(Request $request)
     {
-
         $id = $request->get('id');
         $em = $this->get('doctrine')->getManager();
         $cliente = $em->getRepository('BookingBundle:Cliente')->find($id);
@@ -373,8 +363,6 @@ class ClienteController extends Controller
             return new Response(json_encode(array()), 404);
         }
         try {
-
-
             $em->remove($cliente);
             $em->flush();
 
@@ -383,6 +371,4 @@ class ClienteController extends Controller
             return new Response(json_encode(array('message' => $e->getMessage())), 500);
         }
     }
-
-
 }

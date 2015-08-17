@@ -8,13 +8,11 @@
 
 namespace General\NomencladorBundle\Entity;
 
-
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Orx;
 
 class TipoHabRepository extends EntityRepository
 {
-
     protected $columns = array('id', 'nombre', 'peso');
 
     public function queryEntity($options = array())
@@ -61,7 +59,6 @@ class TipoHabRepository extends EntityRepository
         }
 
         return $dataExport;
-
     }
 
     public function getFilteredCount(array $get)
@@ -103,4 +100,4 @@ class TipoHabRepository extends EntityRepository
 
         return $aResultTotal[0][1];
     }
-} 
+}

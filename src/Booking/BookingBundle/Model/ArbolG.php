@@ -8,16 +8,13 @@
 
 namespace Booking\BookingBundle\Model;
 
-
 class ArbolG
 {
-
     private $raiz;
     private $hijos;
 
     public function __construct()
     {
-
         $this->raiz = null;
         $this->hijos = array();
     }
@@ -58,7 +55,7 @@ class ArbolG
     {
         $subArbol = new ArbolG();
         $subArbol->setRaiz($pArbol);
-        array_push($this->hijos,$subArbol);
+        array_push($this->hijos, $subArbol);
     }
 
     /**
@@ -68,7 +65,6 @@ class ArbolG
     public function Podar($pPos)
     {
         unset($this->hijos[$pPos]);
-
     }
 
     /**
@@ -92,9 +88,4 @@ class ArbolG
     {
         return $this->hijos[$pPos];
     }
-
-
-
-
-
-} 
+}
