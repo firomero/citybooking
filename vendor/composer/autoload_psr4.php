@@ -11,4 +11,5 @@ return array(
     'Incenteev\\ParameterHandler\\' => array($vendorDir . '/incenteev/composer-parameter-handler'),
     'FOS\\JsRoutingBundle\\' => array($vendorDir . '/friendsofsymfony/jsrouting-bundle'),
     'Elao\\WebProfilerExtraBundle\\' => array($vendorDir . '/elao/web-profiler-extra-bundle'),
+    'Desarrolla2\\Cache\\' => array($vendorDir . '/desarrolla2/cache/src'),
 );

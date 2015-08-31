@@ -23,3 +23,11 @@ services:
         arguments: [ "@doctrine.orm.entity_manager" ]
         tags:
             - { name: form.type, alias: casaselector_type }
+    booking.apc.renderer:
+        class: Booking\BookingBundle\Menu\Renderer\ApcRenderer
+        arguments: [ %kernel.charset%, @booking.cache.adapter, 4000 ]
+        tags:
+            - { name: knp_menu.renderer, alias: apc }
+
+    booking.cache.adapter:
+        class: Desarrolla2\Cache\Adapter\Apc
